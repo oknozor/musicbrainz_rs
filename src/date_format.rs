@@ -39,7 +39,7 @@ mod tests {
     use chrono::NaiveDate;
 
     #[test]
-    fn deserialise_life_span() {
+    fn should_deserialise_life_span() {
         let input = r#"
             {
                 "ended": true,

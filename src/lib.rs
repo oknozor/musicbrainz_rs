@@ -34,27 +34,13 @@ pub trait QueryAble<'de> {
 #[cfg(test)]
 mod tests {
     use crate::model::artist::*;
+    use crate::model::release_group::*;
     use crate::model::artist::Area;
     use crate::model::artist::ArtistType::*;
     use chrono::NaiveDate;
     use crate::model::recording::Recording;
     use crate::QueryAble;
 
-
-    #[test]
-    fn should_get_recording_by_id() {
-        let polly = Recording::by_id("af40d6b8-58e8-4ca5-9db8-d4fca0b899e2");
-
-        assert_eq!(
-            polly.unwrap(),
-            Recording {
-                id: "af40d6b8-58e8-4ca5-9db8-d4fca0b899e2".to_string(),
-                title: "(New Wave) Polly".to_string(),
-                video: false,
-                length: 246000,
-                disambiguation: "".to_string(),
-            });
-    }
 
     #[test]
     fn should_get_artist_by_id() {
@@ -96,5 +82,40 @@ mod tests {
                 tags: None,
             }
         );
+    }
+
+    #[test]
+    fn should_get_recording_by_id() {
+        let polly = Recording::by_id("af40d6b8-58e8-4ca5-9db8-d4fca0b899e2");
+
+        assert_eq!(
+            polly.unwrap(),
+            Recording {
+                id: "af40d6b8-58e8-4ca5-9db8-d4fca0b899e2".to_string(),
+                title: "(New Wave) Polly".to_string(),
+                video: false,
+                length: 246000,
+                disambiguation: "".to_string(),
+            });
+    }
+
+    #[test]
+    fn should_get_release_group_by_id() {
+        let polly = ReleaseGroup::by_id("2a0981fb-9593-3019-864b-ce934d97a16e");
+
+        println!("{:?}", polly);
+
+        assert_eq!(
+            polly.unwrap(),
+            ReleaseGroup {
+                id: "2a0981fb-9593-3019-864b-ce934d97a16e".to_string(),
+                primary_type_id: "f529b476-6e62-324f-b0aa-1f3e33d313fc".to_string(),
+                primary_type: "Album".to_string(),
+                secondary_type_ids: vec![],
+                secondary_types: vec![],
+                first_release_date: NaiveDate::from_ymd(1993,09,21),
+                title: "In Utero".to_string(),
+                disambiguation: "".to_string(),
+            });
     }
 }

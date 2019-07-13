@@ -11,7 +11,7 @@ use crate::model::artist::Artist;
 #[derive(Debug, Serialize, Deserialize, PartialEq)]
 pub struct Recording {
 
-    /// See MusicBrainz Identifier. TODO: indoc link to mb doc
+    /// See [MusicBrainz Identifier](https://musicbrainz.org/doc/MusicBrainz_Identifier).
     pub id: String,
 
     /// The title of the recording.
@@ -19,10 +19,11 @@ pub struct Recording {
 
     pub video: bool,
 
-    /// The length of the recording. It's only entered manually for standalone recordings.
-    /// For recordings that are being used on releases, the recording length is the median length of
-    /// all tracks (that have a track length) associated with that recording. If there is an even
-    /// number of track lengths, the smaller median candidate is used.
+    /// The length of the recording. It's only entered manually for
+    /// [standalone recordings](https://musicbrainz.org/doc/Standalone_Recording). For recordings
+    /// that are being used on releases, the recording length is the median length of all tracks
+    /// (that have a track length) associated with that recording. If there is an even number of
+    /// track lengths, the smaller median candidate is used.
     pub length: u32, // TODO: CUSTOM Deserialized to make this a duration
 
     /// See Disambiguation Comment.
