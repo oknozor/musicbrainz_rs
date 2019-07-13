@@ -1,9 +1,10 @@
 use chrono::{NaiveDate};
 use crate::date_format;
 
-/// An artist is generally a musician (or musician persona), group of musicians, or other music professional (like a producer or engineer).
-///  Occasionally, it can also be a non-musical person (like a photographer, an illustrator, or a poet whose writings are set to music),
-/// or even a fictional character. For some other special cases, see special purpose artists.
+/// An artist is generally a musician (or musician persona), group of musicians, or other music
+/// professional (like a producer or engineer). Occasionally, it can also be a non-musical person
+/// (like a photographer, an illustrator, or a poet whose writings are set to music), or even a
+/// fictional character. For some other special cases, see special purpose artists.
 #[derive(Debug, Serialize, Deserialize, PartialEq)]
 pub struct Artist {
     pub id: String,
@@ -11,9 +12,10 @@ pub struct Artist {
     /// The official name of an artist, be it a person or a band.
     pub name: String,
 
-    /// The sort name is a variant of the artist name which would be used when sorting artists by name,
-    /// such as in record shops or libraries. Among other things, sort names help to ensure that all the artists
-    /// that start with "The" don't end up up under "T". The guidelines for sort names are the best place to check for more specific usage info.
+    /// The sort name is a variant of the artist name which would be used when sorting artists by
+    /// name, such as in record shops or libraries. Among other things, sort names help to ensure
+    /// that all the artists that start with "The" don't end up up under "T". The guidelines for
+    /// sort names are the best place to check for more specific usage info.
     #[serde(rename = "sort-name")]
     pub sort_name: String,
 
@@ -26,8 +28,8 @@ pub struct Artist {
     /// female or neither. Groups do not have genders.
     pub gender: Option<Gender>,
 
-    /// The artist area, as the name suggests, indicates the area with which an artist is primarily identified with.
-    ///  It is often, but not always, its birth/formation country.
+    /// The artist area, as the name suggests, indicates the area with which an artist
+    /// is primarily identified with. It is often, but not always, its birth/formation country.
     pub area: Area,
 
     pub country: String,
@@ -52,16 +54,16 @@ pub enum ArtistType {
     Other
 }
 
-/// The gender is used to explicitly state whether a person or character identifies as male, female or neither.
-///  Groups do not have genders. 
+/// The gender is used to explicitly state whether a person or character identifies as male,
+/// female or neither. Groups do not have genders.
 #[derive(Debug, Serialize, Deserialize, PartialEq)]
 pub enum Gender {
     Male,
     Female,
 }
 
-/// The artist area, as the name suggests, indicates the area with which an artist is primarily identified with. 
-/// It is often, but not always, its birth/formation country. 
+/// The artist area, as the name suggests, indicates the area with which an artist is primarily
+/// identified with. It is often, but not always, its birth/formation country.
 #[derive(Debug, Serialize, Deserialize, PartialEq)]
 pub struct Area {
     pub id: String,
@@ -73,6 +75,29 @@ pub struct Area {
     pub iso_3166_codes: Vec<String>,
 }
 
+/// The begin and end dates indicate when an artist started and finished its existence.
+/// Its exact meaning depends on the type of artist:
+///
+///  - For a person
+///        Begin date represents date of birth, and end date represents date of death.
+///
+///    - For a group (or orchestra/choir)
+///        Begin date represents the date when the group first formed: if a group dissolved and then
+///        reunited, the date is still that of when they first formed. End date represents the date
+///        when the group last dissolved: if a group dissolved and then reunited, the date is that
+///        of when they last dissolved (if they are together, it should be blank!). For listing
+///        other inactivity periods, just use the annotation and the "member of" relationships.
+///
+///    - For a character
+///        Begin date represents the date (in real life) when the character concept was created.
+///        The End date should not be set, since new media featuring a character can be created
+///        at any time. In particular, the Begin and End date fields should not be used to hold
+///        the fictional birth or death dates of a character.
+///        (This information can be put in the annotation.)
+///
+///    - For others
+///        There are no clear indications about how to use dates for artists of the type Other at
+///        the moment.
 #[derive(Debug, Serialize, Deserialize, PartialEq)]
 pub struct LifeSpan {
     pub ended: bool,
