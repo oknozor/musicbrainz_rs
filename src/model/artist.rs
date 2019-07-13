@@ -7,6 +7,7 @@ use crate::{date_format, QueryAble};
 /// fictional character. For some other special cases, see special purpose artists.
 #[derive(Debug, Serialize, Deserialize, PartialEq)]
 pub struct Artist {
+    /// See [MusicBrainz Identifier](https://musicbrainz.org/doc/MusicBrainz_Identifier).
     pub id: String,
 
     /// The official name of an artist, be it a person or a band.
