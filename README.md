@@ -7,7 +7,7 @@ Music brainz rust is a utility crate for the the [music brainz](https://musicbra
 ## Status 
 [![Build Status](https://travis-ci.org/oknozor/music_brainz_rs.svg?branch=master)](https://travis-ci.org/oknozor/music_brainz_rs)
 
-Model implementation : 
+### Model implementation : 
 
 - [ ] Artist  
     - [x] MBID
@@ -28,16 +28,25 @@ Model implementation :
     - [ ] Artist
     - [x] Length
     - [ ] ISRC
+    - [x] Disambiguation comment
+    - [ ] Annotation
+- Release group
+    - [x] MBID
+    - [x] Title
+    - [ ] Artist
+    - [x] Type
+    - [x] Disambiguation comment
+    - [ ] Annotation
 
-Disambiguation comment
-Annotation
-
-
-Available method : 
+### Available method : 
 
 - Artist : 
     - [x] artist by id
     - [ ] artist search
 - Recording :
     - [x] recording by id
-    - [ ] recording search 
+    - [ ] recording search
+- Release group
+    - [x] release group by id
+    - [ ] release group search
+
