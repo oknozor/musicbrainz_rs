@@ -35,7 +35,7 @@ pub fn deserialize_opt<'de, D>(
 
 #[cfg(test)]
 mod tests {
-    use crate::model::LifeSpan;
+    use crate::model::artist::LifeSpan;
     use chrono::NaiveDate;
 
     #[test]

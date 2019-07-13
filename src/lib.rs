@@ -6,7 +6,7 @@ extern crate reqwest;
 
 pub mod model;
 mod date_format;
-use model::*;
+use model::artist::*;
 
 const BASE_URL: &str = "http://musicbrainz.org/ws/2";
 const PARAMS: [(&str, &str); 1] = [("fmt", "json")];
@@ -23,9 +23,9 @@ pub fn get_artist_by_id(artist_id: &str) -> Result<Artist, reqwest::Error> {
 #[cfg(test)]
 mod tests {
     use crate::get_artist_by_id;
-    use crate::model::*;
-    use crate::model::Area;
-    use crate::model::ArtistType::*;
+    use crate::model::artist::*;
+    use crate::model::artist::Area;
+    use crate::model::artist::ArtistType::*;
     use chrono::{NaiveDate, DateTime, Utc};
     use chrono::offset::TimeZone;
 
@@ -43,6 +43,7 @@ mod tests {
                 disambiguation: String::from("90s US grunge band"),
                 artist_type: Group,
                 gender: None,
+                country: "US".to_string(),
                 area: Area {
                     id: "489ce91b-6658-3307-9877-795b68554c98".to_string(),
                     disambiguation: "".to_string(),
@@ -66,7 +67,7 @@ mod tests {
                     begin: NaiveDate::from_ymd(1988, 01, 01),
                     end: Some(NaiveDate::from_ymd(1994, 04, 05))
                 },
-                country: "US".to_string(),
+                tags: None,
             }
         );
     }

@@ -41,6 +41,7 @@ pub struct Artist {
     #[serde(rename = "life-span")]
     pub life_span: LifeSpan,
 
+    pub tags: Option<Vec<Tag>>,
 }
 
 #[derive(Debug, Serialize, Deserialize, PartialEq)]
