@@ -1,11 +1,22 @@
-# Music brainz Rust
+# ![MusicBrainz] Rust &emsp; [![Latest Version]][crates.io] [![Build Status]][travis]
+
+[Build Status]: https://travis-ci.org/oknozor/music_brainz_rs.svg?branch=master
+[travis]: https://travis-ci.org/oknozor/music_brainz_rs
+[Latest Version]: https://img.shields.io/crates/v/music_brainz_rs.svg
+[crates.io]: https://www.crates.io/crates/music_brainz_rs
+[MusicBrainz]: https://staticbrainz.org/MB/header-logo-791fb3f.svg
+
+**Music brainz rust is a utility crate for the the [music brainz](https://musicbrainz.org/doc/Development/XML_Web_Service/Version_2) API.**
+
+---
 
 This is still WIP. 
 
-Music brainz rust is a utility crate for the the [music brainz](https://musicbrainz.org/doc/Development/XML_Web_Service/Version_2) API. 
+you may be looking for : 
+- [Api documention](https://docs.rs/music_brainz_rs)
+- [The crate](https://www.crates.io/crates/music_brainz_rs)
 
 ## Status 
-[![Build Status](https://travis-ci.org/oknozor/music_brainz_rs.svg?branch=master)](https://travis-ci.org/oknozor/music_brainz_rs)
 
 ### Model implementation : 
 
@@ -50,3 +61,14 @@ Music brainz rust is a utility crate for the the [music brainz](https://musicbra
     - [x] release group by id
     - [ ] release group search
 
+## TODO : 
+
+- [ ] Implement all the musicbrainz model
+- [ ] Implement search and relations query
+- [ ] Provide some examples using the crate
+
+#### Credits
+
+Most of this crate documentation is taken from the official [musicbrainz doc](https://musicbrainz.org/doc/MusicBrainz_Documentation), 
+thanks to the [MetaBrainz](https://metabrainz.org/) Foundation and its sponsors and supporters. 
+Cover Art provided by the [Cover Art Archive](https://coverartarchive.org/).
