@@ -5,6 +5,7 @@ This is still WIP.
 Music brainz rust is a utility crate for the the [music brainz](https://musicbrainz.org/doc/Development/XML_Web_Service/Version_2) API. 
 
 ## Status 
+[![Build Status](https://travis-ci.org/oknozor/music_brainz_rs.svg?branch=master)](https://travis-ci.org/oknozor/music_brainz_rs)
 
 Model implementation : 
 
