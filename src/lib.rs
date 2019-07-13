@@ -51,13 +51,15 @@ mod tests {
                     iso_3166_codes: Some(vec![
                         "US".to_string(),
                     ]),
+                    life_span: None
                 },
                 begin_area: Area {
                     id: "a640b45c-c173-49b1-8030-973603e895b5".to_string(),
                     disambiguation: "".to_string(),
                     name: "Aberdeen".to_string(),
                     sort_name: "Aberdeen".to_string(),
-                    iso_3166_codes: None
+                    iso_3166_codes: None,
+                    life_span: None
                 },
                 life_span: LifeSpan {
                     ended: true,
