@@ -1,19 +1,16 @@
+extern crate reqwest;
 extern crate serde;
 #[macro_use]
 extern crate serde_derive;
-extern crate reqwest;
 
+
+use serde::de::DeserializeOwned;
 
 pub mod model;
 mod date_format;
 
-use model::artist::*;
-use crate::model::recording::Recording;
-use serde::Deserialize;
-use serde::de::DeserializeOwned;
-
 const BASE_URL: &str = "http://musicbrainz.org/ws/2";
-const PARAMS: [(&str, &str); 1] = [("fmt", "json")];
+const _PARAMS: [(&str, &str); 1] = [("fmt", "json")];
 
 
 /// This trait provide a generic method to fetch music brainz resource
@@ -33,14 +30,14 @@ pub trait QueryAble<'de> {
 
 #[cfg(test)]
 mod tests {
+    use chrono::NaiveDate;
+
     use crate::model::artist::*;
-    use crate::model::release_group::*;
     use crate::model::artist::Area;
     use crate::model::artist::ArtistType::*;
-    use chrono::NaiveDate;
     use crate::model::recording::Recording;
+    use crate::model::release_group::*;
     use crate::QueryAble;
-
 
     #[test]
     fn should_get_artist_by_id() {
@@ -113,7 +110,7 @@ mod tests {
                 primary_type: "Album".to_string(),
                 secondary_type_ids: vec![],
                 secondary_types: vec![],
-                first_release_date: NaiveDate::from_ymd(1993,09,21),
+                first_release_date: NaiveDate::from_ymd(1993, 09, 21),
                 title: "In Utero".to_string(),
                 disambiguation: "".to_string(),
             });
