@@ -2,7 +2,7 @@
 
 This is still WIP. 
 
-Music brainz rust a utitility crate for the the music brainz API. 
+Music brainz rust is a utility crate for the the [music brainz](https://musicbrainz.org/doc/Development/XML_Web_Service/Version_2) API. 
 
 ## Status 
 
