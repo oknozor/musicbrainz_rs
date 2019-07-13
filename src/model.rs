@@ -28,11 +28,16 @@ pub struct Artist {
     /// female or neither. Groups do not have genders.
     pub gender: Option<Gender>,
 
-    /// The artist area, as the name suggests, indicates the area with which an artist
-    /// is primarily identified with. It is often, but not always, its birth/formation country.
+    /// The artist area, as the name suggests, indicates the area with which an artist is primarily
+    /// identified with. It is often, but not always, its birth/formation country.
     pub area: Area,
 
+    ///The artist begin area, as the name suggests, indicates the area with which an artist started
+    /// to perform.
+    pub begin_area: Area,
+
     pub country: String,
+
     #[serde(rename = "life-span")]
     pub life_span: LifeSpan,
 
@@ -72,7 +77,7 @@ pub struct Area {
     #[serde(rename = "sort-name")]
     pub sort_name: String,
     #[serde(rename = "iso-3166-1-codes")]
-    pub iso_3166_codes: Vec<String>,
+    pub iso_3166_codes: Option<Vec<String>>,
 }
 
 /// The begin and end dates indicate when an artist started and finished its existence.
