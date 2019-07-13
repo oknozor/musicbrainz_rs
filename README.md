@@ -21,11 +21,22 @@ Model implementation :
     - [ ] Alias
     - [x] Disambiguation comment
     - [ ] Annotation
+- Recording
+    - [x] MBID
+    - [x] Title
+    - [ ] Artist
+    - [x] Length
+    - [ ] ISRC
 
+Disambiguation comment
+Annotation
 
 
 Available method : 
 
 - Artist : 
     - [x] artist by id
-    - [ ] artist search 
+    - [ ] artist search
+- Recording :
+    - [x] recording by id
+    - [ ] recording search 
