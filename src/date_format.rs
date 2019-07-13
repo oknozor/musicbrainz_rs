@@ -13,8 +13,8 @@ pub fn deserialize<'de, D>(
 {
     let s = String::deserialize(deserializer)?;
     NaiveDate::parse_from_str(&s, FORMAT)
-        .or_else(|err| NaiveDate::parse_from_str(&format!("{}-01", &s), FORMAT))
-        .or_else(|err| NaiveDate::parse_from_str(&format!("{}-01-01", &s), FORMAT))
+        .or_else(|_err| NaiveDate::parse_from_str(&format!("{}-01", &s), FORMAT))
+        .or_else(|_err| NaiveDate::parse_from_str(&format!("{}-01-01", &s), FORMAT))
         .map_err(serde::de::Error::custom)
 }
 

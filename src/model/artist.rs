@@ -1,5 +1,5 @@
 use chrono::{NaiveDate};
-use crate::{date_format, QueryAble};
+use crate::{date_format};
 
 /// An artist is generally a musician (or musician persona), group of musicians, or other music
 /// professional (like a producer or engineer). Occasionally, it can also be a non-musical person
