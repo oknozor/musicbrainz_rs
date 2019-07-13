@@ -1,5 +1,5 @@
-use chrono::{DateTime, Utc, TimeZone, NaiveDate};
-use serde::{self, Deserialize, Serializer, Deserializer};
+use chrono::{NaiveDate};
+use serde::{self, Deserialize, Deserializer};
 
 const FORMAT: &'static str = "%Y-%m-%d";
 
