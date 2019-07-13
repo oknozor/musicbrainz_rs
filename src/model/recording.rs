@@ -1,4 +1,3 @@
-use crate::model::artist::Artist;
 
 /// A recording is an entity in MusicBrainz which can be linked to tracks on releases. Each track
 /// must always be associated with a single recording, but a recording can be linked to any number
