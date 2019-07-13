@@ -78,6 +78,7 @@ pub struct Area {
     pub sort_name: String,
     #[serde(rename = "iso-3166-1-codes")]
     pub iso_3166_codes: Option<Vec<String>>,
+    pub life_span: Option<LifeSpan>,
 }
 
 /// The begin and end dates indicate when an artist started and finished its existence.
@@ -110,4 +111,10 @@ pub struct LifeSpan {
     pub begin: NaiveDate,
     #[serde(deserialize_with = "date_format::deserialize_opt")]
     pub end: Option<NaiveDate>,
+}
+
+#[derive(Debug, Serialize, Deserialize, PartialEq)]
+pub struct Tag {
+    pub name: String,
+    pub count: u32,
 }
