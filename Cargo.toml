@@ -3,6 +3,12 @@ name = "music_brainz"
 version = "0.1.0"
 authors = ["okno <paul.delafosse@protonmail.com>"]
 edition = "2018"
+license = "MIT"
+description = """
+Music brainz rust is a utility crate for the the
+[music brainz](https://musicbrainz.org/doc/Development/XML_Web_Service/Version_2)
+API.
+"""
 
 [dependencies]
 
