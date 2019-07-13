@@ -4,7 +4,7 @@ extern crate serde_derive;
 extern crate reqwest;
 
 
-mod model;
+pub mod model;
 mod date_format;
 use model::*;
 
