@@ -58,7 +58,7 @@ mod tests {
                     disambiguation: "".to_string(),
                     name: "United States".to_string(),
                     sort_name: "United States".to_string(),
-                    iso_3166_codes: Some(vec![
+                    iso_3166_1_codes: Some(vec![
                         "US".to_string(),
                     ]),
                     life_span: None,
@@ -68,7 +68,7 @@ mod tests {
                     disambiguation: "".to_string(),
                     name: "Aberdeen".to_string(),
                     sort_name: "Aberdeen".to_string(),
-                    iso_3166_codes: None,
+                    iso_3166_1_codes: None,
                     life_span: None,
                 },
                 life_span: LifeSpan {
