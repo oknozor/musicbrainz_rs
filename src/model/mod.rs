@@ -2,10 +2,12 @@ use crate::QueryAble;
 use crate::model::artist::Artist;
 use crate::model::recording::Recording;
 use crate::model::release_group::ReleaseGroup;
+use crate::model::release::Release;
 
 pub mod artist;
 pub mod recording;
 pub mod release_group;
+pub mod release;
 
 impl QueryAble<'_> for Artist {
     fn path() -> &'static str {
@@ -22,5 +24,11 @@ impl QueryAble<'_> for Recording {
 impl QueryAble<'_> for ReleaseGroup {
     fn path() -> &'static str {
         "release-group"
+    }
+}
+
+impl QueryAble<'_> for Release {
+    fn path() -> &'static str {
+        "release"
     }
 }
