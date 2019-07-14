@@ -37,6 +37,7 @@ mod tests {
     use crate::model::artist::ArtistType::*;
     use crate::model::recording::Recording;
     use crate::model::release_group::*;
+    use crate::model::release::*;
     use crate::QueryAble;
 
     #[test]
@@ -98,12 +99,10 @@ mod tests {
 
     #[test]
     fn should_get_release_group_by_id() {
-        let polly = ReleaseGroup::by_id("2a0981fb-9593-3019-864b-ce934d97a16e");
-
-        println!("{:?}", polly);
+        let in_utero = ReleaseGroup::by_id("2a0981fb-9593-3019-864b-ce934d97a16e");
 
         assert_eq!(
-            polly.unwrap(),
+            in_utero.unwrap(),
             ReleaseGroup {
                 id: "2a0981fb-9593-3019-864b-ce934d97a16e".to_string(),
                 primary_type_id: "f529b476-6e62-324f-b0aa-1f3e33d313fc".to_string(),
@@ -114,5 +113,28 @@ mod tests {
                 title: "In Utero".to_string(),
                 disambiguation: "".to_string(),
             });
+    }
+
+    #[test]
+    fn should_get_release() {
+        let in_utero = Release::by_id("18d4e9b4-9247-4b44-914a-8ddec3502103");
+
+        println!("{:?}", in_utero);
+        assert_eq!(
+            in_utero.unwrap(),
+            Release {
+                id: "18d4e9b4-9247-4b44-914a-8ddec3502103".to_string(),
+                title: "In Utero".to_string(),
+                status_id: "4e304316-386d-3409-af2e-78857eec5cfe".to_string(),
+                status: ReleaseStatus::Official,
+                date: NaiveDate::from_ymd(1993, 01, 01),
+                country: "US".to_string(),
+                quality: ReleaseQuality::Normal,
+                barcode: "0208314671259".to_string(),
+                disambiguation: "".to_string(),
+                packaging_id: "ec27701a-4a22-37f4-bfac-6616e0f9750a".to_string(),
+                packaging: "Jewel Case".to_string()
+            }
+        )
     }
 }
