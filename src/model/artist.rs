@@ -6,6 +6,7 @@ use crate::{date_format};
 /// (like a photographer, an illustrator, or a poet whose writings are set to music), or even a
 /// fictional character. For some other special cases, see special purpose artists.
 #[derive(Debug, Serialize, Deserialize, PartialEq)]
+#[serde(rename_all(deserialize = "kebab-case"))]
 pub struct Artist {
     /// See [MusicBrainz Identifier](https://musicbrainz.org/doc/MusicBrainz_Identifier).
     pub id: String,
@@ -17,7 +18,6 @@ pub struct Artist {
     /// name, such as in record shops or libraries. Among other things, sort names help to ensure
     /// that all the artists that start with "The" don't end up up under "T". The guidelines for
     /// sort names are the best place to check for more specific usage info.
-    #[serde(rename = "sort-name")]
     pub sort_name: String,
 
     pub disambiguation: String,
@@ -35,11 +35,12 @@ pub struct Artist {
 
     ///The artist begin area, as the name suggests, indicates the area with which an artist started
     /// to perform.
-    pub begin_area: Area,
+
+    #[serde(rename = "begin_area")] // Forcing camel_case here since
+    pub begin_area: Area,           // all other field are deserialized in kebab-case
 
     pub country: String,
 
-    #[serde(rename = "life-span")]
     pub life_span: LifeSpan,
 
     pub tags: Option<Vec<Tag>>,
@@ -72,14 +73,13 @@ pub enum Gender {
 /// The artist area, as the name suggests, indicates the area with which an artist is primarily
 /// identified with. It is often, but not always, its birth/formation country.
 #[derive(Debug, Serialize, Deserialize, PartialEq)]
+#[serde(rename_all(deserialize = "kebab-case"))]
 pub struct Area {
     pub id: String,
     pub disambiguation: String,
     pub name: String,
-    #[serde(rename = "sort-name")]
     pub sort_name: String,
-    #[serde(rename = "iso-3166-1-codes")]
-    pub iso_3166_codes: Option<Vec<String>>,
+    pub iso_3166_1_codes: Option<Vec<String>>,
     pub life_span: Option<LifeSpan>,
 }
 
