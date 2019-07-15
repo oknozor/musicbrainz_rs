@@ -40,6 +40,7 @@ mod tests {
     use crate::model::release::*;
     use crate::QueryAble;
     use crate::model::work::*;
+    use crate::model::label::*;
 
     #[test]
     fn should_get_artist_by_id() {
@@ -133,7 +134,7 @@ mod tests {
                 barcode: "0208314671259".to_string(),
                 disambiguation: "".to_string(),
                 packaging_id: "ec27701a-4a22-37f4-bfac-6616e0f9750a".to_string(),
-                packaging: "Jewel Case".to_string()
+                packaging: "Jewel Case".to_string(),
             }
         )
     }
@@ -149,8 +150,27 @@ mod tests {
                 type_id: "f061270a-2fd6-32f1-a641-f0f8676d14e6".to_string(),
                 work_type: "Song".to_string(),
                 language: "eng".to_string(),
-                disambiguation: "".to_string()
+                disambiguation: "".to_string(),
             }
+        )
+    }
+
+    #[test]
+    fn should_get_label_by_id() {
+        let ninja_tune = Label::by_id("dc940013-b8a8-4362-a465-291026c04b42");
+
+        assert_eq!(
+        ninja_tune.unwrap(),
+           Label {
+               id: "dc940013-b8a8-4362-a465-291026c04b42".to_string(),
+               type_id: "7aaa37fe-2def-3476-b359-80245850062d".to_string(),
+               label_type: "Original Production".to_string(),
+               name: "Ninja Tune".to_string(),
+               sort_name: "Ninja Tune".to_string(),
+               disambiguation: "".to_string(),
+               country: "GB".to_string(),
+               label_code: 12885
+           }
         )
     }
 }
