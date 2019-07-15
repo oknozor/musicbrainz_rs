@@ -3,11 +3,13 @@ use crate::model::artist::Artist;
 use crate::model::recording::Recording;
 use crate::model::release_group::ReleaseGroup;
 use crate::model::release::Release;
+use crate::model::work::Work;
 
 pub mod artist;
 pub mod recording;
 pub mod release_group;
 pub mod release;
+pub mod work;
 
 impl QueryAble<'_> for Artist {
     fn path() -> &'static str {
@@ -32,3 +34,10 @@ impl QueryAble<'_> for Release {
         "release"
     }
 }
+
+impl QueryAble<'_> for Work {
+    fn path() -> &'static str {
+        "work"
+    }
+}
+
