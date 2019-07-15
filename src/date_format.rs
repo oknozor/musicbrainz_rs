@@ -35,7 +35,7 @@ pub fn deserialize_opt<'de, D>(
 
 #[cfg(test)]
 mod tests {
-    use crate::model::artist::LifeSpan;
+    use crate::model::lifespan::LifeSpan;
     use chrono::NaiveDate;
 
     #[test]
@@ -50,7 +50,7 @@ mod tests {
         let life_span: LifeSpan = serde_json::from_str(input).unwrap();
         assert_eq!(life_span, LifeSpan {
             ended: true,
-            begin: NaiveDate::from_ymd(1988,01,01),
+            begin: Some(NaiveDate::from_ymd(1988,01,01)),
             end: Some(NaiveDate::from_ymd(1994,04,05)),
         })
     }

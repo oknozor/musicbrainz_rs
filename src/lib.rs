@@ -32,15 +32,16 @@ pub trait QueryAble<'de> {
 mod tests {
     use chrono::NaiveDate;
 
+    use crate::model::area::*;
     use crate::model::artist::*;
-    use crate::model::artist::Area;
     use crate::model::artist::ArtistType::*;
-    use crate::model::recording::Recording;
-    use crate::model::release_group::*;
-    use crate::model::release::*;
-    use crate::QueryAble;
-    use crate::model::work::*;
     use crate::model::label::*;
+    use crate::model::lifespan::*;
+    use crate::model::recording::Recording;
+    use crate::model::release::*;
+    use crate::model::release_group::*;
+    use crate::model::work::*;
+    use crate::QueryAble;
 
     #[test]
     fn should_get_artist_by_id() {
@@ -58,6 +59,8 @@ mod tests {
                 country: "US".to_string(),
                 area: Area {
                     id: "489ce91b-6658-3307-9877-795b68554c98".to_string(),
+                    area_type: None,
+                    type_id: None,
                     disambiguation: "".to_string(),
                     name: "United States".to_string(),
                     sort_name: "United States".to_string(),
@@ -68,6 +71,8 @@ mod tests {
                 },
                 begin_area: Area {
                     id: "a640b45c-c173-49b1-8030-973603e895b5".to_string(),
+                    area_type: None,
+                    type_id: None,
                     disambiguation: "".to_string(),
                     name: "Aberdeen".to_string(),
                     sort_name: "Aberdeen".to_string(),
@@ -76,7 +81,7 @@ mod tests {
                 },
                 life_span: LifeSpan {
                     ended: true,
-                    begin: NaiveDate::from_ymd(1988, 01, 01),
+                    begin: Some(NaiveDate::from_ymd(1988, 01, 01)),
                     end: Some(NaiveDate::from_ymd(1994, 04, 05)),
                 },
                 tags: None,
@@ -171,6 +176,29 @@ mod tests {
                country: "GB".to_string(),
                label_code: 12885
            }
+        )
+    }
+
+    #[test]
+    fn should_get_area_by_id(){
+        let aberdeen = Area::by_id("a640b45c-c173-49b1-8030-973603e895b5");
+
+        assert_eq!(
+            aberdeen.unwrap(),
+            Area {
+                id: "a640b45c-c173-49b1-8030-973603e895b5".to_string(),
+                area_type: Some("City".to_string()),
+                type_id: Some("6fd8f29a-3d0a-32fc-980d-ea697b69da78".to_string()),
+                disambiguation: "".to_string(),
+                name: "Aberdeen".to_string(),
+                sort_name: "Aberdeen".to_string(),
+                iso_3166_1_codes: None,
+                life_span: Some(LifeSpan {
+                    ended: false,
+                    begin: None,
+                    end: None,
+                })
+            }
         )
     }
 }
