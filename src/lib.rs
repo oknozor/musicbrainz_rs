@@ -39,6 +39,7 @@ mod tests {
     use crate::model::release_group::*;
     use crate::model::release::*;
     use crate::QueryAble;
+    use crate::model::work::*;
 
     #[test]
     fn should_get_artist_by_id() {
@@ -119,7 +120,6 @@ mod tests {
     fn should_get_release() {
         let in_utero = Release::by_id("18d4e9b4-9247-4b44-914a-8ddec3502103");
 
-        println!("{:?}", in_utero);
         assert_eq!(
             in_utero.unwrap(),
             Release {
@@ -134,6 +134,22 @@ mod tests {
                 disambiguation: "".to_string(),
                 packaging_id: "ec27701a-4a22-37f4-bfac-6616e0f9750a".to_string(),
                 packaging: "Jewel Case".to_string()
+            }
+        )
+    }
+
+    #[test]
+    fn should_get_work_by_id() {
+        let hotel_california = Work::by_id("22457dc0-ecbf-38f5-9056-11c858530a50");
+
+        assert_eq!(
+            hotel_california.unwrap(),
+            Work {
+                id: "22457dc0-ecbf-38f5-9056-11c858530a50".to_string(),
+                type_id: "f061270a-2fd6-32f1-a641-f0f8676d14e6".to_string(),
+                work_type: "Song".to_string(),
+                language: "eng".to_string(),
+                disambiguation: "".to_string()
             }
         )
     }
