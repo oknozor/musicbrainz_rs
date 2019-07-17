@@ -1,5 +1,6 @@
 use crate::model::area::Area;
 use crate::model::lifespan::LifeSpan;
+use crate::model::relations::ArtistRelation;
 
 /// An artist is generally a musician (or musician persona), group of musicians, or other music
 /// professional (like a producer or engineer). Occasionally, it can also be a non-musical person
@@ -38,6 +39,8 @@ pub struct Artist {
 
     #[serde(rename = "begin_area")] // Forcing camel_case here since
     pub begin_area: Area,           // all other field are deserialized in kebab-case
+
+    pub relations: Option<Vec<Relation>>,
 
     pub country: String,
 
@@ -98,4 +101,11 @@ pub enum Gender {
 pub struct Tag {
     pub name: String,
     pub count: u32,
+}
+
+#[derive(Debug, Serialize, Deserialize, PartialEq)]
+#[serde(tag = "target-type")]
+#[serde(rename_all(deserialize = "kebab-case"))]
+pub enum Relation {
+    Artist(ArtistRelation),
 }
