@@ -12,7 +12,6 @@ mod date_format;
 const BASE_URL: &str = "http://musicbrainz.org/ws/2";
 const _PARAMS: [(&str, &str); 1] = [("fmt", "json")];
 
-
 /// This trait provide a generic method to fetch music brainz resource
 pub trait QueryAble<'de> {
     fn by_id(id: &str)
@@ -20,7 +19,7 @@ pub trait QueryAble<'de> {
         where Self: DeserializeOwned {
         let client = reqwest::Client::new();
         client
-            .get(&format!("{}/{}/{}?fmt=json", BASE_URL, Self::path(), id))
+            .get(&format!("{}/{}/{}?fmt=json&inc=artist-rels", BASE_URL, Self::path(), id))
             .send()?
             .json()
     }
@@ -85,6 +84,7 @@ mod tests {
                     end: Some(NaiveDate::from_ymd(1994, 04, 05)),
                 },
                 tags: None,
+                relations: None,
             }
         );
     }
