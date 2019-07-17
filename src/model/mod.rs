@@ -15,6 +15,7 @@ pub mod work;
 pub mod label;
 pub mod area;
 pub mod lifespan;
+pub mod relations; 
 
 impl QueryAble<'_> for Artist {
     fn path() -> &'static str {
