@@ -1,3 +1,4 @@
+---
 language: rust
 rust:
   - stable
@@ -6,6 +7,5 @@ rust:
 cache: cargo
 matrix:
   allow_failures:
-         - rust: nightly
+    - rust: nightly
   fast_finish: true
-
