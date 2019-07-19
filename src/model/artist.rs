@@ -1,6 +1,6 @@
 use crate::model::area::Area;
 use crate::model::lifespan::LifeSpan;
-use crate::model::relations::ArtistRelation;
+use crate::model::relations::Relation;
 
 /// An artist is generally a musician (or musician persona), group of musicians, or other music
 /// professional (like a producer or engineer). Occasionally, it can also be a non-musical person
@@ -101,11 +101,4 @@ pub enum Gender {
 pub struct Tag {
     pub name: String,
     pub count: u32,
-}
-
-#[derive(Debug, Serialize, Deserialize, PartialEq)]
-#[serde(tag = "target-type")]
-#[serde(rename_all(deserialize = "kebab-case"))]
-pub enum Relation {
-    Artist(ArtistRelation),
 }

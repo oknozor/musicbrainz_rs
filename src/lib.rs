@@ -5,6 +5,7 @@ extern crate serde_derive;
 
 
 use serde::de::DeserializeOwned;
+use std::marker::PhantomData;
 
 pub mod model;
 mod date_format;
@@ -12,19 +13,35 @@ mod date_format;
 const BASE_URL: &str = "http://musicbrainz.org/ws/2";
 const _PARAMS: [(&str, &str); 1] = [("fmt", "json")];
 
-/// This trait provide a generic method to fetch music brainz resource
-pub trait QueryAble<'de> {
-    fn by_id(id: &str)
-             -> Result<Self, reqwest::Error>
-        where Self: DeserializeOwned {
+pub struct Query<T> {
+    pub path: String, 
+    phantom: PhantomData<T>,
+}
+
+impl<'de, T> Query<T> {
+    pub fn fetch(&self) 
+        -> Result<T, reqwest::Error> 
+            where T: QueryAble<'de> + DeserializeOwned
+    {
         let client = reqwest::Client::new();
         client
-            .get(&format!("{}/{}/{}?fmt=json&inc=artist-rels", BASE_URL, Self::path(), id))
+            .get(&self.path)
             .send()?
             .json()
     }
+}
+
+/// This trait provide a generic method to fetch music brainz resource
+pub trait QueryAble<'de> {
 
     fn path() -> &'static str;
+
+    fn id(id: &str) -> Query<Self> where Self : Sized {
+        Query {
+            path: format!("{}/{}/{}?fmt=json", BASE_URL, Self::path(), id),
+            phantom: PhantomData
+        }
+    }
 }
 
 #[cfg(test)]
@@ -44,7 +61,7 @@ mod tests {
 
     #[test]
     fn should_get_artist_by_id() {
-        let nirvana = Artist::by_id("5b11f4ce-a62d-471e-81fc-a69a8278c7da");
+        let nirvana = Artist::id("5b11f4ce-a62d-471e-81fc-a69a8278c7da").fetch();
 
         assert_eq!(
             nirvana.unwrap(),
@@ -91,7 +108,7 @@ mod tests {
 
     #[test]
     fn should_get_recording_by_id() {
-        let polly = Recording::by_id("af40d6b8-58e8-4ca5-9db8-d4fca0b899e2");
+        let polly = Recording::id("af40d6b8-58e8-4ca5-9db8-d4fca0b899e2").fetch();
 
         assert_eq!(
             polly.unwrap(),
@@ -106,7 +123,7 @@ mod tests {
 
     #[test]
     fn should_get_release_group_by_id() {
-        let in_utero = ReleaseGroup::by_id("2a0981fb-9593-3019-864b-ce934d97a16e");
+        let in_utero = ReleaseGroup::id("2a0981fb-9593-3019-864b-ce934d97a16e").fetch();
 
         assert_eq!(
             in_utero.unwrap(),
@@ -124,7 +141,7 @@ mod tests {
 
     #[test]
     fn should_get_release() {
-        let in_utero = Release::by_id("18d4e9b4-9247-4b44-914a-8ddec3502103");
+        let in_utero = Release::id("18d4e9b4-9247-4b44-914a-8ddec3502103").fetch();
 
         assert_eq!(
             in_utero.unwrap(),
@@ -146,7 +163,7 @@ mod tests {
 
     #[test]
     fn should_get_work_by_id() {
-        let hotel_california = Work::by_id("22457dc0-ecbf-38f5-9056-11c858530a50");
+        let hotel_california = Work::id("22457dc0-ecbf-38f5-9056-11c858530a50").fetch();
 
         assert_eq!(
             hotel_california.unwrap(),
@@ -162,7 +179,7 @@ mod tests {
 
     #[test]
     fn should_get_label_by_id() {
-        let ninja_tune = Label::by_id("dc940013-b8a8-4362-a465-291026c04b42");
+        let ninja_tune = Label::id("dc940013-b8a8-4362-a465-291026c04b42").fetch();
 
         assert_eq!(
         ninja_tune.unwrap(),
@@ -181,7 +198,7 @@ mod tests {
 
     #[test]
     fn should_get_area_by_id(){
-        let aberdeen = Area::by_id("a640b45c-c173-49b1-8030-973603e895b5");
+        let aberdeen = Area::id("a640b45c-c173-49b1-8030-973603e895b5").fetch();
 
         assert_eq!(
             aberdeen.unwrap(),
