@@ -27,32 +27,32 @@ pub struct Release {
     pub title: String,
 
     #[serde(rename = "status-id")]
-    pub status_id: String,
+    pub status_id: Option<String>,
 
     /// The status describes how "official" a release is.
-    pub status: ReleaseStatus,
+    pub status: Option<ReleaseStatus>,
 
     /// The date the release was issued.
-    #[serde(deserialize_with = "date_format::deserialize")]
-    pub date: NaiveDate,
+    #[serde(deserialize_with = "date_format::deserialize_opt")]
+    pub date: Option<NaiveDate>,
 
     /// The country the release was issued in.
-    pub country: String,
+    pub country: Option<String>,
 
     ///  Data quality indicates how good the data for a release is. It is not a mark of how good or
     /// bad the music itself is - for that, use ratings.
-    pub quality: ReleaseQuality,
+    pub quality: Option<ReleaseQuality>,
 
-    pub barcode: String,
+    pub barcode: Option<String>,
 
-    pub disambiguation: String,
+    pub disambiguation: Option<String>,
 
     #[serde(rename = "packaging-id")]
-    pub packaging_id: String,
+    pub packaging_id: Option<String>,
 
     /// The physical packaging that accompanies the release. See the
     /// [list of packaging](https://musicbrainz.org/doc/Release/Packaging) for more information.
-    pub packaging : String, //TODO: This might be an enum needs to test all against all possible values
+    pub packaging : Option<String>, //TODO: This might be an enum needs to test all against all possible values
 
 
 }
@@ -93,7 +93,10 @@ pub enum ReleaseQuality {
     /// This is the default setting - technically "unknown" if the quality has never been modified,
     /// "normal" if it has.
     Normal,
+    
     Unknown,
+
+    None
 
 }
 
@@ -117,4 +120,6 @@ pub enum ReleaseStatus {
     /// to any real release and should be linked to the original release using the
     /// [transl(iter)ation relationship](https://musicbrainz.org/relationship/fc399d47-23a7-4c28-bfcf-0607a562b644).
     PseudoRelease,
+
+    None
 }
