@@ -110,7 +110,7 @@ impl Include {
         use Include::*;
         match self {
             Artists => "artists",
-            Recordings => "recording",
+            Recordings => "recordings",
             Releases => "releases",
             ReleaseGroups => "release-groups",
             Works => "works",
