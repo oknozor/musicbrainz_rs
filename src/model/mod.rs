@@ -8,6 +8,7 @@ use crate::model::work::Work;
 use crate::Include;
 use crate::QueryAble;
 
+pub mod alias;
 pub mod area;
 pub mod artist;
 pub mod label;
