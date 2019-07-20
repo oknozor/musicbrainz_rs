@@ -1,3 +1,4 @@
+use crate::model::alias::Alias;
 use crate::model::area::Area;
 use crate::model::lifespan::LifeSpan;
 use crate::model::recording::Recording;
@@ -50,6 +51,7 @@ pub struct Artist {
     pub works: Option<Vec<Work>>,
     pub release_groups: Option<Vec<ReleaseGroup>>,
     pub recordings: Option<Vec<Recording>>,
+    pub aliases: Option<Vec<Alias>>,
 
     pub country: String,
 

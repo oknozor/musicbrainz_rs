@@ -1,7 +1,7 @@
 use chrono::NaiveDate;
 use serde::{self, Deserialize, Deserializer};
 
-const FORMAT: &'static str = "%Y-%m-%d";
+const FORMAT: &str = "%Y-%m-%d";
 
 /// Some times, music brainz dates doesn't have a month or day
 /// This artificially add them before deserializing the API response
@@ -47,8 +47,8 @@ mod tests {
             life_span,
             LifeSpan {
                 ended: true,
-                begin: Some(NaiveDate::from_ymd(1988, 01, 01)),
-                end: Some(NaiveDate::from_ymd(1994, 04, 05)),
+                begin: Some(NaiveDate::from_ymd(1988, 1, 1)),
+                end: Some(NaiveDate::from_ymd(1994, 4, 5)),
             }
         )
     }

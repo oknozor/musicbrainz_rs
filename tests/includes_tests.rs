@@ -60,3 +60,17 @@ fn should_get_artist_recordings() {
     assert!(recordings.is_some());
     assert!(!recordings.unwrap().is_empty());
 }
+
+#[test]
+fn should_get_artist_aliases() {
+    let john_lee_hooker = Artist::fetch()
+        .id("5b11f4ce-a62d-471e-81fc-a69a8278c7da")
+        .include(Include::Aliases)
+        .execute()
+        .unwrap();
+
+    let aliases = john_lee_hooker.aliases;
+
+    assert!(aliases.is_some());
+    assert!(!aliases.unwrap().is_empty());
+}
