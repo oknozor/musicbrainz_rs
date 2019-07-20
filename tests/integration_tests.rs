@@ -15,6 +15,7 @@ use musicbrainz_rs::model::recording::Recording;
 use musicbrainz_rs::model::release::*;
 use musicbrainz_rs::model::release_group::*;
 use musicbrainz_rs::model::series::*;
+use musicbrainz_rs::model::url::*;
 use musicbrainz_rs::model::work::*;
 use musicbrainz_rs::QueryAble;
 
@@ -67,7 +68,7 @@ fn should_get_artist_by_id() {
             works: None,
             aliases: None,
         }
-    );
+    )
 }
 
 #[test]
@@ -106,7 +107,7 @@ fn should_get_release_group_by_id() {
             title: "In Utero".to_string(),
             disambiguation: "".to_string(),
         }
-    );
+    )
 }
 
 #[test]
@@ -295,6 +296,21 @@ fn should_get_series() {
             serie_type: "Recording series".to_string(),
             disambiguation: "".to_string(),
             name: "La Chanson du Dimanche — Saison 4".to_string(),
+        }
+    )
+}
+
+#[test]
+fn should_get_url() {
+    let svinkels_dot_com = Url::fetch()
+        .id("9237f6da-fec6-4b8a-9d52-c7c18e0e2630")
+        .execute();
+
+    assert_eq!(
+        svinkels_dot_com.unwrap(),
+        Url {
+            resource: "http://www.svinkels.com/".to_string(),
+            id: "9237f6da-fec6-4b8a-9d52-c7c18e0e2630".to_string(),
         }
     )
 }
