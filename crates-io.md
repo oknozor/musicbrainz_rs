@@ -1,9 +1,4 @@
-# ![MusicBrainz] Rust &emsp; [![Latest Version]][crates.io] [![Build Status]][travis]
 
-[Build Status]: https://travis-ci.org/oknozor/musicbrainz_rs.svg?branch=master
-[travis]: https://travis-ci.org/oknozor/musicbrainz_rs
-[Latest Version]: https://img.shields.io/crates/v/musicbrainz_rs.svg
-[crates.io]: https://www.crates.io/crates/musicbrainz_rs
 [MusicBrainz]: https://staticbrainz.org/MB/header-logo-791fb3f.svg
 
 **MusicBrainz rust is a utility crate for the the [MusicBrainz API](https://musicbrainz.org/doc/Development/XML_Web_Service/Version_2).**
