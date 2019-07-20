@@ -1,7 +1,9 @@
 use crate::model::area::Area;
 use crate::model::lifespan::LifeSpan;
+use crate::model::recording::Recording;
 use crate::model::relations::Relation;
 use crate::model::release::Release;
+use crate::model::release_group::ReleaseGroup;
 use crate::model::work::Work;
 
 /// An artist is generally a musician (or musician persona), group of musicians, or other music
@@ -46,6 +48,8 @@ pub struct Artist {
     pub relations: Option<Vec<Relation>>,
     pub releases: Option<Vec<Release>>,
     pub works: Option<Vec<Work>>,
+    pub release_groups: Option<Vec<ReleaseGroup>>,
+    pub recordings: Option<Vec<Recording>>,
 
     pub country: String,
 

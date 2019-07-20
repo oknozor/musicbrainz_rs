@@ -21,7 +21,7 @@ pub struct Recording {
     /// that are being used on releases, the recording length is the median length of all tracks
     /// (that have a track length) associated with that recording. If there is an even number of
     /// track lengths, the smaller median candidate is used.
-    pub length: u32, // TODO: CUSTOM Deserialized to make this a duration
+    pub length: Option<u32>, // TODO: CUSTOM Deserialized to make this a duration
 
     /// See Disambiguation Comment.
     pub disambiguation: String,
