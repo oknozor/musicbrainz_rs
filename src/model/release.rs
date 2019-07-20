@@ -1,5 +1,6 @@
+use crate::date_format;
+use crate::Include as IncludeInto;
 use chrono::NaiveDate;
-use crate::{date_format};
 
 /// A MusicBrainz release represents the unique release (i.e. issuing) of a product on a specific
 /// date with specific release information such as the country, label, barcode and packaging.
@@ -19,7 +20,6 @@ use crate::{date_format};
 /// released CDs would share the same tracklists as the separate releases.
 #[derive(Debug, Serialize, Deserialize, PartialEq)]
 pub struct Release {
-
     /// See [MusicBrainz Identifier](https://musicbrainz.org/doc/MusicBrainz_Identifier).
     pub id: String,
 
@@ -27,34 +27,32 @@ pub struct Release {
     pub title: String,
 
     #[serde(rename = "status-id")]
-    pub status_id: String,
+    pub status_id: Option<String>,
 
     /// The status describes how "official" a release is.
-    pub status: ReleaseStatus,
+    pub status: Option<ReleaseStatus>,
 
     /// The date the release was issued.
-    #[serde(deserialize_with = "date_format::deserialize")]
-    pub date: NaiveDate,
+    #[serde(deserialize_with = "date_format::deserialize_opt")]
+    pub date: Option<NaiveDate>,
 
     /// The country the release was issued in.
-    pub country: String,
+    pub country: Option<String>,
 
     ///  Data quality indicates how good the data for a release is. It is not a mark of how good or
     /// bad the music itself is - for that, use ratings.
-    pub quality: ReleaseQuality,
+    pub quality: Option<ReleaseQuality>,
 
-    pub barcode: String,
+    pub barcode: Option<String>,
 
-    pub disambiguation: String,
+    pub disambiguation: Option<String>,
 
     #[serde(rename = "packaging-id")]
-    pub packaging_id: String,
+    pub packaging_id: Option<String>,
 
     /// The physical packaging that accompanies the release. See the
     /// [list of packaging](https://musicbrainz.org/doc/Release/Packaging) for more information.
-    pub packaging : String, //TODO: This might be an enum needs to test all against all possible values
-
-
+    pub packaging: Option<String>, //TODO: This might be an enum needs to test all against all possible values
 }
 
 #[derive(Debug, Serialize, Deserialize, PartialEq)]
@@ -71,13 +69,13 @@ pub enum ReleaseScript {
     /// ## Latin (also known as Roman or, incorrectly, "English")
     /// Latin is the most common script, and usually the correct choice. It is used
     /// for all Western European languages, and many others. It is also the most common script used for transliterations.
-    Latn
+    Latn,
 }
 
 /* TODO: we need to test all posible values to build the enum see https://musicbrainz.org/doc/Release */
 #[derive(Debug, Serialize, Deserialize, PartialEq)]
 pub enum Language {
-    Eng
+    Eng,
 }
 
 #[serde(rename_all(deserialize = "lowercase"))]
@@ -93,8 +91,10 @@ pub enum ReleaseQuality {
     /// This is the default setting - technically "unknown" if the quality has never been modified,
     /// "normal" if it has.
     Normal,
+
     Unknown,
 
+    None,
 }
 
 /// The release status describes how "official" a release is.
@@ -117,4 +117,19 @@ pub enum ReleaseStatus {
     /// to any real release and should be linked to the original release using the
     /// [transl(iter)ation relationship](https://musicbrainz.org/relationship/fc399d47-23a7-4c28-bfcf-0607a562b644).
     PseudoRelease,
+
+    None,
+}
+
+#[derive(Debug, PartialEq)]
+pub enum Include {
+    ArtistRelations,
+}
+
+impl IncludeInto<Release> for Include {
+    fn as_str(&self) -> &str {
+        match self {
+            Include::ArtistRelations => "artist-rels",
+        }
+    }
 }

@@ -1,10 +1,10 @@
+use crate::date_format;
+use crate::Include as IncludeInto;
 use chrono::NaiveDate;
-use crate::{date_format};
 
 #[derive(Debug, Serialize, Deserialize, PartialEq)]
 #[serde(rename_all(deserialize = "kebab-case"))]
 pub struct ReleaseGroup {
-
     /// See [MusicBrainz Identifier](https://musicbrainz.org/doc/MusicBrainz_Identifier).
     pub id: String,
 
@@ -28,4 +28,17 @@ pub struct ReleaseGroup {
 
     /// See Disambiguation Comment.
     pub disambiguation: String,
+}
+
+#[derive(Debug, PartialEq)]
+pub enum Include {
+    ArtistRelations,
+}
+
+impl IncludeInto<ReleaseGroup> for Include {
+    fn as_str(&self) -> &str {
+        match self {
+            Include::ArtistRelations => "artist-rels",
+        }
+    }
 }
