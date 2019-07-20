@@ -1,15 +1,19 @@
 [package]
 name = "musicbrainz_rs"
-version = "0.1.1"
+version = "0.1.2"
 authors = ["okno <paul.delafosse@protonmail.com>"]
 repository = "https://github.com/oknozor/music_brainz_rs"
 documentation = "https://docs.rs/musicbrainz_rs"
 edition = "2018"
 license = "MIT"
+readme = "crates-io.md"
 description = """
 MusicBrainz Rust is a utility crate for the the
 MusicBrainz API.
 """
+
+[badges]
+travis-ci = { repository = "oknozor/musicbrainz_rs", branch = "master" }
 
 [dependencies]
 
