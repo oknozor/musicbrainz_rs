@@ -14,6 +14,7 @@ use musicbrainz_rs::model::place::*;
 use musicbrainz_rs::model::recording::Recording;
 use musicbrainz_rs::model::release::*;
 use musicbrainz_rs::model::release_group::*;
+use musicbrainz_rs::model::series::*;
 use musicbrainz_rs::model::work::*;
 use musicbrainz_rs::QueryAble;
 
@@ -276,6 +277,24 @@ fn should_get_place() {
                 latitude: "41.882059".to_string(),
                 longitude: "-87.630881".to_string(),
             }
+        }
+    )
+}
+
+#[test]
+fn should_get_series() {
+    let la_chanson_du_dimanche = Series::fetch()
+        .id("814fb4d5-327f-4e37-8784-f8a707e5f97c")
+        .execute();
+
+    assert_eq!(
+        la_chanson_du_dimanche.unwrap(),
+        Series {
+            id: "814fb4d5-327f-4e37-8784-f8a707e5f97c".to_string(),
+            type_id: "dd968243-7128-30a2-81f0-79843430a8e2".to_string(),
+            serie_type: "Recording series".to_string(),
+            disambiguation: "".to_string(),
+            name: "La Chanson du Dimanche — Saison 4".to_string(),
         }
     )
 }

@@ -7,6 +7,7 @@ use crate::model::place::Place;
 use crate::model::recording::Recording;
 use crate::model::release::Release;
 use crate::model::release_group::ReleaseGroup;
+use crate::model::series::Series;
 use crate::model::work::Work;
 
 use crate::QueryAble;
@@ -23,6 +24,7 @@ pub mod recording;
 pub mod relations;
 pub mod release;
 pub mod release_group;
+pub mod series;
 pub mod work;
 
 impl QueryAble<'_, artist::Include> for Artist {
@@ -82,5 +84,11 @@ impl QueryAble<'_, instrument::Include> for Instrument {
 impl QueryAble<'_, place::Include> for Place {
     fn path() -> &'static str {
         "place"
+    }
+}
+
+impl QueryAble<'_, series::Include> for Series {
+    fn path() -> &'static str {
+        "series"
     }
 }
