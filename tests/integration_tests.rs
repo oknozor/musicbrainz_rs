@@ -58,6 +58,8 @@ fn should_get_artist_by_id() {
             tags: None,
             relations: None,
             releases: None,
+            recordings: None,
+            release_groups: None,
             works: None,
         }
     );
@@ -75,7 +77,7 @@ fn should_get_recording_by_id() {
             id: "af40d6b8-58e8-4ca5-9db8-d4fca0b899e2".to_string(),
             title: "(New Wave) Polly".to_string(),
             video: false,
-            length: 246_000,
+            length: Some(246_000),
             disambiguation: "".to_string(),
         }
     );
