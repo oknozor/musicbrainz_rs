@@ -1,6 +1,7 @@
 use crate::model::area::Area;
 use crate::model::artist::Artist;
 use crate::model::event::Event;
+use crate::model::instrument::*;
 use crate::model::label::Label;
 use crate::model::recording::Recording;
 use crate::model::release::Release;
@@ -13,6 +14,7 @@ pub mod alias;
 pub mod area;
 pub mod artist;
 pub mod event;
+pub mod instrument;
 pub mod label;
 pub mod lifespan;
 pub mod recording;
@@ -66,5 +68,11 @@ impl QueryAble<'_, area::Include> for Area {
 impl QueryAble<'_, event::Include> for Event {
     fn path() -> &'static str {
         "event"
+    }
+}
+
+impl QueryAble<'_, instrument::Include> for Instrument {
+    fn path() -> &'static str {
+        "instrument"
     }
 }
