@@ -1,15 +1,15 @@
 extern crate chrono;
 extern crate musicbrainz_rs;
 
+use musicbrainz_rs::model::artist;
 use musicbrainz_rs::model::artist::*;
-use musicbrainz_rs::Include;
 use musicbrainz_rs::QueryAble;
 
 #[test]
 fn should_get_artist_releases() {
     let john_lee_hooker = Artist::fetch()
         .id("5b11f4ce-a62d-471e-81fc-a69a8278c7da")
-        .include(Include::Releases)
+        .include(artist::Include::Releases)
         .execute()
         .unwrap();
 
@@ -23,7 +23,7 @@ fn should_get_artist_releases() {
 fn should_get_artist_works() {
     let john_lee_hooker = Artist::fetch()
         .id("5b11f4ce-a62d-471e-81fc-a69a8278c7da")
-        .include(Include::Works)
+        .include(artist::Include::Works)
         .execute()
         .unwrap();
 
@@ -37,7 +37,7 @@ fn should_get_artist_works() {
 fn should_get_artist_release_groups() {
     let john_lee_hooker = Artist::fetch()
         .id("5b11f4ce-a62d-471e-81fc-a69a8278c7da")
-        .include(Include::ReleaseGroups)
+        .include(artist::Include::ReleaseGroups)
         .execute()
         .unwrap();
 
@@ -51,7 +51,7 @@ fn should_get_artist_release_groups() {
 fn should_get_artist_recordings() {
     let john_lee_hooker = Artist::fetch()
         .id("5b11f4ce-a62d-471e-81fc-a69a8278c7da")
-        .include(Include::Recordings)
+        .include(artist::Include::Recordings)
         .execute()
         .unwrap();
 
@@ -65,7 +65,7 @@ fn should_get_artist_recordings() {
 fn should_get_artist_aliases() {
     let john_lee_hooker = Artist::fetch()
         .id("5b11f4ce-a62d-471e-81fc-a69a8278c7da")
-        .include(Include::Aliases)
+        .include(artist::Include::Aliases)
         .execute()
         .unwrap();
 
@@ -73,4 +73,18 @@ fn should_get_artist_aliases() {
 
     assert!(aliases.is_some());
     assert!(!aliases.unwrap().is_empty());
+}
+
+#[test]
+fn should_get_artist_artist_relations() {
+    let john_lee_hooker = Artist::fetch()
+        .id("5b11f4ce-a62d-471e-81fc-a69a8278c7da")
+        .include(artist::Include::ArtistRelations)
+        .execute()
+        .unwrap();
+
+    let relations = john_lee_hooker.relations;
+
+    assert!(relations.is_some());
+    assert!(!relations.unwrap().is_empty());
 }

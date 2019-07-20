@@ -19,80 +19,44 @@ pub mod release;
 pub mod release_group;
 pub mod work;
 
-impl QueryAble<'_> for Artist {
+impl QueryAble<'_, artist::Include> for Artist {
     fn path() -> &'static str {
         "artist"
     }
-
-    fn get_allowed_includes() -> Vec<Include> {
-        vec![
-            Include::ArtistRelations,
-            Include::Recordings,
-            Include::Releases,
-            Include::ReleaseGroups,
-            Include::Works,
-            Include::Aliases,
-            Include::Annotations,
-        ]
-    }
 }
 
-impl QueryAble<'_> for Recording {
+impl QueryAble<'_, recording::Include> for Recording {
     fn path() -> &'static str {
         "recording"
     }
-
-    fn get_allowed_includes() -> Vec<Include> {
-        vec![Include::Annotations]
-    }
 }
 
-impl QueryAble<'_> for ReleaseGroup {
+impl QueryAble<'_, release_group::Include> for ReleaseGroup {
     fn path() -> &'static str {
         "release-group"
     }
-
-    fn get_allowed_includes() -> Vec<Include> {
-        vec![Include::Annotations]
-    }
 }
 
-impl QueryAble<'_> for Release {
+impl QueryAble<'_, release::Include> for Release {
     fn path() -> &'static str {
         "release"
     }
-
-    fn get_allowed_includes() -> Vec<Include> {
-        vec![Include::Annotations]
-    }
 }
 
-impl QueryAble<'_> for Work {
+impl QueryAble<'_, work::Include> for Work {
     fn path() -> &'static str {
         "work"
     }
-
-    fn get_allowed_includes() -> Vec<Include> {
-        vec![Include::Annotations]
-    }
 }
 
-impl QueryAble<'_> for Label {
+impl QueryAble<'_, label::Include> for Label {
     fn path() -> &'static str {
         "label"
     }
-
-    fn get_allowed_includes() -> Vec<Include> {
-        vec![Include::Annotations]
-    }
 }
 
-impl QueryAble<'_> for Area {
+impl QueryAble<'_, area::Include> for Area {
     fn path() -> &'static str {
         "area"
-    }
-
-    fn get_allowed_includes() -> Vec<Include> {
-        vec![Include::Annotations]
     }
 }
