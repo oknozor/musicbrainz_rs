@@ -23,8 +23,8 @@ impl<'a, T> Query<T> {
         T: QueryAble<'a> + DeserializeOwned,
     {
         let client = reqwest::Client::new();
-        
-        println!("{}", &self.path); 
+
+        println!("{}", &self.path);
         self.path.push_str("?fmt=json");
         self.include_to_path();
         client.get(&self.path).send()?.json()
@@ -41,7 +41,6 @@ impl<'a, T> Query<T> {
     }
 
     pub fn include_to_path(&mut self) {
-
         if !self.include.is_empty() {
             self.path.push_str("&inc=");
         }

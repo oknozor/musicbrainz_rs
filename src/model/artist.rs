@@ -25,7 +25,7 @@ pub struct Artist {
 
     pub disambiguation: String,
 
-    /// The type is used to state whether an artist is a person, a group, or something else. 
+    /// The type is used to state whether an artist is a person, a group, or something else.
     #[serde(rename = "type")]
     pub artist_type: ArtistType,
 
@@ -41,38 +41,37 @@ pub struct Artist {
     /// to perform.
 
     #[serde(rename = "begin_area")] // Forcing camel_case here since
-    pub begin_area: Area,           // all other field are deserialized in kebab-case
+    pub begin_area: Area, // all other field are deserialized in kebab-case
 
     pub relations: Option<Vec<Relation>>,
-    pub releases: Option<Vec<Release>>, 
+    pub releases: Option<Vec<Release>>,
     pub works: Option<Vec<Work>>,
 
     pub country: String,
 
     /// The begin and end dates indicate when an artist started and finished its existence.
-        /// Its exact meaning depends on the type of artist:
-        ///
-        ///  - For a person
-        ///        Begin date represents date of birth, and end date represents date of death.
-        ///
-        ///    - For a group (or orchestra/choir)
-        ///        Begin date represents the date when the group first formed: if a group dissolved and then
-        ///        reunited, the date is still that of when they first formed. End date represents the date
-        ///        when the group last dissolved: if a group dissolved and then reunited, the date is that
-        ///        of when they last dissolved (if they are together, it should be blank!). For listing
-        ///        other inactivity periods, just use the annotation and the "member of" relationships.
-        ///
-        ///    - For a character
-        ///        Begin date represents the date (in real life) when the character concept was created.
-        ///        The End date should not be set, since new media featuring a character can be created
-        ///        at any time. In particular, the Begin and End date fields should not be used to hold
-        ///        the fictional birth or death dates of a character.
-        ///        (This information can be put in the annotation.)
-        ///
-        ///    - For others
-        ///        There are no clear indications about how to use dates for artists of the type Other at
-        ///        the moment.
-
+    /// Its exact meaning depends on the type of artist:
+    ///
+    ///  - For a person
+    ///        Begin date represents date of birth, and end date represents date of death.
+    ///
+    ///    - For a group (or orchestra/choir)
+    ///        Begin date represents the date when the group first formed: if a group dissolved and then
+    ///        reunited, the date is still that of when they first formed. End date represents the date
+    ///        when the group last dissolved: if a group dissolved and then reunited, the date is that
+    ///        of when they last dissolved (if they are together, it should be blank!). For listing
+    ///        other inactivity periods, just use the annotation and the "member of" relationships.
+    ///
+    ///    - For a character
+    ///        Begin date represents the date (in real life) when the character concept was created.
+    ///        The End date should not be set, since new media featuring a character can be created
+    ///        at any time. In particular, the Begin and End date fields should not be used to hold
+    ///        the fictional birth or death dates of a character.
+    ///        (This information can be put in the annotation.)
+    ///
+    ///    - For others
+    ///        There are no clear indications about how to use dates for artists of the type Other at
+    ///        the moment.
     pub life_span: LifeSpan,
 
     pub tags: Option<Vec<Tag>>,
@@ -91,7 +90,7 @@ pub enum ArtistType {
     /// This indicates an individual fictional character.
     Character,
     /// Anything which does not fit into the above categories.
-    Other
+    Other,
 }
 
 /// The gender is used to explicitly state whether a person or character identifies as male,

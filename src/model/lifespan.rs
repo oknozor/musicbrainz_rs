@@ -1,5 +1,5 @@
+use crate::date_format;
 use chrono::NaiveDate;
-use crate::{date_format};
 
 #[derive(Debug, Serialize, Deserialize, PartialEq)]
 pub struct LifeSpan {
