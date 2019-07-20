@@ -3,6 +3,7 @@ use crate::model::artist::Artist;
 use crate::model::event::Event;
 use crate::model::instrument::*;
 use crate::model::label::Label;
+use crate::model::place::Place;
 use crate::model::recording::Recording;
 use crate::model::release::Release;
 use crate::model::release_group::ReleaseGroup;
@@ -17,6 +18,7 @@ pub mod event;
 pub mod instrument;
 pub mod label;
 pub mod lifespan;
+pub mod place;
 pub mod recording;
 pub mod relations;
 pub mod release;
@@ -74,5 +76,11 @@ impl QueryAble<'_, event::Include> for Event {
 impl QueryAble<'_, instrument::Include> for Instrument {
     fn path() -> &'static str {
         "instrument"
+    }
+}
+
+impl QueryAble<'_, place::Include> for Place {
+    fn path() -> &'static str {
+        "place"
     }
 }

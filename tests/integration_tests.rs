@@ -10,6 +10,7 @@ use musicbrainz_rs::model::event::Event;
 use musicbrainz_rs::model::instrument::*;
 use musicbrainz_rs::model::label::*;
 use musicbrainz_rs::model::lifespan::*;
+use musicbrainz_rs::model::place::*;
 use musicbrainz_rs::model::recording::Recording;
 use musicbrainz_rs::model::release::*;
 use musicbrainz_rs::model::release_group::*;
@@ -237,6 +238,44 @@ fn should_get_instrument() {
             type_id: "cc00f97f-cf3d-3ae2-9163-041cb1a0d726".to_string(),
             description: "".to_string(),
             disambiguation: "".to_string()
+        }
+    )
+}
+
+#[test]
+fn should_get_place() {
+    let blue_note_record = Place::fetch()
+        .id("327c29c6-da63-4dc9-a117-1917ee691ce4")
+        .execute();
+
+    assert_eq!(
+        blue_note_record.unwrap(),
+        Place {
+            id: "327c29c6-da63-4dc9-a117-1917ee691ce4".to_string(),
+            name: "Blue Note".to_string(),
+            disambiguation: "Chicago, 1954-1960".to_string(),
+            life_span: LifeSpan {
+                begin: Some(NaiveDate::from_ymd(1954, 4, 2)),
+                end: Some(NaiveDate::from_ymd(1960, 6, 14)),
+                ended: true
+            },
+            type_id: "cd92781a-a73f-30e8-a430-55d7521338db".to_string(),
+            place_type: "Venue".to_string(),
+            address: "3 North Clark Street, Chicago, IL 60602".to_string(),
+            area: Area {
+                id: "29a709d8-0320-493e-8d0c-f2c386662b7f".to_string(),
+                disambiguation: "".to_string(),
+                sort_name: "Chicago".to_string(),
+                name: "Chicago".to_string(),
+                area_type: None,
+                type_id: None,
+                iso_3166_1_codes: None,
+                life_span: None,
+            },
+            coordinates: Coordinates {
+                latitude: "41.882059".to_string(),
+                longitude: "-87.630881".to_string(),
+            }
         }
     )
 }
