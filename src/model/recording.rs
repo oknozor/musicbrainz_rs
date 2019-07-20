@@ -1,3 +1,5 @@
+use crate::Include as IncludeInto;
+
 /// A recording is an entity in MusicBrainz which can be linked to tracks on releases. Each track
 /// must always be associated with a single recording, but a recording can be linked to any number
 /// of tracks.
@@ -25,4 +27,17 @@ pub struct Recording {
 
     /// See Disambiguation Comment.
     pub disambiguation: String,
+}
+
+#[derive(Debug, PartialEq)]
+pub enum Include {
+    ArtistRelations,
+}
+
+impl IncludeInto<Recording> for Include {
+    fn as_str(&self) -> &str {
+        match self {
+            Include::ArtistRelations => "artist-rels",
+        }
+    }
 }

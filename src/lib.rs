@@ -11,16 +11,19 @@ pub mod model;
 
 const BASE_URL: &str = "http://musicbrainz.org/ws/2";
 
-pub struct Query<T> {
+pub struct Query<T, I: Include<T>> {
     path: String,
-    include: Vec<Include>,
+    include: Vec<I>,
     phantom: PhantomData<T>,
 }
 
-impl<'a, T> Query<T> {
+impl<'a, T, I> Query<T, I>
+where
+    I: Include<T> + PartialEq,
+{
     pub fn execute(&mut self) -> Result<T, reqwest::Error>
     where
-        T: QueryAble<'a> + DeserializeOwned,
+        T: QueryAble<'a, I> + DeserializeOwned,
     {
         let client = reqwest::Client::new();
 
@@ -29,7 +32,7 @@ impl<'a, T> Query<T> {
         client.get(&self.path).send()?.json()
     }
 
-    pub fn include(&mut self, include: Include) -> &mut Self {
+    pub fn include(&mut self, include: I) -> &mut Self {
         self.include.push(include);
         self
     }
@@ -39,7 +42,7 @@ impl<'a, T> Query<T> {
         self
     }
 
-    pub fn include_to_path(&mut self) {
+    fn include_to_path(&mut self) {
         if !self.include.is_empty() {
             self.path.push_str("&inc=");
         }
@@ -56,12 +59,13 @@ impl<'a, T> Query<T> {
 }
 
 /// This trait provide a generic method to fetch music brainz resource
-pub trait QueryAble<'a> {
+pub trait QueryAble<'a, I> {
     fn path() -> &'static str;
 
-    fn fetch() -> Query<Self>
+    fn fetch() -> Query<Self, I>
     where
         Self: Sized,
+        I: Include<Self> + PartialEq,
     {
         Query {
             path: format!("{}/{}", BASE_URL, Self::path()),
@@ -69,74 +73,76 @@ pub trait QueryAble<'a> {
             include: vec![],
         }
     }
-
-    fn get_allowed_includes() -> Vec<Include>;
 }
 
-#[derive(Debug, PartialEq)]
-pub enum Include {
-    Artists,
-    Recordings,
-    ReleaseGroups,
-    Releases,
-    Works,
-    UserCollections,
-    Ircs,
-    Collections,
-    Labels,
-    ArtistRelations,
-    EventRelations,
-    UrlRelations,
-    AreaRelations,
-    InstrumentRelations,
-    LabelRelations,
-    PlaceRelations,
-    ReleaseRelations,
-    ReleaseGroupRelations,
-    SeriesRelations,
-    WorkRelations,
-    Annotations,
-    Aliases,
-    Tags,
-    Rating,
-    UserTags,
-    UserRatings,
-    Genres,
-    UserGenres,
+pub trait Include<T> {
+    fn as_str(&self) -> &str;
 }
 
-impl Include {
-    pub fn as_str(&self) -> &str {
-        use Include::*;
-        match self {
-            Artists => "artists",
-            Recordings => "recordings",
-            Releases => "releases",
-            ReleaseGroups => "release-groups",
-            Works => "works",
-            UserCollections => "user-collections",
-            Ircs => "ircs",
-            UrlRelations => "url-rels",
-            Collections => "collectionts",
-            Labels => "labels",
-            ArtistRelations => "artist-rels",
-            EventRelations => "event-rels",
-            AreaRelations => "area-rels",
-            InstrumentRelations => "instrument-rels",
-            LabelRelations => "label-rels",
-            PlaceRelations => "place-rels",
-            ReleaseRelations => "release-rels",
-            ReleaseGroupRelations => "release-group-rels",
-            SeriesRelations => "series-rels",
-            WorkRelations => "work-rels",
-            Annotations => "annotation",
-            Aliases => "aliases",
-            Tags => "tags",
-            Rating => "ratings",
-            UserTags => "user-tags",
-            UserRatings => "user-ratings",
-            Genres => "genres",
-            UserGenres => "user-genres",
-        }
-    }
-}
+// #[derive(Debug, PartialEq)]
+// pub enum Include {
+//     Artists,
+//     Recordings,
+//     ReleaseGroups,
+//     Releases,
+//     Works,
+//     UserCollections,
+//     Ircs,
+//     Collections,
+//     Labels,
+//     ArtistRelations,
+//     EventRelations,
+//     UrlRelations,
+//     AreaRelations,
+//     InstrumentRelations,
+//     LabelRelations,
+//     PlaceRelations,
+//     ReleaseRelations,
+//     ReleaseGroupRelations,
+//     SeriesRelations,
+//     WorkRelations,
+//     Annotations,
+//     Aliases,
+//     Tags,
+//     Rating,
+//     UserTags,
+//     UserRatings,
+//     Genres,
+//     UserGenres,
+// }
+
+// impl Include {
+//     pub fn as_str(&self) -> &str {
+//         use Include::*;
+//         match self {
+//             Artists => "artists",
+//             Recordings => "recordings",
+//             Releases => "releases",
+//             ReleaseGroups => "release-groups",
+//             Works => "works",
+//             UserCollections => "user-collections",
+//             Ircs => "ircs",
+//             UrlRelations => "url-rels",
+//             Collections => "collectionts",
+//             Labels => "labels",
+//             ArtistRelations => "artist-rels",
+//             EventRelations => "event-rels",
+//             AreaRelations => "area-rels",
+//             InstrumentRelations => "instrument-rels",
+//             LabelRelations => "label-rels",
+//             PlaceRelations => "place-rels",
+//             ReleaseRelations => "release-rels",
+//             ReleaseGroupRelations => "release-group-rels",
+//             SeriesRelations => "series-rels",
+//             WorkRelations => "work-rels",
+//             Annotations => "annotation",
+//             Aliases => "aliases",
+//             Tags => "tags",
+//             Rating => "ratings",
+//             UserTags => "user-tags",
+//             UserRatings => "user-ratings",
+//             Genres => "genres",
+//             UserGenres => "user-genres",
+//         }
+//     }
+// }
