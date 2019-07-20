@@ -7,6 +7,7 @@ use musicbrainz_rs::model::area::*;
 use musicbrainz_rs::model::artist::ArtistType::*;
 use musicbrainz_rs::model::artist::*;
 use musicbrainz_rs::model::event::Event;
+use musicbrainz_rs::model::instrument::*;
 use musicbrainz_rs::model::label::*;
 use musicbrainz_rs::model::lifespan::*;
 use musicbrainz_rs::model::recording::Recording;
@@ -217,6 +218,25 @@ fn should_get_event_by_id() {
                 end: Some(NaiveDate::from_ymd(1989, 9, 16)),
                 ended: true
             }
+        }
+    )
+}
+
+#[test]
+fn should_get_instrument() {
+    let mandoline = Instrument::fetch()
+        .id("37fa9bb5-d5d7-4b0f-aa4d-531339ba9c32")
+        .execute();
+
+    assert_eq!(
+        mandoline.unwrap(),
+        Instrument {
+            id: "37fa9bb5-d5d7-4b0f-aa4d-531339ba9c32".to_string(),
+            name: "mandolin".to_string(),
+            instrument_type: "String instrument".to_string(),
+            type_id: "cc00f97f-cf3d-3ae2-9163-041cb1a0d726".to_string(),
+            description: "".to_string(),
+            disambiguation: "".to_string()
         }
     )
 }
