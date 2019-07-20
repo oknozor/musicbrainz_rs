@@ -1,6 +1,8 @@
 use crate::model::area::Area;
 use crate::model::lifespan::LifeSpan;
 use crate::model::relations::Relation;
+use crate::model::release::Release;
+use crate::model::work::Work;
 
 /// An artist is generally a musician (or musician persona), group of musicians, or other music
 /// professional (like a producer or engineer). Occasionally, it can also be a non-musical person
@@ -22,8 +24,9 @@ pub struct Artist {
     pub sort_name: String,
 
     pub disambiguation: String,
-    #[serde(rename = "type")]
+
     /// The type is used to state whether an artist is a person, a group, or something else. 
+    #[serde(rename = "type")]
     pub artist_type: ArtistType,
 
     /// The gender is used to explicitly state whether a person or character identifies as male,
@@ -41,6 +44,8 @@ pub struct Artist {
     pub begin_area: Area,           // all other field are deserialized in kebab-case
 
     pub relations: Option<Vec<Relation>>,
+    pub releases: Option<Vec<Release>>, 
+    pub works: Option<Vec<Work>>,
 
     pub country: String,
 

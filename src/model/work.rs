@@ -7,9 +7,10 @@
 pub struct Work {
     /// See [MusicBrainz Identifier](https://musicbrainz.org/doc/MusicBrainz_Identifier).
     pub id: String,
-    pub type_id: String,
+    pub type_id: Option<String>,
     #[serde(rename = "type")]
-    pub work_type: String,
-    pub language: String,
-    pub disambiguation: String,
+    pub work_type: Option<String>,
+    pub language: Option<String>,
+    pub languages: Option<Vec<String>>,
+    pub disambiguation: Option<String>,
 }
