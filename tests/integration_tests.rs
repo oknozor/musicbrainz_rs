@@ -61,6 +61,7 @@ fn should_get_artist_by_id() {
             recordings: None,
             release_groups: None,
             works: None,
+            aliases: None,
         }
     );
 }
