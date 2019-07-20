@@ -6,6 +6,7 @@ use crate::model::relations::Relation;
 use crate::model::release::Release;
 use crate::model::release_group::ReleaseGroup;
 use crate::model::work::Work;
+use crate::Include as IncludeInto;
 
 /// An artist is generally a musician (or musician persona), group of musicians, or other music
 /// professional (like a producer or engineer). Occasionally, it can also be a non-musical person
@@ -111,4 +112,27 @@ pub enum Gender {
 pub struct Tag {
     pub name: String,
     pub count: u32,
+}
+
+#[derive(Debug, PartialEq)]
+pub enum Include {
+    ArtistRelations,
+    Releases,
+    ReleaseGroups,
+    Recordings,
+    Aliases,
+    Works,
+}
+
+impl IncludeInto<Artist> for Include {
+    fn as_str(&self) -> &str {
+        match self {
+            Include::ArtistRelations => "artist-rels",
+            Include::Releases => "releases",
+            Include::ReleaseGroups => "release-groups",
+            Include::Recordings => "recordings",
+            Include::Aliases => "aliases",
+            Include::Works => "works",
+        }
+    }
 }

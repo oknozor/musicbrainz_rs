@@ -1,4 +1,5 @@
 use crate::date_format;
+use crate::Include as IncludeInto;
 use chrono::NaiveDate;
 
 #[derive(Debug, Serialize, Deserialize, PartialEq)]
@@ -27,4 +28,17 @@ pub struct ReleaseGroup {
 
     /// See Disambiguation Comment.
     pub disambiguation: String,
+}
+
+#[derive(Debug, PartialEq)]
+pub enum Include {
+    ArtistRelations,
+}
+
+impl IncludeInto<ReleaseGroup> for Include {
+    fn as_str(&self) -> &str {
+        match self {
+            Include::ArtistRelations => "artist-rels",
+        }
+    }
 }

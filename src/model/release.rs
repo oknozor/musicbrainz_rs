@@ -1,4 +1,5 @@
 use crate::date_format;
+use crate::Include as IncludeInto;
 use chrono::NaiveDate;
 
 /// A MusicBrainz release represents the unique release (i.e. issuing) of a product on a specific
@@ -118,4 +119,17 @@ pub enum ReleaseStatus {
     PseudoRelease,
 
     None,
+}
+
+#[derive(Debug, PartialEq)]
+pub enum Include {
+    ArtistRelations,
+}
+
+impl IncludeInto<Release> for Include {
+    fn as_str(&self) -> &str {
+        match self {
+            Include::ArtistRelations => "artist-rels",
+        }
+    }
 }

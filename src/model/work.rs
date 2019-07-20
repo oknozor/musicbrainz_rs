@@ -1,3 +1,5 @@
+use crate::Include as IncludeInto;
+
 /// In MusicBrainz terminology, a work is a distinct intellectual or artistic creation, which can be
 /// expressed in the form of one or more audio recordings. While a work in MusicBrainz is usually
 /// musical in nature, it is not necessarily so. For example, a work could be a novel, play,
@@ -13,4 +15,17 @@ pub struct Work {
     pub language: Option<String>,
     pub languages: Option<Vec<String>>,
     pub disambiguation: Option<String>,
+}
+
+#[derive(Debug, PartialEq)]
+pub enum Include {
+    ArtistRelations,
+}
+
+impl IncludeInto<Work> for Include {
+    fn as_str(&self) -> &str {
+        match self {
+            Include::ArtistRelations => "artist-rels",
+        }
+    }
 }
