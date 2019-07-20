@@ -24,7 +24,6 @@ impl<'a, T> Query<T> {
     {
         let client = reqwest::Client::new();
 
-        println!("{}", &self.path);
         self.path.push_str("?fmt=json");
         self.include_to_path();
         client.get(&self.path).send()?.json()
