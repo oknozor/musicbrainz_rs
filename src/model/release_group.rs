@@ -1,10 +1,9 @@
+use crate::date_format;
 use chrono::NaiveDate;
-use crate::{date_format};
 
 #[derive(Debug, Serialize, Deserialize, PartialEq)]
 #[serde(rename_all(deserialize = "kebab-case"))]
 pub struct ReleaseGroup {
-
     /// See [MusicBrainz Identifier](https://musicbrainz.org/doc/MusicBrainz_Identifier).
     pub id: String,
 

@@ -1,4 +1,3 @@
-
 /// A recording is an entity in MusicBrainz which can be linked to tracks on releases. Each track
 /// must always be associated with a single recording, but a recording can be linked to any number
 /// of tracks.
@@ -9,7 +8,6 @@
 /// production process before any final mastering but after any editing or mixing.
 #[derive(Debug, Serialize, Deserialize, PartialEq)]
 pub struct Recording {
-
     /// See [MusicBrainz Identifier](https://musicbrainz.org/doc/MusicBrainz_Identifier).
     pub id: String,
 

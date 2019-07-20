@@ -1,5 +1,5 @@
-extern crate musicbrainz_rs; 
-extern crate chrono; 
+extern crate chrono;
+extern crate musicbrainz_rs;
 
 use chrono::NaiveDate;
 

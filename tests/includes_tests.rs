@@ -1,14 +1,12 @@
-
-extern crate musicbrainz_rs; 
-extern crate chrono; 
+extern crate chrono;
+extern crate musicbrainz_rs;
 
 use musicbrainz_rs::model::artist::*;
-use musicbrainz_rs::QueryAble;
 use musicbrainz_rs::Include;
+use musicbrainz_rs::QueryAble;
 
 #[test]
 fn should_get_artist_releases() {
-
     let john_lee_hooker = Artist::fetch()
         .id("5b11f4ce-a62d-471e-81fc-a69a8278c7da")
         .include(Include::Releases)
@@ -23,7 +21,6 @@ fn should_get_artist_releases() {
 
 #[test]
 fn should_get_artist_works() {
-
     let john_lee_hooker = Artist::fetch()
         .id("5b11f4ce-a62d-471e-81fc-a69a8278c7da")
         .include(Include::Works)
