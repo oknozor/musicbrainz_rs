@@ -6,6 +6,7 @@ use chrono::NaiveDate;
 use musicbrainz_rs::model::area::*;
 use musicbrainz_rs::model::artist::ArtistType::*;
 use musicbrainz_rs::model::artist::*;
+use musicbrainz_rs::model::event::Event;
 use musicbrainz_rs::model::label::*;
 use musicbrainz_rs::model::lifespan::*;
 use musicbrainz_rs::model::recording::Recording;
@@ -190,6 +191,32 @@ fn should_get_area_by_id() {
                 begin: None,
                 end: None,
             })
+        }
+    )
+}
+
+#[test]
+fn should_get_event_by_id() {
+    let dour_festival_1989 = Event::fetch()
+        .id("73df2f48-383b-4930-bad3-05ba938be578")
+        .execute();
+
+    assert_eq!(
+        dour_festival_1989.unwrap(),
+        Event {
+            id: "73df2f48-383b-4930-bad3-05ba938be578".to_string(),
+            name: "Dour 1989".to_string(),
+            cancelled: false,
+            type_id: Some("b6ded574-b592-3f0e-b56e-5b5f06aa0678".to_string()),
+            event_type: Some("Festival".to_string()),
+            disambiguation: "".to_string(),
+            time: "".to_string(),
+            setlist: "".to_string(),
+            life_span: LifeSpan {
+                begin: Some(NaiveDate::from_ymd(1989, 9, 16)),
+                end: Some(NaiveDate::from_ymd(1989, 9, 16)),
+                ended: true
+            }
         }
     )
 }
