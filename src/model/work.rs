@@ -9,6 +9,7 @@ use crate::Include as IncludeInto;
 pub struct Work {
     /// See [MusicBrainz Identifier](https://musicbrainz.org/doc/MusicBrainz_Identifier).
     pub id: String,
+    pub title: String,
     pub type_id: Option<String>,
     #[serde(rename = "type")]
     pub work_type: Option<String>,
