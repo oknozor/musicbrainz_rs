@@ -1,4 +1,6 @@
 use crate::date_format;
+use crate::model::artist_credit::ArtistCredit;
+use crate::model::release::Release;
 use crate::Include as IncludeInto;
 use chrono::NaiveDate;
 
@@ -28,17 +30,22 @@ pub struct ReleaseGroup {
 
     /// See Disambiguation Comment.
     pub disambiguation: String,
+
+    pub artist_credit: Option<Vec<ArtistCredit>>,
+    pub releases: Option<Vec<Release>>,
 }
 
 #[derive(Debug, PartialEq)]
 pub enum Include {
-    ArtistRelations,
+    Artists,
+    Releases,
 }
 
 impl IncludeInto<ReleaseGroup> for Include {
     fn as_str(&self) -> &str {
         match self {
-            Include::ArtistRelations => "artist-rels",
+            Include::Artists => "artists",
+            Include::Releases => "releases",
         }
     }
 }
