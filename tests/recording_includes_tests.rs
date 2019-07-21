@@ -2,6 +2,7 @@ extern crate musicbrainz_rs;
 use musicbrainz_rs::model::recording;
 use musicbrainz_rs::model::recording::*;
 use musicbrainz_rs::QueryAble;
+use std::{thread, time};
 
 #[test]
 fn should_get_recording_artists() {
@@ -15,6 +16,8 @@ fn should_get_recording_artists() {
     assert!(!artist_credit.is_empty());
     assert!(artist_credit.iter().any(|credit| credit.name == "TTC"));
     assert!(artist_credit.iter().any(|credit| credit.name == "Svinkels"));
+
+    thread::sleep(time::Duration::from_secs(1));
 }
 
 #[test]
@@ -30,6 +33,8 @@ fn should_get_recording_releases() {
         .unwrap()
         .iter()
         .any(|release| release.title == "Hooker ’n Heat"));
+
+    thread::sleep(time::Duration::from_secs(1));
 }
 
 #[test]
@@ -42,4 +47,6 @@ fn should_get_recording_aliases() {
     let aliases = you_talk_too_much.unwrap().aliases;
 
     assert!(aliases.is_some()); // FIXME: didn't find a recording containing actual aliases (yet)
+
+    thread::sleep(time::Duration::from_secs(1));
 }
