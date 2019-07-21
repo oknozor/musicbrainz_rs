@@ -161,6 +161,7 @@ fn should_get_work_by_id() {
         hotel_california.unwrap(),
         Work {
             id: "22457dc0-ecbf-38f5-9056-11c858530a50".to_string(),
+            title: "Hotel California".to_string(),
             type_id: Some("f061270a-2fd6-32f1-a641-f0f8676d14e6".to_string()),
             work_type: Some("Song".to_string()),
             languages: Some(vec!["eng".to_string()]),

@@ -13,7 +13,6 @@ fn should_get_recording_artists() {
 
     let artist_credit = association_de_gens_normal.unwrap().artist_credit.unwrap();
 
-    assert!(!artist_credit.is_empty());
     assert!(artist_credit.iter().any(|credit| credit.name == "TTC"));
     assert!(artist_credit.iter().any(|credit| credit.name == "Svinkels"));
 
