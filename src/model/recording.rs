@@ -21,7 +21,7 @@ pub struct Recording {
     /// The title of the recording.
     pub title: String,
 
-    pub video: bool,
+    pub video: Option<bool>,
 
     /// The length of the recording. It's only entered manually for
     /// [standalone recordings](https://musicbrainz.org/doc/Standalone_Recording). For recordings
@@ -31,12 +31,24 @@ pub struct Recording {
     pub length: Option<u32>, // TODO: CUSTOM Deserialized to make this a duration
 
     /// See Disambiguation Comment.
-    pub disambiguation: String,
+    pub disambiguation: Option<String>,
 
     pub relations: Option<Vec<Relation>>,
     pub releases: Option<Vec<Release>>,
     pub artist_credit: Option<Vec<ArtistCredit>>,
     pub aliases: Option<Vec<Alias>>,
+}
+
+#[derive(Debug, Serialize, Deserialize, PartialEq)]
+#[serde(rename_all(deserialize = "kebab-case"))]
+pub struct Media {
+    pub track_count: u32,
+    pub title: String,
+    pub format: String,
+    pub format_id: String,
+    pub position: u32,
+    pub track_offset: u32,
+    pub tracks: Vec<Recording>,
 }
 
 #[derive(Debug, PartialEq)]

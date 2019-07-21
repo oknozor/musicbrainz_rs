@@ -82,9 +82,9 @@ fn should_get_recording_by_id() {
         Recording {
             id: "af40d6b8-58e8-4ca5-9db8-d4fca0b899e2".to_string(),
             title: "(New Wave) Polly".to_string(),
-            video: false,
+            video: Some(false),
             length: Some(246_000),
-            disambiguation: "".to_string(),
+            disambiguation: Some("".to_string()),
             aliases: None,
             artist_credit: None,
             relations: None,
@@ -134,6 +134,9 @@ fn should_get_release() {
             disambiguation: Some("".to_string()),
             packaging_id: Some("ec27701a-4a22-37f4-bfac-6616e0f9750a".to_string()),
             packaging: Some("Jewel Case".to_string()),
+            label_info: None,
+            media: None,
+            release_group: None,
         }
     )
 }
@@ -167,13 +170,13 @@ fn should_get_label_by_id() {
         ninja_tune.unwrap(),
         Label {
             id: "dc940013-b8a8-4362-a465-291026c04b42".to_string(),
-            type_id: "7aaa37fe-2def-3476-b359-80245850062d".to_string(),
-            label_type: "Original Production".to_string(),
+            type_id: Some("7aaa37fe-2def-3476-b359-80245850062d".to_string()),
+            label_type: Some("Original Production".to_string()),
             name: "Ninja Tune".to_string(),
             sort_name: "Ninja Tune".to_string(),
             disambiguation: "".to_string(),
-            country: "GB".to_string(),
-            label_code: 12885,
+            country: Some("GB".to_string()),
+            label_code: Some(12885),
             releases: None,
             aliases: None,
         }
