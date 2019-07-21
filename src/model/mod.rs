@@ -16,6 +16,7 @@ use crate::QueryAble;
 pub mod alias;
 pub mod area;
 pub mod artist;
+pub mod artist_credit;
 pub mod event;
 pub mod instrument;
 pub mod label;

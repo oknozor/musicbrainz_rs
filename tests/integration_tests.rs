@@ -32,10 +32,10 @@ fn should_get_artist_by_id() {
             name: String::from("Nirvana"),
             sort_name: String::from("Nirvana"),
             disambiguation: String::from("90s US grunge band"),
-            artist_type: Group,
+            artist_type: Some(Group),
             gender: None,
-            country: "US".to_string(),
-            area: Area {
+            country: Some("US".to_string()),
+            area: Some(Area {
                 id: "489ce91b-6658-3307-9877-795b68554c98".to_string(),
                 area_type: None,
                 type_id: None,
@@ -44,8 +44,8 @@ fn should_get_artist_by_id() {
                 sort_name: "United States".to_string(),
                 iso_3166_1_codes: Some(vec!["US".to_string(),]),
                 life_span: None,
-            },
-            begin_area: Area {
+            }),
+            begin_area: Some(Area {
                 id: "a640b45c-c173-49b1-8030-973603e895b5".to_string(),
                 area_type: None,
                 type_id: None,
@@ -54,12 +54,12 @@ fn should_get_artist_by_id() {
                 sort_name: "Aberdeen".to_string(),
                 iso_3166_1_codes: None,
                 life_span: None,
-            },
-            life_span: LifeSpan {
+            }),
+            life_span: Some(LifeSpan {
                 ended: true,
                 begin: Some(NaiveDate::from_ymd(1988, 1, 1)),
                 end: Some(NaiveDate::from_ymd(1994, 4, 5)),
-            },
+            }),
             tags: None,
             relations: None,
             releases: None,
@@ -85,6 +85,10 @@ fn should_get_recording_by_id() {
             video: false,
             length: Some(246_000),
             disambiguation: "".to_string(),
+            aliases: None,
+            artist_credit: None,
+            relations: None,
+            releases: None,
         }
     );
 }
@@ -171,6 +175,7 @@ fn should_get_label_by_id() {
             country: "GB".to_string(),
             label_code: 12885,
             releases: None,
+            aliases: None,
         }
     )
 }

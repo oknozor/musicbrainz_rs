@@ -15,3 +15,16 @@ fn should_get_label_releases() {
     assert!(releases.is_some());
     assert!(!releases.unwrap().is_empty());
 }
+
+#[test]
+fn should_get_label_aliases() {
+    let motown = Label::fetch()
+        .id("8e479e57-ef44-490c-b75d-cd28df89bf1b")
+        .include(label::Include::Aliases)
+        .execute();
+
+    let aliases = motown.unwrap().aliases;
+
+    assert!(aliases.is_some());
+    assert!(!aliases.unwrap().is_empty());
+}
