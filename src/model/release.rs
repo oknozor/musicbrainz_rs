@@ -107,7 +107,7 @@ pub enum ReleaseStatus {
     /// A give-away release or a release intended to promote an upcoming official release (e.g.
     /// pre-release versions, releases included with a magazine, versions supplied to radio DJs
     /// for air-play).
-    Promotional,
+    Promotion,
 
     /// An unofficial/underground release that was not sanctioned by the artist and/or the record
     /// company. This includes unofficial live recordings and pirated releases.

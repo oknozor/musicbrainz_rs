@@ -127,12 +127,12 @@ pub enum Include {
 impl IncludeInto<Artist> for Include {
     fn as_str(&self) -> &str {
         match self {
-            Include::ArtistRelations => "artist-rels",
+            Include::Recordings => "recordings",
             Include::Releases => "releases",
             Include::ReleaseGroups => "release-groups",
-            Include::Recordings => "recordings",
             Include::Aliases => "aliases",
             Include::Works => "works",
+            Include::ArtistRelations => "artist-rels",
         }
     }
 }
