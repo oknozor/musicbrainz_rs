@@ -169,7 +169,8 @@ fn should_get_label_by_id() {
             sort_name: "Ninja Tune".to_string(),
             disambiguation: "".to_string(),
             country: "GB".to_string(),
-            label_code: 12885
+            label_code: 12885,
+            releases: None,
         }
     )
 }
