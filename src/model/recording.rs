@@ -1,3 +1,7 @@
+use crate::model::alias::Alias;
+use crate::model::artist_credit::ArtistCredit;
+use crate::model::relations::Relation;
+use crate::model::release::Release;
 use crate::Include as IncludeInto;
 
 /// A recording is an entity in MusicBrainz which can be linked to tracks on releases. Each track
@@ -9,6 +13,7 @@ use crate::Include as IncludeInto;
 /// Generally, the audio represented by a recording corresponds to the audio at a stage in the
 /// production process before any final mastering but after any editing or mixing.
 #[derive(Debug, Serialize, Deserialize, PartialEq)]
+#[serde(rename_all(deserialize = "kebab-case"))]
 pub struct Recording {
     /// See [MusicBrainz Identifier](https://musicbrainz.org/doc/MusicBrainz_Identifier).
     pub id: String,
@@ -27,17 +32,26 @@ pub struct Recording {
 
     /// See Disambiguation Comment.
     pub disambiguation: String,
+
+    pub relations: Option<Vec<Relation>>,
+    pub releases: Option<Vec<Release>>,
+    pub artist_credit: Option<Vec<ArtistCredit>>,
+    pub aliases: Option<Vec<Alias>>,
 }
 
 #[derive(Debug, PartialEq)]
 pub enum Include {
-    ArtistRelations,
+    Artists,
+    Releases,
+    Aliases,
 }
 
 impl IncludeInto<Recording> for Include {
     fn as_str(&self) -> &str {
         match self {
-            Include::ArtistRelations => "artist-rels",
+            Include::Artists => "artists",
+            Include::Releases => "releases",
+            Include::Aliases => "aliases",
         }
     }
 }
