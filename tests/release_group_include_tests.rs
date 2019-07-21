@@ -1,6 +1,7 @@
 use musicbrainz_rs::model::release_group;
 use musicbrainz_rs::model::release_group::*;
 use musicbrainz_rs::QueryAble;
+use std::{thread, time};
 
 #[test]
 fn should_get_release_group_artists() {
@@ -14,7 +15,9 @@ fn should_get_release_group_artists() {
         .artist_credit
         .unwrap()
         .iter()
-        .any(|credit| credit.artist.name == "Neil Young"))
+        .any(|credit| credit.artist.name == "Neil Young"));
+
+    thread::sleep(time::Duration::from_secs(1));
 }
 
 #[test]
@@ -29,5 +32,7 @@ fn should_get_release_group_releases() {
         .releases
         .unwrap()
         .iter()
-        .any(|release| release.title == "Harvest" && release.country == Some("CA".to_string())))
+        .any(|release| release.title == "Harvest" && release.country == Some("CA".to_string())));
+
+    thread::sleep(time::Duration::from_secs(1));
 }

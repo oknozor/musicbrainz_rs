@@ -4,6 +4,7 @@ extern crate musicbrainz_rs;
 use musicbrainz_rs::model::artist;
 use musicbrainz_rs::model::artist::*;
 use musicbrainz_rs::QueryAble;
+use std::{thread, time};
 
 #[test]
 fn should_get_artist_releases() {
@@ -17,6 +18,8 @@ fn should_get_artist_releases() {
 
     assert!(releases.is_some());
     assert!(!releases.unwrap().is_empty());
+
+    thread::sleep(time::Duration::from_secs(1));
 }
 
 #[test]
@@ -31,6 +34,8 @@ fn should_get_artist_works() {
 
     assert!(works.is_some());
     assert!(!works.unwrap().is_empty());
+
+    thread::sleep(time::Duration::from_secs(1));
 }
 
 #[test]
@@ -45,6 +50,8 @@ fn should_get_artist_release_groups() {
 
     assert!(release_groups.is_some());
     assert!(!release_groups.unwrap().is_empty());
+
+    thread::sleep(time::Duration::from_secs(1));
 }
 
 #[test]
@@ -59,6 +66,8 @@ fn should_get_artist_recordings() {
 
     assert!(recordings.is_some());
     assert!(!recordings.unwrap().is_empty());
+
+    thread::sleep(time::Duration::from_secs(1));
 }
 
 #[test]
@@ -87,4 +96,6 @@ fn should_get_artist_artist_relations() {
 
     assert!(relations.is_some());
     assert!(!relations.unwrap().is_empty());
+
+    thread::sleep(time::Duration::from_secs(1));
 }
