@@ -6,16 +6,23 @@ use crate::Include as IncludeInto;
 #[serde(rename_all(deserialize = "kebab-case"))]
 pub struct Label {
     pub id: String,
-    pub type_id: String,
+    pub type_id: Option<String>,
     #[serde(rename = "type")]
-    pub label_type: String,
+    pub label_type: Option<String>,
     pub name: String,
     pub sort_name: String,
     pub disambiguation: String,
-    pub country: String,
-    pub label_code: u32,
+    pub country: Option<String>,
+    pub label_code: Option<u32>,
     pub releases: Option<Vec<Release>>,
     pub aliases: Option<Vec<Alias>>,
+}
+
+#[derive(Debug, Serialize, Deserialize, PartialEq)]
+#[serde(rename_all(deserialize = "kebab-case"))]
+pub struct LabelInfo {
+    pub catalog_number: String,
+    pub label: Label,
 }
 
 #[derive(Debug, PartialEq)]
