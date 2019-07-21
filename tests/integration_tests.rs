@@ -18,6 +18,7 @@ use musicbrainz_rs::model::series::*;
 use musicbrainz_rs::model::url::*;
 use musicbrainz_rs::model::work::*;
 use musicbrainz_rs::QueryAble;
+use std::{thread, time};
 
 #[test]
 fn should_get_artist_by_id() {
@@ -32,10 +33,10 @@ fn should_get_artist_by_id() {
             name: String::from("Nirvana"),
             sort_name: String::from("Nirvana"),
             disambiguation: String::from("90s US grunge band"),
-            artist_type: Group,
+            artist_type: Some(Group),
             gender: None,
-            country: "US".to_string(),
-            area: Area {
+            country: Some("US".to_string()),
+            area: Some(Area {
                 id: "489ce91b-6658-3307-9877-795b68554c98".to_string(),
                 area_type: None,
                 type_id: None,
@@ -44,8 +45,8 @@ fn should_get_artist_by_id() {
                 sort_name: "United States".to_string(),
                 iso_3166_1_codes: Some(vec!["US".to_string(),]),
                 life_span: None,
-            },
-            begin_area: Area {
+            }),
+            begin_area: Some(Area {
                 id: "a640b45c-c173-49b1-8030-973603e895b5".to_string(),
                 area_type: None,
                 type_id: None,
@@ -54,12 +55,12 @@ fn should_get_artist_by_id() {
                 sort_name: "Aberdeen".to_string(),
                 iso_3166_1_codes: None,
                 life_span: None,
-            },
-            life_span: LifeSpan {
+            }),
+            life_span: Some(LifeSpan {
                 ended: true,
                 begin: Some(NaiveDate::from_ymd(1988, 1, 1)),
                 end: Some(NaiveDate::from_ymd(1994, 4, 5)),
-            },
+            }),
             tags: None,
             relations: None,
             releases: None,
@@ -68,7 +69,9 @@ fn should_get_artist_by_id() {
             works: None,
             aliases: None,
         }
-    )
+    );
+
+    thread::sleep(time::Duration::from_secs(1));
 }
 
 #[test]
@@ -82,11 +85,16 @@ fn should_get_recording_by_id() {
         Recording {
             id: "af40d6b8-58e8-4ca5-9db8-d4fca0b899e2".to_string(),
             title: "(New Wave) Polly".to_string(),
-            video: false,
+            video: Some(false),
             length: Some(246_000),
-            disambiguation: "".to_string(),
+            disambiguation: Some("".to_string()),
+            aliases: None,
+            artist_credit: None,
+            relations: None,
+            releases: None,
         }
     );
+    thread::sleep(time::Duration::from_secs(1));
 }
 
 #[test]
@@ -106,8 +114,12 @@ fn should_get_release_group_by_id() {
             first_release_date: NaiveDate::from_ymd(1993, 9, 21),
             title: "In Utero".to_string(),
             disambiguation: "".to_string(),
+            artist_credit: None,
+            releases: None,
         }
-    )
+    );
+
+    thread::sleep(time::Duration::from_secs(1));
 }
 
 #[test]
@@ -130,8 +142,13 @@ fn should_get_release() {
             disambiguation: Some("".to_string()),
             packaging_id: Some("ec27701a-4a22-37f4-bfac-6616e0f9750a".to_string()),
             packaging: Some("Jewel Case".to_string()),
+            label_info: None,
+            media: None,
+            release_group: None,
         }
-    )
+    );
+
+    thread::sleep(time::Duration::from_secs(1));
 }
 
 #[test]
@@ -144,13 +161,16 @@ fn should_get_work_by_id() {
         hotel_california.unwrap(),
         Work {
             id: "22457dc0-ecbf-38f5-9056-11c858530a50".to_string(),
+            title: "Hotel California".to_string(),
             type_id: Some("f061270a-2fd6-32f1-a641-f0f8676d14e6".to_string()),
             work_type: Some("Song".to_string()),
             languages: Some(vec!["eng".to_string()]),
             language: Some("eng".to_string()),
             disambiguation: Some("".to_string()),
         }
-    )
+    );
+
+    thread::sleep(time::Duration::from_secs(1));
 }
 
 #[test]
@@ -163,15 +183,19 @@ fn should_get_label_by_id() {
         ninja_tune.unwrap(),
         Label {
             id: "dc940013-b8a8-4362-a465-291026c04b42".to_string(),
-            type_id: "7aaa37fe-2def-3476-b359-80245850062d".to_string(),
-            label_type: "Original Production".to_string(),
+            type_id: Some("7aaa37fe-2def-3476-b359-80245850062d".to_string()),
+            label_type: Some("Original Production".to_string()),
             name: "Ninja Tune".to_string(),
             sort_name: "Ninja Tune".to_string(),
             disambiguation: "".to_string(),
-            country: "GB".to_string(),
-            label_code: 12885
+            country: Some("GB".to_string()),
+            label_code: Some(12885),
+            releases: None,
+            aliases: None,
         }
-    )
+    );
+
+    thread::sleep(time::Duration::from_secs(1));
 }
 
 #[test]
@@ -196,7 +220,9 @@ fn should_get_area_by_id() {
                 end: None,
             })
         }
-    )
+    );
+
+    thread::sleep(time::Duration::from_secs(1));
 }
 
 #[test]
@@ -222,7 +248,7 @@ fn should_get_event_by_id() {
                 ended: true
             }
         }
-    )
+    );
 }
 
 #[test]
@@ -241,7 +267,9 @@ fn should_get_instrument() {
             description: "".to_string(),
             disambiguation: "".to_string()
         }
-    )
+    );
+
+    thread::sleep(time::Duration::from_secs(1));
 }
 
 #[test]
@@ -279,7 +307,9 @@ fn should_get_place() {
                 longitude: "-87.630881".to_string(),
             }
         }
-    )
+    );
+
+    thread::sleep(time::Duration::from_secs(1));
 }
 
 #[test]
@@ -297,7 +327,9 @@ fn should_get_series() {
             disambiguation: "".to_string(),
             name: "La Chanson du Dimanche — Saison 4".to_string(),
         }
-    )
+    );
+
+    thread::sleep(time::Duration::from_secs(1));
 }
 
 #[test]
@@ -312,5 +344,7 @@ fn should_get_url() {
             resource: "http://www.svinkels.com/".to_string(),
             id: "9237f6da-fec6-4b8a-9d52-c7c18e0e2630".to_string(),
         }
-    )
+    );
+
+    thread::sleep(time::Duration::from_secs(1));
 }

@@ -1,3 +1,7 @@
+use crate::model::alias::Alias;
+use crate::model::artist_credit::ArtistCredit;
+use crate::model::relations::Relation;
+use crate::model::release::Release;
 use crate::Include as IncludeInto;
 
 /// A recording is an entity in MusicBrainz which can be linked to tracks on releases. Each track
@@ -9,6 +13,7 @@ use crate::Include as IncludeInto;
 /// Generally, the audio represented by a recording corresponds to the audio at a stage in the
 /// production process before any final mastering but after any editing or mixing.
 #[derive(Debug, Serialize, Deserialize, PartialEq)]
+#[serde(rename_all(deserialize = "kebab-case"))]
 pub struct Recording {
     /// See [MusicBrainz Identifier](https://musicbrainz.org/doc/MusicBrainz_Identifier).
     pub id: String,
@@ -16,7 +21,7 @@ pub struct Recording {
     /// The title of the recording.
     pub title: String,
 
-    pub video: bool,
+    pub video: Option<bool>,
 
     /// The length of the recording. It's only entered manually for
     /// [standalone recordings](https://musicbrainz.org/doc/Standalone_Recording). For recordings
@@ -26,18 +31,39 @@ pub struct Recording {
     pub length: Option<u32>, // TODO: CUSTOM Deserialized to make this a duration
 
     /// See Disambiguation Comment.
-    pub disambiguation: String,
+    pub disambiguation: Option<String>,
+
+    pub relations: Option<Vec<Relation>>,
+    pub releases: Option<Vec<Release>>,
+    pub artist_credit: Option<Vec<ArtistCredit>>,
+    pub aliases: Option<Vec<Alias>>,
+}
+
+#[derive(Debug, Serialize, Deserialize, PartialEq)]
+#[serde(rename_all(deserialize = "kebab-case"))]
+pub struct Media {
+    pub track_count: u32,
+    pub title: String,
+    pub format: String,
+    pub format_id: String,
+    pub position: u32,
+    pub track_offset: u32,
+    pub tracks: Vec<Recording>,
 }
 
 #[derive(Debug, PartialEq)]
 pub enum Include {
-    ArtistRelations,
+    Artists,
+    Releases,
+    Aliases,
 }
 
 impl IncludeInto<Recording> for Include {
     fn as_str(&self) -> &str {
         match self {
-            Include::ArtistRelations => "artist-rels",
+            Include::Artists => "artists",
+            Include::Releases => "releases",
+            Include::Aliases => "aliases",
         }
     }
 }

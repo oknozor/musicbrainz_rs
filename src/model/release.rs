@@ -1,4 +1,7 @@
 use crate::date_format;
+use crate::model::label::LabelInfo;
+use crate::model::recording::Media;
+use crate::model::release_group::ReleaseGroup;
 use crate::Include as IncludeInto;
 use chrono::NaiveDate;
 
@@ -19,6 +22,7 @@ use chrono::NaiveDate;
 /// can appear on more than one release. For example, a boxset compilation that contains previously
 /// released CDs would share the same tracklists as the separate releases.
 #[derive(Debug, Serialize, Deserialize, PartialEq)]
+#[serde(rename_all(deserialize = "kebab-case"))]
 pub struct Release {
     /// See [MusicBrainz Identifier](https://musicbrainz.org/doc/MusicBrainz_Identifier).
     pub id: String,
@@ -53,6 +57,10 @@ pub struct Release {
     /// The physical packaging that accompanies the release. See the
     /// [list of packaging](https://musicbrainz.org/doc/Release/Packaging) for more information.
     pub packaging: Option<String>, //TODO: This might be an enum needs to test all against all possible values
+
+    pub release_group: Option<ReleaseGroup>,
+    pub media: Option<Vec<Media>>,
+    pub label_info: Option<Vec<LabelInfo>>,
 }
 
 #[derive(Debug, Serialize, Deserialize, PartialEq)]
@@ -107,7 +115,7 @@ pub enum ReleaseStatus {
     /// A give-away release or a release intended to promote an upcoming official release (e.g.
     /// pre-release versions, releases included with a magazine, versions supplied to radio DJs
     /// for air-play).
-    Promotional,
+    Promotion,
 
     /// An unofficial/underground release that was not sanctioned by the artist and/or the record
     /// company. This includes unofficial live recordings and pirated releases.
@@ -123,13 +131,17 @@ pub enum ReleaseStatus {
 
 #[derive(Debug, PartialEq)]
 pub enum Include {
-    ArtistRelations,
+    Labels,
+    Recordings,
+    ReleaseGroup,
 }
 
 impl IncludeInto<Release> for Include {
     fn as_str(&self) -> &str {
         match self {
-            Include::ArtistRelations => "artist-rels",
+            Include::Labels => "labels",
+            Include::Recordings => "recordings",
+            Include::ReleaseGroup => "release-groups",
         }
     }
 }
