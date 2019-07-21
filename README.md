@@ -22,11 +22,44 @@ you may be looking for :
 All queries look like this one: 
 
 ```rust
+extern crate musicbrainz_rs;
+
+use musicbrainz_rs::model::artist;
+use musicbrainz_rs::model::artist::*;
+use musicbrainz_rs::QueryAble;
+
+fn main() {
     let nirvana = Artist::fetch()
         .id("5b11f4ce-a62d-471e-81fc-a69a8278c7da")
         .execute();
 
-    assert_eq!(nirvana.unwrap().name, "nirvana".to_string()); 
+    assert_eq!(nirvana.unwrap().name, "Nirvana".to_string());
+}
+```
+
+You can also use includes to get more detail about a resource : 
+
+```rust
+
+extern crate musicbrainz_rs;
+
+use musicbrainz_rs::model::artist;
+use musicbrainz_rs::model::artist::*;
+use musicbrainz_rs::QueryAble;
+
+fn main() {
+    let john_lee_hooker = Artist::fetch()
+        .id("b0122194-c49a-46a1-ade7-84d1d76bd8e9")
+        .include(artist::Include::Recordings)
+        .execute()
+        .unwrap();
+
+    let recordings = john_lee_hooker.recordings.unwrap();
+
+    assert!(recordings
+        .iter()
+        .any(|recording| recording.title == "A Little Bit Higher"));
+}
 ```
 To see what is currently implemented in the crate you can look at the `tests` directory. 
 
