@@ -3,6 +3,8 @@ use musicbrainz_rs::model::label;
 use musicbrainz_rs::model::label::Label;
 use musicbrainz_rs::QueryAble;
 
+use std::{thread, time};
+
 #[test]
 fn should_get_label_releases() {
     let ninja_tune = Label::fetch()
@@ -12,7 +14,12 @@ fn should_get_label_releases() {
 
     let releases = ninja_tune.unwrap().releases;
 
-    assert!(releases.unwrap().iter().any(|release| release.title == "The Final Corporate Colonization of the Unconscious"));
+    assert!(releases
+        .unwrap()
+        .iter()
+        .any(|release| release.title == "The Final Corporate Colonization of the Unconscious"));
+
+    thread::sleep(time::Duration::from_secs(1));
 }
 
 #[test]
@@ -25,4 +32,6 @@ fn should_get_label_aliases() {
     let aliases = motown.unwrap().aliases;
 
     assert!(aliases.unwrap().iter().any(|alias| alias.name == "Motown"));
+
+    thread::sleep(time::Duration::from_secs(1));
 }

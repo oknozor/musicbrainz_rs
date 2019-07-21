@@ -18,6 +18,7 @@ use musicbrainz_rs::model::series::*;
 use musicbrainz_rs::model::url::*;
 use musicbrainz_rs::model::work::*;
 use musicbrainz_rs::QueryAble;
+use std::{thread, time};
 
 #[test]
 fn should_get_artist_by_id() {
@@ -68,7 +69,9 @@ fn should_get_artist_by_id() {
             works: None,
             aliases: None,
         }
-    )
+    );
+
+    thread::sleep(time::Duration::from_secs(1));
 }
 
 #[test]
@@ -91,6 +94,7 @@ fn should_get_recording_by_id() {
             releases: None,
         }
     );
+    thread::sleep(time::Duration::from_secs(1));
 }
 
 #[test]
@@ -113,7 +117,9 @@ fn should_get_release_group_by_id() {
             artist_credit: None,
             releases: None,
         }
-    )
+    );
+
+    thread::sleep(time::Duration::from_secs(1));
 }
 
 #[test]
@@ -140,7 +146,9 @@ fn should_get_release() {
             media: None,
             release_group: None,
         }
-    )
+    );
+
+    thread::sleep(time::Duration::from_secs(1));
 }
 
 #[test]
@@ -159,7 +167,9 @@ fn should_get_work_by_id() {
             language: Some("eng".to_string()),
             disambiguation: Some("".to_string()),
         }
-    )
+    );
+
+    thread::sleep(time::Duration::from_secs(1));
 }
 
 #[test]
@@ -182,7 +192,9 @@ fn should_get_label_by_id() {
             releases: None,
             aliases: None,
         }
-    )
+    );
+
+    thread::sleep(time::Duration::from_secs(1));
 }
 
 #[test]
@@ -207,7 +219,9 @@ fn should_get_area_by_id() {
                 end: None,
             })
         }
-    )
+    );
+
+    thread::sleep(time::Duration::from_secs(1));
 }
 
 #[test]
@@ -233,7 +247,7 @@ fn should_get_event_by_id() {
                 ended: true
             }
         }
-    )
+    );
 }
 
 #[test]
@@ -252,7 +266,9 @@ fn should_get_instrument() {
             description: "".to_string(),
             disambiguation: "".to_string()
         }
-    )
+    );
+
+    thread::sleep(time::Duration::from_secs(1));
 }
 
 #[test]
@@ -290,7 +306,9 @@ fn should_get_place() {
                 longitude: "-87.630881".to_string(),
             }
         }
-    )
+    );
+
+    thread::sleep(time::Duration::from_secs(1));
 }
 
 #[test]
@@ -308,7 +326,9 @@ fn should_get_series() {
             disambiguation: "".to_string(),
             name: "La Chanson du Dimanche — Saison 4".to_string(),
         }
-    )
+    );
+
+    thread::sleep(time::Duration::from_secs(1));
 }
 
 #[test]
@@ -323,5 +343,7 @@ fn should_get_url() {
             resource: "http://www.svinkels.com/".to_string(),
             id: "9237f6da-fec6-4b8a-9d52-c7c18e0e2630".to_string(),
         }
-    )
+    );
+
+    thread::sleep(time::Duration::from_secs(1));
 }

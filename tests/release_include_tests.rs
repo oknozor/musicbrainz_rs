@@ -2,7 +2,7 @@ extern crate musicbrainz_rs;
 use musicbrainz_rs::model::release;
 use musicbrainz_rs::model::release::Release;
 use musicbrainz_rs::QueryAble;
-
+use std::{thread, time};
 #[test]
 fn should_get_release_release_groups() {
     let justice_cross = Release::fetch()
@@ -12,6 +12,8 @@ fn should_get_release_release_groups() {
         .unwrap();
 
     assert_eq!(justice_cross.release_group.unwrap().title, "✝");
+
+    thread::sleep(time::Duration::from_secs(1));
 }
 
 #[test]
@@ -30,6 +32,8 @@ fn should_get_release_recordings() {
         .tracks
         .iter()
         .any(|track| track.title == "D.A.N.C.E."));
+
+    thread::sleep(time::Duration::from_secs(1));
 }
 
 #[test]
@@ -45,4 +49,6 @@ fn should_get_release_label() {
         .unwrap()
         .iter()
         .any(|label_info| label_info.label.name == "Ed Banger Records"));
+
+    thread::sleep(time::Duration::from_secs(1));
 }
