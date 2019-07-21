@@ -31,7 +31,7 @@ pub struct Artist {
 
     /// The type is used to state whether an artist is a person, a group, or something else.
     #[serde(rename = "type")]
-    pub artist_type: ArtistType,
+    pub artist_type: Option<ArtistType>,
 
     /// The gender is used to explicitly state whether a person or character identifies as male,
     /// female or neither. Groups do not have genders.
@@ -39,13 +39,13 @@ pub struct Artist {
 
     /// The artist area, as the name suggests, indicates the area with which an artist is primarily
     /// identified with. It is often, but not always, its birth/formation country.
-    pub area: Area,
+    pub area: Option<Area>,
 
     ///The artist begin area, as the name suggests, indicates the area with which an artist started
     /// to perform.
 
     #[serde(rename = "begin_area")] // Forcing camel_case here since
-    pub begin_area: Area, // all other field are deserialized in kebab-case
+    pub begin_area: Option<Area>, // all other field are deserialized in kebab-case
 
     pub relations: Option<Vec<Relation>>,
     pub releases: Option<Vec<Release>>,
@@ -54,7 +54,7 @@ pub struct Artist {
     pub recordings: Option<Vec<Recording>>,
     pub aliases: Option<Vec<Alias>>,
 
-    pub country: String,
+    pub country: Option<String>,
 
     /// The begin and end dates indicate when an artist started and finished its existence.
     /// Its exact meaning depends on the type of artist:
@@ -79,7 +79,7 @@ pub struct Artist {
     ///    - For others
     ///        There are no clear indications about how to use dates for artists of the type Other at
     ///        the moment.
-    pub life_span: LifeSpan,
+    pub life_span: Option<LifeSpan>,
 
     pub tags: Option<Vec<Tag>>,
 }
