@@ -1,3 +1,4 @@
+use crate::model::release::Release;
 use crate::Include as IncludeInto;
 
 #[derive(Debug, Serialize, Deserialize, PartialEq)]
@@ -12,17 +13,18 @@ pub struct Label {
     pub disambiguation: String,
     pub country: String,
     pub label_code: u32,
+    pub releases: Option<Vec<Release>>,
 }
 
 #[derive(Debug, PartialEq)]
 pub enum Include {
-    ArtistRelations,
+    Releases,
 }
 
 impl IncludeInto<Label> for Include {
     fn as_str(&self) -> &str {
         match self {
-            Include::ArtistRelations => "artist-rels",
+            Include::Releases => "releases",
         }
     }
 }
