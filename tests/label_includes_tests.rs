@@ -12,8 +12,7 @@ fn should_get_label_releases() {
 
     let releases = ninja_tune.unwrap().releases;
 
-    assert!(releases.is_some());
-    assert!(!releases.unwrap().is_empty());
+    assert!(releases.unwrap().iter().any(|release| release.title == "The Final Corporate Colonization of the Unconscious"));
 }
 
 #[test]
@@ -25,6 +24,5 @@ fn should_get_label_aliases() {
 
     let aliases = motown.unwrap().aliases;
 
-    assert!(aliases.is_some());
-    assert!(!aliases.unwrap().is_empty());
+    assert!(aliases.unwrap().iter().any(|alias| alias.name == "Motown"));
 }
