@@ -1,8 +1,10 @@
 extern crate musicbrainz_rs;
 use musicbrainz_rs::model::release;
+use musicbrainz_rs::model::release::Media;
 use musicbrainz_rs::model::release::Release;
 use musicbrainz_rs::QueryAble;
 use std::{thread, time};
+
 #[test]
 fn should_get_release_release_groups() {
     let justice_cross = Release::fetch()
@@ -17,7 +19,7 @@ fn should_get_release_release_groups() {
 }
 
 #[test]
-fn should_get_release_recordings() {
+fn should_get_release_media() {
     let justice_cross = Release::fetch()
         .id("4642ee19-7790-3c8d-ab5e-d133de942db6")
         .include(release::Include::Recordings)
@@ -27,9 +29,27 @@ fn should_get_release_recordings() {
     assert!(justice_cross
         .media
         .unwrap()
-        .get(0)
-        .unwrap()
+        .iter()
+        .any(|media| media.format.as_ref().unwrap() == "CD"));
+
+    thread::sleep(time::Duration::from_secs(1));
+}
+
+#[test]
+fn should_get_release_recordings() {
+    let justice_cross = Release::fetch()
+        .id("4642ee19-7790-3c8d-ab5e-d133de942db6")
+        .include(release::Include::Recordings)
+        .execute()
+        .unwrap();
+
+    let medias: Vec<Media> = justice_cross.media.unwrap();
+    let cd = medias.iter().next().unwrap();
+
+    assert!(cd
         .tracks
+        .as_ref()
+        .unwrap()
         .iter()
         .any(|track| track.title == "D.A.N.C.E."));
 

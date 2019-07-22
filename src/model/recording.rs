@@ -39,18 +39,6 @@ pub struct Recording {
     pub aliases: Option<Vec<Alias>>,
 }
 
-#[derive(Debug, Serialize, Deserialize, PartialEq)]
-#[serde(rename_all(deserialize = "kebab-case"))]
-pub struct Media {
-    pub track_count: u32,
-    pub title: String,
-    pub format: String,
-    pub format_id: String,
-    pub position: u32,
-    pub track_offset: u32,
-    pub tracks: Vec<Recording>,
-}
-
 #[derive(Debug, PartialEq)]
 pub enum Include {
     Artists,
