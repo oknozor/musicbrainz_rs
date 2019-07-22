@@ -118,6 +118,7 @@ pub struct Tag {
 pub enum Include {
     ArtistRelations,
     Releases,
+    ReleasesWithDiscIds,
     ReleaseGroups,
     Recordings,
     Aliases,
@@ -129,6 +130,7 @@ impl IncludeInto<Artist> for Include {
         match self {
             Include::Recordings => "recordings",
             Include::Releases => "releases",
+            Include::ReleasesWithDiscIds => "releases+discids",
             Include::ReleaseGroups => "release-groups",
             Include::Aliases => "aliases",
             Include::Works => "works",
