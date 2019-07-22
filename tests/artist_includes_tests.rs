@@ -114,3 +114,20 @@ fn should_get_artist_artist_relations() {
 
     thread::sleep(time::Duration::from_secs(1));
 }
+
+#[test]
+fn should_get_artist_artist_releases_with_disc_ids() {
+    let nirvana = Artist::fetch()
+        .id("5b11f4ce-a62d-471e-81fc-a69a8278c7da")
+        .include(artist::Include::ReleasesWithDiscIds)
+        .execute()
+        .unwrap();
+
+    let releases_with_disc_ids = nirvana.releases.unwrap();
+
+    assert!(releases_with_disc_ids
+        .iter()
+        .any(|release| release.title == "Smells Like Teen Spirit"));
+
+    thread::sleep(time::Duration::from_secs(1));
+}

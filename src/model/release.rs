@@ -1,6 +1,6 @@
 use crate::date_format;
 use crate::model::label::LabelInfo;
-use crate::model::recording::Media;
+use crate::model::recording::Recording;
 use crate::model::release_group::ReleaseGroup;
 use crate::Include as IncludeInto;
 use chrono::NaiveDate;
@@ -127,6 +127,29 @@ pub enum ReleaseStatus {
     PseudoRelease,
 
     None,
+}
+
+#[derive(Debug, Serialize, Deserialize, PartialEq)]
+#[serde(rename_all(deserialize = "kebab-case"))]
+pub struct Media {
+    pub title: String,
+    pub position: u32,
+    pub track_count: u32,
+    pub disc_count: Option<u32>,
+    pub format_id: Option<String>,
+    pub format: Option<String>,
+    pub tracks: Option<Vec<Track>>,
+}
+
+#[derive(Debug, Serialize, Deserialize, PartialEq)]
+#[serde(rename_all(deserialize = "kebab-case"))]
+pub struct Track {
+    pub recording: Recording,
+    pub title: String,
+    pub number: String,
+    pub length: u32,
+    pub position: u32,
+    pub id: String,
 }
 
 #[derive(Debug, PartialEq)]
