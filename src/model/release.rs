@@ -2,6 +2,7 @@ use crate::date_format;
 use crate::model::label::LabelInfo;
 use crate::model::recording::Recording;
 use crate::model::release_group::ReleaseGroup;
+use crate::model::tag::Tag;
 use crate::Include as IncludeInto;
 use chrono::NaiveDate;
 
@@ -61,6 +62,7 @@ pub struct Release {
     pub release_group: Option<ReleaseGroup>,
     pub media: Option<Vec<Media>>,
     pub label_info: Option<Vec<LabelInfo>>,
+    pub tags: Option<Vec<Tag>>,
 }
 
 #[derive(Debug, Serialize, Deserialize, PartialEq)]
@@ -157,6 +159,7 @@ pub enum Include {
     Labels,
     Recordings,
     ReleaseGroup,
+    Tags,
 }
 
 impl IncludeInto<Release> for Include {
@@ -165,6 +168,7 @@ impl IncludeInto<Release> for Include {
             Include::Labels => "labels",
             Include::Recordings => "recordings",
             Include::ReleaseGroup => "release-groups",
+            Include::Tags => "tags",
         }
     }
 }

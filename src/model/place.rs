@@ -1,5 +1,7 @@
+use crate::model::alias::Alias;
 use crate::model::area::Area;
 use crate::model::lifespan::LifeSpan;
+use crate::model::tag::Tag;
 use crate::Include as IncludeInto;
 
 #[derive(Debug, Serialize, Deserialize, PartialEq)]
@@ -15,6 +17,8 @@ pub struct Place {
     pub area: Area,
     pub address: String,
     pub disambiguation: String,
+    pub aliases: Option<Vec<Alias>>,
+    pub tags: Option<Vec<Tag>>,
 }
 
 #[derive(Debug, Serialize, Deserialize, PartialEq)]
@@ -26,12 +30,16 @@ pub struct Coordinates {
 #[derive(Debug, PartialEq)]
 pub enum Include {
     ArtistRelations,
+    Aliases,
+    Tags,
 }
 
 impl IncludeInto<Place> for Include {
     fn as_str(&self) -> &str {
         match self {
             Include::ArtistRelations => "artist-rels",
+            Include::Aliases => "aliases",
+            Include::Tags => "tags",
         }
     }
 }

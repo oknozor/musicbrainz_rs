@@ -1,5 +1,6 @@
 use crate::model::alias::Alias;
 use crate::model::release::Release;
+use crate::model::tag::Tag;
 use crate::Include as IncludeInto;
 
 #[derive(Debug, Serialize, Deserialize, PartialEq)]
@@ -16,6 +17,7 @@ pub struct Label {
     pub label_code: Option<u32>,
     pub releases: Option<Vec<Release>>,
     pub aliases: Option<Vec<Alias>>,
+    pub tags: Option<Vec<Tag>>,
 }
 
 #[derive(Debug, Serialize, Deserialize, PartialEq)]
@@ -29,6 +31,7 @@ pub struct LabelInfo {
 pub enum Include {
     Releases,
     Aliases,
+    Tags,
 }
 
 impl IncludeInto<Label> for Include {
@@ -36,6 +39,7 @@ impl IncludeInto<Label> for Include {
         match self {
             Include::Releases => "releases",
             Include::Aliases => "aliases",
+            Include::Tags => "tags",
         }
     }
 }
