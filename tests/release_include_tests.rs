@@ -89,3 +89,16 @@ fn should_get_release_tags() {
 
     thread::sleep(time::Duration::from_secs(1));
 }
+
+#[test]
+fn should_get_release_aliases() {
+    let l_ecole_du_micro_d_argent = Release::fetch()
+        .id("cba0035e-d8c9-4390-8569-02bdadaf87d3")
+        .include(release::Include::Aliases)
+        .execute()
+        .unwrap();
+
+    assert!(l_ecole_du_micro_d_argent.aliases.is_some());
+
+    thread::sleep(time::Duration::from_secs(1));
+}
