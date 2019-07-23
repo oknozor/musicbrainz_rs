@@ -1,11 +1,14 @@
 use crate::model::alias::Alias;
 use crate::model::area::Area;
 use crate::model::lifespan::LifeSpan;
+use crate::model::rating::Rating;
 use crate::model::recording::Recording;
 use crate::model::relations::Relation;
 use crate::model::release::Release;
 use crate::model::release_group::ReleaseGroup;
+use crate::model::tag::Tag;
 use crate::model::work::Work;
+
 use crate::Include as IncludeInto;
 
 /// An artist is generally a musician (or musician persona), group of musicians, or other music
@@ -53,6 +56,8 @@ pub struct Artist {
     pub release_groups: Option<Vec<ReleaseGroup>>,
     pub recordings: Option<Vec<Recording>>,
     pub aliases: Option<Vec<Alias>>,
+    pub tags: Option<Vec<Tag>>,
+    pub rating: Option<Rating>,
 
     pub country: Option<String>,
 
@@ -80,8 +85,6 @@ pub struct Artist {
     ///        There are no clear indications about how to use dates for artists of the type Other at
     ///        the moment.
     pub life_span: Option<LifeSpan>,
-
-    pub tags: Option<Vec<Tag>>,
 }
 
 #[derive(Debug, Serialize, Deserialize, PartialEq)]
@@ -108,20 +111,17 @@ pub enum Gender {
     Female,
 }
 
-#[derive(Debug, Serialize, Deserialize, PartialEq)]
-pub struct Tag {
-    pub name: String,
-    pub count: u32,
-}
-
 #[derive(Debug, PartialEq)]
 pub enum Include {
     ArtistRelations,
     Releases,
+    ReleasesWithDiscIds,
     ReleaseGroups,
     Recordings,
     Aliases,
     Works,
+    Tags,
+    Rating,
 }
 
 impl IncludeInto<Artist> for Include {
@@ -129,10 +129,13 @@ impl IncludeInto<Artist> for Include {
         match self {
             Include::Recordings => "recordings",
             Include::Releases => "releases",
+            Include::ReleasesWithDiscIds => "releases+discids",
             Include::ReleaseGroups => "release-groups",
             Include::Aliases => "aliases",
             Include::Works => "works",
             Include::ArtistRelations => "artist-rels",
+            Include::Tags => "tags",
+            Include::Rating => "ratings",
         }
     }
 }

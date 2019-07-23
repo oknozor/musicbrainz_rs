@@ -1,6 +1,9 @@
 use crate::date_format;
+use crate::model::alias::Alias;
 use crate::model::artist_credit::ArtistCredit;
+use crate::model::rating::Rating;
 use crate::model::release::Release;
+use crate::model::tag::Tag;
 use crate::Include as IncludeInto;
 use chrono::NaiveDate;
 
@@ -33,12 +36,18 @@ pub struct ReleaseGroup {
 
     pub artist_credit: Option<Vec<ArtistCredit>>,
     pub releases: Option<Vec<Release>>,
+    pub tags: Option<Vec<Tag>>,
+    pub rating: Option<Rating>,
+    pub aliases: Option<Vec<Alias>>,
 }
 
 #[derive(Debug, PartialEq)]
 pub enum Include {
     Artists,
     Releases,
+    Tags,
+    Rating,
+    Aliases,
 }
 
 impl IncludeInto<ReleaseGroup> for Include {
@@ -46,6 +55,9 @@ impl IncludeInto<ReleaseGroup> for Include {
         match self {
             Include::Artists => "artists",
             Include::Releases => "releases",
+            Include::Tags => "tags",
+            Include::Rating => "ratings",
+            Include::Aliases => "aliases",
         }
     }
 }

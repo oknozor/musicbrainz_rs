@@ -45,6 +45,8 @@ fn should_get_artist_by_id() {
                 sort_name: "United States".to_string(),
                 iso_3166_1_codes: Some(vec!["US".to_string(),]),
                 life_span: None,
+                tags: None,
+                aliases: None,
             }),
             begin_area: Some(Area {
                 id: "a640b45c-c173-49b1-8030-973603e895b5".to_string(),
@@ -55,6 +57,8 @@ fn should_get_artist_by_id() {
                 sort_name: "Aberdeen".to_string(),
                 iso_3166_1_codes: None,
                 life_span: None,
+                tags: None,
+                aliases: None,
             }),
             life_span: Some(LifeSpan {
                 ended: true,
@@ -68,6 +72,7 @@ fn should_get_artist_by_id() {
             release_groups: None,
             works: None,
             aliases: None,
+            rating: None,
         }
     );
 
@@ -92,6 +97,8 @@ fn should_get_recording_by_id() {
             artist_credit: None,
             relations: None,
             releases: None,
+            tags: None,
+            rating: None,
         }
     );
     thread::sleep(time::Duration::from_secs(1));
@@ -116,6 +123,9 @@ fn should_get_release_group_by_id() {
             disambiguation: "".to_string(),
             artist_credit: None,
             releases: None,
+            tags: None,
+            aliases: None,
+            rating: None,
         }
     );
 
@@ -145,6 +155,8 @@ fn should_get_release() {
             label_info: None,
             media: None,
             release_group: None,
+            tags: None,
+            aliases: None,
         }
     );
 
@@ -167,6 +179,9 @@ fn should_get_work_by_id() {
             languages: Some(vec!["eng".to_string()]),
             language: Some("eng".to_string()),
             disambiguation: Some("".to_string()),
+            tags: None,
+            aliases: None,
+            rating: None,
         }
     );
 
@@ -192,6 +207,8 @@ fn should_get_label_by_id() {
             label_code: Some(12885),
             releases: None,
             aliases: None,
+            tags: None,
+            rating: None,
         }
     );
 
@@ -214,6 +231,8 @@ fn should_get_area_by_id() {
             name: "Aberdeen".to_string(),
             sort_name: "Aberdeen".to_string(),
             iso_3166_1_codes: None,
+            tags: None,
+            aliases: None,
             life_span: Some(LifeSpan {
                 ended: false,
                 begin: None,
@@ -246,7 +265,10 @@ fn should_get_event_by_id() {
                 begin: Some(NaiveDate::from_ymd(1989, 9, 16)),
                 end: Some(NaiveDate::from_ymd(1989, 9, 16)),
                 ended: true
-            }
+            },
+            tags: None,
+            aliases: None,
+            rating: None,
         }
     );
 }
@@ -265,7 +287,9 @@ fn should_get_instrument() {
             instrument_type: "String instrument".to_string(),
             type_id: "cc00f97f-cf3d-3ae2-9163-041cb1a0d726".to_string(),
             description: "".to_string(),
-            disambiguation: "".to_string()
+            disambiguation: "".to_string(),
+            tags: None,
+            aliases: None,
         }
     );
 
@@ -301,11 +325,15 @@ fn should_get_place() {
                 type_id: None,
                 iso_3166_1_codes: None,
                 life_span: None,
+                tags: None,
+                aliases: None,
             },
             coordinates: Coordinates {
                 latitude: "41.882059".to_string(),
                 longitude: "-87.630881".to_string(),
-            }
+            },
+            aliases: None,
+            tags: None,
         }
     );
 
@@ -326,6 +354,8 @@ fn should_get_series() {
             serie_type: "Recording series".to_string(),
             disambiguation: "".to_string(),
             name: "La Chanson du Dimanche — Saison 4".to_string(),
+            tags: None,
+            aliases: None,
         }
     );
 
@@ -343,6 +373,7 @@ fn should_get_url() {
         Url {
             resource: "http://www.svinkels.com/".to_string(),
             id: "9237f6da-fec6-4b8a-9d52-c7c18e0e2630".to_string(),
+            tags: None,
         }
     );
 

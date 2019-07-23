@@ -1,3 +1,6 @@
+use crate::model::alias::Alias;
+use crate::model::rating::Rating;
+use crate::model::tag::Tag;
 use crate::Include as IncludeInto;
 
 /// In MusicBrainz terminology, a work is a distinct intellectual or artistic creation, which can be
@@ -16,17 +19,26 @@ pub struct Work {
     pub language: Option<String>,
     pub languages: Option<Vec<String>>,
     pub disambiguation: Option<String>,
+    pub tags: Option<Vec<Tag>>,
+    pub rating: Option<Rating>,
+    pub aliases: Option<Vec<Alias>>,
 }
 
 #[derive(Debug, PartialEq)]
 pub enum Include {
     ArtistRelations,
+    Tags,
+    Rating,
+    Aliases,
 }
 
 impl IncludeInto<Work> for Include {
     fn as_str(&self) -> &str {
         match self {
             Include::ArtistRelations => "artist-rels",
+            Include::Tags => "tags",
+            Include::Rating => "ratings",
+            Include::Aliases => "aliases",
         }
     }
 }

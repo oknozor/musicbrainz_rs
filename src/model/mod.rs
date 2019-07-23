@@ -22,11 +22,13 @@ pub mod instrument;
 pub mod label;
 pub mod lifespan;
 pub mod place;
+pub mod rating;
 pub mod recording;
 pub mod relations;
 pub mod release;
 pub mod release_group;
 pub mod series;
+pub mod tag;
 pub mod url;
 pub mod work;
 

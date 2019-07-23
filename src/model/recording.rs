@@ -1,7 +1,9 @@
 use crate::model::alias::Alias;
 use crate::model::artist_credit::ArtistCredit;
+use crate::model::rating::Rating;
 use crate::model::relations::Relation;
 use crate::model::release::Release;
+use crate::model::tag::Tag;
 use crate::Include as IncludeInto;
 
 /// A recording is an entity in MusicBrainz which can be linked to tracks on releases. Each track
@@ -37,18 +39,8 @@ pub struct Recording {
     pub releases: Option<Vec<Release>>,
     pub artist_credit: Option<Vec<ArtistCredit>>,
     pub aliases: Option<Vec<Alias>>,
-}
-
-#[derive(Debug, Serialize, Deserialize, PartialEq)]
-#[serde(rename_all(deserialize = "kebab-case"))]
-pub struct Media {
-    pub track_count: u32,
-    pub title: String,
-    pub format: String,
-    pub format_id: String,
-    pub position: u32,
-    pub track_offset: u32,
-    pub tracks: Vec<Recording>,
+    pub tags: Option<Vec<Tag>>,
+    pub rating: Option<Rating>,
 }
 
 #[derive(Debug, PartialEq)]
@@ -56,6 +48,8 @@ pub enum Include {
     Artists,
     Releases,
     Aliases,
+    Tags,
+    Rating,
 }
 
 impl IncludeInto<Recording> for Include {
@@ -64,6 +58,8 @@ impl IncludeInto<Recording> for Include {
             Include::Artists => "artists",
             Include::Releases => "releases",
             Include::Aliases => "aliases",
+            Include::Tags => "tags",
+            Include::Rating => "ratings",
         }
     }
 }

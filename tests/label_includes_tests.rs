@@ -2,7 +2,6 @@ extern crate musicbrainz_rs;
 use musicbrainz_rs::model::label;
 use musicbrainz_rs::model::label::Label;
 use musicbrainz_rs::QueryAble;
-
 use std::{thread, time};
 
 #[test]
@@ -32,6 +31,36 @@ fn should_get_label_aliases() {
     let aliases = motown.unwrap().aliases;
 
     assert!(aliases.unwrap().iter().any(|alias| alias.name == "Motown"));
+
+    thread::sleep(time::Duration::from_secs(1));
+}
+
+#[test]
+fn should_get_label_tags() {
+    let ninja_tune = Label::fetch()
+        .id("dc940013-b8a8-4362-a465-291026c04b42")
+        .include(label::Include::Tags)
+        .execute()
+        .unwrap();
+
+    assert!(ninja_tune
+        .tags
+        .unwrap()
+        .iter()
+        .any(|tag| tag.name == "independent"));
+
+    thread::sleep(time::Duration::from_secs(1));
+}
+
+#[test]
+fn should_get_label_rating() {
+    let ninja_tune = Label::fetch()
+        .id("dc940013-b8a8-4362-a465-291026c04b42")
+        .include(label::Include::Rating)
+        .execute()
+        .unwrap();
+
+    assert!(ninja_tune.rating.is_some());
 
     thread::sleep(time::Duration::from_secs(1));
 }
