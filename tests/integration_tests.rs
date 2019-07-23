@@ -72,6 +72,7 @@ fn should_get_artist_by_id() {
             release_groups: None,
             works: None,
             aliases: None,
+            rating: None,
         }
     );
 
@@ -97,6 +98,7 @@ fn should_get_recording_by_id() {
             relations: None,
             releases: None,
             tags: None,
+            rating: None,
         }
     );
     thread::sleep(time::Duration::from_secs(1));
@@ -123,6 +125,7 @@ fn should_get_release_group_by_id() {
             releases: None,
             tags: None,
             aliases: None,
+            rating: None,
         }
     );
 
@@ -178,6 +181,7 @@ fn should_get_work_by_id() {
             disambiguation: Some("".to_string()),
             tags: None,
             aliases: None,
+            rating: None,
         }
     );
 
@@ -204,6 +208,7 @@ fn should_get_label_by_id() {
             releases: None,
             aliases: None,
             tags: None,
+            rating: None,
         }
     );
 
@@ -263,6 +268,7 @@ fn should_get_event_by_id() {
             },
             tags: None,
             aliases: None,
+            rating: None,
         }
     );
 }
