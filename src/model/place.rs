@@ -1,7 +1,6 @@
 use crate::model::alias::Alias;
 use crate::model::area::Area;
 use crate::model::lifespan::LifeSpan;
-use crate::model::rating::Rating;
 use crate::model::tag::Tag;
 use crate::Include as IncludeInto;
 
