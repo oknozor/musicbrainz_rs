@@ -131,3 +131,20 @@ fn should_get_artist_artist_releases_with_disc_ids() {
 
     thread::sleep(time::Duration::from_secs(1));
 }
+
+#[test]
+fn should_get_artist_tags() {
+    let john_lee_hooker = Artist::fetch()
+        .id("b0122194-c49a-46a1-ade7-84d1d76bd8e9")
+        .include(artist::Include::Tags)
+        .execute()
+        .unwrap();
+
+    assert!(john_lee_hooker
+        .tags
+        .unwrap()
+        .iter()
+        .any(|tag| tag.name == "chicago blues"));
+
+    thread::sleep(time::Duration::from_secs(1));
+}

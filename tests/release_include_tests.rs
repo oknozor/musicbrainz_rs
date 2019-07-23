@@ -72,3 +72,20 @@ fn should_get_release_label() {
 
     thread::sleep(time::Duration::from_secs(1));
 }
+
+#[test]
+fn should_get_release_tags() {
+    let l_ecole_du_micro_d_argent = Release::fetch()
+        .id("cba0035e-d8c9-4390-8569-02bdadaf87d3")
+        .include(release::Include::Tags)
+        .execute()
+        .unwrap();
+
+    assert!(l_ecole_du_micro_d_argent
+        .tags
+        .unwrap()
+        .iter()
+        .any(|tag| tag.name == "hip hop"));
+
+    thread::sleep(time::Duration::from_secs(1));
+}
