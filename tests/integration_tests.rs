@@ -46,6 +46,7 @@ fn should_get_artist_by_id() {
                 iso_3166_1_codes: Some(vec!["US".to_string(),]),
                 life_span: None,
                 tags: None,
+                aliases: None,
             }),
             begin_area: Some(Area {
                 id: "a640b45c-c173-49b1-8030-973603e895b5".to_string(),
@@ -57,6 +58,7 @@ fn should_get_artist_by_id() {
                 iso_3166_1_codes: None,
                 life_span: None,
                 tags: None,
+                aliases: None,
             }),
             life_span: Some(LifeSpan {
                 ended: true,
@@ -120,6 +122,7 @@ fn should_get_release_group_by_id() {
             artist_credit: None,
             releases: None,
             tags: None,
+            aliases: None,
         }
     );
 
@@ -150,6 +153,7 @@ fn should_get_release() {
             media: None,
             release_group: None,
             tags: None,
+            aliases: None,
         }
     );
 
@@ -173,6 +177,7 @@ fn should_get_work_by_id() {
             language: Some("eng".to_string()),
             disambiguation: Some("".to_string()),
             tags: None,
+            aliases: None,
         }
     );
 
@@ -222,6 +227,7 @@ fn should_get_area_by_id() {
             sort_name: "Aberdeen".to_string(),
             iso_3166_1_codes: None,
             tags: None,
+            aliases: None,
             life_span: Some(LifeSpan {
                 ended: false,
                 begin: None,
@@ -256,6 +262,7 @@ fn should_get_event_by_id() {
                 ended: true
             },
             tags: None,
+            aliases: None,
         }
     );
 }
@@ -276,6 +283,7 @@ fn should_get_instrument() {
             description: "".to_string(),
             disambiguation: "".to_string(),
             tags: None,
+            aliases: None,
         }
     );
 
@@ -312,6 +320,7 @@ fn should_get_place() {
                 iso_3166_1_codes: None,
                 life_span: None,
                 tags: None,
+                aliases: None,
             },
             coordinates: Coordinates {
                 latitude: "41.882059".to_string(),
@@ -340,6 +349,7 @@ fn should_get_series() {
             disambiguation: "".to_string(),
             name: "La Chanson du Dimanche — Saison 4".to_string(),
             tags: None,
+            aliases: None,
         }
     );
 

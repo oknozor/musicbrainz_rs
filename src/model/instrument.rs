@@ -1,3 +1,4 @@
+use crate::model::alias::Alias;
 use crate::model::tag::Tag;
 use crate::Include as IncludeInto;
 
@@ -12,12 +13,14 @@ pub struct Instrument {
     pub description: String,
     pub disambiguation: String,
     pub tags: Option<Vec<Tag>>,
+    pub aliases: Option<Vec<Alias>>,
 }
 
 #[derive(Debug, PartialEq)]
 pub enum Include {
     ArtistRelations,
     Tags,
+    Aliases,
 }
 
 impl IncludeInto<Instrument> for Include {
@@ -25,6 +28,7 @@ impl IncludeInto<Instrument> for Include {
         match self {
             Include::ArtistRelations => "artist-rels",
             Include::Tags => "tags",
+            Include::Aliases => "aliases",
         }
     }
 }

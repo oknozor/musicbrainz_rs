@@ -52,3 +52,16 @@ fn should_get_release_group_tags() {
         .any(|tag| tag.name == "rock_grunge"));
     thread::sleep(time::Duration::from_secs(1));
 }
+
+#[test]
+fn should_get_release_group_aliases() {
+    let in_utero = ReleaseGroup::fetch()
+        .id("2a0981fb-9593-3019-864b-ce934d97a16e")
+        .include(release_group::Include::Aliases)
+        .execute()
+        .unwrap();
+
+    assert!(in_utero.aliases.is_some());
+
+    thread::sleep(time::Duration::from_secs(1));
+}
