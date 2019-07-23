@@ -29,3 +29,16 @@ fn should_get_event_aliases() {
 
     thread::sleep(time::Duration::from_secs(1));
 }
+
+#[test]
+fn should_get_event_rating() {
+    let dour_festival_1989 = Event::fetch()
+        .id("73df2f48-383b-4930-bad3-05ba938be578")
+        .include(event::Include::Rating)
+        .execute()
+        .unwrap();
+
+    assert!(dour_festival_1989.rating.is_some());
+
+    thread::sleep(time::Duration::from_secs(1));
+}

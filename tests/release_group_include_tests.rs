@@ -65,3 +65,16 @@ fn should_get_release_group_aliases() {
 
     thread::sleep(time::Duration::from_secs(1));
 }
+
+#[test]
+fn should_get_release_group_rating() {
+    let in_utero = ReleaseGroup::fetch()
+        .id("2a0981fb-9593-3019-864b-ce934d97a16e")
+        .include(release_group::Include::Rating)
+        .execute()
+        .unwrap();
+
+    assert!(in_utero.rating.is_some());
+
+    thread::sleep(time::Duration::from_secs(1));
+}

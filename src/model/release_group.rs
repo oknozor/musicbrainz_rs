@@ -1,6 +1,7 @@
 use crate::date_format;
 use crate::model::alias::Alias;
 use crate::model::artist_credit::ArtistCredit;
+use crate::model::rating::Rating;
 use crate::model::release::Release;
 use crate::model::tag::Tag;
 use crate::Include as IncludeInto;
@@ -36,6 +37,7 @@ pub struct ReleaseGroup {
     pub artist_credit: Option<Vec<ArtistCredit>>,
     pub releases: Option<Vec<Release>>,
     pub tags: Option<Vec<Tag>>,
+    pub rating: Option<Rating>,
     pub aliases: Option<Vec<Alias>>,
 }
 
@@ -44,6 +46,7 @@ pub enum Include {
     Artists,
     Releases,
     Tags,
+    Rating,
     Aliases,
 }
 
@@ -53,6 +56,7 @@ impl IncludeInto<ReleaseGroup> for Include {
             Include::Artists => "artists",
             Include::Releases => "releases",
             Include::Tags => "tags",
+            Include::Rating => "ratings",
             Include::Aliases => "aliases",
         }
     }

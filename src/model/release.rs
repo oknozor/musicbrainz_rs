@@ -162,6 +162,7 @@ pub enum Include {
     Recordings,
     ReleaseGroup,
     Tags,
+    Rating,
     Aliases,
 }
 
@@ -172,6 +173,7 @@ impl IncludeInto<Release> for Include {
             Include::Recordings => "recordings",
             Include::ReleaseGroup => "release-groups",
             Include::Tags => "tags",
+            Include::Rating => "ratings",
             Include::Aliases => "aliases",
         }
     }

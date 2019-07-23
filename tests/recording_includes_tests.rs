@@ -62,3 +62,16 @@ fn should_get_recording_tags() {
 
     thread::sleep(time::Duration::from_secs(1));
 }
+
+#[test]
+fn should_get_recording_rating() {
+    let you_talk_too_much = Recording::fetch()
+        .id("de552ba4-572c-4c59-b2a9-0508619696ac")
+        .include(recording::Include::Rating)
+        .execute()
+        .unwrap();
+
+    assert!(you_talk_too_much.rating.is_some()); // FIXME: didn't find a recording containing actual aliases (yet)
+
+    thread::sleep(time::Duration::from_secs(1));
+}

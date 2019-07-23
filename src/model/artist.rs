@@ -1,6 +1,7 @@
 use crate::model::alias::Alias;
 use crate::model::area::Area;
 use crate::model::lifespan::LifeSpan;
+use crate::model::rating::Rating;
 use crate::model::recording::Recording;
 use crate::model::relations::Relation;
 use crate::model::release::Release;
@@ -56,6 +57,7 @@ pub struct Artist {
     pub recordings: Option<Vec<Recording>>,
     pub aliases: Option<Vec<Alias>>,
     pub tags: Option<Vec<Tag>>,
+    pub rating: Option<Rating>,
 
     pub country: Option<String>,
 
@@ -119,6 +121,7 @@ pub enum Include {
     Aliases,
     Works,
     Tags,
+    Rating,
 }
 
 impl IncludeInto<Artist> for Include {
@@ -132,6 +135,7 @@ impl IncludeInto<Artist> for Include {
             Include::Works => "works",
             Include::ArtistRelations => "artist-rels",
             Include::Tags => "tags",
+            Include::Rating => "ratings",
         }
     }
 }

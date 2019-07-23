@@ -22,6 +22,7 @@ pub mod instrument;
 pub mod label;
 pub mod lifespan;
 pub mod place;
+pub mod rating;
 pub mod recording;
 pub mod relations;
 pub mod release;

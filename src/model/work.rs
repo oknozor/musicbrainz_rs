@@ -1,4 +1,5 @@
 use crate::model::alias::Alias;
+use crate::model::rating::Rating;
 use crate::model::tag::Tag;
 use crate::Include as IncludeInto;
 
@@ -19,6 +20,7 @@ pub struct Work {
     pub languages: Option<Vec<String>>,
     pub disambiguation: Option<String>,
     pub tags: Option<Vec<Tag>>,
+    pub rating: Option<Rating>,
     pub aliases: Option<Vec<Alias>>,
 }
 
@@ -26,6 +28,7 @@ pub struct Work {
 pub enum Include {
     ArtistRelations,
     Tags,
+    Rating,
     Aliases,
 }
 
@@ -34,6 +37,7 @@ impl IncludeInto<Work> for Include {
         match self {
             Include::ArtistRelations => "artist-rels",
             Include::Tags => "tags",
+            Include::Rating => "ratings",
             Include::Aliases => "aliases",
         }
     }
