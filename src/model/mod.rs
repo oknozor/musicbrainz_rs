@@ -27,6 +27,7 @@ pub mod relations;
 pub mod release;
 pub mod release_group;
 pub mod series;
+pub mod tag;
 pub mod url;
 pub mod work;
 

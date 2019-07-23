@@ -5,7 +5,9 @@ use crate::model::recording::Recording;
 use crate::model::relations::Relation;
 use crate::model::release::Release;
 use crate::model::release_group::ReleaseGroup;
+use crate::model::tag::Tag;
 use crate::model::work::Work;
+
 use crate::Include as IncludeInto;
 
 /// An artist is generally a musician (or musician persona), group of musicians, or other music
@@ -53,6 +55,7 @@ pub struct Artist {
     pub release_groups: Option<Vec<ReleaseGroup>>,
     pub recordings: Option<Vec<Recording>>,
     pub aliases: Option<Vec<Alias>>,
+    pub tags: Option<Vec<Tag>>,
 
     pub country: Option<String>,
 
@@ -80,8 +83,6 @@ pub struct Artist {
     ///        There are no clear indications about how to use dates for artists of the type Other at
     ///        the moment.
     pub life_span: Option<LifeSpan>,
-
-    pub tags: Option<Vec<Tag>>,
 }
 
 #[derive(Debug, Serialize, Deserialize, PartialEq)]
@@ -108,12 +109,6 @@ pub enum Gender {
     Female,
 }
 
-#[derive(Debug, Serialize, Deserialize, PartialEq)]
-pub struct Tag {
-    pub name: String,
-    pub count: u32,
-}
-
 #[derive(Debug, PartialEq)]
 pub enum Include {
     ArtistRelations,
@@ -123,6 +118,7 @@ pub enum Include {
     Recordings,
     Aliases,
     Works,
+    Tags,
 }
 
 impl IncludeInto<Artist> for Include {
@@ -135,6 +131,7 @@ impl IncludeInto<Artist> for Include {
             Include::Aliases => "aliases",
             Include::Works => "works",
             Include::ArtistRelations => "artist-rels",
+            Include::Tags => "tags",
         }
     }
 }
