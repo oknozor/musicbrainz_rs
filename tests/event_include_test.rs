@@ -16,3 +16,16 @@ fn should_get_event_tags() {
 
     thread::sleep(time::Duration::from_secs(1));
 }
+
+#[test]
+fn should_get_event_aliases() {
+    let dour_festival_1989 = Event::fetch()
+        .id("73df2f48-383b-4930-bad3-05ba938be578")
+        .include(event::Include::Aliases)
+        .execute()
+        .unwrap();
+
+    assert!(dour_festival_1989.aliases.is_some());
+
+    thread::sleep(time::Duration::from_secs(1));
+}

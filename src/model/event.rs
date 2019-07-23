@@ -1,3 +1,4 @@
+use crate::model::alias::Alias;
 use crate::model::lifespan::LifeSpan;
 use crate::model::tag::Tag;
 use crate::Include as IncludeInto;
@@ -16,12 +17,14 @@ pub struct Event {
     pub time: String,    // need some info on that value, current IT test returns ""
     pub setlist: String, // same here
     pub tags: Option<Vec<Tag>>,
+    pub aliases: Option<Vec<Alias>>,
 }
 
 #[derive(Debug, PartialEq)]
 pub enum Include {
     ArtistRelations,
     Tags,
+    Aliases,
 }
 
 impl IncludeInto<Event> for Include {
@@ -29,6 +32,7 @@ impl IncludeInto<Event> for Include {
         match self {
             Include::ArtistRelations => "artist-rels",
             Include::Tags => "tags",
+            Include::Aliases => "aliases",
         }
     }
 }
