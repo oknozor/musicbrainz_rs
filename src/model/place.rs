@@ -1,5 +1,6 @@
 use crate::model::alias::Alias;
 use crate::model::area::Area;
+use crate::model::genre::Genre;
 use crate::model::lifespan::LifeSpan;
 use crate::model::tag::Tag;
 use crate::Include as IncludeInto;
@@ -19,6 +20,7 @@ pub struct Place {
     pub disambiguation: String,
     pub aliases: Option<Vec<Alias>>,
     pub tags: Option<Vec<Tag>>,
+    pub genres: Option<Vec<Genre>>,
 }
 
 #[derive(Debug, Serialize, Deserialize, PartialEq)]
@@ -32,6 +34,7 @@ pub enum Include {
     ArtistRelations,
     Aliases,
     Tags,
+    Genres,
 }
 
 impl IncludeInto<Place> for Include {
@@ -40,6 +43,7 @@ impl IncludeInto<Place> for Include {
             Include::ArtistRelations => "artist-rels",
             Include::Aliases => "aliases",
             Include::Tags => "tags",
+            Include::Genres => "genres",
         }
     }
 }

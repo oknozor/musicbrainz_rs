@@ -42,3 +42,16 @@ fn should_get_event_rating() {
 
     thread::sleep(time::Duration::from_secs(1));
 }
+
+#[test]
+fn should_get_event_genres() {
+    let dour_festival_1989 = Event::fetch()
+        .id("73df2f48-383b-4930-bad3-05ba938be578")
+        .include(event::Include::Genres)
+        .execute()
+        .unwrap();
+
+    assert!(dour_festival_1989.genres.is_some());
+
+    thread::sleep(time::Duration::from_secs(1));
+}

@@ -46,3 +46,16 @@ fn should_get_work_rating() {
 
     thread::sleep(time::Duration::from_secs(1));
 }
+
+#[test]
+fn should_get_work_genres() {
+    let hotel_california = Work::fetch()
+        .id("22457dc0-ecbf-38f5-9056-11c858530a50")
+        .include(work::Include::Genres)
+        .execute()
+        .unwrap();
+
+    assert!(hotel_california.genres.is_some());
+
+    thread::sleep(time::Duration::from_secs(1));
+}

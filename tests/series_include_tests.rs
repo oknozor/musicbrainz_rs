@@ -33,3 +33,16 @@ fn should_get_serie_aliases() {
 
     thread::sleep(time::Duration::from_secs(1));
 }
+
+#[test]
+fn should_get_serie_genres() {
+    let ultimate_breaks_and_beats = Series::fetch()
+        .id("3e5979c8-5a78-4d0b-878a-0fb87853effe")
+        .include(series::Include::Genres)
+        .execute()
+        .unwrap();
+
+    assert!(ultimate_breaks_and_beats.genres.is_some());
+
+    thread::sleep(time::Duration::from_secs(1));
+}
