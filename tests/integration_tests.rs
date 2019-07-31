@@ -47,6 +47,7 @@ fn should_get_artist_by_id() {
                 life_span: None,
                 tags: None,
                 aliases: None,
+                genres: None,
             }),
             begin_area: Some(Area {
                 id: "a640b45c-c173-49b1-8030-973603e895b5".to_string(),
@@ -59,6 +60,7 @@ fn should_get_artist_by_id() {
                 life_span: None,
                 tags: None,
                 aliases: None,
+                genres: None,
             }),
             life_span: Some(LifeSpan {
                 ended: true,
@@ -73,6 +75,7 @@ fn should_get_artist_by_id() {
             works: None,
             aliases: None,
             rating: None,
+            genres: None,
         }
     );
 
@@ -99,6 +102,7 @@ fn should_get_recording_by_id() {
             releases: None,
             tags: None,
             rating: None,
+            genres: None,
         }
     );
     thread::sleep(time::Duration::from_secs(1));
@@ -126,6 +130,7 @@ fn should_get_release_group_by_id() {
             tags: None,
             aliases: None,
             rating: None,
+            genres: None,
         }
     );
 
@@ -157,6 +162,7 @@ fn should_get_release() {
             release_group: None,
             tags: None,
             aliases: None,
+            genres: None,
         }
     );
 
@@ -182,6 +188,7 @@ fn should_get_work_by_id() {
             tags: None,
             aliases: None,
             rating: None,
+            genres: None,
         }
     );
 
@@ -209,6 +216,7 @@ fn should_get_label_by_id() {
             aliases: None,
             tags: None,
             rating: None,
+            genres: None,
         }
     );
 
@@ -233,6 +241,7 @@ fn should_get_area_by_id() {
             iso_3166_1_codes: None,
             tags: None,
             aliases: None,
+            genres: None,
             life_span: Some(LifeSpan {
                 ended: false,
                 begin: None,
@@ -269,6 +278,7 @@ fn should_get_event_by_id() {
             tags: None,
             aliases: None,
             rating: None,
+            genres: None,
         }
     );
 }
@@ -290,6 +300,7 @@ fn should_get_instrument() {
             disambiguation: "".to_string(),
             tags: None,
             aliases: None,
+            genres: None,
         }
     );
 
@@ -327,6 +338,7 @@ fn should_get_place() {
                 life_span: None,
                 tags: None,
                 aliases: None,
+                genres: None,
             },
             coordinates: Coordinates {
                 latitude: "41.882059".to_string(),
@@ -334,6 +346,7 @@ fn should_get_place() {
             },
             aliases: None,
             tags: None,
+            genres: None,
         }
     );
 
@@ -356,6 +369,7 @@ fn should_get_series() {
             name: "La Chanson du Dimanche — Saison 4".to_string(),
             tags: None,
             aliases: None,
+            genres: None,
         }
     );
 
