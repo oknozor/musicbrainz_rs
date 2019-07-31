@@ -18,6 +18,7 @@ pub mod area;
 pub mod artist;
 pub mod artist_credit;
 pub mod event;
+pub mod genre;
 pub mod instrument;
 pub mod label;
 pub mod lifespan;
