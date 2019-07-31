@@ -29,3 +29,16 @@ fn should_get_place_tags() {
 
     thread::sleep(time::Duration::from_secs(1));
 }
+
+#[test]
+fn should_get_place_genres() {
+    let olympia = Place::fetch()
+        .id("36678fc4-2fee-46be-b084-4c4e2314ce71")
+        .include(place::Include::Genres)
+        .execute()
+        .unwrap();
+
+    assert!(olympia.genres.is_some());
+
+    thread::sleep(time::Duration::from_secs(1));
+}
