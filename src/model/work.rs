@@ -24,6 +24,7 @@ pub struct Work {
     pub rating: Option<Rating>,
     pub aliases: Option<Vec<Alias>>,
     pub genres: Option<Vec<Genre>>,
+    pub annotation: Option<String>,
 }
 
 #[derive(Debug, PartialEq)]
@@ -33,6 +34,7 @@ pub enum Include {
     Rating,
     Aliases,
     Genres,
+    Annotation,
 }
 
 impl IncludeInto<Work> for Include {
@@ -43,6 +45,7 @@ impl IncludeInto<Work> for Include {
             Include::Rating => "ratings",
             Include::Aliases => "aliases",
             Include::Genres => "genres",
+            Include::Annotation => "annotation",
         }
     }
 }

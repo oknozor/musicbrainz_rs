@@ -115,3 +115,17 @@ fn should_get_release_genres() {
 
     thread::sleep(time::Duration::from_secs(1));
 }
+
+// TODO: find an actual resource with annotation
+// #[test]
+// fn should_get_release_annotation() {
+//     let l_ecole_du_micro_d_argent = Release::fetch()
+//         .id("cba0035e-d8c9-4390-8569-02bdadaf87d3")
+//         .include(release::Include::Annotation)
+//         .execute()
+//         .unwrap();
+
+//     assert!(l_ecole_du_micro_d_argent.annotation.is_some());
+
+//     thread::sleep(time::Duration::from_secs(1));
+// }

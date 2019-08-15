@@ -67,6 +67,7 @@ pub struct Release {
     pub tags: Option<Vec<Tag>>,
     pub aliases: Option<Vec<Alias>>,
     pub genres: Option<Vec<Genre>>,
+    pub annotation: Option<String>,
 }
 
 #[derive(Debug, Serialize, Deserialize, PartialEq)]
@@ -167,6 +168,7 @@ pub enum Include {
     Rating,
     Aliases,
     Genres,
+    Annotation,
 }
 
 impl IncludeInto<Release> for Include {
@@ -179,6 +181,7 @@ impl IncludeInto<Release> for Include {
             Include::Rating => "ratings",
             Include::Aliases => "aliases",
             Include::Genres => "genres",
+            Include::Annotation => "annotation",
         }
     }
 }
