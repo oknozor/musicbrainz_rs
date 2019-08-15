@@ -3,7 +3,6 @@ extern crate musicbrainz_rs;
 
 use musicbrainz_rs::model::artist;
 use musicbrainz_rs::model::artist::*;
-use musicbrainz_rs::model::relations::*;
 use musicbrainz_rs::QueryAble;
 use std::{thread, time};
 
@@ -97,20 +96,16 @@ fn should_get_artist_artist_relations() {
     let john_lee_hooker = Artist::fetch()
         .id("b0122194-c49a-46a1-ade7-84d1d76bd8e9")
         .include(artist::Include::ArtistRelations)
+        .include(artist::Include::EventRelations)
         .execute()
         .unwrap();
 
     let relations = john_lee_hooker.relations.unwrap();
 
     assert!(relations.iter().any(|rel| rel.relation_type == "parent"));
-    assert!(relations.iter().any(|rel| rel.content
-        == RelationContent::Artist(ArtistRelation {
-            sort_name: "Hooker, Zakiya".to_string(),
-            id: "8f7fbe13-da00-44ab-bb5b-4da8c18367f0".to_string(),
-            disambiguation: "".to_string(),
-            name: "Zakiya Hooker".to_string(),
-            aliases: None,
-        })));
+    assert!(relations
+        .iter()
+        .any(|rel| rel.relation_type == "main performer"));
 
     thread::sleep(time::Duration::from_secs(1));
 }

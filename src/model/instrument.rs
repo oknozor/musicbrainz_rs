@@ -1,5 +1,6 @@
 use crate::model::alias::Alias;
 use crate::model::genre::Genre;
+use crate::model::include_const::*;
 use crate::model::tag::Tag;
 use crate::Include as IncludeInto;
 
@@ -31,11 +32,11 @@ pub enum Include {
 impl IncludeInto<Instrument> for Include {
     fn as_str(&self) -> &str {
         match self {
-            Include::ArtistRelations => "artist-rels",
-            Include::Tags => "tags",
-            Include::Aliases => "aliases",
-            Include::Genres => "genres",
-            Include::Annotation => "annotation",
+            Include::ArtistRelations => INC_ARTIST_REL_VALUE,
+            Include::Tags => INC_TAGS_VALUE,
+            Include::Aliases => INC_ALIASES_VALUE,
+            Include::Genres => INC_GENRES_VALUE,
+            Include::Annotation => INC_ANNOTATION_VALUE,
         }
     }
 }
