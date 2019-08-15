@@ -4,7 +4,7 @@ use serde::{self, Deserialize, Deserializer};
 const FORMAT: &str = "%Y-%m-%d";
 
 /// Some times, music brainz dates doesn't have a month or day
-/// This artificially add them before deserializing the API response
+/// This artificially add january 1st before deserializing the API response
 pub fn deserialize<'de, D>(deserializer: D) -> Result<NaiveDate, D::Error>
 where
     D: Deserializer<'de>,

@@ -22,6 +22,7 @@ pub struct Label {
     pub tags: Option<Vec<Tag>>,
     pub rating: Option<Rating>,
     pub genres: Option<Vec<Genre>>,
+    pub annotation: Option<String>,
 }
 
 #[derive(Debug, Serialize, Deserialize, PartialEq)]
@@ -38,6 +39,7 @@ pub enum Include {
     Tags,
     Rating,
     Genres,
+    Annotation,
 }
 
 impl IncludeInto<Label> for Include {
@@ -48,6 +50,7 @@ impl IncludeInto<Label> for Include {
             Include::Tags => "tags",
             Include::Rating => "ratings",
             Include::Genres => "genres",
+            Include::Annotation => "annotation",
         }
     }
 }

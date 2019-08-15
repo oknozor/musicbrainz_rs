@@ -42,3 +42,17 @@ fn should_get_place_genres() {
 
     thread::sleep(time::Duration::from_secs(1));
 }
+
+// TODO: find an actual resource with annotation
+// #[test]
+// fn should_get_place_annotation() {
+//     let olympia = Place::fetch()
+//         .id("36678fc4-2fee-46be-b084-4c4e2314ce71")
+//         .include(place::Include::Annotation)
+//         .execute()
+//         .unwrap();
+
+//     assert!(olympia.annotation.is_some());
+
+//     thread::sleep(time::Duration::from_secs(1));
+// }

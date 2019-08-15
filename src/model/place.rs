@@ -21,6 +21,7 @@ pub struct Place {
     pub aliases: Option<Vec<Alias>>,
     pub tags: Option<Vec<Tag>>,
     pub genres: Option<Vec<Genre>>,
+    pub annotation: Option<String>,
 }
 
 #[derive(Debug, Serialize, Deserialize, PartialEq)]
@@ -35,6 +36,7 @@ pub enum Include {
     Aliases,
     Tags,
     Genres,
+    Annotation,
 }
 
 impl IncludeInto<Place> for Include {
@@ -44,6 +46,7 @@ impl IncludeInto<Place> for Include {
             Include::Aliases => "aliases",
             Include::Tags => "tags",
             Include::Genres => "genres",
+            Include::Annotation => "annotation",
         }
     }
 }

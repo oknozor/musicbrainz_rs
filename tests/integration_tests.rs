@@ -48,6 +48,7 @@ fn should_get_artist_by_id() {
                 tags: None,
                 aliases: None,
                 genres: None,
+                annotation: None,
             }),
             begin_area: Some(Area {
                 id: "a640b45c-c173-49b1-8030-973603e895b5".to_string(),
@@ -61,6 +62,7 @@ fn should_get_artist_by_id() {
                 tags: None,
                 aliases: None,
                 genres: None,
+                annotation: None,
             }),
             life_span: Some(LifeSpan {
                 ended: true,
@@ -76,6 +78,7 @@ fn should_get_artist_by_id() {
             aliases: None,
             rating: None,
             genres: None,
+            annotation: None,
         }
     );
 
@@ -103,6 +106,7 @@ fn should_get_recording_by_id() {
             tags: None,
             rating: None,
             genres: None,
+            annotation: None,
         }
     );
     thread::sleep(time::Duration::from_secs(1));
@@ -131,6 +135,7 @@ fn should_get_release_group_by_id() {
             aliases: None,
             rating: None,
             genres: None,
+            annotation: None,
         }
     );
 
@@ -163,6 +168,7 @@ fn should_get_release() {
             tags: None,
             aliases: None,
             genres: None,
+            annotation: None,
         }
     );
 
@@ -189,6 +195,7 @@ fn should_get_work_by_id() {
             aliases: None,
             rating: None,
             genres: None,
+            annotation: None,
         }
     );
 
@@ -217,6 +224,7 @@ fn should_get_label_by_id() {
             tags: None,
             rating: None,
             genres: None,
+            annotation: None,
         }
     );
 
@@ -242,6 +250,7 @@ fn should_get_area_by_id() {
             tags: None,
             aliases: None,
             genres: None,
+            annotation: None,
             life_span: Some(LifeSpan {
                 ended: false,
                 begin: None,
@@ -279,6 +288,7 @@ fn should_get_event_by_id() {
             aliases: None,
             rating: None,
             genres: None,
+            annotation: None,
         }
     );
 }
@@ -301,6 +311,7 @@ fn should_get_instrument() {
             tags: None,
             aliases: None,
             genres: None,
+            annotation: None,
         }
     );
 
@@ -339,6 +350,7 @@ fn should_get_place() {
                 tags: None,
                 aliases: None,
                 genres: None,
+                annotation: None,
             },
             coordinates: Coordinates {
                 latitude: "41.882059".to_string(),
@@ -347,6 +359,7 @@ fn should_get_place() {
             aliases: None,
             tags: None,
             genres: None,
+            annotation: None,
         }
     );
 
@@ -370,6 +383,7 @@ fn should_get_series() {
             tags: None,
             aliases: None,
             genres: None,
+            annotation: None,
         }
     );
 

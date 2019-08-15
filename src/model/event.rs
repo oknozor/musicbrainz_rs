@@ -22,6 +22,7 @@ pub struct Event {
     pub rating: Option<Rating>,
     pub aliases: Option<Vec<Alias>>,
     pub genres: Option<Vec<Genre>>,
+    pub annotation: Option<String>,
 }
 
 #[derive(Debug, PartialEq)]
@@ -31,6 +32,7 @@ pub enum Include {
     Rating,
     Aliases,
     Genres,
+    Annotation,
 }
 
 impl IncludeInto<Event> for Include {
@@ -41,6 +43,7 @@ impl IncludeInto<Event> for Include {
             Include::Aliases => "aliases",
             Include::Rating => "ratings",
             Include::Genres => "genres",
+            Include::Annotation => "annotation",
         }
     }
 }

@@ -43,6 +43,7 @@ pub struct Recording {
     pub tags: Option<Vec<Tag>>,
     pub rating: Option<Rating>,
     pub genres: Option<Vec<Genre>>,
+    pub annotation: Option<String>,
 }
 
 #[derive(Debug, PartialEq)]
@@ -53,6 +54,7 @@ pub enum Include {
     Tags,
     Rating,
     Genres,
+    Annotation,
 }
 
 impl IncludeInto<Recording> for Include {
@@ -64,6 +66,7 @@ impl IncludeInto<Recording> for Include {
             Include::Tags => "tags",
             Include::Rating => "ratings",
             Include::Genres => "genres",
+            Include::Annotation => "annotation",
         }
     }
 }

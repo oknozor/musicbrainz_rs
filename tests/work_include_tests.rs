@@ -59,3 +59,17 @@ fn should_get_work_genres() {
 
     thread::sleep(time::Duration::from_secs(1));
 }
+
+// TODO: find an actual resource with annotation
+// #[test]
+// fn should_get_work_annotation() {
+//     let hotel_california = Work::fetch()
+//         .id("22457dc0-ecbf-38f5-9056-11c858530a50")
+//         .include(work::Include::Annotation)
+//         .execute()
+//         .unwrap();
+
+//     assert!(hotel_california.annotation.is_some());
+
+//     thread::sleep(time::Duration::from_secs(1));
+// }
