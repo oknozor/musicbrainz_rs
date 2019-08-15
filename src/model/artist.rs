@@ -60,8 +60,8 @@ pub struct Artist {
     pub tags: Option<Vec<Tag>>,
     pub genres: Option<Vec<Genre>>,
     pub rating: Option<Rating>,
-
     pub country: Option<String>,
+    pub annotation: Option<String>,
 
     /// The begin and end dates indicate when an artist started and finished its existence.
     /// Its exact meaning depends on the type of artist:
@@ -125,6 +125,7 @@ pub enum Include {
     Tags,
     Rating,
     Genres,
+    Annotation,
 }
 
 impl IncludeInto<Artist> for Include {
@@ -140,6 +141,7 @@ impl IncludeInto<Artist> for Include {
             Include::Tags => "tags",
             Include::Rating => "ratings",
             Include::Genres => "genres",
+            Include::Annotation => "annotation",
         }
     }
 }
