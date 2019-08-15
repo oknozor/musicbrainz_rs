@@ -2,6 +2,7 @@ use crate::date_format;
 use crate::model::alias::Alias;
 use crate::model::artist_credit::ArtistCredit;
 use crate::model::genre::Genre;
+use crate::model::include_const::*;
 use crate::model::rating::Rating;
 use crate::model::release::Release;
 use crate::model::tag::Tag;
@@ -58,13 +59,13 @@ pub enum Include {
 impl IncludeInto<ReleaseGroup> for Include {
     fn as_str(&self) -> &str {
         match self {
-            Include::Artists => "artists",
-            Include::Releases => "releases",
-            Include::Tags => "tags",
-            Include::Rating => "ratings",
-            Include::Aliases => "aliases",
-            Include::Genres => "genres",
-            Include::Annotation => "annotation",
+            Include::Artists => INC_ARTISTS_VALUE,
+            Include::Releases => INC_RELEASES_VALUE,
+            Include::Tags => INC_TAGS_VALUE,
+            Include::Rating => INC_RATINGS_VALUE,
+            Include::Aliases => INC_ALIASES_VALUE,
+            Include::Genres => INC_GENRES_VALUE,
+            Include::Annotation => INC_ANNOTATION_VALUE,
         }
     }
 }

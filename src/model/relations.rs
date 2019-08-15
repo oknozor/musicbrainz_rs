@@ -1,4 +1,7 @@
 use crate::date_format;
+use crate::model::area::Area;
+use crate::model::artist::Artist;
+use crate::model::event::Event;
 use chrono::NaiveDate;
 use std::collections::HashMap;
 
@@ -26,15 +29,7 @@ pub struct Relation {
 #[derive(Debug, Serialize, Deserialize, PartialEq)]
 #[serde(rename_all(deserialize = "kebab-case"))]
 pub enum RelationContent {
-    Artist(ArtistRelation),
-}
-
-#[derive(Debug, Serialize, Deserialize, PartialEq)]
-#[serde(rename_all(deserialize = "kebab-case"))]
-pub struct ArtistRelation {
-    pub sort_name: String,
-    pub id: String,
-    pub aliases: Option<Vec<String>>,
-    pub disambiguation: String,
-    pub name: String,
+    Artist(Artist),
+    Area(Area),
+    Event(Event),
 }

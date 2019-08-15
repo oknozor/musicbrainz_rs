@@ -19,6 +19,7 @@ pub mod artist;
 pub mod artist_credit;
 pub mod event;
 pub mod genre;
+mod include_const;
 pub mod instrument;
 pub mod label;
 pub mod lifespan;

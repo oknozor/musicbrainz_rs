@@ -279,11 +279,11 @@ fn should_get_event_by_id() {
             disambiguation: "".to_string(),
             time: "".to_string(),
             setlist: "".to_string(),
-            life_span: LifeSpan {
+            life_span: Some(LifeSpan {
                 begin: Some(NaiveDate::from_ymd(1989, 9, 16)),
                 end: Some(NaiveDate::from_ymd(1989, 9, 16)),
                 ended: true
-            },
+            }),
             tags: None,
             aliases: None,
             rating: None,

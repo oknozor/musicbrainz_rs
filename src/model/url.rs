@@ -1,3 +1,4 @@
+use crate::model::include_const::*;
 use crate::model::tag::Tag;
 use crate::Include as IncludeInto;
 
@@ -16,7 +17,7 @@ pub enum Include {
 impl IncludeInto<Url> for Include {
     fn as_str(&self) -> &str {
         match self {
-            Include::ArtistRelations => "artist-rels",
+            Include::ArtistRelations => INC_ARTIST_REL_VALUE,
         }
     }
 }
