@@ -1,5 +1,6 @@
 use crate::model::alias::Alias;
 use crate::model::genre::Genre;
+use crate::model::include_const::*;
 use crate::model::rating::Rating;
 use crate::model::release::Release;
 use crate::model::tag::Tag;
@@ -45,12 +46,12 @@ pub enum Include {
 impl IncludeInto<Label> for Include {
     fn as_str(&self) -> &str {
         match self {
-            Include::Releases => "releases",
-            Include::Aliases => "aliases",
-            Include::Tags => "tags",
-            Include::Rating => "ratings",
-            Include::Genres => "genres",
-            Include::Annotation => "annotation",
+            Include::Releases => INC_RELEASES_VALUE,
+            Include::Aliases => INC_ALIASES_VALUE,
+            Include::Tags => INC_TAGS_VALUE,
+            Include::Rating => INC_RATINGS_VALUE,
+            Include::Genres => INC_GENRES_VALUE,
+            Include::Annotation => INC_ANNOTATION_VALUE,
         }
     }
 }
