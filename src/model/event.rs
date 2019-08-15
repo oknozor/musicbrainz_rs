@@ -1,4 +1,5 @@
 use crate::model::alias::Alias;
+use crate::model::genre::Genre;
 use crate::model::lifespan::LifeSpan;
 use crate::model::rating::Rating;
 use crate::model::tag::Tag;
@@ -20,6 +21,8 @@ pub struct Event {
     pub tags: Option<Vec<Tag>>,
     pub rating: Option<Rating>,
     pub aliases: Option<Vec<Alias>>,
+    pub genres: Option<Vec<Genre>>,
+    pub annotation: Option<String>,
 }
 
 #[derive(Debug, PartialEq)]
@@ -28,6 +31,8 @@ pub enum Include {
     Tags,
     Rating,
     Aliases,
+    Genres,
+    Annotation,
 }
 
 impl IncludeInto<Event> for Include {
@@ -37,6 +42,8 @@ impl IncludeInto<Event> for Include {
             Include::Tags => "tags",
             Include::Aliases => "aliases",
             Include::Rating => "ratings",
+            Include::Genres => "genres",
+            Include::Annotation => "annotation",
         }
     }
 }

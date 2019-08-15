@@ -75,3 +75,30 @@ fn should_get_recording_rating() {
 
     thread::sleep(time::Duration::from_secs(1));
 }
+
+#[test]
+fn should_get_recording_genres() {
+    let you_talk_too_much = Recording::fetch()
+        .id("de552ba4-572c-4c59-b2a9-0508619696ac")
+        .include(recording::Include::Genres)
+        .execute()
+        .unwrap();
+
+    assert!(you_talk_too_much.genres.is_some()); // FIXME: didn't find a recording containing actual aliases (yet)
+
+    thread::sleep(time::Duration::from_secs(1));
+}
+
+// TODO: find an actual resource with annotation
+// #[test]
+// fn should_get_recording_annotation() {
+//     let you_talk_too_much = Recording::fetch()
+//         .id("de552ba4-572c-4c59-b2a9-0508619696ac")
+//         .include(recording::Include::Annotation)
+//         .execute()
+//         .unwrap();
+
+//     assert!(you_talk_too_much.annotation.is_none()); // FIXME: didn't find a recording containing actual aliases (yet)
+
+//     thread::sleep(time::Duration::from_secs(1));
+// }

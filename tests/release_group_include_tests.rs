@@ -78,3 +78,30 @@ fn should_get_release_group_rating() {
 
     thread::sleep(time::Duration::from_secs(1));
 }
+
+#[test]
+fn should_get_release_group_genres() {
+    let in_utero = ReleaseGroup::fetch()
+        .id("2a0981fb-9593-3019-864b-ce934d97a16e")
+        .include(release_group::Include::Genres)
+        .execute()
+        .unwrap();
+
+    assert!(in_utero.genres.is_some());
+
+    thread::sleep(time::Duration::from_secs(1));
+}
+
+// TODO: find an actual resource with annotation
+// #[test]
+// fn should_get_release_group_annotation() {
+//     let in_utero = ReleaseGroup::fetch()
+//         .id("2a0981fb-9593-3019-864b-ce934d97a16e")
+//         .include(release_group::Include::Annotation)
+//         .execute()
+//         .unwrap();
+
+//     assert!(in_utero.annotation.is_some());
+
+//     thread::sleep(time::Duration::from_secs(1));
+// }

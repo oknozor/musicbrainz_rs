@@ -1,4 +1,5 @@
 use crate::model::alias::Alias;
+use crate::model::genre::Genre;
 use crate::model::lifespan::LifeSpan;
 use crate::model::tag::Tag;
 use crate::Include as IncludeInto;
@@ -17,6 +18,8 @@ pub struct Area {
     pub life_span: Option<LifeSpan>,
     pub tags: Option<Vec<Tag>>,
     pub aliases: Option<Vec<Alias>>,
+    pub genres: Option<Vec<Genre>>,
+    pub annotation: Option<String>,
 }
 
 #[derive(Debug, PartialEq)]
@@ -24,6 +27,8 @@ pub enum Include {
     ArtistRelations,
     Tags,
     Aliases,
+    Genres,
+    Annotation,
 }
 
 impl IncludeInto<Area> for Include {
@@ -32,6 +37,8 @@ impl IncludeInto<Area> for Include {
             Include::ArtistRelations => "artist-rels",
             Include::Tags => "tags",
             Include::Aliases => "aliases",
+            Include::Genres => "genres",
+            Include::Annotation => "annotation",
         }
     }
 }

@@ -1,5 +1,6 @@
 use crate::model::alias::Alias;
 use crate::model::artist_credit::ArtistCredit;
+use crate::model::genre::Genre;
 use crate::model::rating::Rating;
 use crate::model::relations::Relation;
 use crate::model::release::Release;
@@ -41,6 +42,8 @@ pub struct Recording {
     pub aliases: Option<Vec<Alias>>,
     pub tags: Option<Vec<Tag>>,
     pub rating: Option<Rating>,
+    pub genres: Option<Vec<Genre>>,
+    pub annotation: Option<String>,
 }
 
 #[derive(Debug, PartialEq)]
@@ -50,6 +53,8 @@ pub enum Include {
     Aliases,
     Tags,
     Rating,
+    Genres,
+    Annotation,
 }
 
 impl IncludeInto<Recording> for Include {
@@ -60,6 +65,8 @@ impl IncludeInto<Recording> for Include {
             Include::Aliases => "aliases",
             Include::Tags => "tags",
             Include::Rating => "ratings",
+            Include::Genres => "genres",
+            Include::Annotation => "annotation",
         }
     }
 }

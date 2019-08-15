@@ -1,6 +1,7 @@
 use crate::date_format;
 use crate::model::alias::Alias;
 use crate::model::artist_credit::ArtistCredit;
+use crate::model::genre::Genre;
 use crate::model::rating::Rating;
 use crate::model::release::Release;
 use crate::model::tag::Tag;
@@ -39,6 +40,8 @@ pub struct ReleaseGroup {
     pub tags: Option<Vec<Tag>>,
     pub rating: Option<Rating>,
     pub aliases: Option<Vec<Alias>>,
+    pub genres: Option<Vec<Genre>>,
+    pub annotation: Option<String>,
 }
 
 #[derive(Debug, PartialEq)]
@@ -48,6 +51,8 @@ pub enum Include {
     Tags,
     Rating,
     Aliases,
+    Genres,
+    Annotation,
 }
 
 impl IncludeInto<ReleaseGroup> for Include {
@@ -58,6 +63,8 @@ impl IncludeInto<ReleaseGroup> for Include {
             Include::Tags => "tags",
             Include::Rating => "ratings",
             Include::Aliases => "aliases",
+            Include::Genres => "genres",
+            Include::Annotation => "annotation",
         }
     }
 }

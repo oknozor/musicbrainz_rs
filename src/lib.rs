@@ -62,7 +62,7 @@ where
     }
 }
 
-/// This trait provide a generic method to fetch music brainz resource
+/// This trait provide utily methods for music brainz queryable resources
 pub trait QueryAble<'a, I> {
     fn path() -> &'static str;
 
@@ -79,6 +79,7 @@ pub trait QueryAble<'a, I> {
     }
 }
 
+/// Generic trait object to get allowable include on T
 pub trait Include<T> {
     fn as_str(&self) -> &str;
 }

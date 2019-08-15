@@ -1,4 +1,5 @@
 use crate::model::alias::Alias;
+use crate::model::genre::Genre;
 use crate::model::rating::Rating;
 use crate::model::release::Release;
 use crate::model::tag::Tag;
@@ -20,6 +21,8 @@ pub struct Label {
     pub aliases: Option<Vec<Alias>>,
     pub tags: Option<Vec<Tag>>,
     pub rating: Option<Rating>,
+    pub genres: Option<Vec<Genre>>,
+    pub annotation: Option<String>,
 }
 
 #[derive(Debug, Serialize, Deserialize, PartialEq)]
@@ -35,6 +38,8 @@ pub enum Include {
     Aliases,
     Tags,
     Rating,
+    Genres,
+    Annotation,
 }
 
 impl IncludeInto<Label> for Include {
@@ -44,6 +49,8 @@ impl IncludeInto<Label> for Include {
             Include::Aliases => "aliases",
             Include::Tags => "tags",
             Include::Rating => "ratings",
+            Include::Genres => "genres",
+            Include::Annotation => "annotation",
         }
     }
 }
