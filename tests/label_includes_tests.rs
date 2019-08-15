@@ -77,3 +77,17 @@ fn should_get_label_genres() {
 
     thread::sleep(time::Duration::from_secs(1));
 }
+
+// TODO: find an actual resource with annotation
+// #[test]
+// fn should_get_label_annotation() {
+//     let ninja_tune = Label::fetch()
+//         .id("dc940013-b8a8-4362-a465-291026c04b42")
+//         .include(label::Include::Annotation)
+//         .execute()
+//         .unwrap();
+
+//     assert!(ninja_tune.annotation.is_some());
+
+//     thread::sleep(time::Duration::from_secs(1));
+// }

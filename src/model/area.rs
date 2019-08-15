@@ -19,6 +19,7 @@ pub struct Area {
     pub tags: Option<Vec<Tag>>,
     pub aliases: Option<Vec<Alias>>,
     pub genres: Option<Vec<Genre>>,
+    pub annotation: Option<String>,
 }
 
 #[derive(Debug, PartialEq)]
@@ -27,6 +28,7 @@ pub enum Include {
     Tags,
     Aliases,
     Genres,
+    Annotation,
 }
 
 impl IncludeInto<Area> for Include {
@@ -36,6 +38,7 @@ impl IncludeInto<Area> for Include {
             Include::Tags => "tags",
             Include::Aliases => "aliases",
             Include::Genres => "genres",
+            Include::Annotation => "annotation",
         }
     }
 }
