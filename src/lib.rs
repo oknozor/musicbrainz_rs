@@ -2,12 +2,18 @@ extern crate reqwest;
 extern crate serde;
 #[macro_use]
 extern crate serde_derive;
+#[macro_use]
+extern crate lazy_static;
 
 use serde::de::DeserializeOwned;
 use std::marker::PhantomData;
 
 mod date_format;
 pub mod model;
+
+lazy_static! {
+    static ref HTTP_CLIENT: reqwest::Client = { reqwest::Client::new() };
+}
 
 const BASE_URL: &str = "http://musicbrainz.org/ws/2";
 
@@ -25,11 +31,9 @@ where
     where
         T: QueryAble<'a, I> + DeserializeOwned,
     {
-        let client = reqwest::Client::new();
-
         self.path.push_str("?fmt=json");
         self.include_to_path();
-        client.get(&self.path).send()?.json()
+        HTTP_CLIENT.get(&self.path).send()?.json()
     }
 
     pub fn include(&mut self, include: I) -> &mut Self {
