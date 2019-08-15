@@ -8,14 +8,11 @@ extern crate lazy_static;
 use serde::de::DeserializeOwned;
 use std::marker::PhantomData;
 
+use crate::http_const::*;
+
 mod date_format;
+pub(crate) mod http_const;
 pub mod model;
-
-lazy_static! {
-    static ref HTTP_CLIENT: reqwest::Client = { reqwest::Client::new() };
-}
-
-const BASE_URL: &str = "http://musicbrainz.org/ws/2";
 
 pub struct Query<T, I: Include<T>> {
     path: String,
@@ -31,7 +28,7 @@ where
     where
         T: QueryAble<'a, I> + DeserializeOwned,
     {
-        self.path.push_str("?fmt=json");
+        self.path.push_str(FMT_JSON);
         self.include_to_path();
         HTTP_CLIENT.get(&self.path).send()?.json()
     }
@@ -48,7 +45,7 @@ where
 
     fn include_to_path(&mut self) {
         if !self.include.is_empty() {
-            self.path.push_str("&inc=");
+            self.path.push_str(PARAM_INC);
         }
 
         for inc in self.include.iter() {

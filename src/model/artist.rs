@@ -1,6 +1,7 @@
 use crate::model::alias::Alias;
 use crate::model::area::Area;
 use crate::model::genre::Genre;
+use crate::model::include_const::*;
 use crate::model::lifespan::LifeSpan;
 use crate::model::rating::Rating;
 use crate::model::recording::Recording;
@@ -116,6 +117,7 @@ pub enum Gender {
 #[derive(Debug, PartialEq)]
 pub enum Include {
     ArtistRelations,
+    EventRelations,
     Releases,
     ReleasesWithDiscIds,
     ReleaseGroups,
@@ -131,17 +133,18 @@ pub enum Include {
 impl IncludeInto<Artist> for Include {
     fn as_str(&self) -> &str {
         match self {
-            Include::Recordings => "recordings",
-            Include::Releases => "releases",
-            Include::ReleasesWithDiscIds => "releases+discids",
-            Include::ReleaseGroups => "release-groups",
-            Include::Aliases => "aliases",
-            Include::Works => "works",
-            Include::ArtistRelations => "artist-rels",
-            Include::Tags => "tags",
-            Include::Rating => "ratings",
-            Include::Genres => "genres",
-            Include::Annotation => "annotation",
+            Include::Recordings => INC_RECORDINGS_VALUE,
+            Include::Releases => INC_RELEASES_VALUE,
+            Include::ReleasesWithDiscIds => INC_RELEASES_WITH_DISCIDS_VALUE,
+            Include::ReleaseGroups => INC_RELEASE_GROUPS_VALUE,
+            Include::Aliases => INC_ALIASES_VALUE,
+            Include::Works => INC_WORKS_VALUE,
+            Include::ArtistRelations => INC_ARTIST_REL_VALUE,
+            Include::EventRelations => INC_EVENT_REL_VALUE,
+            Include::Tags => INC_TAGS_VALUE,
+            Include::Rating => INC_RATINGS_VALUE,
+            Include::Genres => INC_GENRES_VALUE,
+            Include::Annotation => INC_ANNOTATION_VALUE,
         }
     }
 }
