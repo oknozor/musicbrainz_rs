@@ -4,7 +4,8 @@
 
 ---
 
-This is still WIP. 
+
+This is still WIP.
 
 you may be looking for : 
 - [Api documention](https://docs.rs/musicbrainz_rs)
@@ -31,7 +32,7 @@ fn main() {
 }
 ```
 
-You can also use includes to get more detail about a resource : 
+You can also use includes to get more detail about a resource :
 
 ```rust
 
@@ -55,19 +56,30 @@ fn main() {
         .any(|recording| recording.title == "A Little Bit Higher"));
 }
 ```
-To see what is currently implemented in the crate you can look at the `tests` directory. 
 
-## TODO : 
+You can set your application user-agent as recommended in the [musicbrainz documentation](https://musicbrainz.org/doc/XML_Web_Service/Rate_Limiting#User-Agent) :
 
-- [x] Implement all the musicbrainz model
-- [ ] Add non core-resources : `rating, tag, collection`
-- [ ] Add alternative lookups : ` discid, isrc, iswc`
-- [ ] Implement search and relations query
-- [ ] Add pagination
-- [ ] Provide some examples using the crate
+```rust
+fn main() {
+    musicbrainz_rs::config::set_user_agent("my_awesome_app/1.0");
+
+    let nirvana = Artist::fetch()
+        .id("5b11f4ce-a62d-471e-81fc-a69a8278c7da")
+        .execute();
+
+    assert_eq!(nirvana.unwrap().name, "Nirvana".to_string());
+}
+```
+
+To see what is currently implemented in the crate you can look at the `tests` directory.
+
+
+You can run examples with `cargo run --example example_name`
+
+
 
 #### Credits
 
-Most of this crate documentation is taken from the official [MusicBrainz doc](https://musicbrainz.org/doc/MusicBrainz_Documentation), 
-thanks to the [MetaBrainz](https://metabrainz.org/) Foundation and its sponsors and supporters. 
+Most of this crate documentation is taken from the official [MusicBrainz doc](https://musicbrainz.org/doc/MusicBrainz_Documentation),
+thanks to the [MetaBrainz](https://metabrainz.org/) Foundation and its sponsors and supporters.
 Cover Art provided by the [Cover Art Archive](https://coverartarchive.org/).

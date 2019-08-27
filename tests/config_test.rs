@@ -3,7 +3,8 @@ extern crate musicbrainz_rs;
 use musicbrainz_rs::model::artist::*;
 use musicbrainz_rs::QueryAble;
 
-fn main() {
+#[test]
+fn set_user_agent_should_work() {
     musicbrainz_rs::config::set_user_agent("my_awesome_app/1.0");
 
     let nirvana = Artist::fetch()

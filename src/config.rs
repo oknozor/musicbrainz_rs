@@ -24,7 +24,7 @@ fn init_http_client() -> MusicBrainzClient {
         header::USER_AGENT,
         header::HeaderValue::from_static("musicbrainz_rs default"),
     );
-    println!("{:?}", headers);
+
     let client = reqwest::Client::builder()
                 .default_headers(headers)
                 .build().expect("Unable to set default user agent, the following values must be set in Cargo.toml : 'name', 'version', 'authors'");
