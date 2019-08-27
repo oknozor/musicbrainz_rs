@@ -8,10 +8,10 @@ extern crate lazy_static;
 use serde::de::DeserializeOwned;
 use std::marker::PhantomData;
 
-use crate::http_const::*;
+use crate::config::*;
 
+pub mod config;
 mod date_format;
-pub(crate) mod http_const;
 pub mod model;
 
 pub struct Query<T, I: Include<T>> {
