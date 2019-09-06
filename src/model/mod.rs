@@ -11,7 +11,8 @@ use crate::model::series::Series;
 use crate::model::url::Url;
 use crate::model::work::Work;
 
-use crate::QueryAble;
+use crate::Path;
+use crate::Fetch;
 
 pub mod alias;
 pub mod area;
@@ -34,73 +35,86 @@ pub mod tag;
 pub mod url;
 pub mod work;
 
-impl QueryAble<'_, artist::Include> for Artist {
+impl Fetch<'_, artist::Include> for Artist {}
+impl Fetch<'_, recording::Include> for Recording {}
+impl Fetch<'_, release_group::Include> for ReleaseGroup {}
+impl Fetch<'_, release::Include> for Release {}
+impl Fetch<'_, work::Include> for Work {}
+impl Fetch<'_, label::Include> for Label {}
+impl Fetch<'_, area::Include> for Area {}
+impl Fetch<'_, event::Include> for Event {}
+impl Fetch<'_, instrument::Include> for Instrument {}
+impl Fetch<'_, place::Include> for Place {}
+impl Fetch<'_, series::Include> for Series {}
+impl Fetch<'_, url::Include> for Url {}
+
+impl Path<'_> for Artist {
     fn path() -> &'static str {
         "artist"
     }
 }
 
-impl QueryAble<'_, recording::Include> for Recording {
+impl Path<'_> for Recording {
     fn path() -> &'static str {
         "recording"
     }
 }
 
-impl QueryAble<'_, release_group::Include> for ReleaseGroup {
+impl Path<'_> for ReleaseGroup {
     fn path() -> &'static str {
         "release-group"
     }
 }
 
-impl QueryAble<'_, release::Include> for Release {
+impl Path<'_> for Release {
     fn path() -> &'static str {
         "release"
     }
 }
 
-impl QueryAble<'_, work::Include> for Work {
+impl Path<'_> for Work {
     fn path() -> &'static str {
         "work"
     }
 }
 
-impl QueryAble<'_, label::Include> for Label {
+impl Path<'_> for Label {
     fn path() -> &'static str {
         "label"
     }
 }
 
-impl QueryAble<'_, area::Include> for Area {
+impl Path<'_> for Area {
     fn path() -> &'static str {
         "area"
     }
 }
 
-impl QueryAble<'_, event::Include> for Event {
+impl Path<'_> for Event {
     fn path() -> &'static str {
         "event"
     }
 }
 
-impl QueryAble<'_, instrument::Include> for Instrument {
+impl Path<'_> for Instrument {
     fn path() -> &'static str {
         "instrument"
     }
 }
 
-impl QueryAble<'_, place::Include> for Place {
+impl Path<'_> for Place {
     fn path() -> &'static str {
         "place"
     }
 }
 
-impl QueryAble<'_, series::Include> for Series {
+impl Path<'_> for Series {
     fn path() -> &'static str {
         "series"
     }
 }
 
-impl QueryAble<'_, url::Include> for Url {
+impl Path<'_> for Url {
     fn path() -> &'static str {
         "url"
     }

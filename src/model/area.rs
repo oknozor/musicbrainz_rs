@@ -5,7 +5,7 @@ use crate::model::lifespan::LifeSpan;
 use crate::model::tag::Tag;
 use crate::Include as IncludeInto;
 
-#[derive(Debug, Serialize, Deserialize, PartialEq)]
+#[derive(Debug, Serialize, Deserialize, PartialEq, Clone)]
 #[serde(rename_all(deserialize = "kebab-case"))]
 pub struct Area {
     pub id: String,
@@ -23,7 +23,7 @@ pub struct Area {
     pub annotation: Option<String>,
 }
 
-#[derive(Debug, PartialEq)]
+#[derive(Debug, PartialEq, Clone)]
 pub enum Include {
     ArtistRelations,
     Tags,

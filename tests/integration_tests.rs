@@ -17,7 +17,7 @@ use musicbrainz_rs::model::release_group::*;
 use musicbrainz_rs::model::series::*;
 use musicbrainz_rs::model::url::*;
 use musicbrainz_rs::model::work::*;
-use musicbrainz_rs::QueryAble;
+use musicbrainz_rs::Fetch;
 use std::{thread, time};
 
 #[test]
