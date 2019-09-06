@@ -1,7 +1,7 @@
 use crate::date_format;
 use chrono::NaiveDate;
 
-#[derive(Debug, Serialize, Deserialize, PartialEq)]
+#[derive(Debug, Serialize, Deserialize, PartialEq, Clone)]
 #[serde(rename_all(deserialize = "kebab-case"))]
 pub struct Alias {
     pub name: String,

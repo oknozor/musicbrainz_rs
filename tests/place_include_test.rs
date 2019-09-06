@@ -1,7 +1,7 @@
 extern crate musicbrainz_rs;
 use musicbrainz_rs::model::place;
 use musicbrainz_rs::model::place::*;
-use musicbrainz_rs::QueryAble;
+use musicbrainz_rs::Fetch;
 use std::{thread, time};
 
 #[test]

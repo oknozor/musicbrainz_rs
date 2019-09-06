@@ -1,7 +1,7 @@
 extern crate musicbrainz_rs;
 
 use musicbrainz_rs::model::artist::*;
-use musicbrainz_rs::QueryAble;
+use musicbrainz_rs::Fetch;
 
 #[test]
 fn set_user_agent_should_work() {

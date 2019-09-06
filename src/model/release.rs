@@ -25,7 +25,7 @@ use chrono::NaiveDate;
 /// Tracklists represent the set and ordering of tracks as listed on a liner, and the same tracklist
 /// can appear on more than one release. For example, a boxset compilation that contains previously
 /// released CDs would share the same tracklists as the separate releases.
-#[derive(Debug, Serialize, Deserialize, PartialEq)]
+#[derive(Debug, Serialize, Deserialize, PartialEq, Clone)]
 #[serde(rename_all(deserialize = "kebab-case"))]
 pub struct Release {
     /// See [MusicBrainz Identifier](https://musicbrainz.org/doc/MusicBrainz_Identifier).
@@ -71,7 +71,7 @@ pub struct Release {
     pub annotation: Option<String>,
 }
 
-#[derive(Debug, Serialize, Deserialize, PartialEq)]
+#[derive(Debug, Serialize, Deserialize, PartialEq, Clone)]
 pub struct ReleaseTextRepresentation {
     pub language: Language,
     pub script: ReleaseScript,
@@ -79,7 +79,7 @@ pub struct ReleaseTextRepresentation {
 
 /// The script used to write the release's track list. The possible values are taken from the
 /// [ISO 15924](https://en.wikipedia.org/wiki/ISO_15924) standard.
-#[derive(Debug, Serialize, Deserialize, PartialEq)]
+#[derive(Debug, Serialize, Deserialize, PartialEq, Clone)]
 pub enum ReleaseScript {
     /* TODO: we need to test all posible values to build the enum see https://musicbrainz.org/doc/Release */
     /// ## Latin (also known as Roman or, incorrectly, "English")
@@ -89,13 +89,13 @@ pub enum ReleaseScript {
 }
 
 /* TODO: we need to test all posible values to build the enum see https://musicbrainz.org/doc/Release */
-#[derive(Debug, Serialize, Deserialize, PartialEq)]
+#[derive(Debug, Serialize, Deserialize, PartialEq, Clone)]
 pub enum Language {
     Eng,
 }
 
 #[serde(rename_all(deserialize = "lowercase"))]
-#[derive(Debug, Serialize, Deserialize, PartialEq)]
+#[derive(Debug, Serialize, Deserialize, PartialEq, Clone)]
 pub enum ReleaseQuality {
     /// The release needs serious fixes, or its existence is hard to prove (but it's not clearly fake).
     Low,
@@ -114,7 +114,7 @@ pub enum ReleaseQuality {
 }
 
 /// The release status describes how "official" a release is.
-#[derive(Debug, Serialize, Deserialize, PartialEq)]
+#[derive(Debug, Serialize, Deserialize, PartialEq, Clone)]
 pub enum ReleaseStatus {
     /// Any release officially sanctioned by the artist and/or their record company. Most releases
     /// will fit into this category.
@@ -137,7 +137,7 @@ pub enum ReleaseStatus {
     None,
 }
 
-#[derive(Debug, Serialize, Deserialize, PartialEq)]
+#[derive(Debug, Serialize, Deserialize, PartialEq, Clone)]
 #[serde(rename_all(deserialize = "kebab-case"))]
 pub struct Media {
     pub title: String,
@@ -149,7 +149,7 @@ pub struct Media {
     pub tracks: Option<Vec<Track>>,
 }
 
-#[derive(Debug, Serialize, Deserialize, PartialEq)]
+#[derive(Debug, Serialize, Deserialize, PartialEq, Clone)]
 #[serde(rename_all(deserialize = "kebab-case"))]
 pub struct Track {
     pub recording: Recording,
@@ -160,7 +160,7 @@ pub struct Track {
     pub id: String,
 }
 
-#[derive(Debug, PartialEq)]
+#[derive(Debug, PartialEq, Clone)]
 pub enum Include {
     Labels,
     Recordings,

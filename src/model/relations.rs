@@ -5,7 +5,7 @@ use crate::model::event::Event;
 use chrono::NaiveDate;
 use std::collections::HashMap;
 
-#[derive(Debug, Serialize, Deserialize, PartialEq)]
+#[derive(Debug, Serialize, Deserialize, PartialEq, Clone)]
 #[serde(rename_all(deserialize = "kebab-case"))]
 pub struct Relation {
     #[serde(deserialize_with = "date_format::deserialize_opt")]
@@ -26,7 +26,7 @@ pub struct Relation {
     pub relation_type: String,
 }
 
-#[derive(Debug, Serialize, Deserialize, PartialEq)]
+#[derive(Debug, Serialize, Deserialize, PartialEq, Clone)]
 #[serde(rename_all(deserialize = "kebab-case"))]
 pub enum RelationContent {
     Artist(Artist),

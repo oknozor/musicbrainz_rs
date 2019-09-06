@@ -16,7 +16,7 @@ use crate::Include as IncludeInto;
 /// mastering.
 /// Generally, the audio represented by a recording corresponds to the audio at a stage in the
 /// production process before any final mastering but after any editing or mixing.
-#[derive(Debug, Serialize, Deserialize, PartialEq)]
+#[derive(Debug, Serialize, Deserialize, PartialEq, Clone)]
 #[serde(rename_all(deserialize = "kebab-case"))]
 pub struct Recording {
     /// See [MusicBrainz Identifier](https://musicbrainz.org/doc/MusicBrainz_Identifier).
@@ -47,7 +47,7 @@ pub struct Recording {
     pub annotation: Option<String>,
 }
 
-#[derive(Debug, PartialEq)]
+#[derive(Debug, PartialEq, Clone)]
 pub enum Include {
     Artists,
     Releases,
