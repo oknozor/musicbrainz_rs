@@ -1,7 +1,7 @@
 extern crate musicbrainz_rs;
 
 use musicbrainz_rs::model::artist::*;
-use musicbrainz_rs::QueryAble;
+use musicbrainz_rs::Fetch;
 
 fn main() {
     musicbrainz_rs::config::set_user_agent("my_awesome_app/1.0");

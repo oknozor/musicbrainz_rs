@@ -2,7 +2,7 @@ extern crate musicbrainz_rs;
 
 use musicbrainz_rs::model::label;
 use musicbrainz_rs::model::label::*;
-use musicbrainz_rs::QueryAble;
+use musicbrainz_rs::Fetch;
 
 fn main() {
     let ninja_tune = Label::fetch()

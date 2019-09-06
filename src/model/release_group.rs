@@ -9,7 +9,7 @@ use crate::model::tag::Tag;
 use crate::Include as IncludeInto;
 use chrono::NaiveDate;
 
-#[derive(Debug, Serialize, Deserialize, PartialEq)]
+#[derive(Debug, Serialize, Deserialize, PartialEq, Clone)]
 #[serde(rename_all(deserialize = "kebab-case"))]
 pub struct ReleaseGroup {
     /// See [MusicBrainz Identifier](https://musicbrainz.org/doc/MusicBrainz_Identifier).
@@ -45,7 +45,7 @@ pub struct ReleaseGroup {
     pub annotation: Option<String>,
 }
 
-#[derive(Debug, PartialEq)]
+#[derive(Debug, PartialEq, Clone)]
 pub enum Include {
     Artists,
     Releases,

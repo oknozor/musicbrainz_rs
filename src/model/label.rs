@@ -6,7 +6,7 @@ use crate::model::release::Release;
 use crate::model::tag::Tag;
 use crate::Include as IncludeInto;
 
-#[derive(Debug, Serialize, Deserialize, PartialEq)]
+#[derive(Debug, Serialize, Deserialize, PartialEq, Clone)]
 #[serde(rename_all(deserialize = "kebab-case"))]
 pub struct Label {
     pub id: String,
@@ -26,14 +26,14 @@ pub struct Label {
     pub annotation: Option<String>,
 }
 
-#[derive(Debug, Serialize, Deserialize, PartialEq)]
+#[derive(Debug, Serialize, Deserialize, PartialEq, Clone)]
 #[serde(rename_all(deserialize = "kebab-case"))]
 pub struct LabelInfo {
     pub catalog_number: String,
     pub label: Label,
 }
 
-#[derive(Debug, PartialEq)]
+#[derive(Debug, PartialEq, Clone)]
 pub enum Include {
     Releases,
     Aliases,
