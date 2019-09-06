@@ -14,32 +14,56 @@ pub mod config;
 mod date_format;
 pub mod model;
 
+#[derive(Clone, Debug)]
 pub struct Query<T, I: Include<T>> {
     path: String,
     include: Vec<I>,
     phantom: PhantomData<T>,
 }
 
+#[derive(Clone, Debug)]
+pub struct FetchQuery<T, I: Include<T>>(Query<T, I>);
+
+// #[derive(Clone, Debug)]
+// pub struct BrowseQuery<T, I: Include<T>, B : Browse<T>> (Query<T, I>);
+
+impl<'a, T, I> FetchQuery<T, I>
+where
+    I: Include<T> + PartialEq + Clone,
+    T: Clone
+{
+    pub fn id(&mut self, id: &str) -> &mut Self {
+        self.0.path.push_str(&format!("/{}", id));
+        self
+    }
+
+    pub fn execute(&mut self) -> Result<T, reqwest::Error>
+    where
+        T: Fetch<'a, I> + DeserializeOwned,
+    {
+        self.0.path.push_str(FMT_JSON);
+        self.0.include_to_path();
+        HTTP_CLIENT.get(&self.0.path).send()?.json()
+    }
+
+    pub fn include(&mut self, include: I) -> &mut Self {
+        self.0.include = self.0
+        .include(include)
+        .include.to_owned();
+        self
+    }
+
+    fn include_to_path(&mut self) {
+        self.0.include_to_path()
+    }
+}
+
 impl<'a, T, I> Query<T, I>
 where
     I: Include<T> + PartialEq,
 {
-    pub fn execute(&mut self) -> Result<T, reqwest::Error>
-    where
-        T: QueryAble<'a, I> + DeserializeOwned,
-    {
-        self.path.push_str(FMT_JSON);
-        self.include_to_path();
-        HTTP_CLIENT.get(&self.path).send()?.json()
-    }
-
     pub fn include(&mut self, include: I) -> &mut Self {
         self.include.push(include);
-        self
-    }
-
-    pub fn id(&mut self, id: &str) -> &mut Self {
-        self.path.push_str(&format!("/{}", id));
         self
     }
 
@@ -59,24 +83,32 @@ where
     }
 }
 
-/// This trait provide utily methods for music brainz queryable resources
-pub trait QueryAble<'a, I> {
-    fn path() -> &'static str;
 
-    fn fetch() -> Query<Self, I>
+pub trait Path<'a> {
+    fn path() -> &'static str;
+}
+
+/// This trait provide utily methods for music brainz Fetch resources
+pub trait Fetch<'a, I> {
+
+    fn fetch() -> FetchQuery<Self, I>
     where
-        Self: Sized,
+        Self: Sized + Path<'a>,
         I: Include<Self> + PartialEq,
     {
-        Query {
+        FetchQuery(Query {
             path: format!("{}/{}", BASE_URL, Self::path()),
             phantom: PhantomData,
             include: vec![],
-        }
+        })
     }
 }
 
 /// Generic trait object to get allowable include on T
 pub trait Include<T> {
+    fn as_str(&self) -> &str;
+}
+
+pub trait Browse<T> {
     fn as_str(&self) -> &str;
 }

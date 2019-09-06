@@ -12,12 +12,13 @@ use crate::model::tag::Tag;
 use crate::model::work::Work;
 
 use crate::Include as IncludeInto;
+use crate::Browse as BrowseTarget;
 
 /// An artist is generally a musician (or musician persona), group of musicians, or other music
 /// professional (like a producer or engineer). Occasionally, it can also be a non-musical person
 /// (like a photographer, an illustrator, or a poet whose writings are set to music), or even a
 /// fictional character. For some other special cases, see special purpose artists.
-#[derive(Debug, Serialize, Deserialize, PartialEq)]
+#[derive(Debug, Serialize, Deserialize, PartialEq, Clone)]
 #[serde(rename_all(deserialize = "kebab-case"))]
 pub struct Artist {
     /// See [MusicBrainz Identifier](https://musicbrainz.org/doc/MusicBrainz_Identifier).
@@ -90,7 +91,7 @@ pub struct Artist {
     pub life_span: Option<LifeSpan>,
 }
 
-#[derive(Debug, Serialize, Deserialize, PartialEq)]
+#[derive(Debug, Serialize, Deserialize, PartialEq, Clone)]
 pub enum ArtistType {
     /// This indicates an individual person.
     Person,
@@ -108,13 +109,13 @@ pub enum ArtistType {
 
 /// The gender is used to explicitly state whether a person or character identifies as male,
 /// female or neither. Groups do not have genders.
-#[derive(Debug, Serialize, Deserialize, PartialEq)]
+#[derive(Debug, Serialize, Deserialize, PartialEq, Clone)]
 pub enum Gender {
     Male,
     Female,
 }
 
-#[derive(Debug, PartialEq)]
+#[derive(Debug, PartialEq, Clone)]
 pub enum Include {
     ArtistRelations,
     EventRelations,
@@ -128,6 +129,29 @@ pub enum Include {
     Rating,
     Genres,
     Annotation,
+}
+
+#[derive(Debug, PartialEq, Clone)]
+pub enum Browse {
+    Area,
+    Collection,
+    Recording,
+    Release,
+    ReleaseGroup,
+    Work,
+}
+
+impl BrowseTarget<Artist> for Browse {
+    fn as_str(&self) -> &str {
+        match self {
+            Browse::Area => BROWSE_AREA_VALUE,
+            Browse::Collection => BROWSE_COLLECTION_VALUE,
+            Browse::Recording => BROWSE_RECORDING_VALUE,
+            Browse::Release => BROWSE_RELEASE_VALUE,
+            Browse::ReleaseGroup => BROWSE_RELEASE_GROUP_VALUE,
+            Browse::Work => BROWSE_WORK_VALUE,
+        }
+    }
 }
 
 impl IncludeInto<Artist> for Include {

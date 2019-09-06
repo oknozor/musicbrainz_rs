@@ -2,7 +2,7 @@ extern crate musicbrainz_rs;
 use musicbrainz_rs::model::release;
 use musicbrainz_rs::model::release::Media;
 use musicbrainz_rs::model::release::Release;
-use musicbrainz_rs::QueryAble;
+use musicbrainz_rs::Fetch;
 use std::{thread, time};
 
 #[test]

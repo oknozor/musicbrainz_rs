@@ -21,7 +21,7 @@ extern crate musicbrainz_rs;
 
 use musicbrainz_rs::model::artist;
 use musicbrainz_rs::model::artist::*;
-use musicbrainz_rs::QueryAble;
+use musicbrainz_rs::Fetch;
 
 fn main() {
     let nirvana = Artist::fetch()
@@ -40,7 +40,7 @@ extern crate musicbrainz_rs;
 
 use musicbrainz_rs::model::artist;
 use musicbrainz_rs::model::artist::*;
-use musicbrainz_rs::QueryAble;
+use musicbrainz_rs::Fetch;
 
 fn main() {
     let john_lee_hooker = Artist::fetch()
