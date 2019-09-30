@@ -10,15 +10,13 @@
 
 ---
 
-This is still WIP.
-
 you may be looking for : 
 - [Api documention](https://docs.rs/musicbrainz_rs)
 - [The crate](https://www.crates.io/crates/musicbrainz_rs)
 
 ## Example : 
 
-
+### Fetch query
 All queries look like this one: 
 
 ```rust
