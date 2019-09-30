@@ -11,8 +11,8 @@ use crate::model::release_group::ReleaseGroup;
 use crate::model::tag::Tag;
 use crate::model::work::Work;
 
+use crate::BrowseBy;
 use crate::Include as IncludeInto;
-use crate::Browse as BrowseTarget;
 
 /// An artist is generally a musician (or musician persona), group of musicians, or other music
 /// professional (like a producer or engineer). Occasionally, it can also be a non-musical person
@@ -141,7 +141,7 @@ pub enum Browse {
     Work,
 }
 
-impl BrowseTarget<Artist> for Browse {
+impl BrowseBy<Artist> for Browse {
     fn as_str(&self) -> &str {
         match self {
             Browse::Area => BROWSE_AREA_VALUE,
