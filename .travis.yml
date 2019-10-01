@@ -15,12 +15,6 @@ matrix:
 before_script:
 - rustup component add rustfmt
 
-  addons:
-  sonarcloud:
-    organization: "nsziivgmerebchif"
-    token:
-      secure: 76a7c35701b7a03d68a0798a1f6af5b2e0ffff25
-
 script:
   - cargo fmt --all -- --check
   - cargo build --verbose --all 
