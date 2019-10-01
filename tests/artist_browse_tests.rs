@@ -7,7 +7,7 @@ use musicbrainz_rs::Browse;
 use std::{thread, time};
 
 #[test]
-fn should_browse_artist() {
+fn should_browse_artist_by_release_groups() {
     let artistss_on_in_rainbows_rg = Artist::browse()
         .by(
             artist::Browse::ReleaseGroup,
