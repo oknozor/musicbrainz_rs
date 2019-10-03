@@ -113,6 +113,8 @@ pub enum ArtistType {
 pub enum Gender {
     Male,
     Female,
+    #[serde(other)]
+    Other,
 }
 
 #[derive(Debug, PartialEq, Clone)]
