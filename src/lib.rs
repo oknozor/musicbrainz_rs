@@ -45,7 +45,7 @@ where
         T: Fetch<'a, I> + DeserializeOwned,
     {
         self.0.path.push_str(FMT_JSON);
-        self.0.include_to_path();
+        self.include_to_path();
         HTTP_CLIENT.get(&self.0.path).send()?.json()
     }
 
@@ -79,7 +79,7 @@ where
     where
         T: Fetch<'a, I> + DeserializeOwned + Browsable,
     {
-        self.0.include_to_path();
+        self.include_to_path();
         HTTP_CLIENT.get(&self.0.path).send()?.json()
     }
 
@@ -137,7 +137,7 @@ pub trait Fetch<'a, I> {
     }
 }
 
-/// This trait provide utily methods for music brainz Fetch resources
+/// This trait provide utily methods for music brainz Browse resources
 pub trait Browse<'a, I> {
     fn browse() -> BrowseQuery<Self, I>
     where
@@ -152,11 +152,12 @@ pub trait Browse<'a, I> {
     }
 }
 
-/// Generic trait object to get allowable include on T
+/// Generic trait object to get allowable include on <T>
 pub trait Include<T> {
     fn as_str(&self) -> &str;
 }
 
+/// Generic trait object to get allowable browse value on <T>
 pub trait BrowseBy<T> {
     fn as_str(&self) -> &str;
 }

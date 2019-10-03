@@ -6,6 +6,8 @@ use std::marker::PhantomData;
 
 use serde::de::{self, Deserialize, Deserializer, MapAccess, SeqAccess, Visitor};
 
+// Browse result fields in musicbrainz api v2 are prefixed with resource type :
+// this impl provide a generic browse result deserializer
 impl<'de, T> Deserialize<'de> for BrowseResult<T>
 where
     T: DeserializeOwned + Browsable,
