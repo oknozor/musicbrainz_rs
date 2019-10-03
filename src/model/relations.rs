@@ -29,7 +29,8 @@ pub struct Relation {
 #[derive(Debug, Serialize, Deserialize, PartialEq, Clone)]
 #[serde(rename_all(deserialize = "kebab-case"))]
 pub enum RelationContent {
-    Artist(Artist),
-    Area(Area),
-    Event(Event),
+    // see https://rust-lang.github.io/rust-clippy/master/index.html#large_enum_variant
+    Artist(Box<Artist>),
+    Area(Box<Area>),
+    Event(Box<Event>),
 }
