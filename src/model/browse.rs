@@ -1,4 +1,5 @@
 use crate::model::artist::Artist;
+use crate::model::event::Event;
 
 #[derive(Debug, Serialize, PartialEq, Clone)]
 #[serde(rename_all(deserialize = "kebab-case"))]
@@ -18,4 +19,10 @@ impl Browsable for Artist {
     const COUNT_FIELD: &'static str = "artist-count";
     const OFFSET_FIELD: &'static str = "artist-offset";
     const ENTITIES_FIELD: &'static str = "artists";
+}
+
+impl Browsable for Event {
+    const COUNT_FIELD: &'static str = "event-count";
+    const OFFSET_FIELD: &'static str = "event-offset";
+    const ENTITIES_FIELD: &'static str = "events";
 }
