@@ -335,8 +335,8 @@ fn should_get_place() {
                 end: Some(NaiveDate::from_ymd(1960, 6, 14)),
                 ended: true
             },
-            type_id: "cd92781a-a73f-30e8-a430-55d7521338db".to_string(),
-            place_type: "Venue".to_string(),
+            type_id: Some("cd92781a-a73f-30e8-a430-55d7521338db".to_string()),
+            place_type: Some("Venue".to_string()),
             address: "3 North Clark Street, Chicago, IL 60602".to_string(),
             area: Area {
                 id: "29a709d8-0320-493e-8d0c-f2c386662b7f".to_string(),
@@ -352,10 +352,10 @@ fn should_get_place() {
                 genres: None,
                 annotation: None,
             },
-            coordinates: Coordinates {
-                latitude: "41.882059".to_string(),
-                longitude: "-87.630881".to_string(),
-            },
+            coordinates: Some(Coordinates {
+                latitude: 41.882_059,
+                longitude: -87.630_881,
+            }),
             aliases: None,
             tags: None,
             genres: None,

@@ -4,6 +4,7 @@ use crate::model::genre::Genre;
 use crate::model::include_const::*;
 use crate::model::lifespan::LifeSpan;
 use crate::model::tag::Tag;
+use crate::BrowseBy;
 use crate::Include as IncludeInto;
 
 #[derive(Debug, Serialize, Deserialize, PartialEq, Clone)]
@@ -12,10 +13,10 @@ pub struct Place {
     pub id: String,
     pub name: String,
     #[serde(rename = "type")]
-    pub place_type: String,
-    pub type_id: String,
+    pub place_type: Option<String>,
+    pub type_id: Option<String>,
     pub life_span: LifeSpan,
-    pub coordinates: Coordinates,
+    pub coordinates: Option<Coordinates>,
     pub area: Area,
     pub address: String,
     pub disambiguation: String,
@@ -27,8 +28,21 @@ pub struct Place {
 
 #[derive(Debug, Serialize, Deserialize, PartialEq, Clone)]
 pub struct Coordinates {
-    pub latitude: String,
-    pub longitude: String,
+    pub latitude: f64,
+    pub longitude: f64,
+}
+
+#[derive(Debug, PartialEq, Clone)]
+pub enum Browse {
+    Area,
+}
+
+impl BrowseBy<Place> for Browse {
+    fn as_str(&self) -> &str {
+        match self {
+            Browse::Area => BROWSE_AREA_VALUE,
+        }
+    }
 }
 
 #[derive(Debug, PartialEq, Clone)]
