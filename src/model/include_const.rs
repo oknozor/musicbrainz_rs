@@ -26,10 +26,12 @@ pub const INC_EVENT_REL_VALUE: &str = "event-rels";
 
 // Browse
 pub const BROWSE_AREA_VALUE: &str = "area";
+pub const BROWSE_ARTIST_VALUE: &str = "artist";
 pub const BROWSE_COLLECTION_VALUE: &str = "collection";
 pub const BROWSE_RECORDING_VALUE: &str = "recording";
 pub const BROWSE_RELEASE_VALUE: &str = "release";
 pub const BROWSE_RELEASE_GROUP_VALUE: &str = "release-group";
 pub const BROWSE_WORK_VALUE: &str = "work";
+pub const BROWSE_PLACE_VALUE: &str = "place";
 
 // area, collection, recording, release, release-group, work
