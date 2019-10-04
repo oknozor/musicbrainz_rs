@@ -15,6 +15,8 @@ use crate::Browse;
 use crate::Fetch;
 use crate::Path;
 
+mod include_const;
+
 pub mod alias;
 pub mod area;
 pub mod artist;
@@ -22,7 +24,6 @@ pub mod artist_credit;
 pub mod browse;
 pub mod event;
 pub mod genre;
-mod include_const;
 pub mod instrument;
 pub mod label;
 pub mod lifespan;
@@ -57,7 +58,7 @@ impl Browse<'_, artist::Include> for Artist {}
 // impl Browse<'_, work::Include> for Work {}
 // impl Browse<'_, label::Include> for Label {}
 // impl Browse<'_, area::Include> for Area {}
-// impl Browse<'_, event::Include> for Event {}
+impl Browse<'_, event::Include> for Event {}
 // impl Browse<'_, instrument::Include> for Instrument {}
 // impl Browse<'_, place::Include> for Place {}
 // impl Browse<'_, series::Include> for Series {}
