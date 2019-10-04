@@ -4,6 +4,7 @@ use crate::model::include_const::*;
 use crate::model::rating::Rating;
 use crate::model::release::Release;
 use crate::model::tag::Tag;
+use crate::BrowseBy;
 use crate::Include as IncludeInto;
 
 #[derive(Debug, Serialize, Deserialize, PartialEq, Clone)]
@@ -31,6 +32,21 @@ pub struct Label {
 pub struct LabelInfo {
     pub catalog_number: String,
     pub label: Label,
+}
+
+#[derive(Debug, PartialEq, Clone)]
+pub enum Browse {
+    Area,
+    Release,
+}
+
+impl BrowseBy<Label> for Browse {
+    fn as_str(&self) -> &str {
+        match self {
+            Browse::Area => BROWSE_AREA_VALUE,
+            Browse::Release => BROWSE_RELEASE_VALUE,
+        }
+    }
 }
 
 #[derive(Debug, PartialEq, Clone)]
