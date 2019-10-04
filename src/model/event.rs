@@ -4,6 +4,7 @@ use crate::model::include_const::*;
 use crate::model::lifespan::LifeSpan;
 use crate::model::rating::Rating;
 use crate::model::tag::Tag;
+use crate::BrowseBy;
 use crate::Include as IncludeInto;
 
 #[derive(Debug, Serialize, Deserialize, PartialEq, Clone)]
@@ -24,6 +25,25 @@ pub struct Event {
     pub aliases: Option<Vec<Alias>>,
     pub genres: Option<Vec<Genre>>,
     pub annotation: Option<String>,
+}
+
+#[derive(Debug, PartialEq, Clone)]
+pub enum Browse {
+    Area,
+    Collection,
+    Artist,
+    Place,
+}
+
+impl BrowseBy<Event> for Browse {
+    fn as_str(&self) -> &str {
+        match self {
+            Browse::Area => BROWSE_AREA_VALUE,
+            Browse::Collection => BROWSE_COLLECTION_VALUE,
+            Browse::Artist => BROWSE_ARTIST_VALUE,
+            Browse::Place => BROWSE_PLACE_VALUE,
+        }
+    }
 }
 
 #[derive(Debug, PartialEq, Clone)]
