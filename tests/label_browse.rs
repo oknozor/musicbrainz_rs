@@ -28,7 +28,7 @@ fn should_browse_label_by_release() {
     let label_of_justice_cross_release = Label::browse()
         .by(
             label::Browse::Release,
-            "38860ba5-6b40-3e19-83ae-a560737a3f6f",
+            "4642ee19-7790-3c8d-ab5e-d133de942db6",
         )
         .execute();
 
@@ -36,7 +36,7 @@ fn should_browse_label_by_release() {
 
     let label_of_justice_cross_release = label_of_justice_cross_release.unwrap();
 
-    assert_eq!(label_of_justice_cross_release.count, 1);
+    assert!(label_of_justice_cross_release.count > 1);
     assert_eq!(label_of_justice_cross_release.offset, 0);
     assert!(!label_of_justice_cross_release.entities.is_empty());
 

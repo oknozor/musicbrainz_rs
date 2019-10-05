@@ -54,7 +54,7 @@ impl Fetch<'_, url::Include> for Url {}
 impl Browse<'_, artist::Include> for Artist {}
 impl Browse<'_, recording::Include> for Recording {}
 // impl Browse<'_, release_group::Include> for ReleaseGroup {}
-// impl Browse<'_, release::Include> for Release {}
+impl Browse<'_, release::Include> for Release {}
 // impl Browse<'_, work::Include> for Work {}
 impl Browse<'_, label::Include> for Label {}
 // impl Browse<'_, area::Include> for Area {}
