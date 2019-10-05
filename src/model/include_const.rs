@@ -33,5 +33,8 @@ pub const BROWSE_RELEASE_VALUE: &str = "release";
 pub const BROWSE_RELEASE_GROUP_VALUE: &str = "release-group";
 pub const BROWSE_WORK_VALUE: &str = "work";
 pub const BROWSE_PLACE_VALUE: &str = "place";
+pub const BROWSE_LABEL_VALUE: &str = "label";
+pub const BROWSE_TRACK_VALUE: &str = "track";
+pub const BROWSE_TRACK_ARTIST_VALUE: &str = "track_artist";
 
 // area, collection, recording, release, release-group, work
