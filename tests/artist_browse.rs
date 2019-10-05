@@ -28,20 +28,20 @@ fn should_browse_artist_by_release_groups() {
 
 #[test]
 fn should_browse_artist_by_release() {
-    let artistss_on_in_utero_release = Artist::browse()
+    let artists_on_in_utero_release = Artist::browse()
         .by(
             artist::Browse::Release,
             "18d4e9b4-9247-4b44-914a-8ddec3502103",
         )
         .execute();
 
-    assert!(artistss_on_in_utero_release.is_ok());
+    assert!(artists_on_in_utero_release.is_ok());
 
-    let artistss_on_in_utero_release = artistss_on_in_utero_release.unwrap();
+    let artists_on_in_utero_release = artists_on_in_utero_release.unwrap();
 
-    assert_eq!(artistss_on_in_utero_release.count, 1);
-    assert_eq!(artistss_on_in_utero_release.offset, 0);
-    assert!(!artistss_on_in_utero_release.entities.is_empty());
+    assert_eq!(artists_on_in_utero_release.count, 1);
+    assert_eq!(artists_on_in_utero_release.offset, 0);
+    assert!(!artists_on_in_utero_release.entities.is_empty());
 
     thread::sleep(time::Duration::from_secs(1));
 }
