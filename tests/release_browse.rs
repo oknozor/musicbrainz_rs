@@ -8,20 +8,20 @@ use std::{thread, time};
 
 #[test]
 fn should_browse_release_by_artist() {
-    let recording_by_svinkels = Release::browse()
+    let releases_by_svinkels = Release::browse()
         .by(
             release::Browse::Artist,
             "770d490e-c89b-4775-8508-aca7c75142cd",
         )
         .execute();
 
-    assert!(recording_by_svinkels.is_ok());
+    assert!(releases_by_svinkels.is_ok());
 
-    let recording_by_svinkels = recording_by_svinkels.unwrap();
+    let releases_by_svinkels = releases_by_svinkels.unwrap();
 
-    assert!(recording_by_svinkels.count > 1);
-    assert_eq!(recording_by_svinkels.offset, 0);
-    assert!(!recording_by_svinkels.entities.is_empty());
+    assert!(releases_by_svinkels.count > 1);
+    assert_eq!(releases_by_svinkels.offset, 0);
+    assert!(!releases_by_svinkels.entities.is_empty());
 
     thread::sleep(time::Duration::from_secs(1));
 }
