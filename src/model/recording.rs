@@ -6,6 +6,7 @@ use crate::model::rating::Rating;
 use crate::model::relations::Relation;
 use crate::model::release::Release;
 use crate::model::tag::Tag;
+use crate::BrowseBy;
 use crate::Include as IncludeInto;
 
 /// A recording is an entity in MusicBrainz which can be linked to tracks on releases. Each track
@@ -45,6 +46,23 @@ pub struct Recording {
     pub rating: Option<Rating>,
     pub genres: Option<Vec<Genre>>,
     pub annotation: Option<String>,
+}
+
+#[derive(Debug, PartialEq, Clone)]
+pub enum Browse {
+    Artist,
+    Release,
+    Work,
+}
+
+impl BrowseBy<Recording> for Browse {
+    fn as_str(&self) -> &str {
+        match self {
+            Browse::Artist => BROWSE_ARTIST_VALUE,
+            Browse::Release => BROWSE_RELEASE_VALUE,
+            Browse::Work => BROWSE_WORK_VALUE,
+        }
+    }
 }
 
 #[derive(Debug, PartialEq, Clone)]

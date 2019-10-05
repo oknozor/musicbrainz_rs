@@ -2,6 +2,7 @@ use crate::model::artist::Artist;
 use crate::model::event::Event;
 use crate::model::label::Label;
 use crate::model::place::Place;
+use crate::model::recording::Recording;
 
 #[derive(Debug, Serialize, PartialEq, Clone)]
 #[serde(rename_all(deserialize = "kebab-case"))]
@@ -39,4 +40,10 @@ impl Browsable for Place {
     const COUNT_FIELD: &'static str = "place-count";
     const OFFSET_FIELD: &'static str = "place-offset";
     const ENTITIES_FIELD: &'static str = "places";
+}
+
+impl Browsable for Recording {
+    const COUNT_FIELD: &'static str = "recording-count";
+    const OFFSET_FIELD: &'static str = "recording-offset";
+    const ENTITIES_FIELD: &'static str = "recordings";
 }
