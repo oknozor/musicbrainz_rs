@@ -58,9 +58,9 @@ impl Browse<'_, release::Include> for Release {}
 impl Browse<'_, label::Include> for Label {}
 impl Browse<'_, event::Include> for Event {}
 impl Browse<'_, place::Include> for Place {}
+impl Browse<'_, work::Include> for Work {}
 // impl Browse<'_, area::Include> for Area {}
 // impl Browse<'_, instrument::Include> for Instrument {}
-// impl Browse<'_, work::Include> for Work {}
 // impl Browse<'_, series::Include> for Series {}
 // impl Browse<'_, url::Include> for Url {}
 

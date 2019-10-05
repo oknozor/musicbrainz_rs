@@ -3,6 +3,7 @@ use crate::model::genre::Genre;
 use crate::model::include_const::*;
 use crate::model::rating::Rating;
 use crate::model::tag::Tag;
+use crate::BrowseBy;
 use crate::Include as IncludeInto;
 
 /// In MusicBrainz terminology, a work is a distinct intellectual or artistic creation, which can be
@@ -26,6 +27,19 @@ pub struct Work {
     pub aliases: Option<Vec<Alias>>,
     pub genres: Option<Vec<Genre>>,
     pub annotation: Option<String>,
+}
+
+#[derive(Debug, PartialEq, Clone)]
+pub enum Browse {
+    Artist,
+}
+
+impl BrowseBy<Work> for Browse {
+    fn as_str(&self) -> &str {
+        match self {
+            Browse::Artist => BROWSE_ARTIST_VALUE,
+        }
+    }
 }
 
 #[derive(Debug, PartialEq, Clone)]
