@@ -6,6 +6,7 @@ use crate::model::include_const::*;
 use crate::model::rating::Rating;
 use crate::model::release::Release;
 use crate::model::tag::Tag;
+use crate::BrowseBy;
 use crate::Include as IncludeInto;
 use chrono::NaiveDate;
 
@@ -43,6 +44,21 @@ pub struct ReleaseGroup {
     pub aliases: Option<Vec<Alias>>,
     pub genres: Option<Vec<Genre>>,
     pub annotation: Option<String>,
+}
+
+#[derive(Debug, PartialEq, Clone)]
+pub enum Browse {
+    Artist,
+    Release,
+}
+
+impl BrowseBy<ReleaseGroup> for Browse {
+    fn as_str(&self) -> &str {
+        match self {
+            Browse::Artist => BROWSE_ARTIST_VALUE,
+            Browse::Release => BROWSE_RELEASE_VALUE,
+        }
+    }
 }
 
 #[derive(Debug, PartialEq, Clone)]
