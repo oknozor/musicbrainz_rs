@@ -14,10 +14,11 @@ you may be looking for :
 - [Api documention](https://docs.rs/musicbrainz_rs)
 - [The crate](https://www.crates.io/crates/musicbrainz_rs)
 
-## Example : 
+## Features
 
 ### Fetch query
-All queries look like this one: 
+
+To perform a [lookups](https://musicbrainz.org/doc/Development/XML_Web_Service/Version_2#Lookups) via fetch queries, you need to import the `Fetch` trait.
 
 ```rust
 extern crate musicbrainz_rs;
@@ -35,31 +36,69 @@ fn main() {
 }
 ```
 
+### Include parameters
+
 You can also use includes to get more detail about a resource :
 
-```rust
+Every Musicbrainz resource has [allowed include parameters](https://musicbrainz.org/doc/Development/XML_Web_Service/Version_2#Subqueries).
+To enforce safe and valid queries we enforce correctess with rust enums.
+For example if you want to get tag and ratings on a  fetch label query you need to import `musicbrainz_rs::model::label::Include`
 
+```rust
 extern crate musicbrainz_rs;
 
-use musicbrainz_rs::model::artist;
-use musicbrainz_rs::model::artist::*;
+use musicbrainz_rs::model::label;
+use musicbrainz_rs::model::label::*;
 use musicbrainz_rs::Fetch;
 
 fn main() {
-    let john_lee_hooker = Artist::fetch()
-        .id("b0122194-c49a-46a1-ade7-84d1d76bd8e9")
-        .include(artist::Include::Recordings)
+    let ninja_tune = Label::fetch()
+        .id("dc940013-b8a8-4362-a465-291026c04b42")
+        .include(label::Include::Tags)
+        .include(label::Include::Rating)
         .execute()
         .unwrap();
 
-    let recordings = john_lee_hooker.recordings.unwrap();
-
-    assert!(recordings
+    assert!(ninja_tune
+        .tags
+        .unwrap()
         .iter()
-        .any(|recording| recording.title == "A Little Bit Higher"));
+        .any(|tag| tag.name == "independent"));
+
+    assert!(ninja_tune.rating.is_some());
 }
 ```
 
+### Browse query
+
+Use `musicbrainz_rs::Browse` to perform a [browse query](https://musicbrainz.org/doc/Development/XML_Web_Service/Version_2#Browse).
+Just like `Include` every muscibrainz resource has allowable linked entities for such queries.
+Use the `Browse` enum coresponding to the entity you need to lookup.
+
+```rust
+extern crate musicbrainz_rs;
+
+use musicbrainz_rs::model::artist;
+use musicbrainz_rs::model::artist::Artist;
+use musicbrainz_rs::Browse;
+
+fn main() {
+    let artists_on_in_utero_release = Artist::browse()
+        .by(
+            artist::Browse::Release,
+            "18d4e9b4-9247-4b44-914a-8ddec3502103",
+        )
+        .execute();
+
+    let artists_on_in_utero_release = artists_on_in_utero_release.unwrap();
+    artists_on_in_utero_release
+        .entities
+        .iter()
+        .for_each(|artist| println!("{:?}", artist.name));
+}
+```
+
+### Custom user agent
 You can set your application user-agent as recommended in the [musicbrainz documentation](https://musicbrainz.org/doc/XML_Web_Service/Rate_Limiting#User-Agent) :
 
 ```rust
@@ -74,12 +113,15 @@ fn main() {
 }
 ```
 
-To see what is currently implemented in the crate you can look at the `tests` directory.
+## Examples
 
+To see what is currently implemented in the crate you can look at the `tests` directory.
 
 You can run examples with `cargo run --example example_name`
 
+## Contributing
 
+All contributions are welcome, if find a bug or have a feature request don't hesitate to open an issue!
 
 #### Credits
 
