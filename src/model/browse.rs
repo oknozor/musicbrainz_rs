@@ -5,6 +5,7 @@ use crate::model::place::Place;
 use crate::model::recording::Recording;
 use crate::model::release::Release;
 use crate::model::release_group::ReleaseGroup;
+use crate::model::work::Work;
 
 #[derive(Debug, Serialize, PartialEq, Clone)]
 #[serde(rename_all(deserialize = "kebab-case"))]
@@ -60,4 +61,10 @@ impl Browsable for ReleaseGroup {
     const COUNT_FIELD: &'static str = "release-group-count";
     const OFFSET_FIELD: &'static str = "release-group-offset";
     const ENTITIES_FIELD: &'static str = "release-groups";
+}
+
+impl Browsable for Work {
+    const COUNT_FIELD: &'static str = "work-count";
+    const OFFSET_FIELD: &'static str = "work-offset";
+    const ENTITIES_FIELD: &'static str = "works";
 }
