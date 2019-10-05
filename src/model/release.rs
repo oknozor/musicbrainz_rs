@@ -6,6 +6,7 @@ use crate::model::label::LabelInfo;
 use crate::model::recording::Recording;
 use crate::model::release_group::ReleaseGroup;
 use crate::model::tag::Tag;
+use crate::BrowseBy;
 use crate::Include as IncludeInto;
 use chrono::NaiveDate;
 
@@ -158,6 +159,31 @@ pub struct Track {
     pub length: u32,
     pub position: u32,
     pub id: String,
+}
+
+#[derive(Debug, PartialEq, Clone)]
+pub enum Browse {
+    Area,
+    Artist,
+    Label,
+    Track,
+    TrackArtist,
+    Recording,
+    ReleaseGroup,
+}
+
+impl BrowseBy<Release> for Browse {
+    fn as_str(&self) -> &str {
+        match self {
+            Browse::Area => BROWSE_AREA_VALUE,
+            Browse::Artist => BROWSE_ARTIST_VALUE,
+            Browse::Label => BROWSE_LABEL_VALUE,
+            Browse::Track => BROWSE_TRACK_VALUE,
+            Browse::TrackArtist => BROWSE_TRACK_ARTIST_VALUE,
+            Browse::Recording => BROWSE_RECORDING_VALUE,
+            Browse::ReleaseGroup => BROWSE_RELEASE_GROUP_VALUE,
+        }
+    }
 }
 
 #[derive(Debug, PartialEq, Clone)]
