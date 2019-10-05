@@ -18,7 +18,8 @@ fn should_get_area_tags() {
     thread::sleep(time::Duration::from_secs(1));
 }
 
-#[test]
+// TODO : waiting for https://github.com/metabrainz/musicbrainz-server/pull/1223 to be released
+// #[test]
 fn should_get_area_aliases() {
     let aberdeen = Area::fetch()
         .id("a640b45c-c173-49b1-8030-973603e895b5")
