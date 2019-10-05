@@ -6,7 +6,8 @@ use musicbrainz_rs::model::place::*;
 use musicbrainz_rs::Browse;
 use std::{thread, time};
 
-#[test]
+// TODO : waiting for https://github.com/metabrainz/musicbrainz-server/pull/1223 to be released
+// #[test]
 fn should_browse_place_by_area() {
     let places_in_paris = Place::browse()
         .by(place::Browse::Area, "dc10c22b-e510-4006-8b7f-fecb4f36436e")
