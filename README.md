@@ -10,7 +10,7 @@
 
 ---
 
-you may be looking for : 
+you may be looking for :
 - [Api documention](https://docs.rs/musicbrainz_rs)
 - [The crate](https://www.crates.io/crates/musicbrainz_rs)
 
