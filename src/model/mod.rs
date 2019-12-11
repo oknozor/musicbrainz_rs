@@ -37,6 +37,7 @@ pub mod series;
 pub mod tag;
 pub mod url;
 pub mod work;
+pub mod search;
 
 impl Fetch<'_, artist::Include> for Artist {}
 impl Fetch<'_, recording::Include> for Recording {}
