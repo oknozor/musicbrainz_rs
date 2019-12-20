@@ -10,6 +10,8 @@ use crate::model::release::Release;
 use crate::model::release_group::ReleaseGroup;
 use crate::model::tag::Tag;
 use crate::model::work::Work;
+use crate::deserialization::default;
+use lucene_query_builder::QueryBuilder;
 
 use crate::BrowseBy;
 use crate::Include as IncludeInto;
@@ -18,7 +20,7 @@ use crate::Include as IncludeInto;
 /// professional (like a producer or engineer). Occasionally, it can also be a non-musical person
 /// (like a photographer, an illustrator, or a poet whose writings are set to music), or even a
 /// fictional character. For some other special cases, see special purpose artists.
-#[derive(Debug, Serialize, Deserialize, PartialEq, Clone)]
+#[derive(Debug, Serialize, Deserialize, PartialEq, Clone, QueryBuilder)]
 #[serde(rename_all(deserialize = "kebab-case"))]
 pub struct Artist {
     /// See [MusicBrainz Identifier](https://musicbrainz.org/doc/MusicBrainz_Identifier).
@@ -33,6 +35,7 @@ pub struct Artist {
     /// sort names are the best place to check for more specific usage info.
     pub sort_name: String,
 
+    #[serde(default = "default::string")]
     pub disambiguation: String,
 
     /// The type is used to state whether an artist is a person, a group, or something else.

@@ -4,6 +4,7 @@ use crate::model::include_const::*;
 use crate::model::lifespan::LifeSpan;
 use crate::model::tag::Tag;
 use crate::Include as IncludeInto;
+use crate::deserialization::default;
 
 #[derive(Debug, Serialize, Deserialize, PartialEq, Clone)]
 #[serde(rename_all(deserialize = "kebab-case"))]
@@ -12,6 +13,7 @@ pub struct Area {
     #[serde(rename = "type")]
     pub area_type: Option<String>,
     pub type_id: Option<String>,
+    #[serde(default = "default::string")]
     pub disambiguation: String,
     pub name: String,
     pub sort_name: String,

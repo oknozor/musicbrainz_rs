@@ -46,7 +46,7 @@ mod tests {
         assert_eq!(
             life_span,
             LifeSpan {
-                ended: true,
+                ended: Some(true),
                 begin: Some(NaiveDate::from_ymd(1988, 1, 1)),
                 end: Some(NaiveDate::from_ymd(1994, 4, 5)),
             }

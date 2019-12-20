@@ -17,7 +17,7 @@ before_script:
 
 script:
   - cargo fmt --all -- --check
-  - cargo build --verbose --all 
+  - cargo build --verbose --all
   - cargo test --verbose --all -- --test-threads=1
 
 
