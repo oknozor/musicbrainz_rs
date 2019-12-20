@@ -11,7 +11,7 @@ use crate::model::series::Series;
 use crate::model::url::Url;
 use crate::model::work::Work;
 
-use crate::Browse;
+use crate::{Browse, Search};
 use crate::Fetch;
 use crate::Path;
 
@@ -33,11 +33,11 @@ pub mod recording;
 pub mod relations;
 pub mod release;
 pub mod release_group;
+pub mod search;
 pub mod series;
 pub mod tag;
 pub mod url;
 pub mod work;
-pub mod search;
 
 impl Fetch<'_, artist::Include> for Artist {}
 impl Fetch<'_, recording::Include> for Recording {}
@@ -60,10 +60,12 @@ impl Browse<'_, label::Include> for Label {}
 impl Browse<'_, event::Include> for Event {}
 impl Browse<'_, place::Include> for Place {}
 impl Browse<'_, work::Include> for Work {}
-// impl Browse<'_, area::Include> for Area {}
-// impl Browse<'_, instrument::Include> for Instrument {}
-// impl Browse<'_, series::Include> for Series {}
 // impl Browse<'_, url::Include> for Url {}
+// impl Browse<'_, series::Include> for Series {}
+// impl Browse<'_, instrument::Include> for Instrument {}
+// impl Browse<'_, area::Include> for Area {}
+
+impl Search<'_, artist::Include> for Artist {}
 
 impl Path<'_> for Artist {
     fn path() -> &'static str {

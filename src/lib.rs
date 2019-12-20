@@ -4,16 +4,24 @@ extern crate serde;
 extern crate serde_derive;
 #[macro_use]
 extern crate lazy_static;
+#[macro_use]
+extern crate lucene_query_builder;
 
 use serde::de::DeserializeOwned;
 use std::marker::PhantomData;
 
+use lucene_query_builder::{QueryBuilder};
+
 use crate::config::*;
 
-mod browse_deserializer;
 pub mod config;
-mod date_format;
+mod deserialization;
+
+use deserialization::date_format;
+
 pub mod model;
+
+use crate::model::search::{SearchResult, Searchable};
 use model::browse::Browsable;
 use model::browse::BrowseResult;
 
@@ -30,10 +38,13 @@ pub struct FetchQuery<T, I: Include<T>>(Query<T, I>);
 #[derive(Clone, Debug)]
 pub struct BrowseQuery<T, I: Include<T>>(Query<T, I>);
 
+#[derive(Clone, Debug)]
+pub struct SearchQuery<T, I: Include<T>> (Query<T, I>);
+
 impl<'a, T, I> FetchQuery<T, I>
-where
-    I: Include<T> + PartialEq + Clone,
-    T: Clone,
+    where
+        I: Include<T> + PartialEq + Clone,
+        T: Clone,
 {
     pub fn id(&mut self, id: &str) -> &mut Self {
         self.0.path.push_str(&format!("/{}", id));
@@ -41,8 +52,8 @@ where
     }
 
     pub fn execute(&mut self) -> Result<T, reqwest::Error>
-    where
-        T: Fetch<'a, I> + DeserializeOwned,
+        where
+            T: Fetch<'a, I> + DeserializeOwned,
     {
         self.0.path.push_str(FMT_JSON);
         self.include_to_path();
@@ -60,13 +71,13 @@ where
 }
 
 impl<'a, T, I> BrowseQuery<T, I>
-where
-    I: Include<T> + PartialEq + Clone,
-    T: Clone,
+    where
+        I: Include<T> + PartialEq + Clone,
+        T: Clone,
 {
     pub fn by<B>(&mut self, browse_by: B, id: &str) -> &mut Self
-    where
-        B: BrowseBy<T> + PartialEq + Clone,
+        where
+            B: BrowseBy<T> + PartialEq + Clone,
     {
         self.0.path.push_str(FMT_JSON);
         self.0
@@ -76,8 +87,8 @@ where
     }
 
     pub fn execute(&mut self) -> Result<BrowseResult<T>, reqwest::Error>
-    where
-        T: Fetch<'a, I> + DeserializeOwned + Browsable,
+        where
+            T: Fetch<'a, I> + DeserializeOwned + Browsable,
     {
         self.include_to_path();
         HTTP_CLIENT.get(&self.0.path).send()?.json()
@@ -93,9 +104,34 @@ where
     }
 }
 
+impl<'a, T, I> SearchQuery<T, I>
+    where
+        I: Include<T> + PartialEq + Clone,
+        T: Search<'a, I> + Clone,
+{
+    pub fn execute(&mut self) -> Result<SearchResult<T>, reqwest::Error>
+        where
+            T: Search<'a, I> + DeserializeOwned + Searchable,
+    {
+        self.include_to_path();
+        println!("{:?}", self.0.path);
+        HTTP_CLIENT.get(&self.0.path).send()?.json()
+    }
+
+
+    pub fn include(&mut self, include: I) -> &mut Self {
+        self.0.include = self.0.include(include).include.to_owned();
+        self
+    }
+
+    fn include_to_path(&mut self) {
+        self.0.include_to_path()
+    }
+}
+
 impl<'a, T, I> Query<T, I>
-where
-    I: Include<T> + PartialEq,
+    where
+        I: Include<T> + PartialEq,
 {
     pub fn include(&mut self, include: I) -> &mut Self {
         self.include.push(include);
@@ -125,9 +161,9 @@ pub trait Path<'a> {
 /// This trait provide utily methods for music brainz Fetch resources
 pub trait Fetch<'a, I> {
     fn fetch() -> FetchQuery<Self, I>
-    where
-        Self: Sized + Path<'a>,
-        I: Include<Self> + PartialEq,
+        where
+            Self: Sized + Path<'a>,
+            I: Include<Self> + PartialEq,
     {
         FetchQuery(Query {
             path: format!("{}/{}", BASE_URL, Self::path()),
@@ -137,15 +173,30 @@ pub trait Fetch<'a, I> {
     }
 }
 
-/// This trait provide utily methods for music brainz Browse resources
+/// This trait provide utily methods for musicbrainz Browse resources
 pub trait Browse<'a, I> {
     fn browse() -> BrowseQuery<Self, I>
-    where
-        Self: Sized + Path<'a>,
-        I: Include<Self> + PartialEq,
+        where
+            Self: Sized + Path<'a>,
+            I: Include<Self> + PartialEq,
     {
         BrowseQuery(Query {
             path: format!("{}/{}", BASE_URL, Self::path()),
+            phantom: PhantomData,
+            include: vec![],
+        })
+    }
+}
+
+/// This trait provide utily methods for musicbrainz Search Query
+pub trait Search<'a, I> {
+    fn search(query: String) -> SearchQuery<Self, I>
+        where
+            Self: Sized + Path<'a>,
+            I: Include<Self> + PartialEq,
+    {
+        SearchQuery(Query {
+            path: format!("{}/{}{}&{}", BASE_URL, Self::path(), FMT_JSON, query),
             phantom: PhantomData,
             include: vec![],
         })
