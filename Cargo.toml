@@ -40,6 +40,11 @@ path = "examples/includes.rs"
 name = "browse"
 path = "examples/browse.rs"
 
+[[example]]
+
+name = "search"
+path = "examples/search_artist.rs"
+
 [[test]]
 name = "all"
 path = "tests/common.rs"
