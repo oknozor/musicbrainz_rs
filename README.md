@@ -1,7 +1,9 @@
-# ![MusicBrainz] Rust &emsp; [![Latest Version]][crates.io] [![Build Status]][travis]
+# ![MusicBrainz] Rust &emsp; 
 
-[Build Status]: https://travis-ci.org/oknozor/musicbrainz_rs.svg?branch=master
-[travis]: https://travis-ci.org/oknozor/musicbrainz_rs
+[![Latest Version]][crates.io] [![Build Status]][Action] [![codecov](https://codecov.io/gh/oknozor/musicbrainz_rs/branch/master/graph/badge.svg)](https://codecov.io/gh/oknozor/musicbrainz_rs) ![GitHub tag (latest by date)](https://img.shields.io/github/v/tag/oknozor/musicbrainz_rs) [![Conventional Commits](https://img.shields.io/badge/Conventional%20Commits-1.0.0-yellow.svg)](https://conventionalcommits.org) ![License](https://img.shields.io/github/license/oknozor/musicbrainz_rs)
+
+[Build Status]: https://github.com/oknozor/musicbrainz_rs/actions/workflows/CI.yaml/badge.svg
+[Action]: https://github.com/oknozor/musicbrainz_rs/actions/workflows/CI.yaml
 [Latest Version]: https://img.shields.io/crates/v/musicbrainz_rs.svg
 [crates.io]: https://www.crates.io/crates/musicbrainz_rs
 [MusicBrainz]: https://staticbrainz.org/MB/header-logo-791fb3f.svg
