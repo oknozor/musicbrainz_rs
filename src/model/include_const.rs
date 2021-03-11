@@ -1,3 +1,6 @@
+// FIXME: ultimately every const here shall be used by the lib so this annotation can be removed
+#![allow(dead_code)]
+
 // Includes
 pub const INC_TAGS_VALUE: &str = "tags";
 pub const INC_ARTISTS_VALUE: &str = "artists";
