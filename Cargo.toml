@@ -39,3 +39,7 @@ path = "examples/includes.rs"
 
 name = "browse"
 path = "examples/browse.rs"
+
+[[test]]
+name = "all"
+path = "tests/common.rs"
