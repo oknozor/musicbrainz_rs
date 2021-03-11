@@ -1,5 +1,5 @@
 use crate::model::artist::Artist;
-use chrono::{NaiveDateTime};
+use chrono::NaiveDateTime;
 
 #[derive(Debug, Serialize, PartialEq, Clone)]
 #[serde(rename_all(deserialize = "kebab-case"))]
