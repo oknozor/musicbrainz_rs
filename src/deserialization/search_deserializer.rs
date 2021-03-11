@@ -2,11 +2,7 @@ use crate::model::search::{SearchResult, Searchable};
 use serde::de::DeserializeOwned;
 use std::fmt;
 use std::marker::PhantomData;
-use crate::date_format;
 use serde::de::{self, Deserialize, Deserializer, MapAccess, SeqAccess, Visitor};
-use chrono::NaiveDate;
-
-const FORMAT: &str = "%Y-%m-%d";
 
 // Browse result fields in musicbrainz api v2 are prefixed with resource type :
 // this impl provide a generic search result deserializer

@@ -1,4 +1,3 @@
-use chrono::NaiveDate;
 use crate::model::artist::Artist;
 
 #[derive(Debug, Serialize, PartialEq, Clone)]

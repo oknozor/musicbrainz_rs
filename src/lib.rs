@@ -4,13 +4,9 @@ extern crate serde;
 extern crate serde_derive;
 #[macro_use]
 extern crate lazy_static;
-#[macro_use]
-extern crate lucene_query_builder;
 
 use serde::de::DeserializeOwned;
 use std::marker::PhantomData;
-
-use lucene_query_builder::{QueryBuilder};
 
 use crate::config::*;
 
@@ -146,7 +142,7 @@ impl<'a, T, I> Query<T, I>
         for inc in self.include.iter() {
             if Some(inc) != self.include.last() {
                 self.path.push_str(inc.as_str());
-                self.path.push_str("+");
+                self.path.push('+');
             } else {
                 self.path.push_str(inc.as_str());
             }

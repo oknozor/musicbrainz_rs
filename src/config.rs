@@ -7,7 +7,7 @@ use std::sync::Mutex;
 pub struct MusicBrainzClient(Arc<Mutex<Client>>);
 
 lazy_static! {
-    pub static ref HTTP_CLIENT: MusicBrainzClient = { init_http_client() };
+    pub static ref HTTP_CLIENT: MusicBrainzClient = init_http_client();
 }
 
 impl MusicBrainzClient {
@@ -26,8 +26,8 @@ fn init_http_client() -> MusicBrainzClient {
     );
 
     let client = reqwest::Client::builder()
-                .default_headers(headers)
-                .build().expect("Unable to set default user agent, the following values must be set in Cargo.toml : 'name', 'version', 'authors'");
+        .default_headers(headers)
+        .build().expect("Unable to set default user agent, the following values must be set in Cargo.toml : 'name', 'version', 'authors'");
 
     MusicBrainzClient {
         0: Arc::new(Mutex::new(client)),
