@@ -16,7 +16,7 @@ impl Default for LifeSpan {
         LifeSpan {
             ended: None,
             begin: None,
-            end: None
+            end: None,
         }
     }
 }

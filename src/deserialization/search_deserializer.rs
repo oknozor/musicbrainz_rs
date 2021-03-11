@@ -1,45 +1,44 @@
 use crate::model::search::{SearchResult, Searchable};
+use chrono::NaiveDateTime;
 use serde::de::DeserializeOwned;
+use serde::de::{self, Deserialize, Deserializer, MapAccess, SeqAccess, Visitor};
 use std::fmt;
 use std::marker::PhantomData;
-use serde::de::{self, Deserialize, Deserializer, MapAccess, SeqAccess, Visitor};
-use chrono::{NaiveDateTime};
 
 const FORMAT: &str = "%Y-%m-%dT%H:%M:%S%.f%Z";
 
 // Browse result fields in musicbrainz api v2 are prefixed with resource type :
 // this impl provide a generic search result deserializer
 impl<'de, T> Deserialize<'de> for SearchResult<T>
-    where
-        T: DeserializeOwned + Searchable,
+where
+    T: DeserializeOwned + Searchable,
 {
     fn deserialize<D>(deserializer: D) -> Result<SearchResult<T>, D::Error>
-        where
-            D: Deserializer<'de>,
-            T: Searchable,
+    where
+        D: Deserializer<'de>,
+        T: Searchable,
     {
         enum Field<T> {
             Created,
             Count,
             Offset,
             Entities(PhantomData<T>),
-        }
-        ;
+        };
 
         impl<'de, T> Deserialize<'de> for Field<T>
-            where
-                T: Searchable,
+        where
+            T: Searchable,
         {
             fn deserialize<D>(deserializer: D) -> Result<Field<T>, D::Error>
-                where
-                    D: Deserializer<'de>,
-                    T: Searchable,
+            where
+                D: Deserializer<'de>,
+                T: Searchable,
             {
                 struct FieldVisitor<T>(PhantomData<T>);
 
                 impl<'de, T> Visitor<'de> for FieldVisitor<T>
-                    where
-                        T: Searchable,
+                where
+                    T: Searchable,
                 {
                     type Value = Field<T>;
 
@@ -48,15 +47,17 @@ impl<'de, T> Deserialize<'de> for SearchResult<T>
                     }
 
                     fn visit_str<E>(self, value: &str) -> Result<Field<T>, E>
-                        where
-                            E: de::Error,
-                            T: Searchable,
+                    where
+                        E: de::Error,
+                        T: Searchable,
                     {
                         match value {
                             field if field == T::CREATED_FIELD => Ok(Field::Created),
                             field if field == T::COUNT_FIELD => Ok(Field::Count),
                             field if field == T::OFFSET_FIELD => Ok(Field::Offset),
-                            field if field == T::ENTITIES_FIELD => Ok(Field::Entities(PhantomData::<T>)),
+                            field if field == T::ENTITIES_FIELD => {
+                                Ok(Field::Entities(PhantomData::<T>))
+                            }
                             _ => Err(de::Error::unknown_field(value, FIELDS)),
                         }
                     }
@@ -68,12 +69,11 @@ impl<'de, T> Deserialize<'de> for SearchResult<T>
 
         struct SearchResultVisitor<T> {
             _marker: PhantomData<T>,
-        }
-        ;
+        };
 
         impl<'de, T> Visitor<'de> for SearchResultVisitor<T>
-            where
-                T: Searchable + Deserialize<'de>,
+        where
+            T: Searchable + Deserialize<'de>,
         {
             type Value = SearchResult<T>;
 
@@ -82,8 +82,8 @@ impl<'de, T> Deserialize<'de> for SearchResult<T>
             }
 
             fn visit_seq<V>(self, mut seq: V) -> Result<SearchResult<T>, V::Error>
-                where
-                    V: SeqAccess<'de>,
+            where
+                V: SeqAccess<'de>,
             {
                 let created = seq
                     .next_element()?
@@ -107,9 +107,9 @@ impl<'de, T> Deserialize<'de> for SearchResult<T>
             }
 
             fn visit_map<V>(self, mut map: V) -> Result<SearchResult<T>, V::Error>
-                where
-                    T: Searchable + Deserialize<'de>,
-                    V: MapAccess<'de>,
+            where
+                T: Searchable + Deserialize<'de>,
+                V: MapAccess<'de>,
             {
                 let mut created: Option<String> = None;
                 let mut count: Option<i32> = None;

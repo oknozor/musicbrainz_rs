@@ -11,9 +11,9 @@ use crate::model::series::Series;
 use crate::model::url::Url;
 use crate::model::work::Work;
 
-use crate::{Browse, Search};
 use crate::Fetch;
 use crate::Path;
+use crate::{Browse, Search};
 
 mod include_const;
 
