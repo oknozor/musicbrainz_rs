@@ -3,6 +3,9 @@ use serde::de::DeserializeOwned;
 use std::fmt;
 use std::marker::PhantomData;
 use serde::de::{self, Deserialize, Deserializer, MapAccess, SeqAccess, Visitor};
+use chrono::{NaiveDateTime};
+
+const FORMAT: &str = "%Y-%m-%dT%H:%M:%S%.f%Z";
 
 // Browse result fields in musicbrainz api v2 are prefixed with resource type :
 // this impl provide a generic search result deserializer
@@ -20,7 +23,8 @@ impl<'de, T> Deserialize<'de> for SearchResult<T>
             Count,
             Offset,
             Entities(PhantomData<T>),
-        };
+        }
+        ;
 
         impl<'de, T> Deserialize<'de> for Field<T>
             where
@@ -64,7 +68,8 @@ impl<'de, T> Deserialize<'de> for SearchResult<T>
 
         struct SearchResultVisitor<T> {
             _marker: PhantomData<T>,
-        };
+        }
+        ;
 
         impl<'de, T> Visitor<'de> for SearchResultVisitor<T>
             where
@@ -140,11 +145,9 @@ impl<'de, T> Deserialize<'de> for SearchResult<T>
                     }
                 }
                 let created = created.ok_or_else(|| de::Error::missing_field("created"))?;
+                let created = NaiveDateTime::parse_from_str(&created, FORMAT).unwrap();
                 let count = count.ok_or_else(|| de::Error::missing_field("count"))?;
                 let offset = offset.ok_or_else(|| de::Error::missing_field("offset"))?;
-//                let created = created
-//                    .map(|date| NaiveDate::parse_from_str(&date, FORMAT).unwrap())
-//                    .ok_or_else(|| de::Error::missing_field("created"))?;
 
                 let entities = entities.ok_or_else(|| de::Error::missing_field("entities"))?;
                 Ok(SearchResult {

@@ -7,6 +7,7 @@ use crate::Include as IncludeInto;
 
 #[derive(Debug, Serialize, Deserialize, PartialEq, Clone, Default)]
 #[serde(rename_all(deserialize = "kebab-case"))]
+#[serde(default)]
 pub struct Area {
     pub id: String,
     #[serde(rename = "type")]
