@@ -19,8 +19,9 @@ use crate::Include as IncludeInto;
 /// professional (like a producer or engineer). Occasionally, it can also be a non-musical person
 /// (like a photographer, an illustrator, or a poet whose writings are set to music), or even a
 /// fictional character. For some other special cases, see special purpose artists.
-#[derive(Debug, Serialize, Deserialize, PartialEq, Clone, QueryBuilder)]
+#[derive(Debug, Serialize, Deserialize, PartialEq, Clone, QueryBuilder, Default)]
 #[serde(rename_all(deserialize = "kebab-case"))]
+#[serde(default)]
 pub struct Artist {
     /// See [MusicBrainz Identifier](https://musicbrainz.org/doc/MusicBrainz_Identifier).
     pub id: String,

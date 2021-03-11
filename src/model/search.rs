@@ -1,9 +1,10 @@
 use crate::model::artist::Artist;
+use chrono::{NaiveDateTime};
 
 #[derive(Debug, Serialize, PartialEq, Clone)]
 #[serde(rename_all(deserialize = "kebab-case"))]
 pub struct SearchResult<T> {
-    pub created: String,
+    pub created: NaiveDateTime,
     pub count: i32,
     pub offset: i32,
     pub entities: Vec<T>,
