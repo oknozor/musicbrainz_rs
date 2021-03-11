@@ -51,7 +51,6 @@ pub struct Artist {
 
     ///The artist begin area, as the name suggests, indicates the area with which an artist started
     /// to perform.
-
     #[serde(rename = "begin_area")] // Forcing camel_case here since
     pub begin_area: Option<Area>, // all other field are deserialized in kebab-case
 
@@ -60,11 +59,17 @@ pub struct Artist {
     pub works: Option<Vec<Work>>,
     pub release_groups: Option<Vec<ReleaseGroup>>,
     pub recordings: Option<Vec<Recording>>,
+
+    /// Aliases are used to store alternate names or misspellings. For more information and examples,
+    /// see the page about aliases.
     pub aliases: Option<Vec<Alias>>,
     pub tags: Option<Vec<Tag>>,
     pub genres: Option<Vec<Genre>>,
     pub rating: Option<Rating>,
     pub country: Option<String>,
+
+    /// Annotations are text fields, functioning like a miniature wiki, that can be added to any existing
+    /// artists, labels, recordings, releases, release groups and works.
     pub annotation: Option<String>,
 
     /// The begin and end dates indicate when an artist started and finished its existence.

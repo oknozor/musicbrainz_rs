@@ -7,6 +7,8 @@ use crate::model::release::Release;
 use crate::model::release_group::ReleaseGroup;
 use crate::model::work::Work;
 
+/// Browse query result are wrapped in this generic struct and paired with a custom
+/// Deserialize implementation to avoid reimplementing a custom deserializer for every entity.
 #[derive(Debug, Serialize, PartialEq, Clone)]
 #[serde(rename_all(deserialize = "kebab-case"))]
 pub struct BrowseResult<T> {
