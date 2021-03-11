@@ -110,7 +110,6 @@ where
         T: Search<'a, I> + DeserializeOwned + Searchable,
     {
         self.include_to_path();
-        println!("{:?}", self.0.path);
         HTTP_CLIENT.get(&self.0.path).send()?.json()
     }
 
