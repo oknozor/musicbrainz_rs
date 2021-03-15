@@ -60,16 +60,15 @@ fn should_get_work_genres() {
     thread::sleep(time::Duration::from_secs(1));
 }
 
-// TODO: find an actual resource with annotation
-// #[test]
-// fn should_get_work_annotation() {
-//     let hotel_california = Work::fetch()
-//         .id("22457dc0-ecbf-38f5-9056-11c858530a50")
-//         .include(work::Include::Annotation)
-//         .execute()
-//         .unwrap();
+#[test]
+fn should_get_work_annotation() {
+    let vater_unser_im_himmelreich = Work::fetch()
+        .id("85ab2b66-cf0b-47e9-beee-34c64a5ddea1")
+        .include(work::Include::Annotation)
+        .execute()
+        .unwrap();
 
-//     assert!(hotel_california.annotation.is_some());
+    assert!(vater_unser_im_himmelreich.annotation.is_some());
 
-//     thread::sleep(time::Duration::from_secs(1));
-// }
+    thread::sleep(time::Duration::from_secs(1));
+}

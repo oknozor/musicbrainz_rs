@@ -45,16 +45,15 @@ fn should_get_place_genres() {
     thread::sleep(time::Duration::from_secs(1));
 }
 
-// TODO: find an actual resource with annotation
-// #[test]
-// fn should_get_place_annotation() {
-//     let olympia = Place::fetch()
-//         .id("36678fc4-2fee-46be-b084-4c4e2314ce71")
-//         .include(place::Include::Annotation)
-//         .execute()
-//         .unwrap();
+#[test]
+fn should_get_place_annotation() {
+    let osaka_kosei_nenkin_kaikan = Place::fetch()
+        .id("751f998a-60ca-4d48-954f-b101d59ad89a")
+        .include(place::Include::Annotation)
+        .execute()
+        .unwrap();
 
-//     assert!(olympia.annotation.is_some());
+    assert!(osaka_kosei_nenkin_kaikan.annotation.is_some());
 
-//     thread::sleep(time::Duration::from_secs(1));
-// }
+    thread::sleep(time::Duration::from_secs(1));
+}
