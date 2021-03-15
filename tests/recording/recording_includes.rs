@@ -89,16 +89,15 @@ fn should_get_recording_genres() {
     thread::sleep(time::Duration::from_secs(1));
 }
 
-// TODO: find an actual resource with annotation
-// #[test]
-// fn should_get_recording_annotation() {
-//     let you_talk_too_much = Recording::fetch()
-//         .id("de552ba4-572c-4c59-b2a9-0508619696ac")
-//         .include(recording::Include::Annotation)
-//         .execute()
-//         .unwrap();
+#[test]
+fn should_get_recording_annotation() {
+    let isolina = Recording::fetch()
+        .id("2edf7653-2287-4408-8e7a-20e001a60847")
+        .include(recording::Include::Annotation)
+        .execute()
+        .unwrap();
 
-//     assert!(you_talk_too_much.annotation.is_none()); // FIXME: didn't find a recording containing actual aliases (yet)
+    assert!(isolina.annotation.is_some()); // FIXME: didn't find a recording containing actual aliases (yet)
 
-//     thread::sleep(time::Duration::from_secs(1));
-// }
+    thread::sleep(time::Duration::from_secs(1));
+}

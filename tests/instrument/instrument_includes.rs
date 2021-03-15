@@ -47,16 +47,15 @@ fn should_get_instrument_genres() {
     thread::sleep(time::Duration::from_secs(1));
 }
 
-// TODO: find an actual resource with annotation
-// #[test]
-// fn should_get_instrument_annotation() {
-//     let guitar = Instrument::fetch()
-//         .id("63021302-86cd-4aee-80df-2270d54f4978")
-//         .include(instrument::Include::Annotation)
-//         .execute()
-//         .unwrap();
+#[test]
+fn should_get_instrument_annotation() {
+    let gusli = Instrument::fetch()
+        .id("bb08cebd-ff6c-49e8-8f8f-914cc2d68c27")
+        .include(instrument::Include::Annotation)
+        .execute()
+        .unwrap();
 
-//     assert!(guitar.annotation.is_some());
+    assert!(gusli.annotation.is_some());
 
-//     thread::sleep(time::Duration::from_secs(1));
-// }
+    thread::sleep(time::Duration::from_secs(1));
+}

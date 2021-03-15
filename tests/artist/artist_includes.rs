@@ -174,16 +174,15 @@ fn should_get_artist_genres() {
     thread::sleep(time::Duration::from_secs(1));
 }
 
-// TODO: find an actual resource with annotation
-// #[test]
-// fn should_get_artist_annotation() {
-//     let john_lee_hooker = Artist::fetch()
-//         .id("b0122194-c49a-46a1-ade7-84d1d76bd8e9")
-//         .include(artist::Include::Annotation)
-//         .execute()
-//         .unwrap();
+#[test]
+fn should_get_artist_annotation() {
+    let franz_joseph_haydn = Artist::fetch()
+        .id("c130b0fb-5dce-449d-9f40-1437f889f7fe")
+        .include(artist::Include::Annotation)
+        .execute()
+        .unwrap();
 
-//     assert!(john_lee_hooker.annotation.is_some());
+    assert!(franz_joseph_haydn.annotation.is_some());
 
-//     thread::sleep(time::Duration::from_secs(1));
-// }
+    thread::sleep(time::Duration::from_secs(1));
+}
