@@ -92,16 +92,15 @@ fn should_get_release_group_genres() {
     thread::sleep(time::Duration::from_secs(1));
 }
 
-// TODO: find an actual resource with annotation
-// #[test]
-// fn should_get_release_group_annotation() {
-//     let in_utero = ReleaseGroup::fetch()
-//         .id("2a0981fb-9593-3019-864b-ce934d97a16e")
-//         .include(release_group::Include::Annotation)
-//         .execute()
-//         .unwrap();
+#[test]
+fn should_get_release_group_annotation() {
+    let minnesoda = ReleaseGroup::fetch()
+        .id("100d2ce1-8ba4-43eb-afbe-93ca21867e16")
+        .include(release_group::Include::Annotation)
+        .execute()
+        .unwrap();
 
-//     assert!(in_utero.annotation.is_some());
+    assert!(minnesoda.annotation.is_some());
 
-//     thread::sleep(time::Duration::from_secs(1));
-// }
+    thread::sleep(time::Duration::from_secs(1));
+}
