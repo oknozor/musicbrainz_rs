@@ -1,14 +1,15 @@
+use chrono::NaiveDate;
+
 use crate::date_format;
+use crate::impl_includes;
 use crate::model::alias::Alias;
 use crate::model::genre::Genre;
-use crate::model::include_const::*;
+use crate::model::include::*;
 use crate::model::label::LabelInfo;
 use crate::model::recording::Recording;
 use crate::model::release_group::ReleaseGroup;
 use crate::model::tag::Tag;
 use crate::BrowseBy;
-use crate::Include as IncludeInto;
-use chrono::NaiveDate;
 
 /// A MusicBrainz release represents the unique release (i.e. issuing) of a product on a specific
 /// date with specific release information such as the country, label, barcode and packaging.
@@ -156,7 +157,7 @@ pub struct Track {
     pub recording: Recording,
     pub title: String,
     pub number: String,
-    pub length: u32,
+    pub length: Option<u32>,
     pub position: u32,
     pub id: String,
 }
@@ -186,29 +187,14 @@ impl BrowseBy<Release> for Browse {
     }
 }
 
-#[derive(Debug, PartialEq, Clone)]
-pub enum Include {
-    Labels,
-    Recordings,
-    ReleaseGroup,
-    Tags,
-    Rating,
-    Aliases,
-    Genres,
-    Annotation,
-}
-
-impl IncludeInto<Release> for Include {
-    fn as_str(&self) -> &str {
-        match self {
-            Include::Labels => INC_LABELS_VALUE,
-            Include::Recordings => INC_RECORDINGS_VALUE,
-            Include::ReleaseGroup => INC_RELEASE_GROUPS_VALUE,
-            Include::Tags => INC_TAGS_VALUE,
-            Include::Rating => INC_RATINGS_VALUE,
-            Include::Aliases => INC_ALIASES_VALUE,
-            Include::Genres => INC_GENRES_VALUE,
-            Include::Annotation => INC_ANNOTATION_VALUE,
-        }
-    }
-}
+impl_includes!(
+    Release,
+    (with_labels, Include::Labels),
+    (with_recordings, Include::Recordings),
+    (with_release_groups, Include::ReleaseGroups),
+    (with_tags, Include::Tags),
+    (with_ratings, Include::Rating),
+    (with_aliases, Include::Aliases),
+    (with_genres, Include::Genres),
+    (with_annotations, Include::Annotations)
+);

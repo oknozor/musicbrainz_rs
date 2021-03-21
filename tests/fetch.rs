@@ -171,8 +171,6 @@ fn should_get_release() {
             annotation: None,
         }
     );
-
-    thread::sleep(time::Duration::from_secs(1));
 }
 
 #[test]
@@ -255,7 +253,7 @@ fn should_get_area_by_id() {
                 ended: Some(false),
                 begin: None,
                 end: None,
-            })
+            }),
         }
     );
 
@@ -282,7 +280,7 @@ fn should_get_event_by_id() {
             life_span: Some(LifeSpan {
                 begin: Some(NaiveDate::from_ymd(1989, 9, 16)),
                 end: Some(NaiveDate::from_ymd(1989, 9, 16)),
-                ended: Some(true)
+                ended: Some(true),
             }),
             tags: None,
             aliases: None,
@@ -334,7 +332,7 @@ fn should_get_place() {
             life_span: LifeSpan {
                 begin: Some(NaiveDate::from_ymd(1954, 4, 2)),
                 end: Some(NaiveDate::from_ymd(1960, 6, 14)),
-                ended: Some(true)
+                ended: Some(true),
             },
             type_id: Some("cd92781a-a73f-30e8-a430-55d7521338db".to_string()),
             place_type: Some("Venue".to_string()),

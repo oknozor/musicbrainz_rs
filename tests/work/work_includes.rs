@@ -8,7 +8,7 @@ use std::{thread, time};
 fn should_get_work_tags() {
     let hotel_california = Work::fetch()
         .id("22457dc0-ecbf-38f5-9056-11c858530a50")
-        .include(work::Include::Tags)
+        .with_tags()
         .execute()
         .unwrap();
 
@@ -25,7 +25,7 @@ fn should_get_work_tags() {
 fn should_get_work_aliases() {
     let hotel_california = Work::fetch()
         .id("22457dc0-ecbf-38f5-9056-11c858530a50")
-        .include(work::Include::Aliases)
+        .with_aliases()
         .execute()
         .unwrap();
 
@@ -38,7 +38,7 @@ fn should_get_work_aliases() {
 fn should_get_work_rating() {
     let hotel_california = Work::fetch()
         .id("22457dc0-ecbf-38f5-9056-11c858530a50")
-        .include(work::Include::Rating)
+        .with_ratings()
         .execute()
         .unwrap();
 
@@ -51,7 +51,7 @@ fn should_get_work_rating() {
 fn should_get_work_genres() {
     let hotel_california = Work::fetch()
         .id("22457dc0-ecbf-38f5-9056-11c858530a50")
-        .include(work::Include::Genres)
+        .with_genres()
         .execute()
         .unwrap();
 
@@ -64,7 +64,7 @@ fn should_get_work_genres() {
 fn should_get_work_annotation() {
     let vater_unser_im_himmelreich = Work::fetch()
         .id("85ab2b66-cf0b-47e9-beee-34c64a5ddea1")
-        .include(work::Include::Annotation)
+        .with_annotations()
         .execute()
         .unwrap();
 

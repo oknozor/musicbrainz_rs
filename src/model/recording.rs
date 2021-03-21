@@ -1,13 +1,14 @@
+use crate::impl_includes;
 use crate::model::alias::Alias;
 use crate::model::artist_credit::ArtistCredit;
 use crate::model::genre::Genre;
-use crate::model::include_const::*;
+use crate::model::include::Include;
+use crate::model::include::*;
 use crate::model::rating::Rating;
 use crate::model::relations::Relation;
 use crate::model::release::Release;
 use crate::model::tag::Tag;
 use crate::BrowseBy;
-use crate::Include as IncludeInto;
 
 /// A recording is an entity in MusicBrainz which can be linked to tracks on releases. Each track
 /// must always be associated with a single recording, but a recording can be linked to any number
@@ -65,27 +66,13 @@ impl BrowseBy<Recording> for Browse {
     }
 }
 
-#[derive(Debug, PartialEq, Clone)]
-pub enum Include {
-    Artists,
-    Releases,
-    Aliases,
-    Tags,
-    Rating,
-    Genres,
-    Annotation,
-}
-
-impl IncludeInto<Recording> for Include {
-    fn as_str(&self) -> &str {
-        match self {
-            Include::Artists => INC_ARTISTS_VALUE,
-            Include::Releases => INC_RELEASES_VALUE,
-            Include::Aliases => INC_ALIASES_VALUE,
-            Include::Tags => INC_TAGS_VALUE,
-            Include::Rating => INC_RATINGS_VALUE,
-            Include::Genres => INC_GENRES_VALUE,
-            Include::Annotation => INC_ANNOTATION_VALUE,
-        }
-    }
-}
+impl_includes!(
+    Recording,
+    (with_artists, Include::Artists),
+    (with_releases, Include::Releases),
+    (with_tags, Include::Tags),
+    (with_aliases, Include::Aliases),
+    (with_genres, Include::Genres),
+    (with_ratings, Include::Rating),
+    (with_annotations, Include::Annotations)
+);

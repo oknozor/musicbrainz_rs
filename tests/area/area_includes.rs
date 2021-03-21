@@ -1,6 +1,5 @@
 extern crate musicbrainz_rs;
 
-use musicbrainz_rs::model::area;
 use musicbrainz_rs::model::area::*;
 use musicbrainz_rs::Fetch;
 use std::{thread, time};
@@ -9,7 +8,7 @@ use std::{thread, time};
 fn should_get_area_tags() {
     let aberdeen = Area::fetch()
         .id("a640b45c-c173-49b1-8030-973603e895b5")
-        .include(area::Include::Tags)
+        .with_tags()
         .execute()
         .unwrap();
 
@@ -23,7 +22,7 @@ fn should_get_area_tags() {
 fn should_get_area_aliases() {
     let aberdeen = Area::fetch()
         .id("a640b45c-c173-49b1-8030-973603e895b5")
-        .include(area::Include::Aliases)
+        .with_aliases()
         .execute()
         .unwrap();
 
@@ -36,7 +35,7 @@ fn should_get_area_aliases() {
 fn should_get_area_genres() {
     let aberdeen = Area::fetch()
         .id("a640b45c-c173-49b1-8030-973603e895b5")
-        .include(area::Include::Genres)
+        .with_genres()
         .execute()
         .unwrap();
 
@@ -49,7 +48,7 @@ fn should_get_area_genres() {
 fn should_get_area_annotation() {
     let london = Area::fetch()
         .id("f03d09b3-39dc-4083-afd6-159e3f0d462f")
-        .include(area::Include::Annotation)
+        .with_annotations()
         .execute()
         .unwrap();
 

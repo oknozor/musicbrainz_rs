@@ -1,5 +1,4 @@
 extern crate musicbrainz_rs;
-use musicbrainz_rs::model::recording;
 use musicbrainz_rs::model::recording::*;
 use musicbrainz_rs::Fetch;
 use std::{thread, time};
@@ -8,7 +7,7 @@ use std::{thread, time};
 fn should_get_recording_artists() {
     let association_de_gens_normal = Recording::fetch()
         .id("f5f10cee-5d84-41d0-805d-3503872c151d")
-        .include(recording::Include::Artists)
+        .with_artists()
         .execute();
 
     let artist_credit = association_de_gens_normal.unwrap().artist_credit.unwrap();
@@ -23,7 +22,7 @@ fn should_get_recording_artists() {
 fn should_get_recording_releases() {
     let you_talk_too_much = Recording::fetch()
         .id("de552ba4-572c-4c59-b2a9-0508619696ac")
-        .include(recording::Include::Releases)
+        .with_releases()
         .execute();
 
     let releases = you_talk_too_much.unwrap().releases;
@@ -40,7 +39,7 @@ fn should_get_recording_releases() {
 fn should_get_recording_aliases() {
     let you_talk_too_much = Recording::fetch()
         .id("de552ba4-572c-4c59-b2a9-0508619696ac")
-        .include(recording::Include::Aliases)
+        .with_aliases()
         .execute();
 
     let aliases = you_talk_too_much.unwrap().aliases;
@@ -54,7 +53,7 @@ fn should_get_recording_aliases() {
 fn should_get_recording_tags() {
     let you_talk_too_much = Recording::fetch()
         .id("de552ba4-572c-4c59-b2a9-0508619696ac")
-        .include(recording::Include::Tags)
+        .with_tags()
         .execute()
         .unwrap();
 
@@ -67,7 +66,7 @@ fn should_get_recording_tags() {
 fn should_get_recording_rating() {
     let you_talk_too_much = Recording::fetch()
         .id("de552ba4-572c-4c59-b2a9-0508619696ac")
-        .include(recording::Include::Rating)
+        .with_ratings()
         .execute()
         .unwrap();
 
@@ -80,7 +79,7 @@ fn should_get_recording_rating() {
 fn should_get_recording_genres() {
     let you_talk_too_much = Recording::fetch()
         .id("de552ba4-572c-4c59-b2a9-0508619696ac")
-        .include(recording::Include::Genres)
+        .with_genres()
         .execute()
         .unwrap();
 
@@ -93,7 +92,7 @@ fn should_get_recording_genres() {
 fn should_get_recording_annotation() {
     let isolina = Recording::fetch()
         .id("2edf7653-2287-4408-8e7a-20e001a60847")
-        .include(recording::Include::Annotation)
+        .with_annotations()
         .execute()
         .unwrap();
 

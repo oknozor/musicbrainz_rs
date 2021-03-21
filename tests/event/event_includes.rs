@@ -8,7 +8,7 @@ use std::{thread, time};
 fn should_get_event_tags() {
     let dour_festival_1989 = Event::fetch()
         .id("73df2f48-383b-4930-bad3-05ba938be578")
-        .include(event::Include::Tags)
+        .with_tags()
         .execute()
         .unwrap();
 
@@ -21,7 +21,7 @@ fn should_get_event_tags() {
 fn should_get_event_aliases() {
     let dour_festival_1989 = Event::fetch()
         .id("73df2f48-383b-4930-bad3-05ba938be578")
-        .include(event::Include::Aliases)
+        .with_aliases()
         .execute()
         .unwrap();
 
@@ -34,7 +34,7 @@ fn should_get_event_aliases() {
 fn should_get_event_rating() {
     let dour_festival_1989 = Event::fetch()
         .id("73df2f48-383b-4930-bad3-05ba938be578")
-        .include(event::Include::Rating)
+        .with_ratings()
         .execute()
         .unwrap();
 
@@ -47,7 +47,7 @@ fn should_get_event_rating() {
 fn should_get_event_genres() {
     let dour_festival_1989 = Event::fetch()
         .id("73df2f48-383b-4930-bad3-05ba938be578")
-        .include(event::Include::Genres)
+        .with_genres()
         .execute()
         .unwrap();
 
@@ -60,7 +60,7 @@ fn should_get_event_genres() {
 fn should_get_event_annotation() {
     let kiss_at_huntington_center = Event::fetch()
         .id("24610e7f-eaa3-4c45-9f06-7f441b1a5dd7")
-        .include(event::Include::Annotation)
+        .with_annotations()
         .execute()
         .unwrap();
 
