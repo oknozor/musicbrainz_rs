@@ -1,5 +1,5 @@
-use crate::model::browse::Browsable;
-use crate::model::browse::BrowseResult;
+use crate::model::Browsable;
+use crate::model::BrowseResult;
 use serde::de::DeserializeOwned;
 use std::fmt;
 use std::marker::PhantomData;

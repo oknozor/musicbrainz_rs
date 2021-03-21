@@ -1,4 +1,3 @@
-use musicbrainz_rs::model::release_group;
 use musicbrainz_rs::model::release_group::*;
 use musicbrainz_rs::Fetch;
 use std::{thread, time};

@@ -1,7 +1,6 @@
 extern crate chrono;
 extern crate musicbrainz_rs;
 
-use musicbrainz_rs::model::recording;
 use musicbrainz_rs::model::recording::*;
 use musicbrainz_rs::Browse;
 use std::{thread, time};
@@ -9,10 +8,7 @@ use std::{thread, time};
 #[test]
 fn should_browse_recording_by_artist() {
     let recording_by_svinkels = Recording::browse()
-        .by(
-            recording::Browse::Artist,
-            "770d490e-c89b-4775-8508-aca7c75142cd",
-        )
+        .by_artist("770d490e-c89b-4775-8508-aca7c75142cd")
         .execute();
 
     assert!(recording_by_svinkels.is_ok());
@@ -29,10 +25,7 @@ fn should_browse_recording_by_artist() {
 #[test]
 fn should_browse_recording_work() {
     let la_javanaise_recordings = Recording::browse()
-        .by(
-            recording::Browse::Work,
-            "578eab03-84d3-374f-a7c5-03c3a685a9a5",
-        )
+        .by_work("578eab03-84d3-374f-a7c5-03c3a685a9a5")
         .execute();
 
     assert!(la_javanaise_recordings.is_ok());
@@ -49,10 +42,7 @@ fn should_browse_recording_work() {
 #[test]
 fn should_browse_recording_by_release() {
     let recording_on_hooker_n_heat = Recording::browse()
-        .by(
-            recording::Browse::Release,
-            "38860ba5-6b40-3e19-83ae-a560737a3f6f",
-        )
+        .by_release("38860ba5-6b40-3e19-83ae-a560737a3f6f")
         .execute();
 
     assert!(recording_on_hooker_n_heat.is_ok());

@@ -1,15 +1,14 @@
 use chrono::NaiveDate;
 
+use super::Include;
 use crate::date_format;
-use crate::impl_includes;
 use crate::model::alias::Alias;
 use crate::model::genre::Genre;
-use crate::model::include::*;
 use crate::model::label::LabelInfo;
 use crate::model::recording::Recording;
 use crate::model::release_group::ReleaseGroup;
 use crate::model::tag::Tag;
-use crate::BrowseBy;
+use crate::model::BrowseBy;
 
 /// A MusicBrainz release represents the unique release (i.e. issuing) of a product on a specific
 /// date with specific release information such as the country, label, barcode and packaging.
@@ -162,29 +161,16 @@ pub struct Track {
     pub id: String,
 }
 
-#[derive(Debug, PartialEq, Clone)]
-pub enum Browse {
-    Area,
-    Artist,
-    Label,
-    Track,
-    TrackArtist,
-    Recording,
-    ReleaseGroup,
-}
-
-impl BrowseBy<Release> for Browse {
-    fn as_str(&self) -> &str {
-        match self {
-            Browse::Area => BROWSE_AREA_VALUE,
-            Browse::Artist => BROWSE_ARTIST_VALUE,
-            Browse::Label => BROWSE_LABEL_VALUE,
-            Browse::Track => BROWSE_TRACK_VALUE,
-            Browse::TrackArtist => BROWSE_TRACK_ARTIST_VALUE,
-            Browse::Recording => BROWSE_RECORDING_VALUE,
-            Browse::ReleaseGroup => BROWSE_RELEASE_GROUP_VALUE,
-        }
-    }
+impl_browse! {
+Release,
+   (by_area, BrowseBy::Area),
+   (by_artist, BrowseBy::Artist),
+   (by_label, BrowseBy::Label),
+   (by_track, BrowseBy::Track),
+   (by_track_artist, BrowseBy::TrackArtist),
+   (by_recording, BrowseBy::Recording),
+   (by_release_group, BrowseBy::ReleaseGroup),
+   (by_collection, BrowseBy::Collection)
 }
 
 impl_includes!(

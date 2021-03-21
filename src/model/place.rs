@@ -1,11 +1,10 @@
-use crate::impl_includes;
+use super::Include;
 use crate::model::alias::Alias;
 use crate::model::area::Area;
 use crate::model::genre::Genre;
-use crate::model::include::*;
 use crate::model::lifespan::LifeSpan;
 use crate::model::tag::Tag;
-use crate::BrowseBy;
+use crate::model::BrowseBy;
 
 #[derive(Debug, Serialize, Deserialize, PartialEq, Clone)]
 #[serde(rename_all(deserialize = "kebab-case"))]
@@ -32,17 +31,10 @@ pub struct Coordinates {
     pub longitude: f64,
 }
 
-#[derive(Debug, PartialEq, Clone)]
-pub enum Browse {
-    Area,
-}
-
-impl BrowseBy<Place> for Browse {
-    fn as_str(&self) -> &str {
-        match self {
-            Browse::Area => BROWSE_AREA_VALUE,
-        }
-    }
+impl_browse! {
+Place,
+   (by_area, BrowseBy::Area),
+   (by_collection, BrowseBy::Collection)
 }
 
 impl_includes!(
