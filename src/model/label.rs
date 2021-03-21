@@ -1,11 +1,11 @@
+use crate::impl_includes;
 use crate::model::alias::Alias;
 use crate::model::genre::Genre;
-use crate::model::include_const::*;
+use crate::model::include::*;
 use crate::model::rating::Rating;
 use crate::model::release::Release;
 use crate::model::tag::Tag;
 use crate::BrowseBy;
-use crate::Include as IncludeInto;
 
 #[derive(Debug, Serialize, Deserialize, PartialEq, Clone)]
 #[serde(rename_all(deserialize = "kebab-case"))]
@@ -49,25 +49,12 @@ impl BrowseBy<Label> for Browse {
     }
 }
 
-#[derive(Debug, PartialEq, Clone)]
-pub enum Include {
-    Releases,
-    Aliases,
-    Tags,
-    Rating,
-    Genres,
-    Annotation,
-}
-
-impl IncludeInto<Label> for Include {
-    fn as_str(&self) -> &str {
-        match self {
-            Include::Releases => INC_RELEASES_VALUE,
-            Include::Aliases => INC_ALIASES_VALUE,
-            Include::Tags => INC_TAGS_VALUE,
-            Include::Rating => INC_RATINGS_VALUE,
-            Include::Genres => INC_GENRES_VALUE,
-            Include::Annotation => INC_ANNOTATION_VALUE,
-        }
-    }
-}
+impl_includes!(
+    Label,
+    (with_releases, Include::Releases),
+    (with_tags, Include::Tags),
+    (with_aliases, Include::Aliases),
+    (with_ratings, Include::Rating),
+    (with_genres, Include::Genres),
+    (with_annotations, Include::Annotations)
+);

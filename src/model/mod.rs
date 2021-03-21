@@ -15,7 +15,7 @@ use crate::Fetch;
 use crate::Path;
 use crate::{Browse, Search};
 
-mod include_const;
+pub mod include;
 
 pub mod alias;
 pub mod area;
@@ -39,33 +39,33 @@ pub mod tag;
 pub mod url;
 pub mod work;
 
-impl Fetch<'_, artist::Include> for Artist {}
-impl Fetch<'_, recording::Include> for Recording {}
-impl Fetch<'_, release_group::Include> for ReleaseGroup {}
-impl Fetch<'_, release::Include> for Release {}
-impl Fetch<'_, work::Include> for Work {}
-impl Fetch<'_, label::Include> for Label {}
-impl Fetch<'_, area::Include> for Area {}
-impl Fetch<'_, event::Include> for Event {}
-impl Fetch<'_, instrument::Include> for Instrument {}
-impl Fetch<'_, place::Include> for Place {}
-impl Fetch<'_, series::Include> for Series {}
-impl Fetch<'_, url::Include> for Url {}
+impl Fetch<'_> for Artist {}
+impl Fetch<'_> for Recording {}
+impl Fetch<'_> for ReleaseGroup {}
+impl Fetch<'_> for Release {}
+impl Fetch<'_> for Work {}
+impl Fetch<'_> for Label {}
+impl Fetch<'_> for Area {}
+impl Fetch<'_> for Event {}
+impl Fetch<'_> for Instrument {}
+impl Fetch<'_> for Place {}
+impl Fetch<'_> for Series {}
+impl Fetch<'_> for Url {}
 
-impl Browse<'_, artist::Include> for Artist {}
-impl Browse<'_, recording::Include> for Recording {}
-impl Browse<'_, release_group::Include> for ReleaseGroup {}
-impl Browse<'_, release::Include> for Release {}
-impl Browse<'_, label::Include> for Label {}
-impl Browse<'_, event::Include> for Event {}
-impl Browse<'_, place::Include> for Place {}
-impl Browse<'_, work::Include> for Work {}
+impl Browse<'_> for Artist {}
+impl Browse<'_> for Recording {}
+impl Browse<'_> for ReleaseGroup {}
+impl Browse<'_> for Release {}
+impl Browse<'_> for Label {}
+impl Browse<'_> for Event {}
+impl Browse<'_> for Place {}
+impl Browse<'_> for Work {}
 // impl Browse<'_, url::Include> for Url {}
 // impl Browse<'_, series::Include> for Series {}
 // impl Browse<'_, instrument::Include> for Instrument {}
 // impl Browse<'_, area::Include> for Area {}
 
-impl Search<'_, artist::Include> for Artist {}
+impl Search<'_> for Artist {}
 
 impl Path<'_> for Artist {
     fn path() -> &'static str {

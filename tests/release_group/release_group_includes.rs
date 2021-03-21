@@ -7,7 +7,7 @@ use std::{thread, time};
 fn should_get_release_group_artists() {
     let harvest = ReleaseGroup::fetch()
         .id("b25419cf-71bf-3a54-8cd4-2161c61056a0")
-        .include(release_group::Include::Artists)
+        .with_artists()
         .execute();
 
     assert!(harvest
@@ -24,7 +24,7 @@ fn should_get_release_group_artists() {
 fn should_get_release_group_releases() {
     let harvest = ReleaseGroup::fetch()
         .id("b25419cf-71bf-3a54-8cd4-2161c61056a0")
-        .include(release_group::Include::Releases)
+        .with_releases()
         .execute();
 
     assert!(harvest
@@ -41,7 +41,7 @@ fn should_get_release_group_releases() {
 fn should_get_release_group_tags() {
     let in_utero = ReleaseGroup::fetch()
         .id("2a0981fb-9593-3019-864b-ce934d97a16e")
-        .include(release_group::Include::Tags)
+        .with_tags()
         .execute()
         .unwrap();
 
@@ -57,7 +57,7 @@ fn should_get_release_group_tags() {
 fn should_get_release_group_aliases() {
     let in_utero = ReleaseGroup::fetch()
         .id("2a0981fb-9593-3019-864b-ce934d97a16e")
-        .include(release_group::Include::Aliases)
+        .with_aliases()
         .execute()
         .unwrap();
 
@@ -70,7 +70,7 @@ fn should_get_release_group_aliases() {
 fn should_get_release_group_rating() {
     let in_utero = ReleaseGroup::fetch()
         .id("2a0981fb-9593-3019-864b-ce934d97a16e")
-        .include(release_group::Include::Rating)
+        .with_ratings()
         .execute()
         .unwrap();
 
@@ -83,7 +83,7 @@ fn should_get_release_group_rating() {
 fn should_get_release_group_genres() {
     let in_utero = ReleaseGroup::fetch()
         .id("2a0981fb-9593-3019-864b-ce934d97a16e")
-        .include(release_group::Include::Genres)
+        .with_genres()
         .execute()
         .unwrap();
 
@@ -96,7 +96,7 @@ fn should_get_release_group_genres() {
 fn should_get_release_group_annotation() {
     let minnesoda = ReleaseGroup::fetch()
         .id("100d2ce1-8ba4-43eb-afbe-93ca21867e16")
-        .include(release_group::Include::Annotation)
+        .with_annotations()
         .execute()
         .unwrap();
 

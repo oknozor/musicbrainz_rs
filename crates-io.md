@@ -1,3 +1,11 @@
+# ![MusicBrainz] Rust &emsp;
+
+[![Latest Version]][crates.io] [![Build Status]][Action] [![codecov](https://codecov.io/gh/oknozor/musicbrainz_rs/branch/master/graph/badge.svg)](https://codecov.io/gh/oknozor/musicbrainz_rs) ![GitHub tag (latest by date)](https://img.shields.io/github/v/tag/oknozor/musicbrainz_rs) [![Conventional Commits](https://img.shields.io/badge/Conventional%20Commits-1.0.0-yellow.svg)](https://conventionalcommits.org) ![License](https://img.shields.io/github/license/oknozor/musicbrainz_rs)
+
+[Build Status]: https://github.com/oknozor/musicbrainz_rs/actions/workflows/CI.yaml/badge.svg
+[Action]: https://github.com/oknozor/musicbrainz_rs/actions/workflows/CI.yaml
+[Latest Version]: https://img.shields.io/crates/v/musicbrainz_rs.svg
+[crates.io]: https://www.crates.io/crates/musicbrainz_rs
 [MusicBrainz]: https://staticbrainz.org/MB/header-logo-791fb3f.svg
 
 **MusicBrainz rust is a utility crate for the the [MusicBrainz API](https://musicbrainz.org/doc/Development/XML_Web_Service/Version_2).**
@@ -35,21 +43,18 @@ fn main() {
 You can also use includes to get more detail about a resource :
 
 Every Musicbrainz resource has [allowed include parameters](https://musicbrainz.org/doc/Development/XML_Web_Service/Version_2#Subqueries).
-To enforce safe and valid queries we enforce correctess with rust enums.
-For example if you want to get tag and ratings on a  fetch label query you need to import `musicbrainz_rs::model::label::Include`
 
 ```rust
 extern crate musicbrainz_rs;
 
-use musicbrainz_rs::model::label;
 use musicbrainz_rs::model::label::*;
 use musicbrainz_rs::Fetch;
 
 fn main() {
     let ninja_tune = Label::fetch()
         .id("dc940013-b8a8-4362-a465-291026c04b42")
-        .include(label::Include::Tags)
-        .include(label::Include::Rating)
+        .with_tags()
+        .with_ratings()
         .execute()
         .unwrap();
 
@@ -89,6 +94,33 @@ fn main() {
         .entities
         .iter()
         .for_each(|artist| println!("{:?}", artist.name));
+}
+```
+
+### Search query
+
+Use `musicbrainz_rs::Search` to perform a [search query](https://musicbrainz.org/doc/MusicBrainz_API/Search).
+
+```rust
+use musicbrainz_rs::model::artist::Artist;
+use musicbrainz_rs::Search;
+
+fn main() {
+    musicbrainz_rs::config::set_user_agent("my_awesome_app/1.0");
+
+    let query = Artist::query_builder()
+        .name("Miles Davis")
+        .and()
+        .country("US")
+        .build();
+
+    let query_result = Artist::search(query).execute().unwrap();
+    let query_result: Vec<String> = query_result.entities
+        .iter()
+        .map(|artist| artist.name.clone()).collect();
+
+    assert!(query_result.contains(&"Miles Davis".to_string()));
+    assert!(query_result.contains(&"Miles Davis Quintet".to_string()));
 }
 ```
 

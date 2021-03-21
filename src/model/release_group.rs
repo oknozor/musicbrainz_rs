@@ -1,13 +1,13 @@
 use crate::date_format;
+use crate::impl_includes;
 use crate::model::alias::Alias;
 use crate::model::artist_credit::ArtistCredit;
 use crate::model::genre::Genre;
-use crate::model::include_const::*;
+use crate::model::include::*;
 use crate::model::rating::Rating;
 use crate::model::release::Release;
 use crate::model::tag::Tag;
 use crate::BrowseBy;
-use crate::Include as IncludeInto;
 use chrono::NaiveDate;
 
 #[derive(Debug, Serialize, Deserialize, PartialEq, Clone)]
@@ -61,27 +61,13 @@ impl BrowseBy<ReleaseGroup> for Browse {
     }
 }
 
-#[derive(Debug, PartialEq, Clone)]
-pub enum Include {
-    Artists,
-    Releases,
-    Tags,
-    Rating,
-    Aliases,
-    Genres,
-    Annotation,
-}
-
-impl IncludeInto<ReleaseGroup> for Include {
-    fn as_str(&self) -> &str {
-        match self {
-            Include::Artists => INC_ARTISTS_VALUE,
-            Include::Releases => INC_RELEASES_VALUE,
-            Include::Tags => INC_TAGS_VALUE,
-            Include::Rating => INC_RATINGS_VALUE,
-            Include::Aliases => INC_ALIASES_VALUE,
-            Include::Genres => INC_GENRES_VALUE,
-            Include::Annotation => INC_ANNOTATION_VALUE,
-        }
-    }
-}
+impl_includes!(
+    ReleaseGroup,
+    (with_artists, Include::Artists),
+    (with_releases, Include::Releases),
+    (with_tags, Include::Tags),
+    (with_aliases, Include::Aliases),
+    (with_genres, Include::Genres),
+    (with_ratings, Include::Rating),
+    (with_annotations, Include::Annotations)
+);

@@ -1,5 +1,4 @@
 extern crate musicbrainz_rs;
-use musicbrainz_rs::model::place;
 use musicbrainz_rs::model::place::*;
 use musicbrainz_rs::Fetch;
 use std::{thread, time};
@@ -9,7 +8,7 @@ use std::{thread, time};
 fn should_get_place_aliases() {
     let blue_note = Place::fetch()
         .id("327c29c6-da63-4dc9-a117-1917ee691ce4")
-        .include(place::Include::Aliases)
+        .with_aliases()
         .execute()
         .unwrap();
 
@@ -23,7 +22,7 @@ fn should_get_place_aliases() {
 fn should_get_place_tags() {
     let olympia = Place::fetch()
         .id("36678fc4-2fee-46be-b084-4c4e2314ce71")
-        .include(place::Include::Tags)
+        .with_tags()
         .execute()
         .unwrap();
 
@@ -36,7 +35,7 @@ fn should_get_place_tags() {
 fn should_get_place_genres() {
     let olympia = Place::fetch()
         .id("36678fc4-2fee-46be-b084-4c4e2314ce71")
-        .include(place::Include::Genres)
+        .with_genres()
         .execute()
         .unwrap();
 
@@ -49,7 +48,7 @@ fn should_get_place_genres() {
 fn should_get_place_annotation() {
     let osaka_kosei_nenkin_kaikan = Place::fetch()
         .id("751f998a-60ca-4d48-954f-b101d59ad89a")
-        .include(place::Include::Annotation)
+        .with_annotations()
         .execute()
         .unwrap();
 

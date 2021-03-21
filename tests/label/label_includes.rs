@@ -1,6 +1,5 @@
 extern crate musicbrainz_rs;
-use musicbrainz_rs::model::label;
-use musicbrainz_rs::model::label::Label;
+use self::musicbrainz_rs::model::label::Label;
 use musicbrainz_rs::Fetch;
 use std::{thread, time};
 
@@ -8,7 +7,7 @@ use std::{thread, time};
 fn should_get_label_releases() {
     let ninja_tune = Label::fetch()
         .id("dc940013-b8a8-4362-a465-291026c04b42")
-        .include(label::Include::Releases)
+        .with_releases()
         .execute();
 
     let releases = ninja_tune.unwrap().releases;
@@ -25,7 +24,7 @@ fn should_get_label_releases() {
 fn should_get_label_aliases() {
     let motown = Label::fetch()
         .id("8e479e57-ef44-490c-b75d-cd28df89bf1b")
-        .include(label::Include::Aliases)
+        .with_aliases()
         .execute();
 
     let aliases = motown.unwrap().aliases;
@@ -39,7 +38,7 @@ fn should_get_label_aliases() {
 fn should_get_label_tags() {
     let ninja_tune = Label::fetch()
         .id("dc940013-b8a8-4362-a465-291026c04b42")
-        .include(label::Include::Tags)
+        .with_tags()
         .execute()
         .unwrap();
 
@@ -56,7 +55,7 @@ fn should_get_label_tags() {
 fn should_get_label_rating() {
     let ninja_tune = Label::fetch()
         .id("dc940013-b8a8-4362-a465-291026c04b42")
-        .include(label::Include::Rating)
+        .with_ratings()
         .execute()
         .unwrap();
 
@@ -69,7 +68,7 @@ fn should_get_label_rating() {
 fn should_get_label_genres() {
     let ninja_tune = Label::fetch()
         .id("dc940013-b8a8-4362-a465-291026c04b42")
-        .include(label::Include::Genres)
+        .with_genres()
         .execute()
         .unwrap();
 
@@ -82,7 +81,7 @@ fn should_get_label_genres() {
 fn should_get_label_annotation() {
     let tokuma_japan_communications = Label::fetch()
         .id("040439f9-578b-45b6-b07b-d6c97e544859")
-        .include(label::Include::Annotation)
+        .with_annotations()
         .execute()
         .unwrap();
 
