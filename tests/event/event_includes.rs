@@ -1,5 +1,4 @@
 extern crate musicbrainz_rs;
-use musicbrainz_rs::model::event;
 use musicbrainz_rs::model::event::Event;
 use musicbrainz_rs::Fetch;
 use std::{thread, time};

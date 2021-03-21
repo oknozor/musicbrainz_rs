@@ -1,8 +1,7 @@
-use crate::impl_includes;
+use super::Include;
 use crate::model::alias::Alias;
 use crate::model::area::Area;
 use crate::model::genre::Genre;
-use crate::model::include::*;
 use crate::model::lifespan::LifeSpan;
 use crate::model::rating::Rating;
 use crate::model::recording::Recording;
@@ -11,7 +10,7 @@ use crate::model::release::Release;
 use crate::model::release_group::ReleaseGroup;
 use crate::model::tag::Tag;
 use crate::model::work::Work;
-use crate::BrowseBy;
+use crate::model::BrowseBy;
 use lucene_query_builder::QueryBuilder;
 
 /// An artist is generally a musician (or musician persona), group of musicians, or other music
@@ -133,17 +132,14 @@ pub enum Browse {
     Work,
 }
 
-impl BrowseBy<Artist> for Browse {
-    fn as_str(&self) -> &str {
-        match self {
-            Browse::Area => BROWSE_AREA_VALUE,
-            Browse::Collection => BROWSE_COLLECTION_VALUE,
-            Browse::Recording => BROWSE_RECORDING_VALUE,
-            Browse::Release => BROWSE_RELEASE_VALUE,
-            Browse::ReleaseGroup => BROWSE_RELEASE_GROUP_VALUE,
-            Browse::Work => BROWSE_WORK_VALUE,
-        }
-    }
+impl_browse! {
+Artist,
+   (by_area, BrowseBy::Area),
+   (by_collection, BrowseBy::Collection),
+   (by_recording, BrowseBy::Recording),
+   (by_release, BrowseBy::Release),
+   (by_release_group, BrowseBy::ReleaseGroup),
+   (by_work, BrowseBy::Work)
 }
 
 impl_includes!(

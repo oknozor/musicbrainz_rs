@@ -1,10 +1,9 @@
-use crate::impl_includes;
+use super::Include;
 use crate::model::alias::Alias;
 use crate::model::genre::Genre;
-use crate::model::include::*;
 use crate::model::rating::Rating;
 use crate::model::tag::Tag;
-use crate::BrowseBy;
+use crate::model::BrowseBy;
 
 /// In MusicBrainz terminology, a work is a distinct intellectual or artistic creation, which can be
 /// expressed in the form of one or more audio recordings. While a work in MusicBrainz is usually
@@ -29,17 +28,10 @@ pub struct Work {
     pub annotation: Option<String>,
 }
 
-#[derive(Debug, PartialEq, Clone)]
-pub enum Browse {
-    Artist,
-}
-
-impl BrowseBy<Work> for Browse {
-    fn as_str(&self) -> &str {
-        match self {
-            Browse::Artist => BROWSE_ARTIST_VALUE,
-        }
-    }
+impl_browse! {
+Work,
+   (by_artist, BrowseBy::Artist),
+   (by_collection, BrowseBy::Collection)
 }
 
 impl_includes!(

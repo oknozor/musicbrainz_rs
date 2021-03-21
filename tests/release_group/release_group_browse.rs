@@ -1,7 +1,6 @@
 extern crate chrono;
 extern crate musicbrainz_rs;
 
-use musicbrainz_rs::model::release_group;
 use musicbrainz_rs::model::release_group::*;
 use musicbrainz_rs::Browse;
 use std::{thread, time};
@@ -9,10 +8,7 @@ use std::{thread, time};
 #[test]
 fn should_browse_release_group_by_artist() {
     let release_groups_by_svinkels = ReleaseGroup::browse()
-        .by(
-            release_group::Browse::Artist,
-            "770d490e-c89b-4775-8508-aca7c75142cd",
-        )
+        .by_artist("770d490e-c89b-4775-8508-aca7c75142cd")
         .execute();
 
     assert!(release_groups_by_svinkels.is_ok());
@@ -29,10 +25,7 @@ fn should_browse_release_group_by_artist() {
 #[test]
 fn should_browse_release_group_by_release() {
     let release_groups_of_we_want_miles = ReleaseGroup::browse()
-        .by(
-            release_group::Browse::Release,
-            "84928705-cb99-4c49-a820-73cc460c0bd2",
-        )
+        .by_release("84928705-cb99-4c49-a820-73cc460c0bd2")
         .execute();
 
     assert!(release_groups_of_we_want_miles.is_ok());
@@ -43,5 +36,16 @@ fn should_browse_release_group_by_release() {
     assert_eq!(release_groups_of_we_want_miles.offset, 0);
     assert!(!release_groups_of_we_want_miles.entities.is_empty());
 
+    thread::sleep(time::Duration::from_secs(1));
+}
+
+// TODO: find non empty result
+#[test]
+fn should_browse_release_group_by_collection() {
+    let releases_group_in_collection = ReleaseGroup::browse()
+        .by_collection("91565a03-bce8-47e9-ab70-e4d4e1684d7f")
+        .execute();
+
+    assert!(releases_group_in_collection.is_ok());
     thread::sleep(time::Duration::from_secs(1));
 }

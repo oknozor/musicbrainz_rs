@@ -1,14 +1,12 @@
-use crate::impl_includes;
 use crate::model::alias::Alias;
 use crate::model::artist_credit::ArtistCredit;
 use crate::model::genre::Genre;
-use crate::model::include::Include;
-use crate::model::include::*;
 use crate::model::rating::Rating;
 use crate::model::relations::Relation;
 use crate::model::release::Release;
 use crate::model::tag::Tag;
-use crate::BrowseBy;
+use crate::model::BrowseBy;
+use crate::model::Include;
 
 /// A recording is an entity in MusicBrainz which can be linked to tracks on releases. Each track
 /// must always be associated with a single recording, but a recording can be linked to any number
@@ -49,21 +47,11 @@ pub struct Recording {
     pub annotation: Option<String>,
 }
 
-#[derive(Debug, PartialEq, Clone)]
-pub enum Browse {
-    Artist,
-    Release,
-    Work,
-}
-
-impl BrowseBy<Recording> for Browse {
-    fn as_str(&self) -> &str {
-        match self {
-            Browse::Artist => BROWSE_ARTIST_VALUE,
-            Browse::Release => BROWSE_RELEASE_VALUE,
-            Browse::Work => BROWSE_WORK_VALUE,
-        }
-    }
+impl_browse! {
+Recording,
+   (by_release, BrowseBy::Release),
+   (by_artist, BrowseBy::Artist),
+   (by_work, BrowseBy::Work)
 }
 
 impl_includes!(

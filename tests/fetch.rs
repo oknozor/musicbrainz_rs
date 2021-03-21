@@ -316,8 +316,7 @@ fn should_get_instrument() {
     thread::sleep(time::Duration::from_secs(1));
 }
 
-// TODO : waiting for https://github.com/metabrainz/musicbrainz-server/pull/1223 to be released
-// #[test]
+#[test]
 fn should_get_place() {
     let blue_note_record = Place::fetch()
         .id("327c29c6-da63-4dc9-a117-1917ee691ce4")

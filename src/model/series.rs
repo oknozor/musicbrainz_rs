@@ -1,8 +1,8 @@
-use crate::impl_includes;
+use super::Include;
 use crate::model::alias::Alias;
 use crate::model::genre::Genre;
-use crate::model::include::*;
 use crate::model::tag::Tag;
+use crate::model::BrowseBy;
 
 #[derive(Debug, Serialize, Deserialize, PartialEq, Clone)]
 #[serde(rename_all(deserialize = "kebab-case"))]
@@ -18,6 +18,8 @@ pub struct Series {
     pub genres: Option<Vec<Genre>>,
     pub annotation: Option<String>,
 }
+
+impl_browse!(Series, (by_collection, BrowseBy::Collection));
 
 impl_includes!(
     Series,
