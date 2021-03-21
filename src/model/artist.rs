@@ -1,7 +1,8 @@
+use crate::impl_includes;
 use crate::model::alias::Alias;
 use crate::model::area::Area;
 use crate::model::genre::Genre;
-use crate::model::include_const::*;
+use crate::model::include::*;
 use crate::model::lifespan::LifeSpan;
 use crate::model::rating::Rating;
 use crate::model::recording::Recording;
@@ -10,10 +11,8 @@ use crate::model::release::Release;
 use crate::model::release_group::ReleaseGroup;
 use crate::model::tag::Tag;
 use crate::model::work::Work;
-use lucene_query_builder::QueryBuilder;
-
 use crate::BrowseBy;
-use crate::Include as IncludeInto;
+use lucene_query_builder::QueryBuilder;
 
 /// An artist is generally a musician (or musician persona), group of musicians, or other music
 /// professional (like a producer or engineer). Occasionally, it can also be a non-musical person
@@ -125,22 +124,6 @@ pub enum Gender {
 }
 
 #[derive(Debug, PartialEq, Clone)]
-pub enum Include {
-    ArtistRelations,
-    EventRelations,
-    Releases,
-    ReleasesWithDiscIds,
-    ReleaseGroups,
-    Recordings,
-    Aliases,
-    Works,
-    Tags,
-    Rating,
-    Genres,
-    Annotation,
-}
-
-#[derive(Debug, PartialEq, Clone)]
 pub enum Browse {
     Area,
     Collection,
@@ -163,21 +146,18 @@ impl BrowseBy<Artist> for Browse {
     }
 }
 
-impl IncludeInto<Artist> for Include {
-    fn as_str(&self) -> &str {
-        match self {
-            Include::Recordings => INC_RECORDINGS_VALUE,
-            Include::Releases => INC_RELEASES_VALUE,
-            Include::ReleasesWithDiscIds => INC_RELEASES_WITH_DISCIDS_VALUE,
-            Include::ReleaseGroups => INC_RELEASE_GROUPS_VALUE,
-            Include::Aliases => INC_ALIASES_VALUE,
-            Include::Works => INC_WORKS_VALUE,
-            Include::ArtistRelations => INC_ARTIST_REL_VALUE,
-            Include::EventRelations => INC_EVENT_REL_VALUE,
-            Include::Tags => INC_TAGS_VALUE,
-            Include::Rating => INC_RATINGS_VALUE,
-            Include::Genres => INC_GENRES_VALUE,
-            Include::Annotation => INC_ANNOTATION_VALUE,
-        }
-    }
-}
+impl_includes!(
+    Artist,
+    (with_recordings, Include::Recordings),
+    (with_releases, Include::Releases),
+    (with_releases_and_discids, Include::ReleasesWithDiscIds),
+    (with_release_groups, Include::ReleaseGroups),
+    (with_aliases, Include::Aliases),
+    (with_works, Include::Works),
+    (with_artist_relations, Include::ArtistRelations),
+    (with_event_relations, Include::EventRelations),
+    (with_tags, Include::Tags),
+    (with_rating, Include::Rating),
+    (with_genres, Include::Genres),
+    (with_annotations, Include::Annotations)
+);

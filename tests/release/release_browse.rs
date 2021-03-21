@@ -127,6 +127,25 @@ fn should_browse_release_by_track_artist() {
 }
 
 #[test]
+fn should_browse_release_by_track_artist_with_recordings() {
+    let release_featuring_akhenaton = Release::browse()
+        .by(
+            release::Browse::TrackArtist,
+            "55808e24-5150-4abd-b86b-7c3d7a080da3",
+        )
+        .with_recordings()
+        .execute();
+
+    let release_featuring_akhenaton = release_featuring_akhenaton.unwrap();
+
+    let release = &release_featuring_akhenaton.entities[0];
+    let medias = release.media.as_ref().unwrap();
+    assert!(!medias.is_empty());
+
+    thread::sleep(time::Duration::from_secs(1));
+}
+
+#[test]
 fn should_browse_release_by_release_group() {
     let neil_young_harvest_releases = Release::browse()
         .by(

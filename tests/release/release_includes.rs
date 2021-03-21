@@ -9,7 +9,7 @@ use std::{thread, time};
 fn should_get_release_release_groups() {
     let justice_cross = Release::fetch()
         .id("4642ee19-7790-3c8d-ab5e-d133de942db6")
-        .include(release::Include::ReleaseGroup)
+        .with_release_groups()
         .execute()
         .unwrap();
 
@@ -22,7 +22,7 @@ fn should_get_release_release_groups() {
 fn should_get_release_media() {
     let justice_cross = Release::fetch()
         .id("4642ee19-7790-3c8d-ab5e-d133de942db6")
-        .include(release::Include::Recordings)
+        .with_recordings()
         .execute()
         .unwrap();
 
@@ -39,7 +39,7 @@ fn should_get_release_media() {
 fn should_get_release_recordings() {
     let justice_cross = Release::fetch()
         .id("4642ee19-7790-3c8d-ab5e-d133de942db6")
-        .include(release::Include::Recordings)
+        .with_recordings()
         .execute()
         .unwrap();
 
@@ -60,7 +60,7 @@ fn should_get_release_recordings() {
 fn should_get_release_label() {
     let justice_cross = Release::fetch()
         .id("4642ee19-7790-3c8d-ab5e-d133de942db6")
-        .include(release::Include::Labels)
+        .with_labels()
         .execute()
         .unwrap();
 
@@ -77,7 +77,7 @@ fn should_get_release_label() {
 fn should_get_release_tags() {
     let l_ecole_du_micro_d_argent = Release::fetch()
         .id("cba0035e-d8c9-4390-8569-02bdadaf87d3")
-        .include(release::Include::Tags)
+        .with_tags()
         .execute()
         .unwrap();
 
@@ -94,7 +94,7 @@ fn should_get_release_tags() {
 fn should_get_release_aliases() {
     let l_ecole_du_micro_d_argent = Release::fetch()
         .id("cba0035e-d8c9-4390-8569-02bdadaf87d3")
-        .include(release::Include::Aliases)
+        .with_aliases()
         .execute()
         .unwrap();
 
@@ -107,7 +107,7 @@ fn should_get_release_aliases() {
 fn should_get_release_genres() {
     let l_ecole_du_micro_d_argent = Release::fetch()
         .id("cba0035e-d8c9-4390-8569-02bdadaf87d3")
-        .include(release::Include::Genres)
+        .with_genres()
         .execute()
         .unwrap();
 
@@ -120,7 +120,7 @@ fn should_get_release_genres() {
 fn should_get_release_annotation() {
     let pieds_nus_sur_la_braise = Release::fetch()
         .id("bdb24cb5-404b-4f60-bba4-7b730325ae47")
-        .include(release::Include::Annotation)
+        .with_annotations()
         .execute()
         .unwrap();
 

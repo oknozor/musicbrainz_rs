@@ -43,21 +43,18 @@ fn main() {
 You can also use includes to get more detail about a resource :
 
 Every Musicbrainz resource has [allowed include parameters](https://musicbrainz.org/doc/Development/XML_Web_Service/Version_2#Subqueries).
-To enforce safe and valid queries we enforce correctess with rust enums.
-For example if you want to get tag and ratings on a  fetch label query you need to import `musicbrainz_rs::model::label::Include`
 
 ```rust
 extern crate musicbrainz_rs;
 
-use musicbrainz_rs::model::label;
 use musicbrainz_rs::model::label::*;
 use musicbrainz_rs::Fetch;
 
 fn main() {
     let ninja_tune = Label::fetch()
         .id("dc940013-b8a8-4362-a465-291026c04b42")
-        .include(label::Include::Tags)
-        .include(label::Include::Rating)
+        .with_tags()
+        .with_ratings()
         .execute()
         .unwrap();
 

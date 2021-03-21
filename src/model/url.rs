@@ -1,6 +1,6 @@
-use crate::model::include_const::*;
+use crate::impl_includes;
+use crate::model::include::*;
 use crate::model::tag::Tag;
-use crate::Include as IncludeInto;
 
 #[derive(Debug, Serialize, Deserialize, PartialEq, Clone)]
 pub struct Url {
@@ -9,15 +9,4 @@ pub struct Url {
     pub tags: Option<Vec<Tag>>,
 }
 
-#[derive(Debug, PartialEq, Clone)]
-pub enum Include {
-    ArtistRelations,
-}
-
-impl IncludeInto<Url> for Include {
-    fn as_str(&self) -> &str {
-        match self {
-            Include::ArtistRelations => INC_ARTIST_REL_VALUE,
-        }
-    }
-}
+impl_includes!(Url, (with_artist_relations, Include::ArtistRelations));

@@ -17,29 +17,56 @@ use deserialization::date_format;
 
 pub mod model;
 
+use crate::model::include::Include;
 use crate::model::search::{SearchResult, Searchable};
 use model::browse::Browsable;
 use model::browse::BrowseResult;
 
+#[macro_export]
+macro_rules! impl_includes {
+    ($ty: ty, $(($args:ident, $inc: expr)),+) => {
+        use crate::{FetchQuery, BrowseQuery, SearchQuery};
+        impl FetchQuery<$ty> {
+               $(pub fn $args(&mut self) -> &mut Self  {
+                     self.0.include = self.0.include($inc).include.to_owned();
+                   self
+               })*
+            }
+
+        impl BrowseQuery<$ty> {
+               $(pub fn $args(&mut self) -> &mut Self  {
+                     self.0.include = self.0.include($inc).include.to_owned();
+                   self
+               })*
+            }
+
+        impl SearchQuery<$ty> {
+               $(pub fn $args(&mut self) -> &mut Self  {
+                     self.0.include = self.0.include($inc).include.to_owned();
+                   self
+               })*
+            }
+        }
+}
+
 #[derive(Clone, Debug)]
-pub struct Query<T, I: Include<T>> {
+pub struct Query<T> {
     path: String,
-    include: Vec<I>,
+    include: Vec<Include>,
     phantom: PhantomData<T>,
 }
 
 #[derive(Clone, Debug)]
-pub struct FetchQuery<T, I: Include<T>>(Query<T, I>);
+pub struct FetchQuery<T>(Query<T>);
 
 #[derive(Clone, Debug)]
-pub struct BrowseQuery<T, I: Include<T>>(Query<T, I>);
+pub struct BrowseQuery<T>(Query<T>);
 
 #[derive(Clone, Debug)]
-pub struct SearchQuery<T, I: Include<T>>(Query<T, I>);
+pub struct SearchQuery<T>(Query<T>);
 
-impl<'a, T, I> FetchQuery<T, I>
+impl<'a, T> FetchQuery<T>
 where
-    I: Include<T> + PartialEq + Clone,
     T: Clone,
 {
     pub fn id(&mut self, id: &str) -> &mut Self {
@@ -49,14 +76,14 @@ where
 
     pub fn execute(&mut self) -> Result<T, reqwest::Error>
     where
-        T: Fetch<'a, I> + DeserializeOwned,
+        T: Fetch<'a> + DeserializeOwned,
     {
         self.0.path.push_str(FMT_JSON);
         self.include_to_path();
         HTTP_CLIENT.get(&self.0.path).send()?.json()
     }
 
-    pub fn include(&mut self, include: I) -> &mut Self {
+    pub fn include(&mut self, include: Include) -> &mut Self {
         self.0.include = self.0.include(include).include.to_owned();
         self
     }
@@ -66,9 +93,8 @@ where
     }
 }
 
-impl<'a, T, I> BrowseQuery<T, I>
+impl<'a, T> BrowseQuery<T>
 where
-    I: Include<T> + PartialEq + Clone,
     T: Clone,
 {
     pub fn by<B>(&mut self, browse_by: B, id: &str) -> &mut Self
@@ -84,13 +110,13 @@ where
 
     pub fn execute(&mut self) -> Result<BrowseResult<T>, reqwest::Error>
     where
-        T: Fetch<'a, I> + DeserializeOwned + Browsable,
+        T: Fetch<'a> + DeserializeOwned + Browsable,
     {
         self.include_to_path();
         HTTP_CLIENT.get(&self.0.path).send()?.json()
     }
 
-    pub fn include(&mut self, include: I) -> &mut Self {
+    pub fn include(&mut self, include: Include) -> &mut Self {
         self.0.include = self.0.include(include).include.to_owned();
         self
     }
@@ -100,20 +126,19 @@ where
     }
 }
 
-impl<'a, T, I> SearchQuery<T, I>
+impl<'a, T> SearchQuery<T>
 where
-    I: Include<T> + PartialEq + Clone,
-    T: Search<'a, I> + Clone,
+    T: Search<'a> + Clone,
 {
     pub fn execute(&mut self) -> Result<SearchResult<T>, reqwest::Error>
     where
-        T: Search<'a, I> + DeserializeOwned + Searchable,
+        T: Search<'a> + DeserializeOwned + Searchable,
     {
         self.include_to_path();
         HTTP_CLIENT.get(&self.0.path).send()?.json()
     }
 
-    pub fn include(&mut self, include: I) -> &mut Self {
+    pub fn include(&mut self, include: Include) -> &mut Self {
         self.0.include = self.0.include(include).include.to_owned();
         self
     }
@@ -123,11 +148,8 @@ where
     }
 }
 
-impl<'a, T, I> Query<T, I>
-where
-    I: Include<T> + PartialEq,
-{
-    pub fn include(&mut self, include: I) -> &mut Self {
+impl<'a, T> Query<T> {
+    pub fn include(&mut self, include: Include) -> &mut Self {
         self.include.push(include);
         self
     }
@@ -152,12 +174,11 @@ pub trait Path<'a> {
     fn path() -> &'static str;
 }
 
-/// This trait provide utily methods for music brainz Fetch resources
-pub trait Fetch<'a, I> {
-    fn fetch() -> FetchQuery<Self, I>
+/// This trait provide utility methods for musicbrainz Fetch resources
+pub trait Fetch<'a> {
+    fn fetch() -> FetchQuery<Self>
     where
         Self: Sized + Path<'a>,
-        I: Include<Self> + PartialEq,
     {
         FetchQuery(Query {
             path: format!("{}/{}", BASE_URL, Self::path()),
@@ -167,12 +188,11 @@ pub trait Fetch<'a, I> {
     }
 }
 
-/// This trait provide utily methods for musicbrainz Browse resources
-pub trait Browse<'a, I> {
-    fn browse() -> BrowseQuery<Self, I>
+/// This trait provide utility methods for musicbrainz Browse resources
+pub trait Browse<'a> {
+    fn browse() -> BrowseQuery<Self>
     where
         Self: Sized + Path<'a>,
-        I: Include<Self> + PartialEq,
     {
         BrowseQuery(Query {
             path: format!("{}/{}", BASE_URL, Self::path()),
@@ -182,12 +202,11 @@ pub trait Browse<'a, I> {
     }
 }
 
-/// This trait provide utily methods for musicbrainz Search Query
-pub trait Search<'a, I> {
-    fn search(query: String) -> SearchQuery<Self, I>
+/// This trait provide utility methods for musicbrainz Search Query
+pub trait Search<'a> {
+    fn search(query: String) -> SearchQuery<Self>
     where
         Self: Sized + Path<'a>,
-        I: Include<Self> + PartialEq,
     {
         SearchQuery(Query {
             path: format!("{}/{}{}&{}", BASE_URL, Self::path(), FMT_JSON, query),
@@ -195,11 +214,6 @@ pub trait Search<'a, I> {
             include: vec![],
         })
     }
-}
-
-/// Generic trait object to get allowable include on <T>
-pub trait Include<T> {
-    fn as_str(&self) -> &str;
 }
 
 /// Generic trait object to get allowable browse value on <T>

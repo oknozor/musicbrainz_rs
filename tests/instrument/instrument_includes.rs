@@ -1,5 +1,4 @@
 extern crate musicbrainz_rs;
-use musicbrainz_rs::model::instrument;
 use musicbrainz_rs::model::instrument::Instrument;
 use musicbrainz_rs::Fetch;
 use std::{thread, time};
@@ -8,7 +7,7 @@ use std::{thread, time};
 fn should_get_instrument_tags() {
     let guitar = Instrument::fetch()
         .id("63021302-86cd-4aee-80df-2270d54f4978")
-        .include(instrument::Include::Tags)
+        .with_tags()
         .execute()
         .unwrap();
 
@@ -21,7 +20,7 @@ fn should_get_instrument_tags() {
 fn should_get_instrument_aliases() {
     let guitar = Instrument::fetch()
         .id("63021302-86cd-4aee-80df-2270d54f4978")
-        .include(instrument::Include::Aliases)
+        .with_aliases()
         .execute()
         .unwrap();
 
@@ -38,7 +37,7 @@ fn should_get_instrument_aliases() {
 fn should_get_instrument_genres() {
     let guitar = Instrument::fetch()
         .id("63021302-86cd-4aee-80df-2270d54f4978")
-        .include(instrument::Include::Genres)
+        .with_genres()
         .execute()
         .unwrap();
 
@@ -51,7 +50,7 @@ fn should_get_instrument_genres() {
 fn should_get_instrument_annotation() {
     let gusli = Instrument::fetch()
         .id("bb08cebd-ff6c-49e8-8f8f-914cc2d68c27")
-        .include(instrument::Include::Annotation)
+        .with_annotations()
         .execute()
         .unwrap();
 

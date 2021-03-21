@@ -1,16 +1,30 @@
 extern crate chrono;
 extern crate musicbrainz_rs;
 
-use musicbrainz_rs::model::artist;
 use musicbrainz_rs::model::artist::*;
 use musicbrainz_rs::Fetch;
 use std::{thread, time};
 
 #[test]
+fn should_get_artist_recordings_test() {
+    let john_lee_hooker = Artist::fetch()
+        .id("b0122194-c49a-46a1-ade7-84d1d76bd8e9")
+        .with_recordings()
+        .execute()
+        .unwrap();
+
+    let recordings = john_lee_hooker.recordings.unwrap();
+
+    assert!(recordings
+        .iter()
+        .any(|recording| recording.title == "A Little Bit Higher"));
+}
+
+#[test]
 fn should_get_artist_releases() {
     let john_lee_hooker = Artist::fetch()
         .id("b0122194-c49a-46a1-ade7-84d1d76bd8e9")
-        .include(artist::Include::Releases)
+        .with_releases()
         .execute()
         .unwrap();
 
@@ -27,7 +41,7 @@ fn should_get_artist_releases() {
 fn should_get_artist_works() {
     let john_lee_hooker = Artist::fetch()
         .id("b0122194-c49a-46a1-ade7-84d1d76bd8e9")
-        .include(artist::Include::Works)
+        .with_works()
         .execute()
         .unwrap();
 
@@ -44,7 +58,7 @@ fn should_get_artist_works() {
 fn should_get_artist_release_groups() {
     let john_lee_hooker = Artist::fetch()
         .id("b0122194-c49a-46a1-ade7-84d1d76bd8e9")
-        .include(artist::Include::ReleaseGroups)
+        .with_release_groups()
         .execute()
         .unwrap();
 
@@ -62,7 +76,7 @@ fn should_get_artist_release_groups() {
 fn should_get_artist_recordings() {
     let john_lee_hooker = Artist::fetch()
         .id("b0122194-c49a-46a1-ade7-84d1d76bd8e9")
-        .include(artist::Include::Recordings)
+        .with_recordings()
         .execute()
         .unwrap();
 
@@ -79,7 +93,7 @@ fn should_get_artist_recordings() {
 fn should_get_artist_aliases() {
     let john_lee_hooker = Artist::fetch()
         .id("b0122194-c49a-46a1-ade7-84d1d76bd8e9")
-        .include(artist::Include::Aliases)
+        .with_aliases()
         .execute()
         .unwrap();
 
@@ -95,8 +109,8 @@ fn should_get_artist_aliases() {
 fn should_get_artist_artist_relations() {
     let john_lee_hooker = Artist::fetch()
         .id("b0122194-c49a-46a1-ade7-84d1d76bd8e9")
-        .include(artist::Include::ArtistRelations)
-        .include(artist::Include::EventRelations)
+        .with_artist_relations()
+        .with_event_relations()
         .execute()
         .unwrap();
 
@@ -114,7 +128,7 @@ fn should_get_artist_artist_relations() {
 fn should_get_artist_artist_releases_with_disc_ids() {
     let nirvana = Artist::fetch()
         .id("5b11f4ce-a62d-471e-81fc-a69a8278c7da")
-        .include(artist::Include::ReleasesWithDiscIds)
+        .with_releases_and_discids()
         .execute()
         .unwrap();
 
@@ -131,7 +145,7 @@ fn should_get_artist_artist_releases_with_disc_ids() {
 fn should_get_artist_tags() {
     let john_lee_hooker = Artist::fetch()
         .id("b0122194-c49a-46a1-ade7-84d1d76bd8e9")
-        .include(artist::Include::Tags)
+        .with_tags()
         .execute()
         .unwrap();
 
@@ -148,7 +162,7 @@ fn should_get_artist_tags() {
 fn should_get_artist_rating() {
     let john_lee_hooker = Artist::fetch()
         .id("b0122194-c49a-46a1-ade7-84d1d76bd8e9")
-        .include(artist::Include::Rating)
+        .with_rating()
         .execute()
         .unwrap();
 
@@ -161,7 +175,7 @@ fn should_get_artist_rating() {
 fn should_get_artist_genres() {
     let john_lee_hooker = Artist::fetch()
         .id("b0122194-c49a-46a1-ade7-84d1d76bd8e9")
-        .include(artist::Include::Genres)
+        .with_genres()
         .execute()
         .unwrap();
 
@@ -178,7 +192,7 @@ fn should_get_artist_genres() {
 fn should_get_artist_annotation() {
     let franz_joseph_haydn = Artist::fetch()
         .id("c130b0fb-5dce-449d-9f40-1437f889f7fe")
-        .include(artist::Include::Annotation)
+        .with_annotations()
         .execute()
         .unwrap();
 
