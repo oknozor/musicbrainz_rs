@@ -1,7 +1,6 @@
 extern crate chrono;
 extern crate musicbrainz_rs;
 
-use musicbrainz_rs::model::event;
 use musicbrainz_rs::model::event::*;
 use musicbrainz_rs::Browse;
 use std::{thread, time};
@@ -9,7 +8,7 @@ use std::{thread, time};
 #[test]
 fn should_browse_event_by_place() {
     let events_in_north_stage_woodstock_1994 = Event::browse()
-        .by(event::Browse::Place, "380bad3f-d3d7-4a1c-9e7f-c6ec2661165c")
+        .by_place("380bad3f-d3d7-4a1c-9e7f-c6ec2661165c")
         .execute();
 
     assert!(events_in_north_stage_woodstock_1994.is_ok());
@@ -26,10 +25,7 @@ fn should_browse_event_by_place() {
 #[test]
 fn should_browse_event_by_artist() {
     let events_with_aerosmith = Event::browse()
-        .by(
-            event::Browse::Artist,
-            "3d2b98e5-556f-4451-a3ff-c50ea18d57cb",
-        )
+        .by_artist("3d2b98e5-556f-4451-a3ff-c50ea18d57cb")
         .execute();
 
     assert!(events_with_aerosmith.is_ok());
@@ -46,7 +42,7 @@ fn should_browse_event_by_artist() {
 #[test]
 fn should_browse_event_by_area() {
     let events_in_montreux = Event::browse()
-        .by(event::Browse::Area, "d872ed01-edfd-4b39-8ab5-f8b3c84fc001")
+        .by_area("d872ed01-edfd-4b39-8ab5-f8b3c84fc001")
         .execute();
 
     assert!(events_in_montreux.is_ok());

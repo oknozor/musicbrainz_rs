@@ -17,37 +17,10 @@ use deserialization::date_format;
 
 pub mod model;
 
-use crate::model::include::Include;
 use crate::model::search::{SearchResult, Searchable};
-use model::browse::Browsable;
-use model::browse::BrowseResult;
-
-#[macro_export]
-macro_rules! impl_includes {
-    ($ty: ty, $(($args:ident, $inc: expr)),+) => {
-        use crate::{FetchQuery, BrowseQuery, SearchQuery};
-        impl FetchQuery<$ty> {
-               $(pub fn $args(&mut self) -> &mut Self  {
-                     self.0.include = self.0.include($inc).include.to_owned();
-                   self
-               })*
-            }
-
-        impl BrowseQuery<$ty> {
-               $(pub fn $args(&mut self) -> &mut Self  {
-                     self.0.include = self.0.include($inc).include.to_owned();
-                   self
-               })*
-            }
-
-        impl SearchQuery<$ty> {
-               $(pub fn $args(&mut self) -> &mut Self  {
-                     self.0.include = self.0.include($inc).include.to_owned();
-                   self
-               })*
-            }
-        }
-}
+use model::Browsable;
+use model::BrowseResult;
+use model::Include;
 
 #[derive(Clone, Debug)]
 pub struct Query<T> {
@@ -97,17 +70,6 @@ impl<'a, T> BrowseQuery<T>
 where
     T: Clone,
 {
-    pub fn by<B>(&mut self, browse_by: B, id: &str) -> &mut Self
-    where
-        B: BrowseBy<T> + PartialEq + Clone,
-    {
-        self.0.path.push_str(FMT_JSON);
-        self.0
-            .path
-            .push_str(&format!("&{}={}", browse_by.as_str(), id));
-        self
-    }
-
     pub fn execute(&mut self) -> Result<BrowseResult<T>, reqwest::Error>
     where
         T: Fetch<'a> + DeserializeOwned + Browsable,
@@ -214,9 +176,4 @@ pub trait Search<'a> {
             include: vec![],
         })
     }
-}
-
-/// Generic trait object to get allowable browse value on <T>
-pub trait BrowseBy<T> {
-    fn as_str(&self) -> &str;
 }

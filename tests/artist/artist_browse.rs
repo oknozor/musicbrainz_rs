@@ -1,7 +1,6 @@
 extern crate chrono;
 extern crate musicbrainz_rs;
 
-use musicbrainz_rs::model::artist;
 use musicbrainz_rs::model::artist::*;
 use musicbrainz_rs::Browse;
 use std::{thread, time};
@@ -9,10 +8,7 @@ use std::{thread, time};
 #[test]
 fn should_browse_artist_by_release_groups() {
     let artistss_on_in_rainbows_rg = Artist::browse()
-        .by(
-            artist::Browse::ReleaseGroup,
-            "6e335887-60ba-38f0-95af-fae7774336bf",
-        )
+        .by_release_group("6e335887-60ba-38f0-95af-fae7774336bf")
         .execute();
 
     assert!(artistss_on_in_rainbows_rg.is_ok());
@@ -29,10 +25,7 @@ fn should_browse_artist_by_release_groups() {
 #[test]
 fn should_browse_artist_by_release() {
     let artists_on_in_utero_release = Artist::browse()
-        .by(
-            artist::Browse::Release,
-            "18d4e9b4-9247-4b44-914a-8ddec3502103",
-        )
+        .by_release("18d4e9b4-9247-4b44-914a-8ddec3502103")
         .execute();
 
     assert!(artists_on_in_utero_release.is_ok());
@@ -49,7 +42,7 @@ fn should_browse_artist_by_release() {
 #[test]
 fn should_browse_artist_by_area() {
     let artistss_in_aberdeen_area = Artist::browse()
-        .by(artist::Browse::Area, "a640b45c-c173-49b1-8030-973603e895b5")
+        .by_area("a640b45c-c173-49b1-8030-973603e895b5")
         .execute();
 
     assert!(artistss_in_aberdeen_area.is_ok());
@@ -66,7 +59,7 @@ fn should_browse_artist_by_area() {
 #[test]
 fn should_browse_artist_by_work() {
     let artists_on_hotel_california = Artist::browse()
-        .by(artist::Browse::Work, "22457dc0-ecbf-38f5-9056-11c858530a50")
+        .by_work("22457dc0-ecbf-38f5-9056-11c858530a50")
         .execute();
 
     let artists_on_hotel_california = artists_on_hotel_california.unwrap();
@@ -81,10 +74,7 @@ fn should_browse_artist_by_work() {
 #[test]
 fn should_browse_artist_by_recording() {
     let artists_on_polly = Artist::browse()
-        .by(
-            artist::Browse::Recording,
-            "af40d6b8-58e8-4ca5-9db8-d4fca0b899e2",
-        )
+        .by_recording("af40d6b8-58e8-4ca5-9db8-d4fca0b899e2")
         .execute();
 
     let artists_on_polly = artists_on_polly.unwrap();

@@ -1,6 +1,5 @@
 extern crate musicbrainz_rs;
 
-use lucene_query_builder::QueryBuilder;
 use musicbrainz_rs::model::artist::*;
 use musicbrainz_rs::Search;
 use std::{thread, time};

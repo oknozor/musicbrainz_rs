@@ -1,11 +1,10 @@
-use crate::impl_includes;
+use super::Include;
 use crate::model::alias::Alias;
 use crate::model::genre::Genre;
-use crate::model::include::*;
 use crate::model::lifespan::LifeSpan;
 use crate::model::rating::Rating;
 use crate::model::tag::Tag;
-use crate::BrowseBy;
+use crate::model::BrowseBy;
 
 #[derive(Debug, Serialize, Deserialize, PartialEq, Clone)]
 #[serde(rename_all(deserialize = "kebab-case"))]
@@ -29,23 +28,12 @@ pub struct Event {
     pub annotation: Option<String>,
 }
 
-#[derive(Debug, PartialEq, Clone)]
-pub enum Browse {
-    Area,
-    Collection,
-    Artist,
-    Place,
-}
-
-impl BrowseBy<Event> for Browse {
-    fn as_str(&self) -> &str {
-        match self {
-            Browse::Area => BROWSE_AREA_VALUE,
-            Browse::Collection => BROWSE_COLLECTION_VALUE,
-            Browse::Artist => BROWSE_ARTIST_VALUE,
-            Browse::Place => BROWSE_PLACE_VALUE,
-        }
-    }
+impl_browse! {
+Event,
+   (by_area, BrowseBy::Area),
+   (by_collection, BrowseBy::Collection),
+   (by_artist, BrowseBy::Artist),
+   (by_place, BrowseBy::Place)
 }
 
 impl_includes!(
