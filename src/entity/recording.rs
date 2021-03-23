@@ -1,12 +1,12 @@
-use crate::model::alias::Alias;
-use crate::model::artist_credit::ArtistCredit;
-use crate::model::genre::Genre;
-use crate::model::rating::Rating;
-use crate::model::relations::Relation;
-use crate::model::release::Release;
-use crate::model::tag::Tag;
-use crate::model::BrowseBy;
-use crate::model::Include;
+use crate::entity::alias::Alias;
+use crate::entity::artist_credit::ArtistCredit;
+use crate::entity::genre::Genre;
+use crate::entity::rating::Rating;
+use crate::entity::relations::Relation;
+use crate::entity::release::Release;
+use crate::entity::tag::Tag;
+use crate::entity::BrowseBy;
+use crate::entity::Include;
 
 /// A recording is an entity in MusicBrainz which can be linked to tracks on releases. Each track
 /// must always be associated with a single recording, but a recording can be linked to any number

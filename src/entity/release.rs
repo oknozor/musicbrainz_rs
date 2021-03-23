@@ -2,13 +2,13 @@ use chrono::NaiveDate;
 
 use super::Include;
 use crate::date_format;
-use crate::model::alias::Alias;
-use crate::model::genre::Genre;
-use crate::model::label::LabelInfo;
-use crate::model::recording::Recording;
-use crate::model::release_group::ReleaseGroup;
-use crate::model::tag::Tag;
-use crate::model::BrowseBy;
+use crate::entity::alias::Alias;
+use crate::entity::genre::Genre;
+use crate::entity::label::LabelInfo;
+use crate::entity::recording::Recording;
+use crate::entity::release_group::ReleaseGroup;
+use crate::entity::tag::Tag;
+use crate::entity::BrowseBy;
 
 /// A MusicBrainz release represents the unique release (i.e. issuing) of a product on a specific
 /// date with specific release information such as the country, label, barcode and packaging.

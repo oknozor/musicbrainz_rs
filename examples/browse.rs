@@ -1,7 +1,7 @@
 extern crate musicbrainz_rs;
 
-use musicbrainz_rs::model::artist::Artist;
-use musicbrainz_rs::Browse;
+use musicbrainz_rs::entity::artist::Artist;
+use musicbrainz_rs::prelude::*;
 
 fn main() {
     let artists_on_in_utero_release = Artist::browse()

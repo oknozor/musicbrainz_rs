@@ -1,7 +1,7 @@
 extern crate musicbrainz_rs;
 
-use musicbrainz_rs::model::artist::*;
-use musicbrainz_rs::Fetch;
+use musicbrainz_rs::entity::artist::*;
+use musicbrainz_rs::prelude::*;
 
 fn main() {
     musicbrainz_rs::config::set_user_agent("my_awesome_app/1.0");

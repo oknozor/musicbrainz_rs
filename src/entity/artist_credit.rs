@@ -1,4 +1,4 @@
-use crate::model::artist::Artist;
+use crate::entity::artist::Artist;
 
 #[derive(Debug, Serialize, Deserialize, PartialEq, Clone)]
 pub struct ArtistCredit {

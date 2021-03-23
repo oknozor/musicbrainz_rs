@@ -1,9 +1,9 @@
 use super::Include;
-use crate::model::alias::Alias;
-use crate::model::genre::Genre;
-use crate::model::lifespan::LifeSpan;
-use crate::model::tag::Tag;
-use crate::model::BrowseBy;
+use crate::entity::alias::Alias;
+use crate::entity::genre::Genre;
+use crate::entity::lifespan::LifeSpan;
+use crate::entity::tag::Tag;
+use crate::entity::BrowseBy;
 
 #[derive(Debug, Serialize, Deserialize, PartialEq, Clone, Default)]
 #[serde(rename_all(deserialize = "kebab-case"))]

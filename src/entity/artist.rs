@@ -1,16 +1,16 @@
 use super::Include;
-use crate::model::alias::Alias;
-use crate::model::area::Area;
-use crate::model::genre::Genre;
-use crate::model::lifespan::LifeSpan;
-use crate::model::rating::Rating;
-use crate::model::recording::Recording;
-use crate::model::relations::Relation;
-use crate::model::release::Release;
-use crate::model::release_group::ReleaseGroup;
-use crate::model::tag::Tag;
-use crate::model::work::Work;
-use crate::model::BrowseBy;
+use crate::entity::alias::Alias;
+use crate::entity::area::Area;
+use crate::entity::genre::Genre;
+use crate::entity::lifespan::LifeSpan;
+use crate::entity::rating::Rating;
+use crate::entity::recording::Recording;
+use crate::entity::relations::Relation;
+use crate::entity::release::Release;
+use crate::entity::release_group::ReleaseGroup;
+use crate::entity::tag::Tag;
+use crate::entity::work::Work;
+use crate::entity::BrowseBy;
 use lucene_query_builder::QueryBuilder;
 
 /// An artist is generally a musician (or musician persona), group of musicians, or other music
@@ -120,16 +120,6 @@ pub enum Gender {
     Female,
     #[serde(other)]
     Other,
-}
-
-#[derive(Debug, PartialEq, Clone)]
-pub enum Browse {
-    Area,
-    Collection,
-    Recording,
-    Release,
-    ReleaseGroup,
-    Work,
 }
 
 impl_browse! {

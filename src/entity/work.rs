@@ -1,9 +1,9 @@
 use super::Include;
-use crate::model::alias::Alias;
-use crate::model::genre::Genre;
-use crate::model::rating::Rating;
-use crate::model::tag::Tag;
-use crate::model::BrowseBy;
+use crate::entity::alias::Alias;
+use crate::entity::genre::Genre;
+use crate::entity::rating::Rating;
+use crate::entity::tag::Tag;
+use crate::entity::BrowseBy;
 
 /// In MusicBrainz terminology, a work is a distinct intellectual or artistic creation, which can be
 /// expressed in the form of one or more audio recordings. While a work in MusicBrainz is usually

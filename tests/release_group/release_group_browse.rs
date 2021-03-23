@@ -1,8 +1,8 @@
 extern crate chrono;
 extern crate musicbrainz_rs;
 
-use musicbrainz_rs::model::release_group::*;
-use musicbrainz_rs::Browse;
+use musicbrainz_rs::entity::release_group::*;
+use musicbrainz_rs::prelude::*;
 use std::{thread, time};
 
 #[test]

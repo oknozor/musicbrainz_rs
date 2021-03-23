@@ -1,5 +1,5 @@
-use musicbrainz_rs::model::release_group::*;
-use musicbrainz_rs::Fetch;
+use musicbrainz_rs::entity::release_group::*;
+use musicbrainz_rs::prelude::*;
 use std::{thread, time};
 
 #[test]
