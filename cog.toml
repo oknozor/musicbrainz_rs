@@ -3,7 +3,7 @@ github = "https://github.com/oknozor/musicbrainz_rs"
 authors = [
     { signature = "Paul Delafosse", username = "oknozor" },
     { signature = "okno", username = "oknozor" },
-    { signature = "okno", username = "ritiek" },
+    { signature = "Ritiek Malhotra", username = "ritiek" },
 ]
 
 
@@ -15,13 +15,13 @@ pre_bump_hooks = [
     "cargo clippy",
     "cargo build --release",
     "cargo fmt --all",
-    "cargo bump %version",
+    "cargo bump {{version}}",
 ]
 
 
 post_bump_hooks = [
     "git push",
-    "git push origin %version",
+    "git push origin {{version}}",
     "cargo package",
     "cargo publish"
 ]
