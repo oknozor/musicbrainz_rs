@@ -3,21 +3,21 @@ extern crate musicbrainz_rs;
 
 use chrono::NaiveDate;
 
-use musicbrainz_rs::model::area::*;
-use musicbrainz_rs::model::artist::ArtistType::*;
-use musicbrainz_rs::model::artist::*;
-use musicbrainz_rs::model::event::Event;
-use musicbrainz_rs::model::instrument::*;
-use musicbrainz_rs::model::label::*;
-use musicbrainz_rs::model::lifespan::*;
-use musicbrainz_rs::model::place::*;
-use musicbrainz_rs::model::recording::Recording;
-use musicbrainz_rs::model::release::*;
-use musicbrainz_rs::model::release_group::*;
-use musicbrainz_rs::model::series::*;
-use musicbrainz_rs::model::url::*;
-use musicbrainz_rs::model::work::*;
-use musicbrainz_rs::Fetch;
+use musicbrainz_rs::entity::area::*;
+use musicbrainz_rs::entity::artist::ArtistType::*;
+use musicbrainz_rs::entity::artist::*;
+use musicbrainz_rs::entity::event::Event;
+use musicbrainz_rs::entity::instrument::*;
+use musicbrainz_rs::entity::label::*;
+use musicbrainz_rs::entity::lifespan::*;
+use musicbrainz_rs::entity::place::*;
+use musicbrainz_rs::entity::recording::Recording;
+use musicbrainz_rs::entity::release::*;
+use musicbrainz_rs::entity::release_group::*;
+use musicbrainz_rs::entity::series::*;
+use musicbrainz_rs::entity::url::*;
+use musicbrainz_rs::entity::work::*;
+use musicbrainz_rs::prelude::*;
 use std::{thread, time};
 
 #[test]

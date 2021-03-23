@@ -1,5 +1,5 @@
-use musicbrainz_rs::model::series::Series;
-use musicbrainz_rs::Browse;
+use musicbrainz_rs::entity::series::Series;
+use musicbrainz_rs::prelude::*;
 
 // TODO: find non empty result
 #[test]

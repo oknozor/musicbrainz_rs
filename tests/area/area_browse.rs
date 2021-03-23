@@ -1,7 +1,7 @@
 extern crate musicbrainz_rs;
 
-use self::musicbrainz_rs::Browse;
-use musicbrainz_rs::model::area::*;
+use musicbrainz_rs::entity::area::*;
+use musicbrainz_rs::prelude::*;
 use std::thread;
 use std::time::Duration;
 

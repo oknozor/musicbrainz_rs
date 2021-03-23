@@ -1,5 +1,5 @@
-use musicbrainz_rs::model::artist::Artist;
-use musicbrainz_rs::Search;
+use musicbrainz_rs::entity::artist::Artist;
+use musicbrainz_rs::prelude::*;
 
 fn main() {
     musicbrainz_rs::config::set_user_agent("my_awesome_app/1.0");

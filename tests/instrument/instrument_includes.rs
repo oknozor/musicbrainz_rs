@@ -1,6 +1,6 @@
 extern crate musicbrainz_rs;
-use musicbrainz_rs::model::instrument::Instrument;
-use musicbrainz_rs::Fetch;
+use musicbrainz_rs::entity::instrument::Instrument;
+use musicbrainz_rs::prelude::*;
 use std::{thread, time};
 
 #[test]

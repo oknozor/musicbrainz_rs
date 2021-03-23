@@ -1,6 +1,6 @@
 extern crate musicbrainz_rs;
-use self::musicbrainz_rs::model::label::Label;
-use musicbrainz_rs::Fetch;
+use self::musicbrainz_rs::entity::label::Label;
+use musicbrainz_rs::prelude::*;
 use std::{thread, time};
 
 #[test]
