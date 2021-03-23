@@ -1,5 +1,5 @@
 use super::Include;
-use crate::model::tag::Tag;
+use crate::entity::tag::Tag;
 
 #[derive(Debug, Serialize, Deserialize, PartialEq, Clone)]
 pub struct Url {

@@ -1,12 +1,12 @@
 use super::Include;
 use crate::date_format;
-use crate::model::alias::Alias;
-use crate::model::artist_credit::ArtistCredit;
-use crate::model::genre::Genre;
-use crate::model::rating::Rating;
-use crate::model::release::Release;
-use crate::model::tag::Tag;
-use crate::model::BrowseBy;
+use crate::entity::alias::Alias;
+use crate::entity::artist_credit::ArtistCredit;
+use crate::entity::genre::Genre;
+use crate::entity::rating::Rating;
+use crate::entity::release::Release;
+use crate::entity::tag::Tag;
+use crate::entity::BrowseBy;
 use chrono::NaiveDate;
 
 #[derive(Debug, Serialize, Deserialize, PartialEq, Clone)]

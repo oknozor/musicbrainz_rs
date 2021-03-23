@@ -1,7 +1,7 @@
 use crate::date_format;
-use crate::model::area::Area;
-use crate::model::artist::Artist;
-use crate::model::event::Event;
+use crate::entity::area::Area;
+use crate::entity::artist::Artist;
+use crate::entity::event::Event;
 use chrono::NaiveDate;
 use std::collections::HashMap;
 

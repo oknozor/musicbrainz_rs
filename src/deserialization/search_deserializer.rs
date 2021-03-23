@@ -1,4 +1,4 @@
-use crate::model::search::{SearchResult, Searchable};
+use crate::entity::search::{SearchResult, Searchable};
 use chrono::NaiveDateTime;
 use serde::de::DeserializeOwned;
 use serde::de::{self, Deserialize, Deserializer, MapAccess, SeqAccess, Visitor};

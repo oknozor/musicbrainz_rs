@@ -5,7 +5,7 @@ const FORMAT: &str = "%Y-%m-%d";
 
 /// Some times, music brainz dates doesn't have a month or day
 /// This artificially add january 1st before deserializing the API response
-pub fn deserialize<'de, D>(deserializer: D) -> Result<NaiveDate, D::Error>
+pub(crate) fn deserialize<'de, D>(deserializer: D) -> Result<NaiveDate, D::Error>
 where
     D: Deserializer<'de>,
 {
@@ -17,20 +17,17 @@ where
 }
 
 /// This is the Option<NaiveDate> version of the previous deserializer
-pub fn deserialize_opt<'de, D>(deserializer: D) -> Result<Option<NaiveDate>, D::Error>
+#[allow(clippy::unnecessary_wraps)]
+pub(crate) fn deserialize_opt<'de, D>(deserializer: D) -> Result<Option<NaiveDate>, D::Error>
 where
     D: Deserializer<'de>,
 {
-    if let Ok(date) = deserialize(deserializer) {
-        Ok(Some(date))
-    } else {
-        Ok(None)
-    }
+    Ok(deserialize(deserializer).ok())
 }
 
 #[cfg(test)]
 mod tests {
-    use crate::model::lifespan::LifeSpan;
+    use crate::entity::lifespan::LifeSpan;
     use chrono::NaiveDate;
 
     #[test]

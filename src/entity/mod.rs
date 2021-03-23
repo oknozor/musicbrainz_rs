@@ -1,15 +1,15 @@
-use crate::model::area::Area;
-use crate::model::artist::Artist;
-use crate::model::event::Event;
-use crate::model::instrument::*;
-use crate::model::label::Label;
-use crate::model::place::Place;
-use crate::model::recording::Recording;
-use crate::model::release::Release;
-use crate::model::release_group::ReleaseGroup;
-use crate::model::series::Series;
-use crate::model::url::Url;
-use crate::model::work::Work;
+use crate::entity::area::Area;
+use crate::entity::artist::Artist;
+use crate::entity::event::Event;
+use crate::entity::instrument::*;
+use crate::entity::label::Label;
+use crate::entity::place::Place;
+use crate::entity::recording::Recording;
+use crate::entity::release::Release;
+use crate::entity::release_group::ReleaseGroup;
+use crate::entity::series::Series;
+use crate::entity::url::Url;
+use crate::entity::work::Work;
 use crate::Fetch;
 use crate::Path;
 use crate::{Browse, Search};
@@ -175,7 +175,8 @@ impl Path<'_> for Url {
 }
 
 #[derive(Debug, PartialEq, Clone)]
-pub enum Include {
+#[allow(unused)]
+pub(crate) enum Include {
     Urls,
     Areas,
     ArtistCredits,
