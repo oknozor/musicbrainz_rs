@@ -50,6 +50,7 @@ pub mod entity;
 /// Brings trait and type needed to perform any API query in scope
 pub mod prelude;
 
+use crate::entity::coverart::Coverart;
 use crate::entity::search::{SearchResult, Searchable};
 use deserialization::date_format;
 use entity::Browsable;
@@ -87,6 +88,28 @@ struct Query<T> {
 /// ```
 #[derive(Clone, Debug)]
 pub struct FetchQuery<T>(Query<T>);
+
+/// perform a lookup of an entity's coverart when you have the MBID for that entity
+///
+/// # Lookups
+///
+/// You can perform a lookup of an entity's coverart when you have the MBID for that entity.
+///
+/// ## Example
+/// ```rust
+/// # use musicbrainz_rs::prelude::*;
+/// # fn main() -> Result<(), Error> {
+/// # use musicbrainz_rs::entity::release::Release;
+/// let in_utero_coverart = Release::fetch_coverart()
+///         .id("76df3287-6cda-33eb-8e9a-044b5e15ffdd")
+///         .execute();
+///
+/// assert!(in_utero_coverart?.images[0].front, true);
+/// #   Ok(())
+/// # }
+/// ```
+#[derive(Clone, Debug)]
+pub struct FetchCoverartQuery<T>(Query<T>);
 
 /// Direct lookup of all the entities directly linked to another entity
 ///
@@ -169,6 +192,20 @@ where
     }
 }
 
+impl<'a, T> FetchCoverartQuery<T>
+where
+    T: Clone + FetchCoverart<'a>,
+{
+    pub fn id(&mut self, id: &str) -> &mut Self {
+        self.0.path.push_str(&format!("/{}", id));
+        self
+    }
+
+    pub fn execute(&mut self) -> Result<Coverart, Error> {
+        HTTP_CLIENT.get(&self.0.path).send()?.json()
+    }
+}
+
 impl<'a, T> BrowseQuery<T>
 where
     T: Clone,
@@ -238,6 +275,20 @@ pub trait Fetch<'a> {
     {
         FetchQuery(Query {
             path: format!("{}/{}", BASE_URL, Self::path()),
+            phantom: PhantomData,
+            include: vec![],
+        })
+    }
+}
+
+/// Implemented by all fetchable coverart entities (see [`FetchCoverartQuery`])
+pub trait FetchCoverart<'a> {
+    fn fetch_coverart() -> FetchCoverartQuery<Self>
+    where
+        Self: Sized + Path<'a>,
+    {
+        FetchCoverartQuery(Query {
+            path: format!("{}/{}", BASE_COVERART_URL, Self::path()),
             phantom: PhantomData,
             include: vec![],
         })
