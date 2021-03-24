@@ -11,6 +11,7 @@ use crate::entity::series::Series;
 use crate::entity::url::Url;
 use crate::entity::work::Work;
 use crate::Fetch;
+use crate::FetchCoverart;
 use crate::Path;
 use crate::{Browse, Search};
 
@@ -58,6 +59,7 @@ pub mod alias;
 pub mod area;
 pub mod artist;
 pub mod artist_credit;
+pub mod coverart;
 pub mod event;
 pub mod genre;
 pub mod instrument;
@@ -87,6 +89,8 @@ impl Fetch<'_> for Instrument {}
 impl Fetch<'_> for Place {}
 impl Fetch<'_> for Series {}
 impl Fetch<'_> for Url {}
+
+impl FetchCoverart<'_> for Release {}
 
 impl Browse<'_> for Artist {}
 impl Browse<'_> for Area {}
