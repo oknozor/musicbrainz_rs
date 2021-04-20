@@ -5,7 +5,7 @@ use serde::de::{self, Deserialize, Deserializer, MapAccess, SeqAccess, Visitor};
 use std::fmt;
 use std::marker::PhantomData;
 
-const FORMAT: &str = "%Y-%m-%dT%H:%M:%S%.f%Z";
+const FORMAT: &str = "%Y-%m-%dT%H:%M:%S%.fZ";
 
 // Browse result fields in musicbrainz api v2 are prefixed with resource type :
 // this impl provide a generic search result deserializer
