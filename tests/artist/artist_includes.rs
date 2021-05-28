@@ -6,21 +6,6 @@ use musicbrainz_rs::prelude::*;
 use std::{thread, time};
 
 #[test]
-fn should_get_artist_recordings_test() {
-    let john_lee_hooker = Artist::fetch()
-        .id("b0122194-c49a-46a1-ade7-84d1d76bd8e9")
-        .with_recordings()
-        .execute()
-        .unwrap();
-
-    let recordings = john_lee_hooker.recordings.unwrap();
-
-    assert!(recordings
-        .iter()
-        .any(|recording| recording.title == "A Little Bit Higher"));
-}
-
-#[test]
 fn should_get_artist_releases() {
     let john_lee_hooker = Artist::fetch()
         .id("b0122194-c49a-46a1-ade7-84d1d76bd8e9")
@@ -64,7 +49,9 @@ fn should_get_artist_release_groups() {
 
     let release_groups = john_lee_hooker.release_groups.unwrap();
 
-    assert!(release_groups.iter().any(|group| group.title == "Burnin’"));
+    assert!(release_groups
+        .iter()
+        .any(|group| group.title == "John Lee Hooker - Most Famous Hits"));
     assert!(release_groups
         .iter()
         .any(|group| group.title == "Travelin’"));
@@ -84,7 +71,7 @@ fn should_get_artist_recordings() {
 
     assert!(recordings
         .iter()
-        .any(|recording| recording.title == "A Little Bit Higher"));
+        .any(|recording| recording.title == "(Blues Is) The Healer"));
 
     thread::sleep(time::Duration::from_secs(1));
 }

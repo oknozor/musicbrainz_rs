@@ -23,7 +23,7 @@ where
             Count,
             Offset,
             Entities(PhantomData<T>),
-        };
+        }
 
         impl<'de, T> Deserialize<'de> for Field<T>
         where
@@ -69,7 +69,7 @@ where
 
         struct SearchResultVisitor<T> {
             _marker: PhantomData<T>,
-        };
+        }
 
         impl<'de, T> Visitor<'de> for SearchResultVisitor<T>
         where
