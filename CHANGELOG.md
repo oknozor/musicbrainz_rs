@@ -2,6 +2,25 @@
 All notable changes to this project will be documented in this file. See [conventional commits](https://www.conventionalcommits.org/) for commit guidelines.
 
 - - -
+## 0.4.0 - 2021-05-28
+
+
+### Miscellaneous Chores
+
+[b7ab90](https://github.com/oknozor/musicbrainz_rs/commit/b7ab90799302dac61a5e299851ed20d91c5f08bd) - fix clippy lints - [oknozor](https://github.com/oknozor)
+
+
+### Bug Fixes
+
+[9699a3](https://github.com/oknozor/musicbrainz_rs/commit/9699a3b4a6593f12e911f80a9fc184fc58d03842) - fix release date deserialization - [oknozor](https://github.com/oknozor)
+
+
+### Features
+
+[8d2222](https://github.com/oknozor/musicbrainz_rs/commit/8d2222a469f8b27c717f7da72dc439dfa7578c47) - fetch coverart images for releases - [ritiek](https://github.com/ritiek)
+
+
+- - -
 ## 0.3.0 - 2021-03-23
 
 
