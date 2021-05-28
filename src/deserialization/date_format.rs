@@ -31,7 +31,7 @@ mod tests {
     use chrono::NaiveDate;
 
     #[test]
-    fn should_deserialise_life_span() {
+    fn should_deserialize_life_span() {
         let input = r#"
             {
                 "ended": true,
@@ -46,6 +46,27 @@ mod tests {
                 ended: Some(true),
                 begin: Some(NaiveDate::from_ymd(1988, 1, 1)),
                 end: Some(NaiveDate::from_ymd(1994, 4, 5)),
+            }
+        )
+    }
+
+    #[test]
+    fn should_deserialize_empty_date() {
+        let input = r#"
+            {
+                "ended": true,
+                "end": "",
+                "begin": "1988-01"
+            }"#;
+
+        let life_span: LifeSpan = serde_json::from_str(input).unwrap();
+
+        assert_eq!(
+            life_span,
+            LifeSpan {
+                ended: Some(true),
+                begin: Some(NaiveDate::from_ymd(1988, 1, 1)),
+                end: None,
             }
         )
     }
