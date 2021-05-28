@@ -95,8 +95,8 @@ pub enum Language {
     Eng,
 }
 
-#[serde(rename_all(deserialize = "lowercase"))]
 #[derive(Debug, Serialize, Deserialize, PartialEq, Clone)]
+#[serde(rename_all(deserialize = "lowercase"))]
 pub enum ReleaseQuality {
     /// The release needs serious fixes, or its existence is hard to prove (but it's not clearly fake).
     Low,
