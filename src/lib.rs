@@ -149,7 +149,7 @@ pub struct BrowseQuery<T>(Query<T>);
 /// # fn main() -> Result<(), Error> {
 /// # use musicbrainz_rs::entity::artist::Artist;
 /// let query = Artist::query_builder()
-///         .name("Miles Davis")
+///         .artist("Miles Davis")
 ///         .and()
 ///         .country("US")
 ///         .build();

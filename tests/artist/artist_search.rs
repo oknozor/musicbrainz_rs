@@ -7,7 +7,7 @@ use std::{thread, time};
 #[test]
 fn should_search_artist() {
     let query = Artist::query_builder()
-        .name("Nirvana")
+        .artist("Nirvana")
         .and()
         .artist_type("Group")
         .build();
