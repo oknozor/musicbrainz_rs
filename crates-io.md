@@ -88,7 +88,7 @@ fn main() {
         .execute();
 
     let artists_on_in_utero_release = artists_on_in_utero_release.unwrap();
-    
+
     artists_on_in_utero_release
         .entities
         .iter()
@@ -110,7 +110,7 @@ fn main() {
     musicbrainz_rs::config::set_user_agent("my_awesome_app/1.0");
 
     let query = Artist::query_builder()
-        .name("Miles Davis")
+        .artist("Miles Davis")
         .and()
         .country("US")
         .build();
