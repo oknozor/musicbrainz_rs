@@ -5,7 +5,7 @@ fn main() {
     musicbrainz_rs::config::set_user_agent("my_awesome_app/1.0");
 
     let query = Artist::query_builder()
-        .name("Miles Davis")
+        .artist("Miles Davis")
         .and()
         .country("US")
         .build();

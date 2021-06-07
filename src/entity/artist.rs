@@ -25,6 +25,7 @@ pub struct Artist {
     pub id: String,
 
     /// The official name of an artist, be it a person or a band.
+    #[query_builder_rename = "artist"]
     pub name: String,
 
     /// The sort name is a variant of the artist name which would be used when sorting artists by
