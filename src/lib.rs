@@ -252,11 +252,9 @@ impl<'a, T> Query<T> {
         }
 
         for inc in self.include.iter() {
+            self.path.push_str(inc.as_str());
             if Some(inc) != self.include.last() {
-                self.path.push_str(inc.as_str());
                 self.path.push('+');
-            } else {
-                self.path.push_str(inc.as_str());
             }
         }
     }
