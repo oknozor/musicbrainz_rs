@@ -2,8 +2,6 @@ extern crate musicbrainz_rs;
 
 use self::musicbrainz_rs::entity::instrument::Instrument;
 use musicbrainz_rs::prelude::*;
-use std::thread;
-use std::time::Duration;
 
 // TODO: find non empty result
 #[test]
@@ -14,6 +12,4 @@ fn browse_instrument_by_collection() {
 
     assert!(instruments.is_ok());
     let _instruments = instruments.unwrap();
-
-    thread::sleep(Duration::from_secs(1));
 }

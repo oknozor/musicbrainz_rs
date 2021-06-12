@@ -2,7 +2,6 @@ extern crate musicbrainz_rs;
 use musicbrainz_rs::entity::release::Media;
 use musicbrainz_rs::entity::release::Release;
 use musicbrainz_rs::prelude::*;
-use std::{thread, time};
 
 #[test]
 fn should_get_release_release_groups() {
@@ -13,8 +12,6 @@ fn should_get_release_release_groups() {
         .unwrap();
 
     assert_eq!(justice_cross.release_group.unwrap().title, "✝");
-
-    thread::sleep(time::Duration::from_secs(1));
 }
 
 #[test]
@@ -30,8 +27,6 @@ fn should_get_release_media() {
         .unwrap()
         .iter()
         .any(|media| media.format.as_ref().unwrap() == "CD"));
-
-    thread::sleep(time::Duration::from_secs(1));
 }
 
 #[test]
@@ -51,8 +46,6 @@ fn should_get_release_recordings() {
         .unwrap()
         .iter()
         .any(|track| track.title == "D.A.N.C.E."));
-
-    thread::sleep(time::Duration::from_secs(1));
 }
 
 #[test]
@@ -68,8 +61,6 @@ fn should_get_release_label() {
         .unwrap()
         .iter()
         .any(|label_info| label_info.label.name == "Ed Banger Records"));
-
-    thread::sleep(time::Duration::from_secs(1));
 }
 
 #[test]
@@ -85,8 +76,6 @@ fn should_get_release_tags() {
         .unwrap()
         .iter()
         .any(|tag| tag.name == "hip hop"));
-
-    thread::sleep(time::Duration::from_secs(1));
 }
 
 #[test]
@@ -98,8 +87,6 @@ fn should_get_release_aliases() {
         .unwrap();
 
     assert!(l_ecole_du_micro_d_argent.aliases.is_some());
-
-    thread::sleep(time::Duration::from_secs(1));
 }
 
 #[test]
@@ -111,8 +98,6 @@ fn should_get_release_genres() {
         .unwrap();
 
     assert!(l_ecole_du_micro_d_argent.genres.is_some());
-
-    thread::sleep(time::Duration::from_secs(1));
 }
 
 #[test]
@@ -124,6 +109,4 @@ fn should_get_release_annotation() {
         .unwrap();
 
     assert!(pieds_nus_sur_la_braise.annotation.is_some());
-
-    thread::sleep(time::Duration::from_secs(1));
 }

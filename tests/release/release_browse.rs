@@ -3,7 +3,6 @@ extern crate musicbrainz_rs;
 
 use musicbrainz_rs::entity::release::*;
 use musicbrainz_rs::prelude::*;
-use std::{thread, time};
 
 #[test]
 fn should_browse_release_by_artist() {
@@ -18,8 +17,6 @@ fn should_browse_release_by_artist() {
     assert!(releases_by_svinkels.count > 1);
     assert_eq!(releases_by_svinkels.offset, 0);
     assert!(!releases_by_svinkels.entities.is_empty());
-
-    thread::sleep(time::Duration::from_secs(1));
 }
 
 #[test]
@@ -35,8 +32,6 @@ fn should_browse_release_by_area() {
     assert!(releases_france.count > 1);
     assert_eq!(releases_france.offset, 0);
     assert!(!releases_france.entities.is_empty());
-
-    thread::sleep(time::Duration::from_secs(1));
 }
 
 #[test]
@@ -52,8 +47,6 @@ fn should_browse_release_by_label() {
     assert!(ninjatune_releases.count > 1);
     assert_eq!(ninjatune_releases.offset, 0);
     assert!(!ninjatune_releases.entities.is_empty());
-
-    thread::sleep(time::Duration::from_secs(1));
 }
 
 #[test]
@@ -69,8 +62,6 @@ fn should_browse_release_by_recording() {
     assert!(release_of_l_ecole_du_micro_d_argent.count > 1);
     assert_eq!(release_of_l_ecole_du_micro_d_argent.offset, 0);
     assert!(!release_of_l_ecole_du_micro_d_argent.entities.is_empty());
-
-    thread::sleep(time::Duration::from_secs(1));
 }
 
 #[test]
@@ -86,8 +77,6 @@ fn should_browse_release_by_track() {
     assert!(release_with_phantom_by_justice.count > 0);
     assert_eq!(release_with_phantom_by_justice.offset, 0);
     assert!(!release_with_phantom_by_justice.entities.is_empty());
-
-    thread::sleep(time::Duration::from_secs(1));
 }
 
 #[test]
@@ -103,8 +92,6 @@ fn should_browse_release_by_track_artist() {
     assert!(release_featuring_akhenaton.count > 1);
     assert_eq!(release_featuring_akhenaton.offset, 0);
     assert!(!release_featuring_akhenaton.entities.is_empty());
-
-    thread::sleep(time::Duration::from_secs(1));
 }
 
 #[test]
@@ -119,8 +106,6 @@ fn should_browse_release_by_track_artist_with_recordings() {
     let release = &release_featuring_akhenaton.entities[0];
     let medias = release.media.as_ref().unwrap();
     assert!(!medias.is_empty());
-
-    thread::sleep(time::Duration::from_secs(1));
 }
 
 #[test]
@@ -136,8 +121,6 @@ fn should_browse_release_by_release_group() {
     assert!(neil_young_harvest_releases.count > 1);
     assert_eq!(neil_young_harvest_releases.offset, 0);
     assert!(!neil_young_harvest_releases.entities.is_empty());
-
-    thread::sleep(time::Duration::from_secs(1));
 }
 
 #[test]
@@ -153,6 +136,4 @@ fn should_browse_release_by_collection() {
     assert!(releases_in_collection.count > 1);
     assert_eq!(releases_in_collection.offset, 0);
     assert!(!releases_in_collection.entities.is_empty());
-
-    thread::sleep(time::Duration::from_secs(1));
 }

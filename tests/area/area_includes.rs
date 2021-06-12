@@ -2,7 +2,6 @@ extern crate musicbrainz_rs;
 
 use musicbrainz_rs::entity::area::*;
 use musicbrainz_rs::prelude::*;
-use std::{thread, time};
 
 #[test]
 fn should_get_area_tags() {
@@ -13,8 +12,6 @@ fn should_get_area_tags() {
         .unwrap();
 
     assert!(aberdeen.tags.is_some());
-
-    thread::sleep(time::Duration::from_secs(1));
 }
 
 #[test]
@@ -26,8 +23,6 @@ fn should_get_area_aliases() {
         .unwrap();
 
     assert!(aberdeen.aliases.is_some());
-
-    thread::sleep(time::Duration::from_secs(1));
 }
 
 #[test]
@@ -39,8 +34,6 @@ fn should_get_area_genres() {
         .unwrap();
 
     assert!(aberdeen.genres.is_some());
-
-    thread::sleep(time::Duration::from_secs(1));
 }
 
 #[test]
@@ -52,6 +45,4 @@ fn should_get_area_annotation() {
         .unwrap();
 
     assert!(london.annotation.is_some());
-
-    thread::sleep(time::Duration::from_secs(1));
 }

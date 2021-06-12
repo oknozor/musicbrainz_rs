@@ -3,7 +3,6 @@ extern crate musicbrainz_rs;
 
 use musicbrainz_rs::entity::release_group::*;
 use musicbrainz_rs::prelude::*;
-use std::{thread, time};
 
 #[test]
 fn should_browse_release_group_by_artist() {
@@ -18,8 +17,6 @@ fn should_browse_release_group_by_artist() {
     assert!(release_groups_by_svinkels.count > 1);
     assert_eq!(release_groups_by_svinkels.offset, 0);
     assert!(!release_groups_by_svinkels.entities.is_empty());
-
-    thread::sleep(time::Duration::from_secs(1));
 }
 
 #[test]
@@ -35,8 +32,6 @@ fn should_browse_release_group_by_release() {
     assert!(release_groups_of_we_want_miles.count > 0);
     assert_eq!(release_groups_of_we_want_miles.offset, 0);
     assert!(!release_groups_of_we_want_miles.entities.is_empty());
-
-    thread::sleep(time::Duration::from_secs(1));
 }
 
 // TODO: find non empty result
@@ -47,5 +42,4 @@ fn should_browse_release_group_by_collection() {
         .execute();
 
     assert!(releases_group_in_collection.is_ok());
-    thread::sleep(time::Duration::from_secs(1));
 }

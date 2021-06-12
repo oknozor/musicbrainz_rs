@@ -1,7 +1,6 @@
 extern crate musicbrainz_rs;
 use musicbrainz_rs::entity::place::*;
 use musicbrainz_rs::prelude::*;
-use std::{thread, time};
 
 #[test]
 fn should_get_place_aliases() {
@@ -12,8 +11,6 @@ fn should_get_place_aliases() {
         .unwrap();
 
     assert!(blue_note.aliases.is_some());
-
-    thread::sleep(time::Duration::from_secs(1));
 }
 
 #[test]
@@ -25,8 +22,6 @@ fn should_get_place_tags() {
         .unwrap();
 
     assert!(olympia.tags.is_some());
-
-    thread::sleep(time::Duration::from_secs(1));
 }
 #[test]
 fn should_get_place_genres() {
@@ -37,8 +32,6 @@ fn should_get_place_genres() {
         .unwrap();
 
     assert!(olympia.genres.is_some());
-
-    thread::sleep(time::Duration::from_secs(1));
 }
 
 #[test]
@@ -50,6 +43,4 @@ fn should_get_place_annotation() {
         .unwrap();
 
     assert!(osaka_kosei_nenkin_kaikan.annotation.is_some());
-
-    thread::sleep(time::Duration::from_secs(1));
 }

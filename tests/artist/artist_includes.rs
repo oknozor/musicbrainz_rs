@@ -3,7 +3,6 @@ extern crate musicbrainz_rs;
 
 use musicbrainz_rs::entity::artist::*;
 use musicbrainz_rs::prelude::*;
-use std::{thread, time};
 
 #[test]
 fn should_get_artist_releases() {
@@ -18,8 +17,6 @@ fn should_get_artist_releases() {
     assert!(releases
         .iter()
         .any(|release| release.title == "Boogie Chillen’ / Sally Mae"));
-
-    thread::sleep(time::Duration::from_secs(1));
 }
 
 #[test]
@@ -35,8 +32,6 @@ fn should_get_artist_works() {
     assert!(works
         .iter()
         .any(|work| work.title == "Baby Please Don't Go"));
-
-    thread::sleep(time::Duration::from_secs(1));
 }
 
 #[test]
@@ -55,8 +50,6 @@ fn should_get_artist_release_groups() {
     assert!(release_groups
         .iter()
         .any(|group| group.title == "Travelin’"));
-
-    thread::sleep(time::Duration::from_secs(1));
 }
 
 #[test]
@@ -72,8 +65,6 @@ fn should_get_artist_recordings() {
     assert!(recordings
         .iter()
         .any(|recording| recording.title == "(Blues Is) The Healer"));
-
-    thread::sleep(time::Duration::from_secs(1));
 }
 
 #[test]
@@ -107,8 +98,6 @@ fn should_get_artist_artist_relations() {
     assert!(relations
         .iter()
         .any(|rel| rel.relation_type == "main performer"));
-
-    thread::sleep(time::Duration::from_secs(1));
 }
 
 #[test]
@@ -124,8 +113,6 @@ fn should_get_artist_artist_releases_with_disc_ids() {
     assert!(releases_with_disc_ids
         .iter()
         .any(|release| release.title == "Smells Like Teen Spirit"));
-
-    thread::sleep(time::Duration::from_secs(1));
 }
 
 #[test]
@@ -141,8 +128,6 @@ fn should_get_artist_tags() {
         .unwrap()
         .iter()
         .any(|tag| tag.name == "chicago blues"));
-
-    thread::sleep(time::Duration::from_secs(1));
 }
 
 #[test]
@@ -154,8 +139,6 @@ fn should_get_artist_rating() {
         .unwrap();
 
     assert!(john_lee_hooker.rating.is_some());
-
-    thread::sleep(time::Duration::from_secs(1));
 }
 
 #[test]
@@ -171,8 +154,6 @@ fn should_get_artist_genres() {
         .unwrap()
         .iter()
         .any(|genre| genre.name == "blues"));
-
-    thread::sleep(time::Duration::from_secs(1));
 }
 
 #[test]
@@ -184,6 +165,4 @@ fn should_get_artist_annotation() {
         .unwrap();
 
     assert!(franz_joseph_haydn.annotation.is_some());
-
-    thread::sleep(time::Duration::from_secs(1));
 }
