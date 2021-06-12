@@ -3,7 +3,6 @@ extern crate musicbrainz_rs;
 
 use musicbrainz_rs::entity::work::*;
 use musicbrainz_rs::prelude::*;
-use std::{thread, time};
 
 #[test]
 fn should_browse_work_by_artist() {
@@ -18,8 +17,6 @@ fn should_browse_work_by_artist() {
     assert!(work_by_svinkels.count > 1);
     assert_eq!(work_by_svinkels.offset, 0);
     assert!(!work_by_svinkels.entities.is_empty());
-
-    thread::sleep(time::Duration::from_secs(1));
 }
 
 // TODO: find non empty result
@@ -30,5 +27,4 @@ fn should_browse_work_by_collection() {
         .execute();
 
     assert!(work_in_collection.is_ok());
-    thread::sleep(time::Duration::from_secs(1));
 }

@@ -1,7 +1,6 @@
 extern crate musicbrainz_rs;
 use musicbrainz_rs::entity::recording::*;
 use musicbrainz_rs::prelude::*;
-use std::{thread, time};
 
 #[test]
 fn should_get_recording_artists() {
@@ -14,8 +13,6 @@ fn should_get_recording_artists() {
 
     assert!(artist_credit.iter().any(|credit| credit.name == "TTC"));
     assert!(artist_credit.iter().any(|credit| credit.name == "Svinkels"));
-
-    thread::sleep(time::Duration::from_secs(1));
 }
 
 #[test]
@@ -31,8 +28,6 @@ fn should_get_recording_releases() {
         .unwrap()
         .iter()
         .any(|release| release.title == "Hooker ’n Heat"));
-
-    thread::sleep(time::Duration::from_secs(1));
 }
 
 #[test]
@@ -45,8 +40,6 @@ fn should_get_recording_aliases() {
     let aliases = you_talk_too_much.unwrap().aliases;
 
     assert!(aliases.is_some()); // FIXME: didn't find a recording containing actual aliases (yet)
-
-    thread::sleep(time::Duration::from_secs(1));
 }
 
 #[test]
@@ -58,8 +51,6 @@ fn should_get_recording_tags() {
         .unwrap();
 
     assert!(you_talk_too_much.tags.is_some()); // FIXME: didn't find a recording containing actual aliases (yet)
-
-    thread::sleep(time::Duration::from_secs(1));
 }
 
 #[test]
@@ -71,8 +62,6 @@ fn should_get_recording_rating() {
         .unwrap();
 
     assert!(you_talk_too_much.rating.is_some()); // FIXME: didn't find a recording containing actual aliases (yet)
-
-    thread::sleep(time::Duration::from_secs(1));
 }
 
 #[test]
@@ -84,8 +73,6 @@ fn should_get_recording_genres() {
         .unwrap();
 
     assert!(you_talk_too_much.genres.is_some()); // FIXME: didn't find a recording containing actual aliases (yet)
-
-    thread::sleep(time::Duration::from_secs(1));
 }
 
 #[test]
@@ -97,6 +84,4 @@ fn should_get_recording_annotation() {
         .unwrap();
 
     assert!(isolina.annotation.is_some()); // FIXME: didn't find a recording containing actual aliases (yet)
-
-    thread::sleep(time::Duration::from_secs(1));
 }

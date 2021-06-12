@@ -3,7 +3,6 @@ extern crate musicbrainz_rs;
 
 use musicbrainz_rs::entity::event::*;
 use musicbrainz_rs::prelude::*;
-use std::{thread, time};
 
 #[test]
 fn should_browse_event_by_place() {
@@ -18,8 +17,6 @@ fn should_browse_event_by_place() {
     assert!(events_in_north_stage_woodstock_1994.count > 1);
     assert_eq!(events_in_north_stage_woodstock_1994.offset, 0);
     assert!(!events_in_north_stage_woodstock_1994.entities.is_empty());
-
-    thread::sleep(time::Duration::from_secs(1));
 }
 
 #[test]
@@ -35,8 +32,6 @@ fn should_browse_event_by_artist() {
     assert!(events_with_aerosmith.count > 1);
     assert_eq!(events_with_aerosmith.offset, 0);
     assert!(!events_with_aerosmith.entities.is_empty());
-
-    thread::sleep(time::Duration::from_secs(1));
 }
 
 #[test]
@@ -52,6 +47,4 @@ fn should_browse_event_by_area() {
     assert!(events_in_montreux.count > 1);
     assert_eq!(events_in_montreux.offset, 0);
     assert!(!events_in_montreux.entities.is_empty());
-
-    thread::sleep(time::Duration::from_secs(1));
 }

@@ -2,7 +2,6 @@ extern crate musicbrainz_rs;
 
 use musicbrainz_rs::entity::release::*;
 use musicbrainz_rs::FetchCoverart;
-use std::{thread, time};
 
 #[test]
 fn should_get_release_coverart() {
@@ -13,6 +12,4 @@ fn should_get_release_coverart() {
 
     assert_eq!(in_utero_coverart.images[0].front, true);
     assert_eq!(in_utero_coverart.images[0].back, false);
-
-    thread::sleep(time::Duration::from_secs(1));
 }

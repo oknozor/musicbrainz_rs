@@ -1,7 +1,6 @@
 extern crate musicbrainz_rs;
 use musicbrainz_rs::entity::instrument::Instrument;
 use musicbrainz_rs::prelude::*;
-use std::{thread, time};
 
 #[test]
 fn should_get_instrument_tags() {
@@ -12,8 +11,6 @@ fn should_get_instrument_tags() {
         .unwrap();
 
     assert!(guitar.tags.unwrap().iter().any(|tag| tag.name == "wood"));
-
-    thread::sleep(time::Duration::from_secs(1));
 }
 
 #[test]
@@ -29,8 +26,6 @@ fn should_get_instrument_aliases() {
         .unwrap()
         .iter()
         .any(|alias| alias.name == "guitarras"));
-
-    thread::sleep(time::Duration::from_secs(1));
 }
 
 #[test]
@@ -42,8 +37,6 @@ fn should_get_instrument_genres() {
         .unwrap();
 
     assert!(guitar.genres.is_some());
-
-    thread::sleep(time::Duration::from_secs(1));
 }
 
 #[test]
@@ -55,6 +48,4 @@ fn should_get_instrument_annotation() {
         .unwrap();
 
     assert!(gusli.annotation.is_some());
-
-    thread::sleep(time::Duration::from_secs(1));
 }

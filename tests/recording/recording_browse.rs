@@ -3,7 +3,6 @@ extern crate musicbrainz_rs;
 
 use musicbrainz_rs::entity::recording::*;
 use musicbrainz_rs::prelude::*;
-use std::{thread, time};
 
 #[test]
 fn should_browse_recording_by_artist() {
@@ -18,8 +17,6 @@ fn should_browse_recording_by_artist() {
     assert!(recording_by_svinkels.count > 1);
     assert_eq!(recording_by_svinkels.offset, 0);
     assert!(!recording_by_svinkels.entities.is_empty());
-
-    thread::sleep(time::Duration::from_secs(1));
 }
 
 #[test]
@@ -35,8 +32,6 @@ fn should_browse_recording_work() {
     assert!(la_javanaise_recordings.count > 1);
     assert_eq!(la_javanaise_recordings.offset, 0);
     assert!(!la_javanaise_recordings.entities.is_empty());
-
-    thread::sleep(time::Duration::from_secs(1));
 }
 
 #[test]
@@ -52,6 +47,4 @@ fn should_browse_recording_by_release() {
     assert!(recording_on_hooker_n_heat.count > 1);
     assert_eq!(recording_on_hooker_n_heat.offset, 0);
     assert!(!recording_on_hooker_n_heat.entities.is_empty());
-
-    thread::sleep(time::Duration::from_secs(1));
 }

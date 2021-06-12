@@ -1,7 +1,6 @@
 extern crate musicbrainz_rs;
 use musicbrainz_rs::entity::work::Work;
 use musicbrainz_rs::prelude::*;
-use std::{thread, time};
 
 #[test]
 fn should_get_work_tags() {
@@ -16,8 +15,6 @@ fn should_get_work_tags() {
         .unwrap()
         .iter()
         .any(|tag| tag.name == "ripped off"));
-
-    thread::sleep(time::Duration::from_secs(1));
 }
 
 #[test]
@@ -29,8 +26,6 @@ fn should_get_work_aliases() {
         .unwrap();
 
     assert!(hotel_california.aliases.is_some());
-
-    thread::sleep(time::Duration::from_secs(1));
 }
 
 #[test]
@@ -42,8 +37,6 @@ fn should_get_work_rating() {
         .unwrap();
 
     assert!(hotel_california.rating.is_some());
-
-    thread::sleep(time::Duration::from_secs(1));
 }
 
 #[test]
@@ -55,8 +48,6 @@ fn should_get_work_genres() {
         .unwrap();
 
     assert!(hotel_california.genres.is_some());
-
-    thread::sleep(time::Duration::from_secs(1));
 }
 
 #[test]
@@ -68,6 +59,4 @@ fn should_get_work_annotation() {
         .unwrap();
 
     assert!(vater_unser_im_himmelreich.annotation.is_some());
-
-    thread::sleep(time::Duration::from_secs(1));
 }
