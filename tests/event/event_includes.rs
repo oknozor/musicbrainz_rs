@@ -1,7 +1,6 @@
 extern crate musicbrainz_rs;
 use musicbrainz_rs::entity::event::Event;
 use musicbrainz_rs::prelude::*;
-use std::{thread, time};
 
 #[test]
 fn should_get_event_tags() {
@@ -12,8 +11,6 @@ fn should_get_event_tags() {
         .unwrap();
 
     assert!(dour_festival_1989.tags.is_some());
-
-    thread::sleep(time::Duration::from_secs(1));
 }
 
 #[test]
@@ -25,8 +22,6 @@ fn should_get_event_aliases() {
         .unwrap();
 
     assert!(dour_festival_1989.aliases.is_some());
-
-    thread::sleep(time::Duration::from_secs(1));
 }
 
 #[test]
@@ -38,8 +33,6 @@ fn should_get_event_rating() {
         .unwrap();
 
     assert!(dour_festival_1989.rating.is_some());
-
-    thread::sleep(time::Duration::from_secs(1));
 }
 
 #[test]
@@ -51,8 +44,6 @@ fn should_get_event_genres() {
         .unwrap();
 
     assert!(dour_festival_1989.genres.is_some());
-
-    thread::sleep(time::Duration::from_secs(1));
 }
 
 #[test]
@@ -64,6 +55,4 @@ fn should_get_event_annotation() {
         .unwrap();
 
     assert!(kiss_at_huntington_center.annotation.is_some());
-
-    thread::sleep(time::Duration::from_secs(1));
 }

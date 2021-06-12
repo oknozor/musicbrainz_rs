@@ -18,7 +18,6 @@ use musicbrainz_rs::entity::series::*;
 use musicbrainz_rs::entity::url::*;
 use musicbrainz_rs::entity::work::*;
 use musicbrainz_rs::prelude::*;
-use std::{thread, time};
 
 #[test]
 fn should_get_artist_by_id() {
@@ -81,8 +80,6 @@ fn should_get_artist_by_id() {
             annotation: None,
         }
     );
-
-    thread::sleep(time::Duration::from_secs(1));
 }
 
 #[test]
@@ -109,7 +106,6 @@ fn should_get_recording_by_id() {
             annotation: None,
         }
     );
-    thread::sleep(time::Duration::from_secs(1));
 }
 
 #[test]
@@ -138,8 +134,6 @@ fn should_get_release_group_by_id() {
             annotation: None,
         }
     );
-
-    thread::sleep(time::Duration::from_secs(1));
 }
 
 #[test]
@@ -196,8 +190,6 @@ fn should_get_work_by_id() {
             annotation: None,
         }
     );
-
-    thread::sleep(time::Duration::from_secs(1));
 }
 
 #[test]
@@ -225,8 +217,6 @@ fn should_get_label_by_id() {
             annotation: None,
         }
     );
-
-    thread::sleep(time::Duration::from_secs(1));
 }
 
 #[test]
@@ -256,8 +246,6 @@ fn should_get_area_by_id() {
             }),
         }
     );
-
-    thread::sleep(time::Duration::from_secs(1));
 }
 
 #[test]
@@ -312,8 +300,6 @@ fn should_get_instrument() {
             annotation: None,
         }
     );
-
-    thread::sleep(time::Duration::from_secs(1));
 }
 
 #[test]
@@ -360,8 +346,6 @@ fn should_get_place() {
             annotation: None,
         }
     );
-
-    thread::sleep(time::Duration::from_secs(1));
 }
 
 #[test]
@@ -384,8 +368,6 @@ fn should_get_series() {
             annotation: None,
         }
     );
-
-    thread::sleep(time::Duration::from_secs(1));
 }
 
 #[test]
@@ -402,6 +384,4 @@ fn should_get_url() {
             tags: None,
         }
     );
-
-    thread::sleep(time::Duration::from_secs(1));
 }

@@ -1,7 +1,6 @@
 extern crate musicbrainz_rs;
 use musicbrainz_rs::entity::series::Series;
 use musicbrainz_rs::prelude::*;
-use std::{thread, time};
 
 #[test]
 fn should_get_serie_tags() {
@@ -16,8 +15,6 @@ fn should_get_serie_tags() {
         .unwrap()
         .iter()
         .any(|tag| tag.name == "breakbeat"));
-
-    thread::sleep(time::Duration::from_secs(1));
 }
 
 #[test]
@@ -29,8 +26,6 @@ fn should_get_serie_aliases() {
         .unwrap();
 
     assert!(ultimate_breaks_and_beats.aliases.is_some());
-
-    thread::sleep(time::Duration::from_secs(1));
 }
 
 #[test]
@@ -42,8 +37,6 @@ fn should_get_serie_genres() {
         .unwrap();
 
     assert!(ultimate_breaks_and_beats.genres.is_some());
-
-    thread::sleep(time::Duration::from_secs(1));
 }
 
 #[test]
@@ -55,6 +48,4 @@ fn should_get_serie_annotation() {
         .unwrap();
 
     assert!(record_store_day_2020.annotation.is_some());
-
-    thread::sleep(time::Duration::from_secs(1));
 }

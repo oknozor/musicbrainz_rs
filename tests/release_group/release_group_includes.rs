@@ -1,6 +1,5 @@
 use musicbrainz_rs::entity::release_group::*;
 use musicbrainz_rs::prelude::*;
-use std::{thread, time};
 
 #[test]
 fn should_get_release_group_artists() {
@@ -15,8 +14,6 @@ fn should_get_release_group_artists() {
         .unwrap()
         .iter()
         .any(|credit| credit.artist.name == "Neil Young"));
-
-    thread::sleep(time::Duration::from_secs(1));
 }
 
 #[test]
@@ -32,8 +29,6 @@ fn should_get_release_group_releases() {
         .unwrap()
         .iter()
         .any(|release| release.title == "Harvest" && release.country == Some("CA".to_string())));
-
-    thread::sleep(time::Duration::from_secs(1));
 }
 
 #[test]
@@ -49,7 +44,6 @@ fn should_get_release_group_tags() {
         .unwrap()
         .iter()
         .any(|tag| tag.name == "rock_grunge"));
-    thread::sleep(time::Duration::from_secs(1));
 }
 
 #[test]
@@ -61,8 +55,6 @@ fn should_get_release_group_aliases() {
         .unwrap();
 
     assert!(in_utero.aliases.is_some());
-
-    thread::sleep(time::Duration::from_secs(1));
 }
 
 #[test]
@@ -74,8 +66,6 @@ fn should_get_release_group_rating() {
         .unwrap();
 
     assert!(in_utero.rating.is_some());
-
-    thread::sleep(time::Duration::from_secs(1));
 }
 
 #[test]
@@ -87,8 +77,6 @@ fn should_get_release_group_genres() {
         .unwrap();
 
     assert!(in_utero.genres.is_some());
-
-    thread::sleep(time::Duration::from_secs(1));
 }
 
 #[test]
@@ -100,6 +88,4 @@ fn should_get_release_group_annotation() {
         .unwrap();
 
     assert!(minnesoda.annotation.is_some());
-
-    thread::sleep(time::Duration::from_secs(1));
 }

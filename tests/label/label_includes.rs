@@ -1,7 +1,6 @@
 extern crate musicbrainz_rs;
 use self::musicbrainz_rs::entity::label::Label;
 use musicbrainz_rs::prelude::*;
-use std::{thread, time};
 
 #[test]
 fn should_get_label_releases() {
@@ -16,8 +15,6 @@ fn should_get_label_releases() {
         .unwrap()
         .iter()
         .any(|release| release.title == "The Final Corporate Colonization of the Unconscious"));
-
-    thread::sleep(time::Duration::from_secs(1));
 }
 
 #[test]
@@ -30,8 +27,6 @@ fn should_get_label_aliases() {
     let aliases = motown.unwrap().aliases;
 
     assert!(aliases.unwrap().iter().any(|alias| alias.name == "Motown"));
-
-    thread::sleep(time::Duration::from_secs(1));
 }
 
 #[test]
@@ -47,8 +42,6 @@ fn should_get_label_tags() {
         .unwrap()
         .iter()
         .any(|tag| tag.name == "independent"));
-
-    thread::sleep(time::Duration::from_secs(1));
 }
 
 #[test]
@@ -60,8 +53,6 @@ fn should_get_label_rating() {
         .unwrap();
 
     assert!(ninja_tune.rating.is_some());
-
-    thread::sleep(time::Duration::from_secs(1));
 }
 
 #[test]
@@ -73,8 +64,6 @@ fn should_get_label_genres() {
         .unwrap();
 
     assert!(ninja_tune.genres.is_some());
-
-    thread::sleep(time::Duration::from_secs(1));
 }
 
 #[test]
@@ -86,6 +75,4 @@ fn should_get_label_annotation() {
         .unwrap();
 
     assert!(tokuma_japan_communications.annotation.is_some());
-
-    thread::sleep(time::Duration::from_secs(1));
 }

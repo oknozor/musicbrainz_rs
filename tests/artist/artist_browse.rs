@@ -3,7 +3,6 @@ extern crate musicbrainz_rs;
 
 use musicbrainz_rs::entity::artist::*;
 use musicbrainz_rs::prelude::*;
-use std::{thread, time};
 
 #[test]
 fn should_browse_artist_by_release_groups() {
@@ -18,8 +17,6 @@ fn should_browse_artist_by_release_groups() {
     assert_eq!(artistss_on_in_rainbows_rg.count, 1);
     assert_eq!(artistss_on_in_rainbows_rg.offset, 0);
     assert!(!artistss_on_in_rainbows_rg.entities.is_empty());
-
-    thread::sleep(time::Duration::from_secs(1));
 }
 
 #[test]
@@ -35,8 +32,6 @@ fn should_browse_artist_by_release() {
     assert_eq!(artists_on_in_utero_release.count, 1);
     assert_eq!(artists_on_in_utero_release.offset, 0);
     assert!(!artists_on_in_utero_release.entities.is_empty());
-
-    thread::sleep(time::Duration::from_secs(1));
 }
 
 #[test]
@@ -52,8 +47,6 @@ fn should_browse_artist_by_area() {
     assert!(artistss_in_aberdeen_area.count > 0);
     assert_eq!(artistss_in_aberdeen_area.offset, 0);
     assert!(!artistss_in_aberdeen_area.entities.is_empty());
-
-    thread::sleep(time::Duration::from_secs(1));
 }
 
 #[test]
@@ -67,8 +60,6 @@ fn should_browse_artist_by_work() {
     assert!(artists_on_hotel_california.count > 1);
     assert_eq!(artists_on_hotel_california.offset, 0);
     assert!(!artists_on_hotel_california.entities.is_empty());
-
-    thread::sleep(time::Duration::from_secs(1));
 }
 
 #[test]
@@ -82,6 +73,4 @@ fn should_browse_artist_by_recording() {
     assert!(artists_on_polly.count == 1);
     assert_eq!(artists_on_polly.offset, 0);
     assert!(!artists_on_polly.entities.is_empty());
-
-    thread::sleep(time::Duration::from_secs(1));
 }

@@ -3,7 +3,6 @@ extern crate musicbrainz_rs;
 
 use musicbrainz_rs::entity::place::*;
 use musicbrainz_rs::prelude::*;
-use std::{thread, time};
 
 #[test]
 fn should_browse_place_by_area() {
@@ -18,8 +17,6 @@ fn should_browse_place_by_area() {
     assert!(places_in_paris.count > 1);
     assert_eq!(places_in_paris.offset, 0);
     assert!(!places_in_paris.entities.is_empty());
-
-    thread::sleep(time::Duration::from_secs(1));
 }
 
 // TODO: find non empty result
@@ -30,5 +27,4 @@ fn should_browse_place_by_collection() {
         .execute();
 
     assert!(places_in_collection.is_ok());
-    thread::sleep(time::Duration::from_secs(1));
 }

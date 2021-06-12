@@ -2,7 +2,6 @@ extern crate musicbrainz_rs;
 
 use musicbrainz_rs::entity::artist::*;
 use musicbrainz_rs::Search;
-use std::{thread, time};
 
 #[test]
 fn should_search_artist() {
@@ -15,6 +14,4 @@ fn should_search_artist() {
     let result = Artist::search(query).execute().unwrap();
 
     assert!(!result.entities.is_empty());
-
-    thread::sleep(time::Duration::from_secs(1));
 }
