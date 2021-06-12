@@ -184,7 +184,8 @@ where
     {
         self.0.path.push_str(FMT_JSON);
         self.include_to_path();
-        HTTP_CLIENT.get(&self.0.path).send()?.json()
+        let request = HTTP_CLIENT.get(&self.0.path);
+        HTTP_CLIENT.send_with_retries(request)?.json()
     }
 
     fn include_to_path(&mut self) {
@@ -202,7 +203,8 @@ where
     }
 
     pub fn execute(&mut self) -> Result<Coverart, Error> {
-        HTTP_CLIENT.get(&self.0.path).send()?.json()
+        let request = HTTP_CLIENT.get(&self.0.path);
+        HTTP_CLIENT.send_with_retries(request)?.json()
     }
 }
 
@@ -215,7 +217,8 @@ where
         T: Fetch<'a> + DeserializeOwned + Browsable,
     {
         self.include_to_path();
-        HTTP_CLIENT.get(&self.0.path).send()?.json()
+        let request = HTTP_CLIENT.get(&self.0.path);
+        HTTP_CLIENT.send_with_retries(request)?.json()
     }
 
     fn include_to_path(&mut self) {
@@ -232,7 +235,8 @@ where
         T: Search<'a> + DeserializeOwned + Searchable,
     {
         self.include_to_path();
-        HTTP_CLIENT.get(&self.0.path).send()?.json()
+        let request = HTTP_CLIENT.get(&self.0.path);
+        HTTP_CLIENT.send_with_retries(request)?.json()
     }
 
     fn include_to_path(&mut self) {
