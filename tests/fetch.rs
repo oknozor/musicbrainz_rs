@@ -162,6 +162,7 @@ fn should_get_release() {
             disambiguation: Some("".to_string()),
             packaging_id: Some("ec27701a-4a22-37f4-bfac-6616e0f9750a".to_string()),
             packaging: Some("Jewel Case".to_string()),
+            relations: None,
             label_info: None,
             media: None,
             release_group: None,

@@ -6,6 +6,7 @@ use crate::entity::alias::Alias;
 use crate::entity::genre::Genre;
 use crate::entity::label::LabelInfo;
 use crate::entity::recording::Recording;
+use crate::entity::relations::Relation;
 use crate::entity::release_group::ReleaseGroup;
 use crate::entity::tag::Tag;
 use crate::entity::BrowseBy;
@@ -63,6 +64,7 @@ pub struct Release {
     /// [list of packaging](https://musicbrainz.org/doc/Release/Packaging) for more information.
     pub packaging: Option<String>, //TODO: This might be an enum needs to test all against all possible values
 
+    pub relations: Option<Vec<Relation>>,
     pub release_group: Option<ReleaseGroup>,
     pub media: Option<Vec<Media>>,
     pub label_info: Option<Vec<LabelInfo>>,
@@ -176,6 +178,7 @@ Release,
 impl_includes!(
     Release,
     (with_labels, Include::Labels),
+    (with_artist_relations, Include::ArtistRelations),
     (with_recordings, Include::Recordings),
     (with_release_groups, Include::ReleaseGroups),
     (with_tags, Include::Tags),
