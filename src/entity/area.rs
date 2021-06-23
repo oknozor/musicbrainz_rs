@@ -28,7 +28,7 @@ impl_browse!(Area, (by_collection, BrowseBy::Collection));
 
 impl_includes!(
     Area,
-    (with_artists_relations, Include::ArtistRelations),
+    (with_artist_relations, Include::ArtistRelations),
     (with_tags, Include::Tags),
     (with_aliases, Include::Aliases),
     (with_genres, Include::Genres),
