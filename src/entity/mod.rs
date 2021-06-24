@@ -223,6 +223,7 @@ pub(crate) enum Include {
     Artists,
     Series,
     Instruments,
+    ISRCs,
 }
 
 impl Include {
@@ -250,6 +251,7 @@ impl Include {
             Include::ReleasesWithDiscIds => "releases+discids",
             Include::Instruments => "instruments",
             Include::Series => "series",
+            Include::ISRCs => "isrcs",
         }
     }
 }
