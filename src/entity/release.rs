@@ -3,6 +3,7 @@ use chrono::NaiveDate;
 use super::Include;
 use crate::date_format;
 use crate::entity::alias::Alias;
+use crate::entity::artist_credit::ArtistCredit;
 use crate::entity::genre::Genre;
 use crate::entity::label::LabelInfo;
 use crate::entity::recording::Recording;
@@ -66,6 +67,7 @@ pub struct Release {
 
     pub relations: Option<Vec<Relation>>,
     pub release_group: Option<ReleaseGroup>,
+    pub artist_credit: Option<Vec<ArtistCredit>>,
     pub media: Option<Vec<Media>>,
     pub label_info: Option<Vec<LabelInfo>>,
     pub tags: Option<Vec<Tag>>,
@@ -177,6 +179,7 @@ Release,
 
 impl_includes!(
     Release,
+    (with_artists, Include::Artists),
     (with_labels, Include::Labels),
     (with_artist_relations, Include::ArtistRelations),
     (with_recordings, Include::Recordings),
