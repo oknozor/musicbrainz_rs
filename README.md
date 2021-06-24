@@ -1,4 +1,4 @@
-# ![MusicBrainz] Rust &emsp; 
+# ![MusicBrainz] Rust &emsp;
 
 [![Latest Version]][crates.io] [![Build Status]][Action] [![codecov](https://codecov.io/gh/oknozor/musicbrainz_rs/branch/master/graph/badge.svg)](https://codecov.io/gh/oknozor/musicbrainz_rs) ![GitHub tag (latest by date)](https://img.shields.io/github/v/tag/oknozor/musicbrainz_rs) [![Conventional Commits](https://img.shields.io/badge/Conventional%20Commits-1.0.0-yellow.svg)](https://conventionalcommits.org) ![License](https://img.shields.io/github/license/oknozor/musicbrainz_rs)
 
@@ -12,7 +12,7 @@
 
 ---
 
-you may be looking for : 
+you may be looking for :
 - [Api documention](https://docs.rs/musicbrainz_rs)
 - [The crate](https://www.crates.io/crates/musicbrainz_rs)
 
@@ -20,14 +20,14 @@ you may be looking for :
 
 ### Fetch query
 
-To perform a [lookups](https://musicbrainz.org/doc/Development/XML_Web_Service/Version_2#Lookups) via fetch queries, 
+To perform a [lookups](https://musicbrainz.org/doc/Development/XML_Web_Service/Version_2#Lookups) via fetch queries,
 you need to import the `Fetch` trait. This can be done using `musicbrainz_rs::prelude`
 
 ```rust
 extern crate musicbrainz_rs;
 
-use musicbrainz_rs::model::artist;
-use musicbrainz_rs::model::artist::*;
+use musicbrainz_rs::entity::artist;
+use musicbrainz_rs::entity::artist::*;
 use musicbrainz_rs::prelude::*;
 
 fn main() {
@@ -48,7 +48,7 @@ Every Musicbrainz resource has [allowed include parameters](https://musicbrainz.
 ```rust
 extern crate musicbrainz_rs;
 
-use musicbrainz_rs::model::label::*;
+use musicbrainz_rs::entity::label::*;
 use musicbrainz_rs::prelude::*;
 
 fn main() {
@@ -71,15 +71,15 @@ fn main() {
 
 ### Browse query
 
-Use `musicbrainz_rs::Browse` or bring it in scope using `musicbrainz_rs::prelude` to perform a 
+Use `musicbrainz_rs::Browse` or bring it in scope using `musicbrainz_rs::prelude` to perform a
 [browse query](https://musicbrainz.org/doc/Development/XML_Web_Service/Version_2#Browse).
 Just like `Include` every muscibrainz resource has allowable linked entities for such queries.
 
 ```rust
 extern crate musicbrainz_rs;
 
-use musicbrainz_rs::model::artist;
-use musicbrainz_rs::model::artist::Artist;
+use musicbrainz_rs::entity::artist;
+use musicbrainz_rs::entity::artist::Artist;
 use musicbrainz_rs::prelude::*;
 
 fn main() {
@@ -103,7 +103,7 @@ Use `musicbrainz_rs::Search` to perform a [search query](https://musicbrainz.org
 ```rust
 extern crate musicbrainz_rs;
 
-use musicbrainz_rs::model::artist::Artist;
+use musicbrainz_rs::entity::artist::Artist;
 use musicbrainz_rs::prelude::*;
 
 fn main() {
@@ -126,13 +126,13 @@ fn main() {
 ```
 
 ### Custom user agent
-You can set your application user-agent as recommended in the 
+You can set your application user-agent as recommended in the
 [musicbrainz documentation](https://musicbrainz.org/doc/XML_Web_Service/Rate_Limiting#User-Agent) :
 
 ```rust
 extern crate musicbrainz_rs;
 
-use musicbrainz_rs::model::artist::Artist;
+use musicbrainz_rs::entity::artist::Artist;
 use musicbrainz_rs::prelude::*;
 
 fn main() {
