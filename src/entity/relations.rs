@@ -2,6 +2,7 @@ use crate::date_format;
 use crate::entity::area::Area;
 use crate::entity::artist::Artist;
 use crate::entity::event::Event;
+use crate::entity::url::Url;
 use chrono::NaiveDate;
 use std::collections::HashMap;
 
@@ -33,4 +34,5 @@ pub enum RelationContent {
     Artist(Box<Artist>),
     Area(Box<Area>),
     Event(Box<Event>),
+    Url(Box<Url>),
 }

@@ -64,5 +64,6 @@ impl_includes!(
     (with_genres, Include::Genres),
     (with_ratings, Include::Rating),
     (with_isrcs, Include::ISRCs),
+    (with_url_relations, Include::UrlRelations),
     (with_annotations, Include::Annotations)
 );
