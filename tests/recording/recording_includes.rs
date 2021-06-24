@@ -96,3 +96,18 @@ fn should_get_recording_isrcs() {
 
     assert!(senorita.isrcs.is_some()); // FIXME: didn't find a recording containing actual aliases (yet)
 }
+
+#[test]
+fn should_get_recording_url_relations() {
+    let senorita = Recording::fetch()
+        .id("62f09fd2-144a-439a-96f9-ce93f05b48ae")
+        .with_url_relations()
+        .execute()
+        .unwrap();
+
+    let relations = senorita.relations.unwrap();
+
+    assert!(relations
+        .iter()
+        .any(|rel| rel.relation_type == "free streaming")); // FIXME: didn't find a recording containing actual aliases (yet)
+}
