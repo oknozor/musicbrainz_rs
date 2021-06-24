@@ -49,6 +49,17 @@ fn should_get_release_recordings() {
 }
 
 #[test]
+fn should_get_release_artists() {
+    let justice_cross = Release::fetch()
+        .id("4642ee19-7790-3c8d-ab5e-d133de942db6")
+        .with_artists()
+        .execute()
+        .unwrap();
+
+    assert_eq!(justice_cross.artist_credit.unwrap()[0].name, "Justice");
+}
+
+#[test]
 fn should_get_release_label() {
     let justice_cross = Release::fetch()
         .id("4642ee19-7790-3c8d-ab5e-d133de942db6")
