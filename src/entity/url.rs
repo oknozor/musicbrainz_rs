@@ -8,4 +8,8 @@ pub struct Url {
     pub tags: Option<Vec<Tag>>,
 }
 
-impl_includes!(Url, (with_artist_relations, Include::ArtistRelations));
+impl_includes!(
+    Url,
+    (with_artist_relations, Include::ArtistRelations),
+    (with_url_relations, Include::UrlRelations)
+);
