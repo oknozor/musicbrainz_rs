@@ -3,6 +3,7 @@ use std::marker::PhantomData;
 use crate::config::*;
 use crate::entity::area::Area;
 use crate::entity::artist::Artist;
+use crate::entity::coverart::Coverart;
 use crate::entity::event::Event;
 use crate::entity::instrument::*;
 use crate::entity::label::Label;
@@ -15,9 +16,8 @@ use crate::entity::url::Url;
 use crate::entity::work::Work;
 use crate::Fetch;
 use crate::Path;
-use crate::Query;
 use crate::{Browse, Search};
-use crate::{FetchCoverart, FetchCoverartQuery};
+use crate::{CoverartQuery, FetchCoverart, FetchCoverartQuery};
 
 macro_rules! impl_includes {
     ($ty: ty, $(($args:ident, $inc: expr)),+) => {
@@ -63,10 +63,13 @@ macro_rules! impl_fetchcoverart {
     ($($t: ty), +) => {
         $(impl<'a> FetchCoverart<'a> for $t {
             fn get_coverart(&self) -> FetchCoverartQuery<Self> {
-                let mut coverart_query = FetchCoverartQuery(Query {
+                let mut coverart_query = FetchCoverartQuery(CoverartQuery {
                     path: format!("{}/{}", BASE_COVERART_URL, Self::path()),
                     phantom: PhantomData,
-                    include: vec![],
+                    target: CoverartTarget {
+                        img_type: None,
+                        img_res: None,
+                    },
                 });
                 coverart_query.id(&self.id);
                 coverart_query
@@ -370,4 +373,48 @@ impl Browsable for Instrument {
     const COUNT_FIELD: &'static str = "instrument-count";
     const OFFSET_FIELD: &'static str = "instrument-offset";
     const ENTITIES_FIELD: &'static str = "instruments";
+}
+
+#[derive(Clone, Debug)]
+pub struct CoverartTarget {
+    pub img_type: Option<CoverartType>,
+    pub img_res: Option<CoverartResolution>,
+}
+
+#[derive(Clone, Debug)]
+pub enum CoverartResponse {
+    Json(Coverart),
+    Url(String),
+}
+
+#[derive(Clone, Debug)]
+pub enum CoverartType {
+    Front,
+    Back,
+}
+
+impl CoverartType {
+    pub fn as_str(&self) -> &'static str {
+        match self {
+            CoverartType::Front => "front",
+            CoverartType::Back => "back",
+        }
+    }
+}
+
+#[derive(Clone, Debug)]
+pub enum CoverartResolution {
+    Res250,
+    Res500,
+    Res1200,
+}
+
+impl CoverartResolution {
+    pub fn as_str(&self) -> &'static str {
+        match self {
+            CoverartResolution::Res250 => "250",
+            CoverartResolution::Res500 => "500",
+            CoverartResolution::Res1200 => "1200",
+        }
+    }
 }
