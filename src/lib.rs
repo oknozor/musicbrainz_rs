@@ -50,12 +50,12 @@ pub mod entity;
 /// Brings trait and type needed to perform any API query in scope
 pub mod prelude;
 
-use crate::entity::coverart::Coverart;
 use crate::entity::search::{SearchResult, Searchable};
 use deserialization::date_format;
 use entity::Browsable;
 use entity::BrowseResult;
 use entity::Include;
+use entity::{CoverartResolution, CoverartResponse, CoverartTarget, CoverartType};
 
 /// Type alias for [reqwest::Error]
 pub type Error = reqwest::Error;
@@ -100,16 +100,28 @@ pub struct FetchQuery<T>(Query<T>);
 /// # use musicbrainz_rs::prelude::*;
 /// # fn main() -> Result<(), Error> {
 /// # use musicbrainz_rs::entity::release::Release;
+/// # use musicbrainz_rs::entity::CoverartResponse;
 /// let in_utero_coverart = Release::fetch_coverart()
 ///         .id("76df3287-6cda-33eb-8e9a-044b5e15ffdd")
-///         .execute();
-///
-/// assert!(in_utero_coverart?.images[0].front, true);
+///         .execute()?;
+/// if let CoverartResponse::Json(coverart) = in_utero_coverart {
+///     assert_eq!(coverart.images[0].front, true);
+///     assert_eq!(coverart.images[0].back, false);
+/// } else {
+///     assert!(false);
+/// }
 /// #   Ok(())
 /// # }
 /// ```
 #[derive(Clone, Debug)]
-pub struct FetchCoverartQuery<T>(Query<T>);
+struct CoverartQuery<T> {
+    path: String,
+    target: CoverartTarget,
+    phantom: PhantomData<T>,
+}
+
+#[derive(Clone, Debug)]
+pub struct FetchCoverartQuery<T>(CoverartQuery<T>);
 
 /// Direct lookup of all the entities directly linked to another entity
 ///
@@ -202,9 +214,71 @@ where
         self
     }
 
-    pub fn execute(&mut self) -> Result<Coverart, Error> {
+    pub fn front(&mut self) -> &mut Self {
+        if self.0.target.img_type.is_some() {
+            println!("ignoring call to `front`, since coverart type has already been set");
+        }
+        self.0.target.img_type = Some(CoverartType::Front);
+        self
+    }
+
+    pub fn back(&mut self) -> &mut Self {
+        if self.0.target.img_type.is_some() {
+            println!("ignoring call to `back`, since coverart type has already been set");
+        }
+        self.0.target.img_type = Some(CoverartType::Back);
+        self
+    }
+
+    pub fn res_250(&mut self) -> &mut Self {
+        if self.0.target.img_res.is_some() {
+            println!("ignoring call to `res_250`, since resolution has already been set");
+        }
+        self.0.target.img_res = Some(CoverartResolution::Res250);
+        self
+    }
+
+    pub fn res_500(&mut self) -> &mut Self {
+        if self.0.target.img_res.is_some() {
+            println!("ignoring call to `res_500`, since resolution has already been set");
+        }
+        self.0.target.img_res = Some(CoverartResolution::Res500);
+        self
+    }
+
+    pub fn res_1200(&mut self) -> &mut Self {
+        if self.0.target.img_res.is_some() {
+            println!("ignoring call to `res_1200`, since resolution has already been set");
+        }
+        self.0.target.img_res = Some(CoverartResolution::Res1200);
+        self
+    }
+
+    pub fn validate(&mut self) {
+        if let Some(img_type) = &self.0.target.img_type {
+            self.0.path.push_str(&format!("/{}", img_type.as_str()));
+            if let Some(img_res) = &self.0.target.img_res {
+                self.0.path.push_str(&format!("-{}", img_res.as_str()));
+            }
+        } else if self.0.target.img_res.is_some() {
+            // Implicitly assume coverart type as front in the case when resolution is
+            // explicitly specified but coverart type is not.
+            self.front().validate();
+        }
+    }
+
+    pub fn execute(&mut self) -> Result<CoverartResponse, Error> {
+        let coverart_response: CoverartResponse;
+        self.validate();
         let request = HTTP_CLIENT.get(&self.0.path);
-        HTTP_CLIENT.send_with_retries(request)?.json()
+        let mut response = HTTP_CLIENT.send_with_retries(request)?;
+        if self.0.target.img_type.is_some() {
+            let url = response.url().clone();
+            coverart_response = CoverartResponse::Url(url.to_string());
+        } else {
+            coverart_response = CoverartResponse::Json(response.json().unwrap());
+        }
+        Ok(coverart_response)
     }
 }
 
@@ -289,10 +363,13 @@ pub trait FetchCoverart<'a> {
     where
         Self: Sized + Path<'a>,
     {
-        FetchCoverartQuery(Query {
+        FetchCoverartQuery(CoverartQuery {
             path: format!("{}/{}", BASE_COVERART_URL, Self::path()),
             phantom: PhantomData,
-            include: vec![],
+            target: CoverartTarget {
+                img_type: None,
+                img_res: None,
+            },
         })
     }
 
@@ -301,10 +378,13 @@ pub trait FetchCoverart<'a> {
         Self: Sized + Path<'a>,
         Self: Clone,
     {
-        FetchCoverartQuery(Query {
+        FetchCoverartQuery(CoverartQuery {
             path: format!("{}/{}", BASE_COVERART_URL, Self::path()),
             phantom: PhantomData,
-            include: vec![],
+            target: CoverartTarget {
+                img_type: None,
+                img_res: None,
+            },
         })
     }
 }
