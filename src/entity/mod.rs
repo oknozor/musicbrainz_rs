@@ -1,3 +1,6 @@
+use std::marker::PhantomData;
+
+use crate::config::*;
 use crate::entity::area::Area;
 use crate::entity::artist::Artist;
 use crate::entity::event::Event;
@@ -11,9 +14,10 @@ use crate::entity::series::Series;
 use crate::entity::url::Url;
 use crate::entity::work::Work;
 use crate::Fetch;
-use crate::FetchCoverart;
 use crate::Path;
+use crate::Query;
 use crate::{Browse, Search};
+use crate::{FetchCoverart, FetchCoverartQuery};
 
 macro_rules! impl_includes {
     ($ty: ty, $(($args:ident, $inc: expr)),+) => {
@@ -55,6 +59,22 @@ macro_rules! impl_browse {
         }
 }
 
+macro_rules! impl_fetchcoverart {
+    ($($t: ty), +) => {
+        $(impl<'a> FetchCoverart<'a> for $t {
+            fn get_coverart(&self) -> FetchCoverartQuery<Self> {
+                let mut coverart_query = FetchCoverartQuery(Query {
+                    path: format!("{}/{}", BASE_COVERART_URL, Self::path()),
+                    phantom: PhantomData,
+                    include: vec![],
+                });
+                coverart_query.id(&self.id);
+                coverart_query
+            }
+        })+
+    }
+}
+
 pub mod alias;
 pub mod area;
 pub mod artist;
@@ -90,7 +110,7 @@ impl Fetch<'_> for Place {}
 impl Fetch<'_> for Series {}
 impl Fetch<'_> for Url {}
 
-impl FetchCoverart<'_> for Release {}
+impl_fetchcoverart!(Release, ReleaseGroup);
 
 impl Browse<'_> for Artist {}
 impl Browse<'_> for Area {}

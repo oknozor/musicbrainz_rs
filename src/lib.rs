@@ -295,6 +295,18 @@ pub trait FetchCoverart<'a> {
             include: vec![],
         })
     }
+
+    fn get_coverart(&self) -> FetchCoverartQuery<Self>
+    where
+        Self: Sized + Path<'a>,
+        Self: Clone,
+    {
+        FetchCoverartQuery(Query {
+            path: format!("{}/{}", BASE_COVERART_URL, Self::path()),
+            phantom: PhantomData,
+            include: vec![],
+        })
+    }
 }
 
 /// Implemented by all browsable entities (see [`BrowseQuery`])
