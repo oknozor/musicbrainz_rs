@@ -85,3 +85,14 @@ fn should_get_recording_annotation() {
 
     assert!(isolina.annotation.is_some()); // FIXME: didn't find a recording containing actual aliases (yet)
 }
+
+#[test]
+fn should_get_recording_isrcs() {
+    let senorita = Recording::fetch()
+        .id("62f09fd2-144a-439a-96f9-ce93f05b48ae")
+        .with_isrcs()
+        .execute()
+        .unwrap();
+
+    assert!(senorita.isrcs.is_some()); // FIXME: didn't find a recording containing actual aliases (yet)
+}

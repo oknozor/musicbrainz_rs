@@ -104,6 +104,7 @@ fn should_get_recording_by_id() {
             rating: None,
             genres: None,
             annotation: None,
+            isrcs: None,
         }
     );
 }

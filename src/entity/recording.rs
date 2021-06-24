@@ -37,6 +37,7 @@ pub struct Recording {
     /// See Disambiguation Comment.
     pub disambiguation: Option<String>,
 
+    pub isrcs: Option<Vec<String>>,
     pub relations: Option<Vec<Relation>>,
     pub releases: Option<Vec<Release>>,
     pub artist_credit: Option<Vec<ArtistCredit>>,
@@ -62,5 +63,6 @@ impl_includes!(
     (with_aliases, Include::Aliases),
     (with_genres, Include::Genres),
     (with_ratings, Include::Rating),
+    (with_isrcs, Include::ISRCs),
     (with_annotations, Include::Annotations)
 );
