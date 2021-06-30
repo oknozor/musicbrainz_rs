@@ -1,4 +1,4 @@
-use super::Include;
+use super::{Include, Relationship, Subquery};
 use crate::entity::alias::Alias;
 use crate::entity::genre::Genre;
 use crate::entity::rating::Rating;
@@ -36,10 +36,13 @@ Work,
 
 impl_includes!(
     Work,
-    (with_artist_relations, Include::ArtistRelations),
-    (with_tags, Include::Tags),
-    (with_ratings, Include::Rating),
-    (with_aliases, Include::Aliases),
-    (with_genres, Include::Genres),
-    (with_annotations, Include::Annotations)
+    (
+        with_artist_relations,
+        Include::Relationship(Relationship::Artist)
+    ),
+    (with_tags, Include::Subquery(Subquery::Tags)),
+    (with_ratings, Include::Subquery(Subquery::Rating)),
+    (with_aliases, Include::Subquery(Subquery::Aliases)),
+    (with_genres, Include::Subquery(Subquery::Genres)),
+    (with_annotations, Include::Subquery(Subquery::Annotations))
 );

@@ -1,4 +1,4 @@
-use super::Include;
+use super::{Include, Relationship, Subquery};
 use crate::entity::alias::Alias;
 use crate::entity::area::Area;
 use crate::entity::genre::Genre;
@@ -135,16 +135,28 @@ Artist,
 
 impl_includes!(
     Artist,
-    (with_recordings, Include::Recordings),
-    (with_releases, Include::Releases),
-    (with_releases_and_discids, Include::ReleasesWithDiscIds),
-    (with_release_groups, Include::ReleaseGroups),
-    (with_aliases, Include::Aliases),
-    (with_works, Include::Works),
-    (with_artist_relations, Include::ArtistRelations),
-    (with_event_relations, Include::EventRelations),
-    (with_tags, Include::Tags),
-    (with_rating, Include::Rating),
-    (with_genres, Include::Genres),
-    (with_annotations, Include::Annotations)
+    (with_recordings, Include::Subquery(Subquery::Recordings)),
+    (with_releases, Include::Subquery(Subquery::Releases)),
+    (
+        with_releases_and_discids,
+        Include::Subquery(Subquery::ReleasesWithDiscIds)
+    ),
+    (
+        with_release_groups,
+        Include::Subquery(Subquery::ReleaseGroups)
+    ),
+    (with_aliases, Include::Subquery(Subquery::Aliases)),
+    (with_works, Include::Subquery(Subquery::Works)),
+    (
+        with_artist_relations,
+        Include::Relationship(Relationship::Artist)
+    ),
+    (
+        with_event_relations,
+        Include::Relationship(Relationship::Event)
+    ),
+    (with_tags, Include::Subquery(Subquery::Tags)),
+    (with_rating, Include::Subquery(Subquery::Rating)),
+    (with_genres, Include::Subquery(Subquery::Genres)),
+    (with_annotations, Include::Subquery(Subquery::Annotations))
 );

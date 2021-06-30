@@ -1,4 +1,4 @@
-use super::Include;
+use super::{Include, Relationship, Subquery};
 use crate::entity::alias::Alias;
 use crate::entity::genre::Genre;
 use crate::entity::lifespan::LifeSpan;
@@ -38,10 +38,13 @@ Event,
 
 impl_includes!(
     Event,
-    (with_artist_relations, Include::ArtistRelations),
-    (with_tags, Include::Tags),
-    (with_aliases, Include::Aliases),
-    (with_ratings, Include::Rating),
-    (with_genres, Include::Genres),
-    (with_annotations, Include::Annotations)
+    (
+        with_artist_relations,
+        Include::Relationship(Relationship::Artist)
+    ),
+    (with_tags, Include::Subquery(Subquery::Tags)),
+    (with_aliases, Include::Subquery(Subquery::Aliases)),
+    (with_ratings, Include::Subquery(Subquery::Rating)),
+    (with_genres, Include::Subquery(Subquery::Genres)),
+    (with_annotations, Include::Subquery(Subquery::Annotations))
 );
