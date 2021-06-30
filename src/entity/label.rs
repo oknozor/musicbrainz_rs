@@ -1,4 +1,4 @@
-use super::Include;
+use super::{Include, Subquery};
 use crate::entity::alias::Alias;
 use crate::entity::genre::Genre;
 use crate::entity::rating::Rating;
@@ -42,10 +42,10 @@ Label,
 
 impl_includes!(
     Label,
-    (with_releases, Include::Releases),
-    (with_tags, Include::Tags),
-    (with_aliases, Include::Aliases),
-    (with_ratings, Include::Rating),
-    (with_genres, Include::Genres),
-    (with_annotations, Include::Annotations)
+    (with_releases, Include::Subquery(Subquery::Releases)),
+    (with_tags, Include::Subquery(Subquery::Tags)),
+    (with_aliases, Include::Subquery(Subquery::Aliases)),
+    (with_ratings, Include::Subquery(Subquery::Rating)),
+    (with_genres, Include::Subquery(Subquery::Genres)),
+    (with_annotations, Include::Subquery(Subquery::Annotations))
 );
