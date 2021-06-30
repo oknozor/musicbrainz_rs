@@ -6,7 +6,7 @@ use crate::entity::relations::Relation;
 use crate::entity::release::Release;
 use crate::entity::tag::Tag;
 use crate::entity::BrowseBy;
-use crate::entity::Include;
+use crate::entity::{Include, Relationship, Subquery};
 
 /// A recording is an entity in MusicBrainz which can be linked to tracks on releases. Each track
 /// must always be associated with a single recording, but a recording can be linked to any number
@@ -57,13 +57,13 @@ Recording,
 
 impl_includes!(
     Recording,
-    (with_artists, Include::Artists),
-    (with_releases, Include::Releases),
-    (with_tags, Include::Tags),
-    (with_aliases, Include::Aliases),
-    (with_genres, Include::Genres),
-    (with_ratings, Include::Rating),
-    (with_isrcs, Include::ISRCs),
-    (with_url_relations, Include::UrlRelations),
-    (with_annotations, Include::Annotations)
+    (with_artists, Include::Subquery(Subquery::Artists)),
+    (with_releases, Include::Subquery(Subquery::Releases)),
+    (with_tags, Include::Subquery(Subquery::Tags)),
+    (with_aliases, Include::Subquery(Subquery::Aliases)),
+    (with_genres, Include::Subquery(Subquery::Genres)),
+    (with_ratings, Include::Subquery(Subquery::Rating)),
+    (with_isrcs, Include::Subquery(Subquery::ISRCs)),
+    (with_url_relations, Include::Relationship(Relationship::Url)),
+    (with_annotations, Include::Subquery(Subquery::Annotations))
 );

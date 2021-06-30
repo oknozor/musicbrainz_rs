@@ -1,4 +1,4 @@
-use super::Include;
+use super::{Include, Relationship};
 use crate::entity::tag::Tag;
 
 #[derive(Debug, Serialize, Deserialize, PartialEq, Clone)]
@@ -10,6 +10,9 @@ pub struct Url {
 
 impl_includes!(
     Url,
-    (with_artist_relations, Include::ArtistRelations),
-    (with_url_relations, Include::UrlRelations)
+    (
+        with_artist_relations,
+        Include::Relationship(Relationship::Artist)
+    ),
+    (with_url_relations, Include::Relationship(Relationship::Url))
 );

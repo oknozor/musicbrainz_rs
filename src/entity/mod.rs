@@ -204,6 +204,22 @@ impl Path<'_> for Url {
 #[derive(Debug, PartialEq, Clone)]
 #[allow(unused)]
 pub(crate) enum Include {
+    Subquery(Subquery),
+    Relationship(Relationship),
+}
+
+impl Include {
+    pub(crate) fn as_str(&self) -> &'static str {
+        match self {
+            Include::Subquery(i) => i.as_str(),
+            Include::Relationship(i) => i.as_str(),
+        }
+    }
+}
+
+#[derive(Debug, PartialEq, Clone)]
+#[allow(unused)]
+pub(crate) enum Subquery {
     Urls,
     Areas,
     ArtistCredits,
@@ -211,9 +227,6 @@ pub(crate) enum Include {
     Events,
     Places,
     DiscIds,
-    ArtistRelations,
-    EventRelations,
-    UrlRelations,
     Releases,
     ReleasesWithDiscIds,
     ReleaseGroups,
@@ -230,33 +243,48 @@ pub(crate) enum Include {
     ISRCs,
 }
 
-impl Include {
+impl Subquery {
     pub(crate) fn as_str(&self) -> &'static str {
         match self {
-            Include::Labels => "labels",
-            Include::Recordings => "recordings",
-            Include::Tags => "tags",
-            Include::Rating => "ratings",
-            Include::Aliases => "aliases",
-            Include::Genres => "genres",
-            Include::Annotations => "annotation",
-            Include::ArtistRelations => "artist-rels",
-            Include::EventRelations => "event-rels",
-            Include::UrlRelations => "url-rels",
-            Include::Releases => "releases",
-            Include::ReleaseGroups => "release-groups",
-            Include::Works => "works",
-            Include::Artists => "artists",
-            Include::Places => "places",
-            Include::Events => "events",
-            Include::Urls => "urls",
-            Include::Areas => "areas",
-            Include::ArtistCredits => "artist-credits",
-            Include::DiscIds => "discids",
-            Include::ReleasesWithDiscIds => "releases+discids",
-            Include::Instruments => "instruments",
-            Include::Series => "series",
-            Include::ISRCs => "isrcs",
+            Subquery::Labels => "labels",
+            Subquery::Recordings => "recordings",
+            Subquery::Tags => "tags",
+            Subquery::Rating => "ratings",
+            Subquery::Aliases => "aliases",
+            Subquery::Genres => "genres",
+            Subquery::Annotations => "annotation",
+            Subquery::Releases => "releases",
+            Subquery::ReleaseGroups => "release-groups",
+            Subquery::Works => "works",
+            Subquery::Artists => "artists",
+            Subquery::Places => "places",
+            Subquery::Events => "events",
+            Subquery::Urls => "urls",
+            Subquery::Areas => "areas",
+            Subquery::ArtistCredits => "artist-credits",
+            Subquery::DiscIds => "discids",
+            Subquery::ReleasesWithDiscIds => "releases+discids",
+            Subquery::Instruments => "instruments",
+            Subquery::Series => "series",
+            Subquery::ISRCs => "isrcs",
+        }
+    }
+}
+
+#[derive(Debug, PartialEq, Clone)]
+#[allow(unused)]
+pub(crate) enum Relationship {
+    Artist,
+    Event,
+    Url,
+}
+
+impl Relationship {
+    pub(crate) fn as_str(&self) -> &'static str {
+        match self {
+            Relationship::Artist => "artist-rels",
+            Relationship::Event => "event-rels",
+            Relationship::Url => "url-rels",
         }
     }
 }

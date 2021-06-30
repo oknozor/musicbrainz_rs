@@ -1,6 +1,6 @@
 use chrono::NaiveDate;
 
-use super::Include;
+use super::{Include, Relationship, Subquery};
 use crate::date_format;
 use crate::entity::alias::Alias;
 use crate::entity::artist_credit::ArtistCredit;
@@ -179,14 +179,20 @@ Release,
 
 impl_includes!(
     Release,
-    (with_artists, Include::Artists),
-    (with_labels, Include::Labels),
-    (with_artist_relations, Include::ArtistRelations),
-    (with_recordings, Include::Recordings),
-    (with_release_groups, Include::ReleaseGroups),
-    (with_tags, Include::Tags),
-    (with_ratings, Include::Rating),
-    (with_aliases, Include::Aliases),
-    (with_genres, Include::Genres),
-    (with_annotations, Include::Annotations)
+    (with_artists, Include::Subquery(Subquery::Artists)),
+    (with_labels, Include::Subquery(Subquery::Labels)),
+    (
+        with_artist_relations,
+        Include::Relationship(Relationship::Artist)
+    ),
+    (with_recordings, Include::Subquery(Subquery::Recordings)),
+    (
+        with_release_groups,
+        Include::Subquery(Subquery::ReleaseGroups)
+    ),
+    (with_tags, Include::Subquery(Subquery::Tags)),
+    (with_ratings, Include::Subquery(Subquery::Rating)),
+    (with_aliases, Include::Subquery(Subquery::Aliases)),
+    (with_genres, Include::Subquery(Subquery::Genres)),
+    (with_annotations, Include::Subquery(Subquery::Annotations))
 );
