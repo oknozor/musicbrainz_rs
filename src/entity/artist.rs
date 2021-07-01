@@ -155,6 +155,7 @@ impl_includes!(
         with_event_relations,
         Include::Relationship(Relationship::Event)
     ),
+    (with_url_relations, Include::Relationship(Relationship::Url)),
     (with_tags, Include::Subquery(Subquery::Tags)),
     (with_rating, Include::Subquery(Subquery::Rating)),
     (with_genres, Include::Subquery(Subquery::Genres)),
