@@ -185,6 +185,7 @@ impl_includes!(
         with_artist_relations,
         Include::Relationship(Relationship::Artist)
     ),
+    (with_url_relations, Include::Relationship(Relationship::Url)),
     (with_recordings, Include::Subquery(Subquery::Recordings)),
     (
         with_release_groups,
