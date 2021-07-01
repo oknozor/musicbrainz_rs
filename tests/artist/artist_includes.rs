@@ -88,16 +88,42 @@ fn should_get_artist_artist_relations() {
     let john_lee_hooker = Artist::fetch()
         .id("b0122194-c49a-46a1-ade7-84d1d76bd8e9")
         .with_artist_relations()
-        .with_event_relations()
         .execute()
         .unwrap();
 
     let relations = john_lee_hooker.relations.unwrap();
 
     assert!(relations.iter().any(|rel| rel.relation_type == "parent"));
+}
+
+#[test]
+fn should_get_artist_event_relations() {
+    let john_lee_hooker = Artist::fetch()
+        .id("b0122194-c49a-46a1-ade7-84d1d76bd8e9")
+        .with_event_relations()
+        .execute()
+        .unwrap();
+
+    let relations = john_lee_hooker.relations.unwrap();
+
     assert!(relations
         .iter()
         .any(|rel| rel.relation_type == "main performer"));
+}
+
+#[test]
+fn should_get_artist_url_relations() {
+    let john_lee_hooker = Artist::fetch()
+        .id("b0122194-c49a-46a1-ade7-84d1d76bd8e9")
+        .with_url_relations()
+        .execute()
+        .unwrap();
+
+    let relations = john_lee_hooker.relations.unwrap();
+
+    assert!(relations
+        .iter()
+        .any(|rel| rel.relation_type == "BBC Music page"));
 }
 
 #[test]

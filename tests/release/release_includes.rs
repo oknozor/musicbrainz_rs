@@ -103,6 +103,19 @@ fn should_get_release_artist_relations() {
 }
 
 #[test]
+fn should_get_release_url_relations() {
+    let in_utero = Release::fetch()
+        .id("76df3287-6cda-33eb-8e9a-044b5e15ffdd")
+        .with_url_relations()
+        .execute()
+        .unwrap();
+
+    let relations = in_utero.relations.unwrap();
+
+    assert!(relations.iter().any(|rel| rel.relation_type == "discogs"));
+}
+
+#[test]
 fn should_get_release_aliases() {
     let l_ecole_du_micro_d_argent = Release::fetch()
         .id("cba0035e-d8c9-4390-8569-02bdadaf87d3")
