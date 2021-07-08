@@ -14,7 +14,7 @@ pub struct Place {
     #[serde(rename = "type")]
     pub place_type: Option<String>,
     pub type_id: Option<String>,
-    pub life_span: LifeSpan,
+    pub life_span: Option<LifeSpan>,
     pub coordinates: Option<Coordinates>,
     pub area: Area,
     pub address: String,
