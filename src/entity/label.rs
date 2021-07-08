@@ -1,7 +1,8 @@
-use super::{Include, Subquery};
+use super::{Include, Relationship, Subquery};
 use crate::entity::alias::Alias;
 use crate::entity::genre::Genre;
 use crate::entity::rating::Rating;
+use crate::entity::relations::Relation;
 use crate::entity::release::Release;
 use crate::entity::tag::Tag;
 use crate::entity::BrowseBy;
@@ -16,6 +17,7 @@ pub struct Label {
     pub name: String,
     pub sort_name: String,
     pub disambiguation: String,
+    pub relations: Option<Vec<Relation>>,
     pub country: Option<String>,
     pub label_code: Option<u32>,
     pub releases: Option<Vec<Release>>,
@@ -42,6 +44,11 @@ Label,
 
 impl_includes!(
     Label,
+    (with_artist_relations, Include::Relationship(Relationship::Artist)),
+    (with_label_relations, Include::Relationship(Relationship::Label)),
+    (with_recording_relations, Include::Relationship(Relationship::Recording)),
+    (with_release_relations, Include::Relationship(Relationship::Release)),
+    (with_url_relations, Include::Relationship(Relationship::Url)),
     (with_releases, Include::Subquery(Subquery::Releases)),
     (with_tags, Include::Subquery(Subquery::Tags)),
     (with_aliases, Include::Subquery(Subquery::Aliases)),

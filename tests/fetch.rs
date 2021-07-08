@@ -267,6 +267,7 @@ fn should_get_label_by_id() {
             disambiguation: "".to_string(),
             country: Some("GB".to_string()),
             label_code: Some(12885),
+            relations: None,
             releases: None,
             aliases: None,
             tags: None,
