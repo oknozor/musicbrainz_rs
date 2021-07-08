@@ -46,3 +46,81 @@ fn should_get_area_annotation() {
 
     assert!(london.annotation.is_some());
 }
+
+#[test]
+fn should_get_area_area_relations() {
+    let london = Area::fetch()
+        .id("f03d09b3-39dc-4083-afd6-159e3f0d462f")
+        .with_area_relations()
+        .execute()
+        .unwrap();
+
+    let relations = london.relations.unwrap();
+
+    assert!(relations.iter().any(|rel| rel.relation_type == "part of"));
+}
+
+#[test]
+fn should_get_area_event_relations() {
+    let london = Area::fetch()
+        .id("f03d09b3-39dc-4083-afd6-159e3f0d462f")
+        .with_event_relations()
+        .execute()
+        .unwrap();
+
+    let relations = london.relations.unwrap();
+
+    assert!(relations.iter().any(|rel| rel.relation_type == "held in"));
+}
+
+#[test]
+fn should_get_area_recording_relations() {
+    let london = Area::fetch()
+        .id("f03d09b3-39dc-4083-afd6-159e3f0d462f")
+        .with_recording_relations()
+        .execute()
+        .unwrap();
+
+    let relations = london.relations.unwrap();
+
+    assert!(relations.iter().any(|rel| rel.relation_type == "arranged in"));
+}
+
+#[test]
+fn should_get_area_release_relations() {
+    let london = Area::fetch()
+        .id("f03d09b3-39dc-4083-afd6-159e3f0d462f")
+        .with_release_relations()
+        .execute()
+        .unwrap();
+
+    let relations = london.relations.unwrap();
+
+    assert!(relations.iter().any(|rel| rel.relation_type == "engineered in"));
+}
+
+#[test]
+fn should_get_area_url_relations() {
+    let london = Area::fetch()
+        .id("f03d09b3-39dc-4083-afd6-159e3f0d462f")
+        .with_url_relations()
+        .execute()
+        .unwrap();
+
+    let relations = london.relations.unwrap();
+
+    assert!(relations.iter().any(|rel| rel.relation_type == "geonames"));
+}
+
+#[test]
+fn should_get_area_work_relations() {
+    let london = Area::fetch()
+        .id("f03d09b3-39dc-4083-afd6-159e3f0d462f")
+        .with_work_relations()
+        .execute()
+        .unwrap();
+
+    let relations = london.relations.unwrap();
+
+    assert!(relations.iter().any(|rel| rel.relation_type == "anthem"));
+}
