@@ -83,7 +83,9 @@ fn should_get_area_recording_relations() {
 
     let relations = london.relations.unwrap();
 
-    assert!(relations.iter().any(|rel| rel.relation_type == "arranged in"));
+    assert!(relations
+        .iter()
+        .any(|rel| rel.relation_type == "arranged in"));
 }
 
 #[test]
@@ -96,7 +98,9 @@ fn should_get_area_release_relations() {
 
     let relations = london.relations.unwrap();
 
-    assert!(relations.iter().any(|rel| rel.relation_type == "engineered in"));
+    assert!(relations
+        .iter()
+        .any(|rel| rel.relation_type == "engineered in"));
 }
 
 #[test]

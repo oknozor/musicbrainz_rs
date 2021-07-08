@@ -30,12 +30,27 @@ impl_browse!(Area, (by_collection, BrowseBy::Collection));
 
 impl_includes!(
     Area,
-    (with_area_relations, Include::Relationship(Relationship::Area)),
-    (with_event_relations, Include::Relationship(Relationship::Event)),
-    (with_recording_relations, Include::Relationship(Relationship::Recording)),
-    (with_release_relations, Include::Relationship(Relationship::Release)),
+    (
+        with_area_relations,
+        Include::Relationship(Relationship::Area)
+    ),
+    (
+        with_event_relations,
+        Include::Relationship(Relationship::Event)
+    ),
+    (
+        with_recording_relations,
+        Include::Relationship(Relationship::Recording)
+    ),
+    (
+        with_release_relations,
+        Include::Relationship(Relationship::Release)
+    ),
     (with_url_relations, Include::Relationship(Relationship::Url)),
-    (with_work_relations, Include::Relationship(Relationship::Work)),
+    (
+        with_work_relations,
+        Include::Relationship(Relationship::Work)
+    ),
     (with_tags, Include::Subquery(Subquery::Tags)),
     (with_aliases, Include::Subquery(Subquery::Aliases)),
     (with_genres, Include::Subquery(Subquery::Genres)),
