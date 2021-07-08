@@ -44,10 +44,22 @@ Label,
 
 impl_includes!(
     Label,
-    (with_artist_relations, Include::Relationship(Relationship::Artist)),
-    (with_label_relations, Include::Relationship(Relationship::Label)),
-    (with_recording_relations, Include::Relationship(Relationship::Recording)),
-    (with_release_relations, Include::Relationship(Relationship::Release)),
+    (
+        with_artist_relations,
+        Include::Relationship(Relationship::Artist)
+    ),
+    (
+        with_label_relations,
+        Include::Relationship(Relationship::Label)
+    ),
+    (
+        with_recording_relations,
+        Include::Relationship(Relationship::Recording)
+    ),
+    (
+        with_release_relations,
+        Include::Relationship(Relationship::Release)
+    ),
     (with_url_relations, Include::Relationship(Relationship::Url)),
     (with_releases, Include::Subquery(Subquery::Releases)),
     (with_tags, Include::Subquery(Subquery::Tags)),

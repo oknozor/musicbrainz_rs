@@ -3,6 +3,7 @@ use crate::entity::alias::Alias;
 use crate::entity::area::Area;
 use crate::entity::genre::Genre;
 use crate::entity::lifespan::LifeSpan;
+use crate::entity::relations::Relation;
 use crate::entity::tag::Tag;
 use crate::entity::BrowseBy;
 
@@ -16,6 +17,7 @@ pub struct Place {
     pub type_id: Option<String>,
     pub life_span: Option<LifeSpan>,
     pub coordinates: Option<Coordinates>,
+    pub relations: Option<Vec<Relation>>,
     pub area: Area,
     pub address: String,
     pub disambiguation: String,
@@ -40,8 +42,16 @@ Place,
 impl_includes!(
     Place,
     (
-        with_artist_relations,
-        Include::Relationship(Relationship::Artist)
+        with_event_relations,
+        Include::Relationship(Relationship::Event)
+    ),
+    (
+        with_recording_relations,
+        Include::Relationship(Relationship::Recording)
+    ),
+    (
+        with_release_relations,
+        Include::Relationship(Relationship::Release)
     ),
     (with_tags, Include::Subquery(Subquery::Tags)),
     (with_aliases, Include::Subquery(Subquery::Aliases)),
