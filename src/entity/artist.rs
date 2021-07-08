@@ -208,6 +208,22 @@ impl_includes!(
         Include::Relationship(Relationship::Event)
     ),
     (with_url_relations, Include::Relationship(Relationship::Url)),
+    (
+        with_work_relations,
+        Include::Relationship(Relationship::Work)
+    ),
+    (
+        with_recording_relations,
+        Include::Relationship(Relationship::Recording)
+    ),
+    (
+        with_release_relations,
+        Include::Relationship(Relationship::Release)
+    ),
+    (
+        with_series_relations,
+        Include::Relationship(Relationship::Series)
+    ),
     (with_tags, Include::Subquery(Subquery::Tags)),
     (with_rating, Include::Subquery(Subquery::Rating)),
     (with_genres, Include::Subquery(Subquery::Genres)),
