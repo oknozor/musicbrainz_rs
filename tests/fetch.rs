@@ -329,6 +329,7 @@ fn should_get_event_by_id() {
                 end: Some(NaiveDate::from_ymd(1989, 9, 16)),
                 ended: Some(true),
             }),
+            relations: None,
             tags: None,
             aliases: None,
             rating: None,
@@ -373,11 +374,11 @@ fn should_get_place() {
             id: "327c29c6-da63-4dc9-a117-1917ee691ce4".to_string(),
             name: "Blue Note".to_string(),
             disambiguation: "Chicago, 1954-1960".to_string(),
-            life_span: LifeSpan {
+            life_span: Some(LifeSpan {
                 begin: Some(NaiveDate::from_ymd(1954, 4, 2)),
                 end: Some(NaiveDate::from_ymd(1960, 6, 14)),
                 ended: Some(true),
-            },
+            }),
             type_id: Some("cd92781a-a73f-30e8-a430-55d7521338db".to_string()),
             place_type: Some("Venue".to_string()),
             address: "3 North Clark Street, Chicago, IL 60602".to_string(),

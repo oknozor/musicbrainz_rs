@@ -56,3 +56,57 @@ fn should_get_event_annotation() {
 
     assert!(kiss_at_huntington_center.annotation.is_some());
 }
+
+#[test]
+fn should_get_event_artist_relations() {
+    let dour_festival_1989 = Event::fetch()
+        .id("73df2f48-383b-4930-bad3-05ba938be578")
+        .with_artist_relations()
+        .execute()
+        .unwrap();
+
+    let relations = dour_festival_1989.relations.unwrap();
+
+    assert!(relations
+        .iter()
+        .any(|rel| rel.relation_type == "main performer"));
+}
+
+#[test]
+fn should_get_event_place_relations() {
+    let dour_festival_1989 = Event::fetch()
+        .id("73df2f48-383b-4930-bad3-05ba938be578")
+        .with_place_relations()
+        .execute()
+        .unwrap();
+
+    let relations = dour_festival_1989.relations.unwrap();
+
+    assert!(relations.iter().any(|rel| rel.relation_type == "held at"));
+}
+
+#[test]
+fn should_get_event_series_relations() {
+    let dour_festival_1989 = Event::fetch()
+        .id("73df2f48-383b-4930-bad3-05ba938be578")
+        .with_series_relations()
+        .execute()
+        .unwrap();
+
+    let relations = dour_festival_1989.relations.unwrap();
+
+    assert!(relations.iter().any(|rel| rel.relation_type == "part of"));
+}
+
+#[test]
+fn should_get_event_url_relations() {
+    let dour_festival_1989 = Event::fetch()
+        .id("73df2f48-383b-4930-bad3-05ba938be578")
+        .with_url_relations()
+        .execute()
+        .unwrap();
+
+    let relations = dour_festival_1989.relations.unwrap();
+
+    assert!(relations.iter().any(|rel| rel.relation_type == "songkick"));
+}
