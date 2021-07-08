@@ -2,6 +2,7 @@ use crate::date_format;
 use crate::entity::area::Area;
 use crate::entity::artist::Artist;
 use crate::entity::event::Event;
+use crate::entity::label::Label;
 use crate::entity::place::Place;
 use crate::entity::recording::Recording;
 use crate::entity::release::Release;
@@ -41,6 +42,7 @@ pub enum RelationContent {
     Artist(Box<Artist>),
     Area(Box<Area>),
     Event(Box<Event>),
+    Label(Box<Label>),
     Place(Box<Place>),
     Recording(Box<Recording>),
     Release(Box<Release>),
