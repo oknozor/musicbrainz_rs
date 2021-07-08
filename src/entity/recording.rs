@@ -65,5 +65,9 @@ impl_includes!(
     (with_ratings, Include::Subquery(Subquery::Rating)),
     (with_isrcs, Include::Subquery(Subquery::ISRCs)),
     (with_url_relations, Include::Relationship(Relationship::Url)),
+    (
+        with_work_relations,
+        Include::Relationship(Relationship::Work)
+    ),
     (with_annotations, Include::Subquery(Subquery::Annotations))
 );
