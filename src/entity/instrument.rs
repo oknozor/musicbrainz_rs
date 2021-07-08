@@ -1,6 +1,7 @@
 use super::{Include, Relationship, Subquery};
 use crate::entity::alias::Alias;
 use crate::entity::genre::Genre;
+use crate::entity::relations::Relation;
 use crate::entity::tag::Tag;
 use crate::entity::BrowseBy;
 
@@ -14,6 +15,7 @@ pub struct Instrument {
     pub type_id: String,
     pub description: String,
     pub disambiguation: String,
+    pub relations: Option<Vec<Relation>>,
     pub tags: Option<Vec<Tag>>,
     pub aliases: Option<Vec<Alias>>,
     pub genres: Option<Vec<Genre>>,
@@ -24,10 +26,7 @@ impl_browse!(Instrument, (by_collection, BrowseBy::Collection));
 
 impl_includes!(
     Instrument,
-    (
-        with_artist_relations,
-        Include::Relationship(Relationship::Artist)
-    ),
+    (with_url_relations, Include::Relationship(Relationship::Url)),
     (with_tags, Include::Subquery(Subquery::Tags)),
     (with_aliases, Include::Subquery(Subquery::Aliases)),
     (with_genres, Include::Subquery(Subquery::Genres)),
