@@ -87,7 +87,9 @@ fn should_get_label_artist_relations() {
 
     let relations = ninja_tune.relations.unwrap();
 
-    assert!(relations.iter().any(|rel| rel.relation_type == "label founder"));
+    assert!(relations
+        .iter()
+        .any(|rel| rel.relation_type == "label founder"));
 }
 
 #[test]
@@ -100,7 +102,9 @@ fn should_get_label_label_relations() {
 
     let relations = ninja_tune.relations.unwrap();
 
-    assert!(relations.iter().any(|rel| rel.relation_type == "label distribution"));
+    assert!(relations
+        .iter()
+        .any(|rel| rel.relation_type == "label distribution"));
 }
 
 #[test]
@@ -113,7 +117,9 @@ fn should_get_label_recording_relations() {
 
     let relations = ninja_tune.relations.unwrap();
 
-    assert!(relations.iter().any(|rel| rel.relation_type == "phonographic copyright"));
+    assert!(relations
+        .iter()
+        .any(|rel| rel.relation_type == "phonographic copyright"));
 }
 
 #[test]

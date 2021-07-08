@@ -403,6 +403,7 @@ fn should_get_place() {
                 latitude: 41.882_059,
                 longitude: -87.630_881,
             }),
+            relations: None,
             aliases: None,
             tags: None,
             genres: None,
