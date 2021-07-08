@@ -275,17 +275,35 @@ impl Subquery {
 #[derive(Debug, PartialEq, Clone)]
 #[allow(unused)]
 pub(crate) enum Relationship {
+    Area,
     Artist,
     Event,
+    Instrument,
+    Label,
+    Place,
+    Recording,
+    Release,
+    ReleaseGroup,
+    Series,
     Url,
+    Work,
 }
 
 impl Relationship {
     pub(crate) fn as_str(&self) -> &'static str {
         match self {
+            Relationship::Area => "area-rels",
             Relationship::Artist => "artist-rels",
             Relationship::Event => "event-rels",
+            Relationship::Instrument => "instrument-rels",
+            Relationship::Label => "label-rels",
+            Relationship::Place => "place-rels",
+            Relationship::Recording => "recording-rels",
+            Relationship::Release => "release-rels",
+            Relationship::ReleaseGroup => "release-group-rels",
+            Relationship::Series => "series-rels",
             Relationship::Url => "url-rels",
+            Relationship::Work => "work-rels",
         }
     }
 }
