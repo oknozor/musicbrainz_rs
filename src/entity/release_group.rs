@@ -8,8 +8,9 @@ use crate::entity::release::Release;
 use crate::entity::tag::Tag;
 use crate::entity::BrowseBy;
 use chrono::NaiveDate;
+use lucene_query_builder::QueryBuilder;
 
-#[derive(Debug, Serialize, Deserialize, PartialEq, Clone)]
+#[derive(Debug, Serialize, Deserialize, PartialEq, QueryBuilder, Clone)]
 #[serde(rename_all(deserialize = "kebab-case"))]
 pub struct ReleaseGroup {
     /// See [MusicBrainz Identifier](https://musicbrainz.org/doc/MusicBrainz_Identifier).
@@ -22,8 +23,10 @@ pub struct ReleaseGroup {
     /// See the Type subpage for a full list of release group types.
     pub primary_type: Option<String>,
 
+    #[serde(default)]
     pub secondary_type_ids: Vec<String>,
 
+    #[serde(default)]
     pub secondary_types: Vec<String>,
 
     #[serde(deserialize_with = "date_format::deserialize_opt")]
@@ -34,9 +37,12 @@ pub struct ReleaseGroup {
     pub title: String,
 
     /// See Disambiguation Comment.
+    #[serde(default)]
     pub disambiguation: String,
 
+    #[query_builder_rename = "artist"]
     pub artist_credit: Option<Vec<ArtistCredit>>,
+    #[query_builder_rename = "release"]
     pub releases: Option<Vec<Release>>,
     pub tags: Option<Vec<Tag>>,
     pub rating: Option<Rating>,
