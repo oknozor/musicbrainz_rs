@@ -127,6 +127,58 @@ fn should_get_artist_url_relations() {
 }
 
 #[test]
+fn should_get_artist_work_relations() {
+    let john_lee_hooker = Artist::fetch()
+        .id("b0122194-c49a-46a1-ade7-84d1d76bd8e9")
+        .with_work_relations()
+        .execute()
+        .unwrap();
+
+    let relations = john_lee_hooker.relations.unwrap();
+
+    assert!(relations.iter().any(|rel| rel.relation_type == "composer"));
+}
+
+#[test]
+fn should_get_artist_recording_relations() {
+    let john_lee_hooker = Artist::fetch()
+        .id("b0122194-c49a-46a1-ade7-84d1d76bd8e9")
+        .with_recording_relations()
+        .execute()
+        .unwrap();
+
+    let relations = john_lee_hooker.relations.unwrap();
+
+    assert!(relations.iter().any(|rel| rel.relation_type == "arranger"));
+}
+
+#[test]
+fn should_get_artist_release_relations() {
+    let john_lee_hooker = Artist::fetch()
+        .id("b0122194-c49a-46a1-ade7-84d1d76bd8e9")
+        .with_release_relations()
+        .execute()
+        .unwrap();
+
+    let relations = john_lee_hooker.relations.unwrap();
+
+    assert!(relations.iter().any(|rel| rel.relation_type == "vocal"));
+}
+
+#[test]
+fn should_get_artist_series_relations() {
+    let john_lee_hooker = Artist::fetch()
+        .id("b0122194-c49a-46a1-ade7-84d1d76bd8e9")
+        .with_series_relations()
+        .execute()
+        .unwrap();
+
+    let relations = john_lee_hooker.relations.unwrap();
+
+    assert!(relations.iter().any(|rel| rel.relation_type == "part of"));
+}
+
+#[test]
 fn should_get_artist_artist_releases_with_disc_ids() {
     let nirvana = Artist::fetch()
         .id("5b11f4ce-a62d-471e-81fc-a69a8278c7da")
