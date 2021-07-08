@@ -70,4 +70,24 @@ mod tests {
             }
         )
     }
+
+    #[test]
+    fn should_deserialize_missing_field() {
+        let input = r#"
+            {
+                "ended": true,
+                "begin": "1988-01"
+            }"#;
+
+        let life_span: LifeSpan = serde_json::from_str(input).unwrap();
+
+        assert_eq!(
+            life_span,
+            LifeSpan {
+                ended: Some(true),
+                begin: Some(NaiveDate::from_ymd(1988, 1, 1)),
+                end: None,
+            }
+        )
+    }
 }

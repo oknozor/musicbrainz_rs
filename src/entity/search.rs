@@ -1,4 +1,5 @@
 use crate::entity::artist::Artist;
+use crate::entity::release_group::ReleaseGroup;
 use chrono::NaiveDateTime;
 
 #[derive(Debug, Serialize, PartialEq, Clone)]
@@ -22,4 +23,11 @@ impl Searchable for Artist {
     const COUNT_FIELD: &'static str = "count";
     const OFFSET_FIELD: &'static str = "offset";
     const ENTITIES_FIELD: &'static str = "artists";
+}
+
+impl Searchable for ReleaseGroup {
+    const CREATED_FIELD: &'static str = "created";
+    const COUNT_FIELD: &'static str = "count";
+    const OFFSET_FIELD: &'static str = "offset";
+    const ENTITIES_FIELD: &'static str = "release-groups";
 }
