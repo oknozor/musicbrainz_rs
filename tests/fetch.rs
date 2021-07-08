@@ -354,6 +354,7 @@ fn should_get_instrument() {
             type_id: "cc00f97f-cf3d-3ae2-9163-041cb1a0d726".to_string(),
             description: "".to_string(),
             disambiguation: "".to_string(),
+            relations: None,
             tags: None,
             aliases: None,
             genres: None,
