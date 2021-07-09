@@ -89,3 +89,45 @@ fn should_get_release_group_annotation() {
 
     assert!(minnesoda.annotation.is_some());
 }
+
+// FIXME: This is currently panicking with:
+// thread 'main' panicked at 'called `Result::unwrap()` on an `Err` value:
+// Error(Json(Error("no variant of enum RelationContent found in flattened data", line: 1, column: 576)))'
+// #[test]
+// fn should_get_release_group_release_group_relations() {
+//     let in_utero = ReleaseGroup::fetch()
+//         .id("2a0981fb-9593-3019-864b-ce934d97a16e")
+//         .with_release_group_relations()
+//         .execute()
+//         .unwrap();
+
+//     let relations = in_utero.relations.unwrap();
+
+//     assert!(relations.iter().any(|rel| rel.relation_type == "cover"));
+// }
+
+#[test]
+fn should_get_release_group_series_relations() {
+    let in_utero = ReleaseGroup::fetch()
+        .id("2a0981fb-9593-3019-864b-ce934d97a16e")
+        .with_series_relations()
+        .execute()
+        .unwrap();
+
+    let relations = in_utero.relations.unwrap();
+
+    assert!(relations.iter().any(|rel| rel.relation_type == "part of"));
+}
+
+#[test]
+fn should_get_release_group_url_relations() {
+    let in_utero = ReleaseGroup::fetch()
+        .id("2a0981fb-9593-3019-864b-ce934d97a16e")
+        .with_url_relations()
+        .execute()
+        .unwrap();
+
+    let relations = in_utero.relations.unwrap();
+
+    assert!(relations.iter().any(|rel| rel.relation_type == "wikidata"));
+}
