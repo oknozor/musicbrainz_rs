@@ -49,3 +49,19 @@ fn should_get_serie_annotation() {
 
     assert!(record_store_day_2020.annotation.is_some());
 }
+
+// FIXME: This is currently panicking with:
+// thread 'main' panicked at 'called `Result::unwrap()` on an `Err` value:
+// Error(Json(Error("no variant of enum RelationContent found in flattened data", line: 1, column: 593)))'
+// #[test]
+// fn should_get_series_release_group_relations() {
+//     let ultimate_breaks_and_beats = Series::fetch()
+//         .id("3e5979c8-5a78-4d0b-878a-0fb87853effe")
+//         .with_release_group_relations()
+//         .execute()
+//         .unwrap();
+
+//     let relations = ultimate_breaks_and_beats.relations.unwrap();
+
+//     assert!(relations.iter().any(|rel| rel.relation_type == "part of"));
+// }
