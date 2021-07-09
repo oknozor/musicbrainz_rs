@@ -75,17 +75,17 @@ fn should_get_area_event_relations() {
 
 #[test]
 fn should_get_area_recording_relations() {
-    let london = Area::fetch()
-        .id("f03d09b3-39dc-4083-afd6-159e3f0d462f")
+    let ontario = Area::fetch()
+        .id("2747553f-b44d-44c4-a7c3-b67412b6f10b")
         .with_recording_relations()
         .execute()
         .unwrap();
 
-    let relations = london.relations.unwrap();
+    let relations = ontario.relations.unwrap();
 
     assert!(relations
         .iter()
-        .any(|rel| rel.relation_type == "arranged in"));
+        .any(|rel| rel.relation_type == "recorded in"));
 }
 
 #[test]
