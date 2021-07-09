@@ -1,9 +1,10 @@
-use super::{Include, Subquery};
+use super::{Include, Relationship, Subquery};
 use crate::date_format;
 use crate::entity::alias::Alias;
 use crate::entity::artist_credit::ArtistCredit;
 use crate::entity::genre::Genre;
 use crate::entity::rating::Rating;
+use crate::entity::relations::Relation;
 use crate::entity::release::Release;
 use crate::entity::tag::Tag;
 use crate::entity::BrowseBy;
@@ -35,6 +36,7 @@ pub struct ReleaseGroup {
     pub title: String,
     /// See Disambiguation Comment.
     pub disambiguation: String,
+    pub relations: Option<Vec<Relation>>,
     pub artist_credit: Option<Vec<ArtistCredit>>,
     pub releases: Option<Vec<Release>>,
     pub tags: Option<Vec<Tag>>,
@@ -101,6 +103,15 @@ ReleaseGroup,
 
 impl_includes!(
     ReleaseGroup,
+    (
+        with_release_group_relations,
+        Include::Relationship(Relationship::ReleaseGroup)
+    ),
+    (
+        with_series_relations,
+        Include::Relationship(Relationship::Series)
+    ),
+    (with_url_relations, Include::Relationship(Relationship::Url)),
     (with_artists, Include::Subquery(Subquery::Artists)),
     (with_releases, Include::Subquery(Subquery::Releases)),
     (with_tags, Include::Subquery(Subquery::Tags)),
