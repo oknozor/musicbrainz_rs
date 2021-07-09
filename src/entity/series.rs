@@ -29,7 +29,10 @@ impl_includes!(
         with_artist_relations,
         Include::Relationship(Relationship::Artist)
     ),
-    (with_release_group_relations, Include::Relationship(Relationship::ReleaseGroup)),
+    (
+        with_release_group_relations,
+        Include::Relationship(Relationship::ReleaseGroup)
+    ),
     (with_tags, Include::Subquery(Subquery::Tags)),
     (with_aliases, Include::Subquery(Subquery::Aliases)),
     (with_genres, Include::Subquery(Subquery::Genres)),
