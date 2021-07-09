@@ -181,6 +181,7 @@ fn should_get_release_group_by_id() {
             first_release_date: Some(NaiveDate::from_ymd(1993, 9, 21)),
             title: "In Utero".to_string(),
             disambiguation: "".to_string(),
+            relations: None,
             artist_credit: None,
             releases: None,
             tags: None,
