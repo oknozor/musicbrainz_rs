@@ -5,7 +5,9 @@ use musicbrainz_rs::Search;
 
 #[test]
 fn should_search_artist() {
-    let query = ReleaseGroup::query_builder().release("Tonight").build();
+    let query = ReleaseGroupSearchQuery::query_builder()
+        .release("Tonight")
+        .build();
 
     let result = ReleaseGroup::search(query).execute().unwrap();
 
