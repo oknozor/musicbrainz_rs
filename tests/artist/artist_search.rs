@@ -5,7 +5,7 @@ use musicbrainz_rs::Search;
 
 #[test]
 fn should_search_artist() {
-    let query = Artist::query_builder()
+    let query = ArtistSearchQuery::query_builder()
         .artist("Nirvana")
         .and()
         .artist_type("Group")
