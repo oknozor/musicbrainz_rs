@@ -134,7 +134,7 @@ pub struct ArtistSearchQuery {
     /// (part of) any alias attached to the artist (diacritics are ignored)
     alias: String,
     /// (part of) any primary alias attached to the artist (diacritics are ignored)
-    #[query_builder_rename = "primaryalias"]
+    #[query_builder_field = "primaryalias"]
     primary_alias: String,
     /// (part of) the name of the artist's main associated area
     area: String,
@@ -155,7 +155,7 @@ pub struct ArtistSearchQuery {
     /// the artist's end date (e.g. "1980-01-22")
     end: Option<NaiveDate>,
     /// (part of) the name of the artist's end area
-    #[query_builder_rename = "end_area"]
+    #[query_builder_field = "end_area"]
     end_area: String,
     /// a boolean flag (true/false) indicating whether or not the artist has ended (is dissolved/deceased)
     ended: bool,
@@ -166,13 +166,12 @@ pub struct ArtistSearchQuery {
     /// an ISNI code associated with the artist
     isni: String,
     /// (part of) the artist's sort name
-    #[query_builder_rename = "sortname"]
+    #[query_builder_field = "sortname"]
     sort_name: String,
     /// (part of) a tag attached to the artist
     tag: String,
     /// the artist's type (“person”, “group”, etc.)
-    // FIXME : This generate a 'type' funtcion that doesn't compile
-    // #[query_builder_rename = "type"]
+    #[query_builder_field = "type"]
     artist_type: String,
 }
 
