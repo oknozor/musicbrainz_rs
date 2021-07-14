@@ -57,6 +57,8 @@ fn init_http_client() -> MusicBrainzClient {
     );
 
     let client = reqwest::Client::builder()
+        // see : https://github.com/hyperium/hyper/issues/2136
+        .max_idle_per_host(0)
         .default_headers(headers)
         .build().expect("Unable to set default user agent, the following values must be set in Cargo.toml : 'name', 'version', 'authors'");
 
