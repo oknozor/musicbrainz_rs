@@ -2,6 +2,7 @@ use super::{Include, Relationship, Subquery};
 use crate::entity::alias::Alias;
 use crate::entity::genre::Genre;
 use crate::entity::rating::Rating;
+use crate::entity::relations::Relation;
 use crate::entity::tag::Tag;
 use crate::entity::BrowseBy;
 
@@ -21,6 +22,7 @@ pub struct Work {
     pub language: Option<String>,
     pub languages: Option<Vec<String>>,
     pub disambiguation: Option<String>,
+    pub relations: Option<Vec<Relation>>,
     pub tags: Option<Vec<Tag>>,
     pub rating: Option<Rating>,
     pub aliases: Option<Vec<Alias>>,
@@ -39,6 +41,19 @@ impl_includes!(
     (
         with_artist_relations,
         Include::Relationship(Relationship::Artist)
+    ),
+    (
+        with_label_relations,
+        Include::Relationship(Relationship::Label)
+    ),
+    (
+        with_recording_relations,
+        Include::Relationship(Relationship::Recording)
+    ),
+    (with_url_relations, Include::Relationship(Relationship::Url)),
+    (
+        with_work_relations,
+        Include::Relationship(Relationship::Work)
     ),
     (with_tags, Include::Subquery(Subquery::Tags)),
     (with_ratings, Include::Subquery(Subquery::Rating)),

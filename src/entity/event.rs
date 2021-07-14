@@ -3,6 +3,7 @@ use crate::entity::alias::Alias;
 use crate::entity::genre::Genre;
 use crate::entity::lifespan::LifeSpan;
 use crate::entity::rating::Rating;
+use crate::entity::relations::Relation;
 use crate::entity::tag::Tag;
 use crate::entity::BrowseBy;
 
@@ -22,6 +23,7 @@ pub struct Event {
     pub setlist: String,
     // same here
     pub tags: Option<Vec<Tag>>,
+    pub relations: Option<Vec<Relation>>,
     pub rating: Option<Rating>,
     pub aliases: Option<Vec<Alias>>,
     pub genres: Option<Vec<Genre>>,
@@ -42,6 +44,15 @@ impl_includes!(
         with_artist_relations,
         Include::Relationship(Relationship::Artist)
     ),
+    (
+        with_place_relations,
+        Include::Relationship(Relationship::Place)
+    ),
+    (
+        with_series_relations,
+        Include::Relationship(Relationship::Series)
+    ),
+    (with_url_relations, Include::Relationship(Relationship::Url)),
     (with_tags, Include::Subquery(Subquery::Tags)),
     (with_aliases, Include::Subquery(Subquery::Aliases)),
     (with_ratings, Include::Subquery(Subquery::Rating)),

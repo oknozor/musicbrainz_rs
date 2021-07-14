@@ -49,3 +49,16 @@ fn should_get_instrument_annotation() {
 
     assert!(gusli.annotation.is_some());
 }
+
+#[test]
+fn should_get_instrument_url_relations() {
+    let guitar = Instrument::fetch()
+        .id("63021302-86cd-4aee-80df-2270d54f4978")
+        .with_url_relations()
+        .execute()
+        .unwrap();
+
+    let relations = guitar.relations.unwrap();
+
+    assert!(relations.iter().any(|rel| rel.relation_type == "wikidata"));
+}

@@ -2,7 +2,15 @@ use crate::date_format;
 use crate::entity::area::Area;
 use crate::entity::artist::Artist;
 use crate::entity::event::Event;
+use crate::entity::label::Label;
+use crate::entity::place::Place;
+use crate::entity::recording::Recording;
+use crate::entity::release::Release;
+use crate::entity::release_group::ReleaseGroup;
+use crate::entity::series::Series;
 use crate::entity::url::Url;
+use crate::entity::work::Work;
+
 use chrono::NaiveDate;
 use std::collections::HashMap;
 
@@ -34,5 +42,12 @@ pub enum RelationContent {
     Artist(Box<Artist>),
     Area(Box<Area>),
     Event(Box<Event>),
+    Label(Box<Label>),
+    Place(Box<Place>),
+    Recording(Box<Recording>),
+    Release(Box<Release>),
+    ReleaseGroup(Box<ReleaseGroup>),
+    Series(Box<Series>),
     Url(Box<Url>),
+    Work(Box<Work>),
 }
