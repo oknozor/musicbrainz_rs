@@ -10,7 +10,7 @@ use crate::entity::BrowseBy;
 use chrono::NaiveDate;
 use lucene_query_builder::QueryBuilder;
 
-#[derive(Debug, Serialize, Deserialize, PartialEq, QueryBuilder, Clone)]
+#[derive(Debug, Serialize, Deserialize, PartialEq, Clone)]
 #[serde(rename_all(deserialize = "kebab-case"))]
 pub struct ReleaseGroup {
     /// See [MusicBrainz Identifier](https://musicbrainz.org/doc/MusicBrainz_Identifier).
@@ -39,16 +39,62 @@ pub struct ReleaseGroup {
     /// See Disambiguation Comment.
     #[serde(default)]
     pub disambiguation: String,
-
-    #[query_builder_rename = "artist"]
     pub artist_credit: Option<Vec<ArtistCredit>>,
-    #[query_builder_rename = "release"]
     pub releases: Option<Vec<Release>>,
     pub tags: Option<Vec<Tag>>,
     pub rating: Option<Rating>,
     pub aliases: Option<Vec<Alias>>,
     pub genres: Option<Vec<Genre>>,
     pub annotation: Option<String>,
+}
+
+#[derive(Debug, QueryBuilder, Default)]
+pub struct ReleaseGroupSearchQuery {
+    /// (part of) any alias attached to the release group (diacritics are ignored)
+    alias: String,
+    /// the MBID of any of the release group artists
+    arid: String,
+    /// (part of) the combined credited artist name for the release group, including join phrases (e.g. "Artist X feat.")
+    artist: String,
+    /// (part of) the name of any of the release group artists
+    #[query_builder_rename = "artistname"]
+    artist_name: String,
+    /// (part of) the release group's disambiguation comment
+    comment: String,
+    /// (part of) the credited name of any of the release group artists on this particular release group
+    #[query_builder_rename = "creditname"]
+    credit_name: String,
+    /// the release date of the earliest release in this release group (e.g. "1980-01-22")
+    #[query_builder_rename = "firstreleasedate"]
+    first_release_date: String,
+    /// the primary type of the release group
+    #[query_builder_rename = "primarytype"]
+    primary_type: String,
+    /// the MBID of any of the releases in the release group
+    reid: String,
+    /// (part of) the title of any of the releases in the release group
+    release: String,
+    /// (part of) the release group's title (diacritics are ignored)
+    #[query_builder_rename = "releasegroup"]
+    release_group: String,
+    /// (part of) the release group's title (with the specified diacritics)
+    #[query_builder_rename = "releasegroupaccent"]
+    release_group_accent: String,
+    /// the number of releases in the release group
+    releases: String,
+    /// the release group's MBID
+    rgid: String,
+    /// any of the secondary types of the release group
+    #[query_builder_rename = "secondarytype"]
+    secondary_type: String,
+    /// the status of any of the releases in the release group
+    status: String,
+    /// the status of any of the releases in the release group
+    tag: String,
+    /// legacy release group type field that predates the ability to set multiple types (see calculation code)
+    // FIXME : This generate a 'type' funtcion that doesn't compile
+    // #[query_builder_rename = "type"]
+    release_type: String,
 }
 
 impl_browse! {

@@ -11,13 +11,14 @@ use crate::entity::release_group::ReleaseGroup;
 use crate::entity::tag::Tag;
 use crate::entity::work::Work;
 use crate::entity::BrowseBy;
+use chrono::NaiveDate;
 use lucene_query_builder::QueryBuilder;
 
 /// An artist is generally a musician (or musician persona), group of musicians, or other music
 /// professional (like a producer or engineer). Occasionally, it can also be a non-musical person
 /// (like a photographer, an illustrator, or a poet whose writings are set to music), or even a
 /// fictional character. For some other special cases, see special purpose artists.
-#[derive(Debug, Serialize, Deserialize, PartialEq, Clone, QueryBuilder, Default)]
+#[derive(Debug, Serialize, Deserialize, PartialEq, Clone, Default)]
 #[serde(rename_all(deserialize = "kebab-case"))]
 #[serde(default)]
 pub struct Artist {
@@ -25,7 +26,6 @@ pub struct Artist {
     pub id: String,
 
     /// The official name of an artist, be it a person or a band.
-    #[query_builder_rename = "artist"]
     pub name: String,
 
     /// The sort name is a variant of the artist name which would be used when sorting artists by
@@ -121,6 +121,59 @@ pub enum Gender {
     Female,
     #[serde(other)]
     Other,
+}
+
+impl Default for Gender {
+    fn default() -> Self {
+        Gender::Other
+    }
+}
+
+#[derive(Debug, QueryBuilder, Default)]
+pub struct ArtistSearchQuery {
+    /// (part of) any alias attached to the artist (diacritics are ignored)
+    alias: String,
+    /// (part of) any primary alias attached to the artist (diacritics are ignored)
+    #[query_builder_rename = "primaryalias"]
+    primary_alias: String,
+    /// (part of) the name of the artist's main associated area
+    area: String,
+    /// the artist's MBID
+    arid: String,
+    /// (part of) the artist's name (diacritics are ignored)
+    artist: String,
+    /// (part of) the artist's name (with the specified diacritics)
+    artist_accent: String,
+    /// the artist's begin date (e.g. "1980-01-22")
+    begin: Option<NaiveDate>,
+    /// (part of) the name of the artist's begin area
+    begin_area: String,
+    /// (part of) the artist's disambiguation comment
+    comment: String,
+    /// the 2-letter code (ISO 3166-1 alpha-2) for the artist's main associated country
+    country: String,
+    /// the artist's end date (e.g. "1980-01-22")
+    end: Option<NaiveDate>,
+    /// (part of) the name of the artist's end area
+    #[query_builder_rename = "end_area"]
+    end_area: String,
+    /// a boolean flag (true/false) indicating whether or not the artist has ended (is dissolved/deceased)
+    ended: bool,
+    /// the artist's gender (“male”, “female”, “other” or “not applicable”)
+    gender: Gender,
+    /// an IPI code associated with the artist
+    ipi: String,
+    /// an ISNI code associated with the artist
+    isni: String,
+    /// (part of) the artist's sort name
+    #[query_builder_rename = "sortname"]
+    sort_name: String,
+    /// (part of) a tag attached to the artist
+    tag: String,
+    /// the artist's type (“person”, “group”, etc.)
+    // FIXME : This generate a 'type' funtcion that doesn't compile
+    // #[query_builder_rename = "type"]
+    artist_type: String,
 }
 
 impl_browse! {
