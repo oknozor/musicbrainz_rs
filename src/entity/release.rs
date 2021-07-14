@@ -45,6 +45,7 @@ pub struct Release {
 
     /// The date the release was issued.
     #[serde(deserialize_with = "date_format::deserialize_opt")]
+    #[serde(default)]
     pub date: Option<NaiveDate>,
 
     /// The country the release was issued in.

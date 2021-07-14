@@ -128,6 +128,7 @@ impl Browse<'_> for Instrument {}
 impl Browse<'_> for Series {}
 
 impl Search<'_> for Artist {}
+impl Search<'_> for ReleaseGroup {}
 
 impl Path<'_> for Artist {
     fn path() -> &'static str {

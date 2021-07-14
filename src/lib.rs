@@ -156,11 +156,11 @@ pub struct BrowseQuery<T>(Query<T>);
 /// based on different sorts of queries.
 /// ## Example
 ///
-/// ```rust
+///```rust
 /// # use musicbrainz_rs::prelude::*;
 /// # fn main() -> Result<(), Error> {
-/// # use musicbrainz_rs::entity::artist::Artist;
-/// let query = Artist::query_builder()
+/// # use musicbrainz_rs::entity::artist::{Artist, ArtistSearchQuery};
+/// let query = ArtistSearchQuery::query_builder()
 ///         .artist("Miles Davis")
 ///         .and()
 ///         .country("US")
