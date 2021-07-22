@@ -2,6 +2,7 @@ extern crate chrono;
 extern crate musicbrainz_rs;
 
 use chrono::NaiveDate;
+use std::collections::HashMap;
 
 use musicbrainz_rs::entity::area::*;
 use musicbrainz_rs::entity::artist::ArtistType::*;
@@ -12,6 +13,7 @@ use musicbrainz_rs::entity::label::*;
 use musicbrainz_rs::entity::lifespan::*;
 use musicbrainz_rs::entity::place::*;
 use musicbrainz_rs::entity::recording::Recording;
+use musicbrainz_rs::entity::relations::*;
 use musicbrainz_rs::entity::release::*;
 use musicbrainz_rs::entity::release_group::*;
 use musicbrainz_rs::entity::series::*;
@@ -79,6 +81,57 @@ fn should_get_artist_by_id() {
             genres: None,
             annotation: None,
         }
+    );
+}
+
+#[test]
+fn should_get_artist_relations_from_release() {
+    let in_utero = Release::fetch()
+        .id("76df3287-6cda-33eb-8e9a-044b5e15ffdd")
+        .with_artist_relations()
+        .execute()
+        .unwrap();
+
+    let relations = in_utero.relations.unwrap();
+
+    assert_eq!(
+        relations,
+        [Relation {
+            end: None,
+            attributes: vec![],
+            content: RelationContent::Artist(Box::new(Artist {
+                id: "0944a9f5-65be-44b6-9e8e-33732fdfe923".to_string(),
+                name: "Dave McDonald".to_string(),
+                sort_name: "McDonald, Dave".to_string(),
+                disambiguation: "sound engineer for Portishead".to_string(),
+                artist_type: Some(Person),
+                gender: None,
+                area: None,
+                begin_area: None,
+                relations: None,
+                releases: None,
+                works: None,
+                release_groups: None,
+                recordings: None,
+                aliases: None,
+                tags: None,
+                genres: None,
+                rating: None,
+                country: None,
+                annotation: None,
+                life_span: None
+            })),
+            attribute_values: HashMap::new(),
+            attribute_ids: HashMap::new(),
+            target_type: "artist".to_string(),
+            target_credit: "".to_string(),
+            source_credit: "".to_string(),
+            ended: false,
+            type_id: "87e922ba-872e-418a-9f41-0a63aa3c30cc".to_string(),
+            begin: None,
+            direction: "backward".to_string(),
+            relation_type: "engineer".to_string()
+        }]
     );
 }
 
