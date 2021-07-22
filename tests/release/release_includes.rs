@@ -3,6 +3,8 @@ use musicbrainz_rs::entity::release::Media;
 use musicbrainz_rs::entity::release::Release;
 use musicbrainz_rs::prelude::*;
 
+use std::collections::HashSet;
+
 #[test]
 fn should_get_release_release_groups() {
     let justice_cross = Release::fetch()
@@ -113,6 +115,34 @@ fn should_get_release_url_relations() {
     let relations = in_utero.relations.unwrap();
 
     assert!(relations.iter().any(|rel| rel.relation_type == "discogs"));
+}
+
+#[test]
+fn should_get_release_level_relations() {
+    let become_desert = Release::fetch()
+        .id("987f3e2d-22a6-4a4f-b840-c80c26b8b91a")
+        .with_recordings()
+        .with_work_relations()
+        .with_work_level_relations()
+        .with_artist_relations()
+        .with_recording_level_relations()
+        .execute()
+        .unwrap();
+
+    let mut target_types = HashSet::new();
+    for media in become_desert.media.unwrap().iter() {
+        for track in media.tracks.as_ref().unwrap().iter() {
+            for relation in track.recording.relations.as_ref().unwrap().iter() {
+                target_types.insert(relation.target_type.clone());
+            }
+        }
+    }
+    let expected_target_types: HashSet<String> = ["artist".to_string(), "work".to_string()]
+        .iter()
+        .cloned()
+        .collect();
+
+    assert_eq!(target_types, expected_target_types);
 }
 
 #[test]

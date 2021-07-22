@@ -186,7 +186,19 @@ impl_includes!(
         with_artist_relations,
         Include::Relationship(Relationship::Artist)
     ),
+    (
+        with_work_relations,
+        Include::Relationship(Relationship::Work)
+    ),
     (with_url_relations, Include::Relationship(Relationship::Url)),
+    (
+        with_work_level_relations,
+        Include::Relationship(Relationship::WorkLevel)
+    ),
+    (
+        with_recording_level_relations,
+        Include::Relationship(Relationship::RecordingLevel)
+    ),
     (with_recordings, Include::Subquery(Subquery::Recordings)),
     (
         with_release_groups,
