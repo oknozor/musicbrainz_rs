@@ -287,6 +287,8 @@ pub(crate) enum Relationship {
     Series,
     Url,
     Work,
+    RecordingLevel,
+    WorkLevel,
 }
 
 impl Relationship {
@@ -304,6 +306,8 @@ impl Relationship {
             Relationship::Series => "series-rels",
             Relationship::Url => "url-rels",
             Relationship::Work => "work-rels",
+            Relationship::RecordingLevel => "recording-level-rels",
+            Relationship::WorkLevel => "work-level-rels",
         }
     }
 }
