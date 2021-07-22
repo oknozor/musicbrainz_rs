@@ -60,3 +60,72 @@ fn should_get_work_annotation() {
 
     assert!(vater_unser_im_himmelreich.annotation.is_some());
 }
+
+#[test]
+fn should_get_work_artist_relations() {
+    let hotel_california = Work::fetch()
+        .id("22457dc0-ecbf-38f5-9056-11c858530a50")
+        .with_artist_relations()
+        .execute()
+        .unwrap();
+
+    let relations = hotel_california.relations.unwrap();
+
+    assert!(relations.iter().any(|rel| rel.relation_type == "writer"));
+}
+
+#[test]
+fn should_get_work_label_relations() {
+    let hotel_california = Work::fetch()
+        .id("22457dc0-ecbf-38f5-9056-11c858530a50")
+        .with_label_relations()
+        .execute()
+        .unwrap();
+
+    let relations = hotel_california.relations.unwrap();
+
+    assert!(relations
+        .iter()
+        .any(|rel| rel.relation_type == "publishing"));
+}
+
+#[test]
+fn should_get_work_recording_relations() {
+    let hotel_california = Work::fetch()
+        .id("22457dc0-ecbf-38f5-9056-11c858530a50")
+        .with_recording_relations()
+        .execute()
+        .unwrap();
+
+    let relations = hotel_california.relations.unwrap();
+
+    assert!(relations
+        .iter()
+        .any(|rel| rel.relation_type == "performance"));
+}
+
+#[test]
+fn should_get_work_url_relations() {
+    let hotel_california = Work::fetch()
+        .id("22457dc0-ecbf-38f5-9056-11c858530a50")
+        .with_url_relations()
+        .execute()
+        .unwrap();
+
+    let relations = hotel_california.relations.unwrap();
+
+    assert!(relations.iter().any(|rel| rel.relation_type == "wikidata"));
+}
+
+#[test]
+fn should_get_work_work_relations() {
+    let hotel_california = Work::fetch()
+        .id("22457dc0-ecbf-38f5-9056-11c858530a50")
+        .with_work_relations()
+        .execute()
+        .unwrap();
+
+    let relations = hotel_california.relations.unwrap();
+
+    assert!(relations.iter().any(|rel| rel.relation_type == "based on"));
+}

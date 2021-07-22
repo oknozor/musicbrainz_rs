@@ -242,6 +242,7 @@ fn should_get_work_by_id() {
             languages: Some(vec!["eng".to_string()]),
             language: Some("eng".to_string()),
             disambiguation: Some("".to_string()),
+            relations: None,
             tags: None,
             aliases: None,
             rating: None,
