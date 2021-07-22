@@ -16,6 +16,7 @@ pub struct Relation {
     pub content: RelationContent,
     pub attribute_values: HashMap<String, String>,
     pub attribute_ids: HashMap<String, String>,
+    pub target_type: String,
     pub target_credit: String,
     pub source_credit: String,
     pub ended: bool,
