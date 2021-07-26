@@ -69,5 +69,9 @@ impl_includes!(
         with_work_relations,
         Include::Relationship(Relationship::Work)
     ),
+    (
+        with_work_level_relations,
+        Include::Relationship(Relationship::WorkLevel)
+    ),
     (with_annotations, Include::Subquery(Subquery::Annotations))
 );
