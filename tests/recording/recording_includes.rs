@@ -126,3 +126,17 @@ fn should_get_recording_work_relations() {
         .iter()
         .any(|rel| rel.relation_type == "performance")); // FIXME: didn't find a recording containing actual aliases (yet)
 }
+
+#[test]
+fn should_get_recording_level_relations() {
+    let polly = Recording::fetch()
+        .id("af40d6b8-58e8-4ca5-9db8-d4fca0b899e2")
+        .with_work_relations()
+        .with_work_level_relations()
+        .execute()
+        .unwrap();
+
+    let relations = polly.relations.unwrap();
+
+    assert!(relations.iter().any(|rel| rel.target_type == "work"));
+}
