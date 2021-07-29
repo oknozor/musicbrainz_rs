@@ -167,7 +167,7 @@ pub struct ArtistSearchQuery {
     isni: String,
     /// (part of) the artist's sort name
     #[query_builder_field = "sortname"]
-    sort_name: String,
+    sort_name: Option<String>,
     /// (part of) a tag attached to the artist
     tag: String,
     /// the artist's type (“person”, “group”, etc.)

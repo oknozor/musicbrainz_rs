@@ -1,4 +1,5 @@
 use chrono::NaiveDate;
+use lucene_query_builder::QueryBuilder;
 
 use super::{Include, Relationship, Subquery};
 use crate::date_format;
@@ -146,8 +147,8 @@ pub enum ReleaseStatus {
 #[derive(Debug, Serialize, Deserialize, PartialEq, Clone)]
 #[serde(rename_all(deserialize = "kebab-case"))]
 pub struct Media {
-    pub title: String,
-    pub position: u32,
+    pub title: Option<String>,
+    pub position: Option<u32>,
     pub track_count: u32,
     pub disc_count: Option<u32>,
     pub format_id: Option<String>,
@@ -164,6 +165,85 @@ pub struct Track {
     pub length: Option<u32>,
     pub position: u32,
     pub id: String,
+}
+
+#[derive(Debug, Default, Serialize, Deserialize, QueryBuilder)]
+pub struct ReleaseSearchQuery {
+    /// (part of) any alias attached to the release group (diacritics are ignored)
+    alias: String,
+    /// the MBID of any of the release group artists
+    arid: String,
+    /// (part of) the combined credited artist name for the release group, including join phrases (e.g. "Artist X feat.")
+    artist: String,
+    /// (part of) the name of any of the release group artists
+    #[query_builder_field = "artistname"]
+    artist_name: String,
+    /// an Amazon ASIN for the release
+    asin: String,
+    /// the barcode for the release
+    barcode: String,
+    /// any catalog number for this release (insensitive to case, spaces and separators)
+    #[query_builder_field = "catno"]
+    catalog_number: String,
+    /// (part of) the release group's disambiguation comment
+    comment: String,
+    /// the 2-letter code (ISO 3166-1 alpha-2) for any country the release was released in
+    country: String,
+    /// (part of) the credited name of any of the release group artists on this particular release group
+    #[query_builder_field = "creditname"]
+    credit_name: String,
+    /// a release date for the release (e.g. "1980-01-22")
+    #[serde(deserialize_with = "date_format::deserialize_opt")]
+    #[serde(default)]
+    date: Option<NaiveDate>,
+    /// the total number of disc IDs attached to all mediums on the release
+    discids: u32,
+    /// the number of disc IDs attached to any one medium on the release
+    #[query_builder_field = "discidsmedium"]
+    discids_medium: u32,
+    /// the format of any medium in the release (insensitive to case, spaces, and separators)
+    format: String,
+    /// the MBID of any of the release labels
+    laid: String,
+    /// (part of) the name of any of the release labels
+    label: String,
+    /// the ISO 639-3 code for the release language
+    lang: String,
+    /// the number of mediums on the release
+    mediums: u32,
+    /// the format of the release (insensitive to case, spaces, and separators)
+    packaging: String,
+    /// the primary type of the release group
+    #[query_builder_field = "primarytype"]
+    primary_type: String,
+    /// the listed quality of the data for the release (one of "low", "normal", "high")
+    quality: String,
+    /// the MBID of any of the releases in the release group
+    reid: String,
+    /// (part of) the title of any of the releases in the release group
+    release: String,
+    /// (part of) the release's title (with the specified diacritics)
+    #[query_builder_field = "releaseaccent"]
+    release_accent: String,
+    /// the release group's MBID
+    rgid: String,
+    /// the ISO 15924 code for the release script
+    script: String,
+    /// any of the secondary types of the release group
+    #[query_builder_field = "secondarytype"]
+    secondary_type: String,
+    /// the status of any of the releases in the release group
+    status: String,
+    /// the status of any of the releases in the release group
+    tag: String,
+    /// the total number of tracks on the release
+    tracks: u32,
+    /// the number of tracks on any one medium on the release
+    #[query_builder_field = "tracksmedium"]
+    tracks_medium: u32,
+    /// legacy release group type field that predates the ability to set multiple types (see calculation code)
+    #[query_builder_field = "type"]
+    release_type: String,
 }
 
 impl_browse! {
