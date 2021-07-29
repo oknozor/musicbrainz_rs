@@ -26,7 +26,10 @@ fn should_get_label_aliases() {
 
     let aliases = motown.unwrap().aliases;
 
-    assert!(aliases.unwrap().iter().any(|alias| alias.name == "Motown"));
+    assert!(aliases
+        .unwrap()
+        .iter()
+        .any(|alias| alias.name == "Motown Records"));
 }
 
 #[test]

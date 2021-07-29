@@ -46,9 +46,6 @@ fn should_get_artist_release_groups() {
 
     assert!(release_groups
         .iter()
-        .any(|group| group.title == "John Lee Hooker - Most Famous Hits"));
-    assert!(release_groups
-        .iter()
         .any(|group| group.title == "Travelin’"));
 }
 
