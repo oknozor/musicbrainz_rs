@@ -15,8 +15,8 @@ pub struct Label {
     #[serde(rename = "type")]
     pub label_type: Option<String>,
     pub name: String,
-    pub sort_name: String,
-    pub disambiguation: String,
+    pub sort_name: Option<String>,
+    pub disambiguation: Option<String>,
     pub relations: Option<Vec<Relation>>,
     pub country: Option<String>,
     pub label_code: Option<u32>,
@@ -31,8 +31,8 @@ pub struct Label {
 #[derive(Debug, Serialize, Deserialize, PartialEq, Clone)]
 #[serde(rename_all(deserialize = "kebab-case"))]
 pub struct LabelInfo {
-    pub catalog_number: String,
-    pub label: Label,
+    pub catalog_number: Option<String>,
+    pub label: Option<Label>,
 }
 
 impl_browse! {
