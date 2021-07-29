@@ -73,7 +73,7 @@ fn should_get_release_label() {
         .label_info
         .unwrap()
         .iter()
-        .any(|label_info| label_info.label.name == "Ed Banger Records"));
+        .any(|label_info| label_info.label.as_ref().unwrap().name == "Ed Banger Records"));
 }
 
 #[test]
