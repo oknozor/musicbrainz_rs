@@ -425,7 +425,7 @@ fn should_get_series() {
         Series {
             id: "814fb4d5-327f-4e37-8784-f8a707e5f97c".to_string(),
             type_id: "dd968243-7128-30a2-81f0-79843430a8e2".to_string(),
-            serie_type: "Recording series".to_string(),
+            series_type: "Recording series".to_string(),
             disambiguation: "".to_string(),
             name: "La Chanson du Dimanche — Saison 4".to_string(),
             relations: None,
