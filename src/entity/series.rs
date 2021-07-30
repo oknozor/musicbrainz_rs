@@ -11,7 +11,7 @@ pub struct Series {
     pub id: String,
     pub name: String,
     #[serde(rename = "type")]
-    pub serie_type: String,
+    pub series_type: String,
     pub disambiguation: String,
     pub type_id: String,
     pub relations: Option<Vec<Relation>>,
