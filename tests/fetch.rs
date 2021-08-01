@@ -4,13 +4,16 @@ extern crate musicbrainz_rs;
 use chrono::NaiveDate;
 use std::collections::HashMap;
 
+use musicbrainz_rs::entity::area::AreaType::*;
 use musicbrainz_rs::entity::area::*;
 use musicbrainz_rs::entity::artist::ArtistType::*;
 use musicbrainz_rs::entity::artist::*;
 use musicbrainz_rs::entity::event::Event;
+use musicbrainz_rs::entity::instrument::InstrumentType::*;
 use musicbrainz_rs::entity::instrument::*;
 use musicbrainz_rs::entity::label::*;
 use musicbrainz_rs::entity::lifespan::*;
+use musicbrainz_rs::entity::place::PlaceType::*;
 use musicbrainz_rs::entity::place::*;
 use musicbrainz_rs::entity::recording::Recording;
 use musicbrainz_rs::entity::relations::*;
@@ -290,7 +293,7 @@ fn should_get_area_by_id() {
         aberdeen.unwrap(),
         Area {
             id: "a640b45c-c173-49b1-8030-973603e895b5".to_string(),
-            area_type: Some("City".to_string()),
+            area_type: Some(City),
             type_id: Some("6fd8f29a-3d0a-32fc-980d-ea697b69da78".to_string()),
             disambiguation: "".to_string(),
             name: "Aberdeen".to_string(),
@@ -353,7 +356,7 @@ fn should_get_instrument() {
         Instrument {
             id: "37fa9bb5-d5d7-4b0f-aa4d-531339ba9c32".to_string(),
             name: "mandolin".to_string(),
-            instrument_type: "String instrument".to_string(),
+            instrument_type: StringInstrument,
             type_id: "cc00f97f-cf3d-3ae2-9163-041cb1a0d726".to_string(),
             description: "".to_string(),
             disambiguation: "".to_string(),
@@ -384,7 +387,7 @@ fn should_get_place() {
                 ended: Some(true),
             }),
             type_id: Some("cd92781a-a73f-30e8-a430-55d7521338db".to_string()),
-            place_type: Some("Venue".to_string()),
+            place_type: Some(Venue),
             address: "3 North Clark Street, Chicago, IL 60602".to_string(),
             area: Area {
                 id: "29a709d8-0320-493e-8d0c-f2c386662b7f".to_string(),

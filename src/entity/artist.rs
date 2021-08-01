@@ -24,16 +24,15 @@ use lucene_query_builder::QueryBuilder;
 pub struct Artist {
     /// See [MusicBrainz Identifier](https://musicbrainz.org/doc/MusicBrainz_Identifier).
     pub id: String,
-
     /// The official name of an artist, be it a person or a band.
     pub name: String,
-
     /// The sort name is a variant of the artist name which would be used when sorting artists by
     /// name, such as in record shops or libraries. Among other things, sort names help to ensure
     /// that all the artists that start with "The" don't end up up under "T". The guidelines for
     /// sort names are the best place to check for more specific usage info.
     pub sort_name: String,
-
+    /// The disambiguation comments are fields in the database used to help distinguish identically
+    /// named artists, labels and other entities.
     pub disambiguation: String,
 
     /// The type is used to state whether an artist is a person, a group, or something else.
@@ -54,7 +53,11 @@ pub struct Artist {
     pub begin_area: Option<Area>, // all other field are deserialized in kebab-case
 
     pub relations: Option<Vec<Relation>>,
+    /// release represents the unique release (i.e. issuing) of a product on a specific date with
+    /// specific release information such as the country, label, barcode and packaging.
     pub releases: Option<Vec<Release>>,
+    /// A work is a distinct intellectual or artistic creation, which can be expressed in the form of
+    /// one or more audio recordings.
     pub works: Option<Vec<Work>>,
     pub release_groups: Option<Vec<ReleaseGroup>>,
     pub recordings: Option<Vec<Recording>>,
@@ -63,6 +66,8 @@ pub struct Artist {
     /// see the page about aliases.
     pub aliases: Option<Vec<Alias>>,
     pub tags: Option<Vec<Tag>>,
+
+    /// Genres are currently supported in MusicBrainz as part of the tag system.
     pub genres: Option<Vec<Genre>>,
     pub rating: Option<Rating>,
     pub country: Option<String>,

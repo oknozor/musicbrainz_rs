@@ -17,16 +17,25 @@ pub struct Work {
     pub id: String,
     pub title: String,
     pub type_id: Option<String>,
+    /// Works are represented predominantly at two levels: Discrete works, Aggregate works.
+    // FIXME: Can we use a `WorkType` enum here?
     #[serde(rename = "type")]
     pub work_type: Option<String>,
     pub language: Option<String>,
     pub languages: Option<Vec<String>>,
+    /// The disambiguation comments are fields in the database used to help distinguish identically
+    /// named artists, labels and other entities.
     pub disambiguation: Option<String>,
     pub relations: Option<Vec<Relation>>,
     pub tags: Option<Vec<Tag>>,
     pub rating: Option<Rating>,
+    /// If a discrete work is known by name(s) or in language(s) other than its canonical name,
+    /// these are specified in the work’s aliases.
     pub aliases: Option<Vec<Alias>>,
+    /// Genres are currently supported in MusicBrainz as part of the tag system.
     pub genres: Option<Vec<Genre>>,
+    /// Annotations are text fields, functioning like a miniature wiki, that can be added to any
+    /// existing artists, labels, recordings, releases, release groups and works.
     pub annotation: Option<String>,
 }
 
