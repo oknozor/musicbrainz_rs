@@ -56,8 +56,12 @@ pub struct Release {
     /// bad the music itself is - for that, use ratings.
     pub quality: Option<ReleaseQuality>,
 
+    /// The barcode, if the release has one. The most common types found on releases are 12-digit
+    /// UPCs and 13-digit EANs.
     pub barcode: Option<String>,
 
+    /// The disambiguation comments are fields in the database used to help distinguish identically
+    /// named artists, labels and other entities.
     pub disambiguation: Option<String>,
 
     #[serde(rename = "packaging-id")]
@@ -68,19 +72,31 @@ pub struct Release {
     pub packaging: Option<String>, //TODO: This might be an enum needs to test all against all possible values
 
     pub relations: Option<Vec<Relation>>,
+    /// The release group associated with this release.
     pub release_group: Option<ReleaseGroup>,
+    /// Artist credits indicate who is the main credited artist (or artists) for releases, release
+    /// groups, tracks and recordings, and how they are credited.
     pub artist_credit: Option<Vec<ArtistCredit>>,
     pub media: Option<Vec<Media>>,
+    /// The label which issued the release. There may be more than one.
     pub label_info: Option<Vec<LabelInfo>>,
     pub tags: Option<Vec<Tag>>,
+    /// Aliases are alternate names for a release.
     pub aliases: Option<Vec<Alias>>,
+    /// Genres are currently supported in MusicBrainz as part of the tag system.
     pub genres: Option<Vec<Genre>>,
+    /// Annotations are text fields, functioning like a miniature wiki, that can be added to any
+    /// existing artists, labels, recordings, releases, release groups and works.
     pub annotation: Option<String>,
 }
 
 #[derive(Debug, Serialize, Deserialize, PartialEq, Clone)]
 pub struct ReleaseTextRepresentation {
+    /// The language a release's track list is written in. The possible values are taken from the ISO
+    /// 639-3 standard.
     pub language: Language,
+    /// The script used to write the release's track list. The possible values are taken from the
+    /// ISO 15924 standard.
     pub script: ReleaseScript,
 }
 
@@ -156,6 +172,8 @@ pub struct Media {
     pub tracks: Option<Vec<Track>>,
 }
 
+/// A track is the way a recording is represented on a particular release (or, more exactly, on a
+/// particular medium).
 #[derive(Debug, Serialize, Deserialize, PartialEq, Clone)]
 #[serde(rename_all(deserialize = "kebab-case"))]
 pub struct Track {

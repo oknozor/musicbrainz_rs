@@ -10,20 +10,35 @@ use crate::entity::BrowseBy;
 #[derive(Debug, Serialize, Deserialize, PartialEq, Clone)]
 #[serde(rename_all(deserialize = "kebab-case"))]
 pub struct Place {
+    /// See [MusicBrainz Identifier](https://musicbrainz.org/doc/MusicBrainz_Identifier).
     pub id: String,
+    /// The place name is the official name of a place.
     pub name: String,
+    /// The type categorises the place based on its primary function. The possible values are:
+    /// Studio, Venue, Stadium, Indoor arena, Religious building, Educational institution,
+    /// Pressing plant, Other.
     #[serde(rename = "type")]
-    pub place_type: Option<String>,
+    pub place_type: Option<PlaceType>,
     pub type_id: Option<String>,
     pub life_span: Option<LifeSpan>,
+    /// The latitude and longitude describe the location of the place using geographic coordinates.
     pub coordinates: Option<Coordinates>,
     pub relations: Option<Vec<Relation>>,
+    /// The area links to the area, such as the city, in which the place is located.
     pub area: Area,
+    /// The address describes the location of the place using the standard addressing format for
+    /// the country it is located in.
     pub address: String,
+    /// The disambiguation comments are fields in the database used to help distinguish identically
+    /// named artists, labels and other entities.
     pub disambiguation: String,
+    /// Aliases are alternate names for a place, which currently have two main functions:
+    /// localised names and search hints.
     pub aliases: Option<Vec<Alias>>,
     pub tags: Option<Vec<Tag>>,
     pub genres: Option<Vec<Genre>>,
+    /// Annotations are text fields, functioning like a miniature wiki, that can be added to any
+    /// existing artists, labels, recordings, releases, release groups and works.
     pub annotation: Option<String>,
 }
 
@@ -31,6 +46,36 @@ pub struct Place {
 pub struct Coordinates {
     pub latitude: f64,
     pub longitude: f64,
+}
+
+#[derive(Debug, Serialize, Deserialize, PartialEq, Clone)]
+pub enum PlaceType {
+    /// A place designed for non-live production of music, typically a recording studio.
+    Studio,
+    /// A place that has live artistic performances as one of its primary functions, such as a
+    /// concert hall.
+    Venue,
+    /// A place whose main purpose is to host outdoor sport events, typically consisting of a pitch
+    /// surrounded by a structure for spectators with no roof, or a roof which can be retracted.
+    Stadium,
+    /// A place consisting of a large enclosed area with a central event space surrounded by tiered
+    /// seating for spectators, which can be used for indoor sports, concerts and other entertainment
+    /// events.
+    #[serde(rename = "Indoor arena")]
+    IndoorArena,
+    /// A place mostly designed and used for religious purposes, like a church, cathedral or
+    /// synagogue.
+    #[serde(rename = "Religious building")]
+    ReligiousBuilding,
+    /// A school, university or other similar educational institution (especially, but not only, one
+    /// where music is taught)
+    #[serde(rename = "Educational institution")]
+    EducationalInstitution,
+    /// A place (generally a factory) at which physical media are manufactured.
+    #[serde(rename = "Pressing plant")]
+    PressingPlant,
+    /// Anything which does not fit into the above categories.
+    Other,
 }
 
 impl_browse! {

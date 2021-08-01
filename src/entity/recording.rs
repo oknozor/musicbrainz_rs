@@ -21,30 +21,34 @@ use crate::entity::{Include, Relationship, Subquery};
 pub struct Recording {
     /// See [MusicBrainz Identifier](https://musicbrainz.org/doc/MusicBrainz_Identifier).
     pub id: String,
-
     /// The title of the recording.
     pub title: String,
 
     pub video: Option<bool>,
-
     /// The length of the recording. It's only entered manually for
     /// [standalone recordings](https://musicbrainz.org/doc/Standalone_Recording). For recordings
     /// that are being used on releases, the recording length is the median length of all tracks
     /// (that have a track length) associated with that recording. If there is an even number of
     /// track lengths, the smaller median candidate is used.
     pub length: Option<u32>, // TODO: CUSTOM Deserialized to make this a duration
-
-    /// See Disambiguation Comment.
+    /// The disambiguation comments are fields in the database used to help distinguish identically
+    /// named artists, labels and other entities.
     pub disambiguation: Option<String>,
-
+    /// The International Standard Recording Code assigned to the recording.
     pub isrcs: Option<Vec<String>>,
     pub relations: Option<Vec<Relation>>,
     pub releases: Option<Vec<Release>>,
+    /// Artist credits indicate who is the main credited artist (or artists) for releases, release
+    /// groups, tracks and recordings, and how they are credited.
     pub artist_credit: Option<Vec<ArtistCredit>>,
+    /// Aliases are alternate names for a recording.
     pub aliases: Option<Vec<Alias>>,
     pub tags: Option<Vec<Tag>>,
     pub rating: Option<Rating>,
+    /// Genres are currently supported in MusicBrainz as part of the tag system.
     pub genres: Option<Vec<Genre>>,
+    /// Annotations are text fields, functioning like a miniature wiki, that can be added to any
+    /// existing artists, labels, recordings, releases, release groups and works.
     pub annotation: Option<String>,
 }
 
