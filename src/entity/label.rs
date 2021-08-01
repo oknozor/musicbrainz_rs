@@ -10,21 +10,30 @@ use crate::entity::BrowseBy;
 #[derive(Debug, Serialize, Deserialize, PartialEq, Clone)]
 #[serde(rename_all(deserialize = "kebab-case"))]
 pub struct Label {
+    /// See [MusicBrainz Identifier](https://musicbrainz.org/doc/MusicBrainz_Identifier).
     pub id: String,
     pub type_id: Option<String>,
+    /// The type describes the main activity of the label.
     #[serde(rename = "type")]
     pub label_type: Option<String>,
+    /// The official name of the label.
     pub name: String,
     pub sort_name: Option<String>,
+    /// The disambiguation comments are fields in the database used to help distinguish identically
+    /// named artists, labels and other entities.
     pub disambiguation: Option<String>,
     pub relations: Option<Vec<Relation>>,
     pub country: Option<String>,
+    /// The label code is the "LC" code of the label.
     pub label_code: Option<u32>,
     pub releases: Option<Vec<Release>>,
+    /// Aliases are used to store alternate names or misspellings.
     pub aliases: Option<Vec<Alias>>,
     pub tags: Option<Vec<Tag>>,
     pub rating: Option<Rating>,
     pub genres: Option<Vec<Genre>>,
+    /// Annotations are text fields, functioning like a miniature wiki, that can be added to any
+    /// existing artists, labels, recordings, releases, release groups and works.
     pub annotation: Option<String>,
 }
 

@@ -11,6 +11,8 @@ use crate::entity::BrowseBy;
 use chrono::NaiveDate;
 use lucene_query_builder::QueryBuilder;
 
+/// A release group, just as the name suggests, is used to group several different releases into a
+/// single logical entity. Every release belongs to one, and only one release group.
 #[derive(Debug, Default, Serialize, Deserialize, PartialEq, Clone)]
 #[serde(rename_all(deserialize = "kebab-case"))]
 #[serde(default)]
@@ -34,15 +36,25 @@ pub struct ReleaseGroup {
     /// The title of a release group is usually very similar, if not the same, as the titles of the
     /// releases contained within it.
     pub title: String,
-    /// See Disambiguation Comment.
+    /// The disambiguation comments are fields in the database used to help distinguish identically
+    /// named artists, labels and other entities.
     pub disambiguation: String,
+    /// Relationships are a way to represent all the different ways in which entities are connected
+    /// to each other and to URLs outside MusicBrainz.
     pub relations: Option<Vec<Relation>>,
+    /// Artist credits indicate who is the main credited artist (or artists) for releases, release
+    /// groups, tracks and recordings, and how they are credited..
     pub artist_credit: Option<Vec<ArtistCredit>>,
+    /// Releases present in this release group.
     pub releases: Option<Vec<Release>>,
     pub tags: Option<Vec<Tag>>,
     pub rating: Option<Rating>,
+    /// Aliases are alternate names for a release group.
     pub aliases: Option<Vec<Alias>>,
+    /// Genres are currently supported in MusicBrainz as part of the tag system.
     pub genres: Option<Vec<Genre>>,
+    /// Annotations are text fields, functioning like a miniature wiki, that can be added to any
+    /// existing artists, labels, recordings, releases, release groups and works.
     pub annotation: Option<String>,
 }
 

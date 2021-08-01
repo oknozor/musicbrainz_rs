@@ -6,24 +6,60 @@ use crate::entity::relations::Relation;
 use crate::entity::tag::Tag;
 use crate::entity::BrowseBy;
 
+/// Areas are historical and existing geographic regions. Areas include countries, sub-divisions,
+/// counties, municipalities, cities, districts and islands.
 #[derive(Debug, Serialize, Deserialize, PartialEq, Clone, Default)]
 #[serde(rename_all(deserialize = "kebab-case"))]
 #[serde(default)]
 pub struct Area {
+    /// See [MusicBrainz Identifier](https://musicbrainz.org/doc/MusicBrainz_Identifier).
     pub id: String,
+    /// The type of area. Possible values are: Country, Subdivision, County, Municipality, City,
+    /// District, Island.
     #[serde(rename = "type")]
-    pub area_type: Option<String>,
-    pub type_id: Option<String>,
-    pub disambiguation: String,
+    pub area_type: Option<AreaType>,
+    /// The name of the area.
     pub name: String,
-    pub sort_name: String,
     pub relations: Option<Vec<Relation>>,
+    /// The ISO 3166 codes are the codes assigned by ISO to countries and subdivisions.
     pub iso_3166_1_codes: Option<Vec<String>>,
+    /// The aliases are used to store alternate names or misspellings.
+    pub aliases: Option<Vec<Alias>>,
+    /// Annotations are text fields, functioning like a miniature wiki, that can be added to any
+    /// existing artists, labels, recordings, releases, release groups and works.
+    pub annotation: Option<String>,
+    /// The disambiguation comments are fields in the database used to help distinguish identically
+    /// named artists, labels and other entities.
+    pub disambiguation: String,
+    pub type_id: Option<String>,
+    pub sort_name: String,
     pub life_span: Option<LifeSpan>,
     pub tags: Option<Vec<Tag>>,
-    pub aliases: Option<Vec<Alias>>,
     pub genres: Option<Vec<Genre>>,
-    pub annotation: Option<String>,
+}
+
+#[derive(Debug, Serialize, Deserialize, PartialEq, Clone)]
+pub enum AreaType {
+    /// Country is used for areas included (or previously included) in ISO 3166-1, e.g. United States.
+    Country,
+    /// Subdivision is used for the main administrative divisions of a country, e.g. California,
+    /// Ontario, Okinawa. These are considered when displaying the parent areas for a given area.
+    Subdivision,
+    /// County is used for smaller administrative divisions of a country which are not the main
+    /// administrative divisions but are also not municipalities, e.g. counties in the USA. These
+    /// are not considered when displaying the parent areas for a given area.
+    County,
+    /// Municipality is used for small administrative divisions which, for urban municipalities,
+    /// often contain a single city and a few surrounding villages. Rural municipalities typically
+    /// group several villages together.
+    Municipality,
+    /// City is used for settlements of any size, including towns and villages.
+    City,
+    /// District is used for a division of a large city, e.g. Queens.
+    District,
+    /// Island is used for islands and atolls which don't form subdivisions of their own, e.g. Skye.
+    /// These are not considered when displaying the parent areas for a given area.
+    Island,
 }
 
 impl_browse!(Area, (by_collection, BrowseBy::Collection));

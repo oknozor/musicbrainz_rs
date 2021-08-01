@@ -5,19 +5,37 @@ use crate::entity::relations::Relation;
 use crate::entity::tag::Tag;
 use crate::entity::BrowseBy;
 
+/// A series is a sequence of separate release groups, releases, recordings, works, artists or
+/// events with a common theme.
 #[derive(Debug, Serialize, Deserialize, PartialEq, Clone)]
 #[serde(rename_all(deserialize = "kebab-case"))]
 pub struct Series {
+    /// See [MusicBrainz Identifier](https://musicbrainz.org/doc/MusicBrainz_Identifier).
     pub id: String,
+    /// The series name is the official name of the series.
     pub name: String,
     #[serde(rename = "type")]
+    /// The type primarily describes what type of entity the series contains. The possible values are:
+    /// Release group series, Release series, Recording series, Work series (with further subtypes:
+    /// Catalogue), Artist series (with further subtypes: Artist award), Event series (with further
+    /// subtypes: Tour, Festival, Run, Residency)
+    // FIXME: Can we use a `SeriesType` enum here?
     pub series_type: String,
+    /// The disambiguation comments are fields in the database used to help distinguish identically
+    /// named artists, labels and other entities.
     pub disambiguation: String,
     pub type_id: String,
+    /// Relationships are a way to represent all the different ways in which entities are connected
+    /// to each other and to URLs outside MusicBrainz.
     pub relations: Option<Vec<Relation>>,
     pub tags: Option<Vec<Tag>>,
+    /// Aliases are alternate names for a series, which currently have two main functions: localised
+    /// names and search hints.
     pub aliases: Option<Vec<Alias>>,
+    /// Genres are currently supported in MusicBrainz as part of the tag system.
     pub genres: Option<Vec<Genre>>,
+    /// Annotations are text fields, functioning like a miniature wiki, that can be added to any
+    /// existing artists, labels, recordings, releases, release groups and works.
     pub annotation: Option<String>,
 }
 
