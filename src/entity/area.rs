@@ -6,6 +6,9 @@ use crate::entity::relations::Relation;
 use crate::entity::tag::Tag;
 use crate::entity::BrowseBy;
 
+use chrono::NaiveDate;
+use lucene_query_builder::QueryBuilder;
+
 /// Areas are historical and existing geographic regions. Areas include countries, sub-divisions,
 /// counties, municipalities, cities, districts and islands.
 #[derive(Debug, Serialize, Deserialize, PartialEq, Clone, Default)]
@@ -60,6 +63,43 @@ pub enum AreaType {
     /// Island is used for islands and atolls which don't form subdivisions of their own, e.g. Skye.
     /// These are not considered when displaying the parent areas for a given area.
     Island,
+}
+
+#[derive(Debug, Default, Serialize, Deserialize, QueryBuilder)]
+pub struct AreaSearchQuery {
+    /// the area's MBID
+    aid: String,
+    /// (part of) any alias attached to the artist (diacritics are ignored)
+    alias: Alias,
+    /// (part of) the area's name (diacritics are ignored)
+    area: String,
+    /// (part of) the area's name (with the specified diacritics)
+    #[query_builder_field = "areaaccent"]
+    area_accent: String,
+    /// the area's begin date (e.g. "1980-01-22")
+    begin: Option<NaiveDate>,
+    /// (part of) the area's disambiguation comment
+    comment: String,
+    /// the area's end date (e.g. "1980-01-22")
+    end: Option<NaiveDate>,
+    /// a boolean flag (true/false) indicating whether or not the area has ended (is no longer current)
+    ended: bool,
+    /// an ISO 3166-1, 3166-2 or 3166-3 code attached to the area
+    iso: String,
+    /// an ISO 3166-1 code attached to the area
+    iso1: String,
+    /// an ISO 3166-2 code attached to the area
+    iso2: String,
+    /// an ISO 3166-3 code attached to the area
+    iso3: String,
+    /// equivalent to name (areas no longer have separate sort names)
+    #[query_builder_field = "sortname"]
+    sort_name: String,
+    /// (part of) a tag attached to the area
+    tag: String,
+    /// the area's type
+    #[query_builder_field = "type"]
+    area_type: String,
 }
 
 impl_browse!(Area, (by_collection, BrowseBy::Collection));
