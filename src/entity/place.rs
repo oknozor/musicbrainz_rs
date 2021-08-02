@@ -25,13 +25,13 @@ pub struct Place {
     pub coordinates: Option<Coordinates>,
     pub relations: Option<Vec<Relation>>,
     /// The area links to the area, such as the city, in which the place is located.
-    pub area: Area,
+    pub area: Option<Area>,
     /// The address describes the location of the place using the standard addressing format for
     /// the country it is located in.
-    pub address: String,
+    pub address: Option<String>,
     /// The disambiguation comments are fields in the database used to help distinguish identically
     /// named artists, labels and other entities.
-    pub disambiguation: String,
+    pub disambiguation: Option<String>,
     /// Aliases are alternate names for a place, which currently have two main functions:
     /// localised names and search hints.
     pub aliases: Option<Vec<Alias>>,

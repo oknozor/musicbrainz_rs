@@ -7,6 +7,9 @@ use crate::entity::relations::Relation;
 use crate::entity::tag::Tag;
 use crate::entity::BrowseBy;
 
+use chrono::NaiveDate;
+use lucene_query_builder::QueryBuilder;
+
 /// An event refers to an organised event which people can attend, and is relevant to MusicBrainz.
 /// Generally this means live performances, like concerts and festivals.
 #[derive(Debug, Serialize, Deserialize, PartialEq, Clone)]
@@ -26,9 +29,8 @@ pub struct Event {
     // https://musicbrainz.org/ws/2/event/10b5e28b-95f5-482e-9524-c51be37f943d
     #[serde(rename = "type")]
     pub event_type: Option<String>,
-
     /// The cancelled field describes whether or not the event took place.
-    pub cancelled: bool,
+    pub cancelled: Option<bool>,
 
     /// The time is the start time of the event.
     pub time: String,
@@ -36,10 +38,11 @@ pub struct Event {
     /// The setlist stores a list of songs performed, optionally including links to artists and works.
     /// See the setlist documentation for syntax and examples.
     // TODO: need some info on that value, current IT test returns ""
-    pub setlist: String,
-
+    pub setlist: Option<String>,
     // same here
     pub tags: Option<Vec<Tag>>,
+    /// Relationships are a way to represent all the different ways in which entities are connected
+    /// to each other and to URLs outside MusicBrainz.
     pub relations: Option<Vec<Relation>>,
 
     pub rating: Option<Rating>,
@@ -85,9 +88,47 @@ pub struct Event {
     /// The disambiguation comments are fields in the database used to help distinguish identically
     /// named artists, labels and other entities. They are visible in the pages for the entities, and
     /// also appear in the search results next to their names.
-    pub disambiguation: String,
+    pub disambiguation: Option<String>,
 
     pub type_id: Option<String>,
+}
+
+#[derive(Debug, Default, Serialize, Deserialize, QueryBuilder)]
+pub struct EventSearchQuery {
+    /// (part of) any alias attached to the artist (diacritics are ignored)
+    pub alias: String,
+    /// the MBID of an area related to the event
+    pub aid: String,
+    /// (part of) the name of an area related to the event
+    pub area: String,
+    /// the MBID of an artist related to the event
+    pub arid: String,
+    /// (part of) the name of an artist related to the event
+    pub artist: String,
+    /// the event's begin date (e.g. "1980-01-22")
+    pub begin: Option<NaiveDate>,
+    /// (part of) the artist's disambiguation comment
+    pub comment: String,
+    /// the event's end date (e.g. "1980-01-22")
+    pub end: Option<NaiveDate>,
+    /// a boolean flag (true/false) indicating whether or not the event has an end date set
+    pub ended: bool,
+    /// the MBID of the event
+    pub eid: String,
+    /// (part of) the event's name (diacritics are ignored)
+    pub event: String,
+    /// (part of) the event's name (with the specified diacritics)
+    #[serde(rename = "eventaccent")]
+    pub event_accent: String,
+    /// the MBID of a place related to the event
+    pub pid: String,
+    /// (part of) the name of a place related to the event
+    pub place: String,
+    /// (part of) a tag attached to the event
+    pub tag: String,
+    #[serde(rename = "type")]
+    /// the event's type
+    pub event_type: String,
 }
 
 impl_browse! {

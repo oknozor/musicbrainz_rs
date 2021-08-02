@@ -10,8 +10,10 @@ pub struct Alias {
     pub name: String,
     pub sort_name: String,
     pub ended: Option<bool>,
+    #[serde(default)]
     #[serde(deserialize_with = "date_format::deserialize_opt")]
     pub begin: Option<NaiveDate>,
+    #[serde(default)]
     #[serde(deserialize_with = "date_format::deserialize_opt")]
     pub end: Option<NaiveDate>,
     #[serde(rename = "type")]
