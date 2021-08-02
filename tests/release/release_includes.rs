@@ -137,10 +137,11 @@ fn should_get_release_level_relations() {
             }
         }
     }
-    let expected_target_types: HashSet<String> = ["artist".to_string(), "work".to_string()]
-        .iter()
-        .cloned()
-        .collect();
+    let expected_target_types: HashSet<Option<String>> =
+        [Some("artist".to_string()), Some("work".to_string())]
+            .iter()
+            .cloned()
+            .collect();
 
     assert_eq!(target_types, expected_target_types);
 }

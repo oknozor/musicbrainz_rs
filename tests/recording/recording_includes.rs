@@ -138,5 +138,7 @@ fn should_get_recording_level_relations() {
 
     let relations = polly.relations.unwrap();
 
-    assert!(relations.iter().any(|rel| rel.target_type == "work"));
+    assert!(relations
+        .iter()
+        .any(|rel| rel.target_type.as_ref().unwrap() == "work"));
 }

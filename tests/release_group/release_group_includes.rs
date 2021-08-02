@@ -81,13 +81,13 @@ fn should_get_release_group_genres() {
 
 #[test]
 fn should_get_release_group_annotation() {
-    let minnesoda = ReleaseGroup::fetch()
-        .id("100d2ce1-8ba4-43eb-afbe-93ca21867e16")
+    let dirt = ReleaseGroup::fetch()
+        .id("92d8f0c4-8c64-3bee-bee1-812a70e77efa")
         .with_annotations()
         .execute()
         .unwrap();
 
-    assert!(minnesoda.annotation.is_some());
+    assert!(dirt.annotation.is_some());
 }
 
 // FIXME: This is currently panicking with:
