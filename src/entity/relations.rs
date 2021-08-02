@@ -19,27 +19,29 @@ use std::collections::HashMap;
 #[derive(Debug, Serialize, Deserialize, PartialEq, Clone)]
 #[serde(rename_all(deserialize = "kebab-case"))]
 pub struct Relation {
+    #[serde(default)]
     #[serde(deserialize_with = "date_format::deserialize_opt")]
     pub end: Option<NaiveDate>,
     /// Relationships can have attributes which modify the relationship. There is a
     /// [list of all attributes](https://musicbrainz.org/relationship-attributes), but the
     /// attributes which are available, and how they should be used, depends on the relationship
     /// type, so see the documentation for the relationship you want to use for more information.
-    pub attributes: Vec<String>,
+    pub attributes: Option<Vec<String>>,
     #[serde(flatten)]
     pub content: RelationContent,
-    pub attribute_values: HashMap<String, String>,
-    pub attribute_ids: HashMap<String, String>,
+    pub attribute_values: Option<HashMap<String, String>>,
+    pub attribute_ids: Option<HashMap<String, String>>,
     /// There are a huge number of different relationship types. The lists (organised per types of
     /// entities they connect) can be checked at the
     /// [relationship type table](https://musicbrainz.org/relationships).
-    pub target_type: String,
+    pub target_type: Option<String>,
     /// Credits allow indicating that, for example, songwriting was credited to an artist's legal
     /// name, and not his main (performance) name.
-    pub target_credit: String,
-    pub source_credit: String,
-    pub ended: bool,
+    pub target_credit: Option<String>,
+    pub source_credit: Option<String>,
+    pub ended: Option<bool>,
     pub type_id: String,
+    #[serde(default)]
     #[serde(deserialize_with = "date_format::deserialize_opt")]
     /// Some relationships have two date fields, a begin date and an end date, to store the period
     /// of time during which the relationship applied. The date can be the year, the year and the

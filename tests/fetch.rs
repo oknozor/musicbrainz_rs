@@ -103,7 +103,7 @@ fn should_get_artist_relations_from_release() {
         relations,
         [Relation {
             end: None,
-            attributes: vec![],
+            attributes: Some(vec![]),
             content: RelationContent::Artist(Box::new(Artist {
                 id: "0944a9f5-65be-44b6-9e8e-33732fdfe923".to_string(),
                 name: "Dave McDonald".to_string(),
@@ -126,12 +126,12 @@ fn should_get_artist_relations_from_release() {
                 annotation: None,
                 life_span: None
             })),
-            attribute_values: HashMap::new(),
-            attribute_ids: HashMap::new(),
-            target_type: "artist".to_string(),
-            target_credit: "".to_string(),
-            source_credit: "".to_string(),
-            ended: false,
+            attribute_values: Some(HashMap::new()),
+            attribute_ids: Some(HashMap::new()),
+            target_type: Some("artist".to_string()),
+            target_credit: Some("".to_string()),
+            source_credit: Some("".to_string()),
+            ended: Some(false),
             type_id: "87e922ba-872e-418a-9f41-0a63aa3c30cc".to_string(),
             begin: None,
             direction: "backward".to_string(),
@@ -324,12 +324,12 @@ fn should_get_event_by_id() {
         Event {
             id: "73df2f48-383b-4930-bad3-05ba938be578".to_string(),
             name: "Dour 1989".to_string(),
-            cancelled: false,
+            cancelled: Some(false),
             type_id: Some("b6ded574-b592-3f0e-b56e-5b5f06aa0678".to_string()),
             event_type: Some("Festival".to_string()),
-            disambiguation: "".to_string(),
+            disambiguation: Some("".to_string()),
             time: "".to_string(),
-            setlist: "".to_string(),
+            setlist: Some("".to_string()),
             life_span: Some(LifeSpan {
                 begin: Some(NaiveDate::from_ymd(1989, 9, 16)),
                 end: Some(NaiveDate::from_ymd(1989, 9, 16)),
@@ -380,7 +380,7 @@ fn should_get_place() {
         Place {
             id: "327c29c6-da63-4dc9-a117-1917ee691ce4".to_string(),
             name: "Blue Note".to_string(),
-            disambiguation: "Chicago, 1954-1960".to_string(),
+            disambiguation: Some("Chicago, 1954-1960".to_string()),
             life_span: Some(LifeSpan {
                 begin: Some(NaiveDate::from_ymd(1954, 4, 2)),
                 end: Some(NaiveDate::from_ymd(1960, 6, 14)),
@@ -388,8 +388,8 @@ fn should_get_place() {
             }),
             type_id: Some("cd92781a-a73f-30e8-a430-55d7521338db".to_string()),
             place_type: Some(Venue),
-            address: "3 North Clark Street, Chicago, IL 60602".to_string(),
-            area: Area {
+            address: Some("3 North Clark Street, Chicago, IL 60602".to_string()),
+            area: Some(Area {
                 id: "29a709d8-0320-493e-8d0c-f2c386662b7f".to_string(),
                 disambiguation: "".to_string(),
                 sort_name: "Chicago".to_string(),
@@ -403,7 +403,7 @@ fn should_get_place() {
                 aliases: None,
                 genres: None,
                 annotation: None,
-            },
+            }),
             coordinates: Some(Coordinates {
                 latitude: 41.882_059,
                 longitude: -87.630_881,
