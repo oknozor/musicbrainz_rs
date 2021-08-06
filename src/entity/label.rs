@@ -7,6 +7,12 @@ use crate::entity::release::Release;
 use crate::entity::tag::Tag;
 use crate::entity::BrowseBy;
 
+use lucene_query_builder::QueryBuilder;
+
+/// Labels are one of the most complicated and controversial parts of the music industry. The main
+/// reason for that being that the term itself is not clearly defined and refers to at least two
+/// overlapping concepts: imprints, and the companies that control them. Fortunately, in many cases
+/// the imprint and the company controlling it have the same name.
 #[derive(Debug, Serialize, Deserialize, PartialEq, Clone)]
 #[serde(rename_all(deserialize = "kebab-case"))]
 pub struct Label {
@@ -35,6 +41,47 @@ pub struct Label {
     /// Annotations are text fields, functioning like a miniature wiki, that can be added to any
     /// existing artists, labels, recordings, releases, release groups and works.
     pub annotation: Option<String>,
+}
+
+#[derive(Debug, Default, Serialize, Deserialize, QueryBuilder)]
+pub struct LabelSearchQuery {
+    /// (part of) any alias attached to the label (diacritics are ignored)
+    pub alias: String,
+    /// (part of) the name of the label's main associated area
+    pub area: String,
+    /// the label's begin date (e.g. "1980-01-22")
+    pub begin: String,
+    /// the label code for the label (only the numbers, without "LC")
+    pub code: String,
+    /// (part of) the label's disambiguation comment
+    pub comment: String,
+    /// the 2-letter code (ISO 3166-1 alpha-2) for the label's associated country
+    pub country: String,
+    /// the label's end date (e.g. "1980-01-22")
+    pub end: String,
+    /// a boolean flag (true/false) indicating whether or not the label has ended (is dissolved)
+    pub ended: String,
+    /// an IPI code associated with the label
+    pub ipi: String,
+    /// an ISNI code associated with the label
+    pub isni: String,
+    /// (part of) the label's name (diacritics are ignored)
+    pub label: String,
+    /// (part of) the label's name (with the specified diacritics)
+    #[query_builder_field = "labelaccent"]
+    pub label_accent: String,
+    /// the label's MBID
+    pub laid: String,
+    /// the amount of releases related to the label
+    pub release_count: String,
+    /// equivalent to name (labels no longer have separate sort names)
+    #[query_builder_field = "sortname"]
+    pub sort_name: String,
+    /// (part of) a tag attached to the label
+    pub tag: String,
+    /// the label's type
+    #[query_builder_field = "type"]
+    pub instrument_type: String,
 }
 
 #[derive(Debug, Serialize, Deserialize, PartialEq, Clone)]
