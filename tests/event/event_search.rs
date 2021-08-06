@@ -10,10 +10,8 @@ fn should_search_event() {
         .and()
         .arid("e935d070-004d-405a-8b9d-1d9e51590b55")
         .build();
-    println!("{}", query);
 
     let result = Event::search(query).execute().unwrap();
-    // println!("{:?}", result);
 
     assert!(result
         .entities
