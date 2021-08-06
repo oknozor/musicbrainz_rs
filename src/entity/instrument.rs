@@ -5,6 +5,8 @@ use crate::entity::relations::Relation;
 use crate::entity::tag::Tag;
 use crate::entity::BrowseBy;
 
+use lucene_query_builder::QueryBuilder;
+
 /// Instruments are devices created or adapted to make musical sounds. Instruments are primarily
 /// used in relationships between two other entities and for that, each instrument entity has a
 /// parallel relationship attribute with the same MBID. Instruments, like relationship attributes,
@@ -24,10 +26,10 @@ pub struct Instrument {
     pub instrument_type: InstrumentType,
     pub type_id: String,
     /// The description is a brief description of the main characteristics of the instrument.
-    pub description: String,
+    pub description: Option<String>,
     /// The disambiguation comments are fields in the database used to help distinguish identically
     /// named artists, labels and other entities.
-    pub disambiguation: String,
+    pub disambiguation: Option<String>,
     pub relations: Option<Vec<Relation>>,
     pub tags: Option<Vec<Tag>>,
     /// Aliases are alternate names for an instrument, which currently have two main functions:
@@ -37,6 +39,27 @@ pub struct Instrument {
     /// Annotations are text fields, functioning like a miniature wiki, that can be added to any
     /// existing artists, labels, recordings, releases, release groups and works.
     pub annotation: Option<String>,
+}
+
+#[derive(Debug, Default, Serialize, Deserialize, QueryBuilder)]
+pub struct InstrumentSearchQuery {
+    /// (part of) any alias attached to the instrument (diacritics are ignored)
+    pub alias: String,
+    /// (part of) the instrument's disambiguation comment
+    pub comment: String,
+    /// (part of) the description of the instrument (in English)
+    pub description: String,
+    /// the MBID of the instrument
+    pub iid: String,
+    /// (part of) the instrument's name (diacritics are ignored)
+    pub instrument: String,
+    /// (part of) the instrument's name (with the specified diacritics)
+    pub instrumentaccent: String,
+    /// (part of) a tag attached to the instrument
+    pub tag: String,
+    /// the instrument's type
+    #[query_builder_field = "type"]
+    pub instrument_type: String,
 }
 
 #[derive(Debug, Serialize, Deserialize, PartialEq, Clone)]
