@@ -3,6 +3,7 @@ use crate::entity::artist::Artist;
 use crate::entity::event::Event;
 use crate::entity::instrument::Instrument;
 use crate::entity::label::Label;
+use crate::entity::recording::Recording;
 use crate::entity::release::Release;
 use crate::entity::release_group::ReleaseGroup;
 use chrono::NaiveDateTime;
@@ -56,6 +57,13 @@ impl Searchable for Label {
     const COUNT_FIELD: &'static str = "count";
     const OFFSET_FIELD: &'static str = "offset";
     const ENTITIES_FIELD: &'static str = "labels";
+}
+
+impl Searchable for Recording {
+    const CREATED_FIELD: &'static str = "created";
+    const COUNT_FIELD: &'static str = "count";
+    const OFFSET_FIELD: &'static str = "offset";
+    const ENTITIES_FIELD: &'static str = "recordings";
 }
 
 impl Searchable for Release {
