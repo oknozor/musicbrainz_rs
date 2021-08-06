@@ -54,7 +54,8 @@ pub struct InstrumentSearchQuery {
     /// (part of) the instrument's name (diacritics are ignored)
     pub instrument: String,
     /// (part of) the instrument's name (with the specified diacritics)
-    pub instrumentaccent: String,
+    #[query_builder_field = "instrumentaccent"]
+    pub instrument_accent: String,
     /// (part of) a tag attached to the instrument
     pub tag: String,
     /// the instrument's type
