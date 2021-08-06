@@ -132,6 +132,7 @@ impl Search<'_> for Artist {}
 impl Search<'_> for Event {}
 impl Search<'_> for Instrument {}
 impl Search<'_> for Label {}
+impl Search<'_> for Recording {}
 impl Search<'_> for Release {}
 impl Search<'_> for ReleaseGroup {}
 
