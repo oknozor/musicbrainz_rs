@@ -118,7 +118,7 @@ pub struct EventSearchQuery {
     /// (part of) the event's name (diacritics are ignored)
     pub event: String,
     /// (part of) the event's name (with the specified diacritics)
-    #[serde(rename = "eventaccent")]
+    #[query_builder_field = "eventaccent"]
     pub event_accent: String,
     /// the MBID of a place related to the event
     pub pid: String,
@@ -126,7 +126,7 @@ pub struct EventSearchQuery {
     pub place: String,
     /// (part of) a tag attached to the event
     pub tag: String,
-    #[serde(rename = "type")]
+    #[query_builder_field = "type"]
     /// the event's type
     pub event_type: String,
 }
