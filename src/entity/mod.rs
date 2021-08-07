@@ -135,6 +135,7 @@ impl Search<'_> for Label {}
 impl Search<'_> for Recording {}
 impl Search<'_> for Release {}
 impl Search<'_> for ReleaseGroup {}
+impl Search<'_> for Series {}
 
 impl Path<'_> for Artist {
     fn path() -> &'static str {

@@ -6,6 +6,7 @@ use crate::entity::label::Label;
 use crate::entity::recording::Recording;
 use crate::entity::release::Release;
 use crate::entity::release_group::ReleaseGroup;
+use crate::entity::series::Series;
 use chrono::NaiveDateTime;
 
 #[derive(Debug, Serialize, PartialEq, Clone)]
@@ -78,4 +79,11 @@ impl Searchable for ReleaseGroup {
     const COUNT_FIELD: &'static str = "count";
     const OFFSET_FIELD: &'static str = "offset";
     const ENTITIES_FIELD: &'static str = "release-groups";
+}
+
+impl Searchable for Series {
+    const CREATED_FIELD: &'static str = "created";
+    const COUNT_FIELD: &'static str = "count";
+    const OFFSET_FIELD: &'static str = "offset";
+    const ENTITIES_FIELD: &'static str = "series";
 }
