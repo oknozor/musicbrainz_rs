@@ -5,6 +5,8 @@ use crate::entity::relations::Relation;
 use crate::entity::tag::Tag;
 use crate::entity::BrowseBy;
 
+use lucene_query_builder::QueryBuilder;
+
 /// A series is a sequence of separate release groups, releases, recordings, works, artists or
 /// events with a common theme.
 #[derive(Debug, Serialize, Deserialize, PartialEq, Clone)]
@@ -37,6 +39,26 @@ pub struct Series {
     /// Annotations are text fields, functioning like a miniature wiki, that can be added to any
     /// existing artists, labels, recordings, releases, release groups and works.
     pub annotation: Option<String>,
+}
+
+#[derive(Debug, Default, Serialize, Deserialize, QueryBuilder)]
+pub struct SeriesSearchQuery {
+    /// (part of) any alias attached to the series (diacritics are ignored)
+    pub alias: String,
+    /// (part of) the series' disambiguation comment
+    pub comment: String,
+    /// (part of) the series' name (diacritics are ignored)
+    pub series: String,
+    /// (part of) the series' name (with the specified diacritics)
+    #[query_builder_field = "seriesaccent"]
+    pub series_accent: String,
+    /// the series' MBID
+    pub sid: String,
+    /// (part of) a tag attached to the series
+    pub tag: String,
+    /// the series' type
+    #[query_builder_field = "type"]
+    pub series_type: String,
 }
 
 impl_browse!(Series, (by_collection, BrowseBy::Collection));
