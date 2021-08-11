@@ -1,3 +1,4 @@
+mod annotation;
 mod area;
 mod artist;
 mod event;
