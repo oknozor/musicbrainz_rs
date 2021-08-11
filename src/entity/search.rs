@@ -1,3 +1,4 @@
+use crate::entity::annotation::Annotation;
 use crate::entity::area::Area;
 use crate::entity::artist::Artist;
 use crate::entity::event::Event;
@@ -24,6 +25,13 @@ pub trait Searchable {
     const COUNT_FIELD: &'static str;
     const OFFSET_FIELD: &'static str;
     const ENTITIES_FIELD: &'static str;
+}
+
+impl Searchable for Annotation {
+    const CREATED_FIELD: &'static str = "created";
+    const COUNT_FIELD: &'static str = "count";
+    const OFFSET_FIELD: &'static str = "offset";
+    const ENTITIES_FIELD: &'static str = "annotations";
 }
 
 impl Searchable for Area {

@@ -1,6 +1,7 @@
 use std::marker::PhantomData;
 
 use crate::config::*;
+use crate::entity::annotation::Annotation;
 use crate::entity::area::Area;
 use crate::entity::artist::Artist;
 use crate::entity::coverart::Coverart;
@@ -79,6 +80,7 @@ macro_rules! impl_fetchcoverart {
 }
 
 pub mod alias;
+pub mod annotation;
 pub mod area;
 pub mod artist;
 pub mod artist_credit;
@@ -128,6 +130,7 @@ impl Browse<'_> for Instrument {}
 impl Browse<'_> for Series {}
 
 impl Search<'_> for Area {}
+impl Search<'_> for Annotation {}
 impl Search<'_> for Artist {}
 impl Search<'_> for Event {}
 impl Search<'_> for Instrument {}
@@ -137,6 +140,12 @@ impl Search<'_> for Release {}
 impl Search<'_> for ReleaseGroup {}
 impl Search<'_> for Series {}
 impl Search<'_> for Work {}
+
+impl Path<'_> for Annotation {
+    fn path() -> &'static str {
+        "annotation"
+    }
+}
 
 impl Path<'_> for Artist {
     fn path() -> &'static str {
