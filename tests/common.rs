@@ -1,6 +1,7 @@
 mod annotation;
 mod area;
 mod artist;
+mod cdstub;
 mod event;
 mod instrument;
 mod label;

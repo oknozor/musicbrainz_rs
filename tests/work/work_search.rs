@@ -11,7 +11,6 @@ fn should_search_work() {
         .arid("ea547ae6-8ab1-48b2-b1a9-70a638d2ad26")
         .build();
 
-    println!("{}", query);
     let result = Work::search(query).execute().unwrap();
 
     assert!(result
