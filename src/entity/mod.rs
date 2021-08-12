@@ -4,6 +4,7 @@ use crate::config::*;
 use crate::entity::annotation::Annotation;
 use crate::entity::area::Area;
 use crate::entity::artist::Artist;
+use crate::entity::cdstub::CDStub;
 use crate::entity::coverart::Coverart;
 use crate::entity::event::Event;
 use crate::entity::instrument::*;
@@ -84,6 +85,7 @@ pub mod annotation;
 pub mod area;
 pub mod artist;
 pub mod artist_credit;
+pub mod cdstub;
 pub mod coverart;
 pub mod event;
 pub mod genre;
@@ -140,6 +142,7 @@ impl Search<'_> for Release {}
 impl Search<'_> for ReleaseGroup {}
 impl Search<'_> for Series {}
 impl Search<'_> for Work {}
+impl Search<'_> for CDStub {}
 
 impl Path<'_> for Annotation {
     fn path() -> &'static str {
@@ -216,6 +219,12 @@ impl Path<'_> for Series {
 impl Path<'_> for Url {
     fn path() -> &'static str {
         "url"
+    }
+}
+
+impl Path<'_> for CDStub {
+    fn path() -> &'static str {
+        "cdstub"
     }
 }
 

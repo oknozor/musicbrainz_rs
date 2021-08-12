@@ -1,6 +1,7 @@
 use crate::entity::annotation::Annotation;
 use crate::entity::area::Area;
 use crate::entity::artist::Artist;
+use crate::entity::cdstub::CDStub;
 use crate::entity::event::Event;
 use crate::entity::instrument::Instrument;
 use crate::entity::label::Label;
@@ -102,4 +103,11 @@ impl Searchable for Work {
     const COUNT_FIELD: &'static str = "count";
     const OFFSET_FIELD: &'static str = "offset";
     const ENTITIES_FIELD: &'static str = "works";
+}
+
+impl Searchable for CDStub {
+    const CREATED_FIELD: &'static str = "created";
+    const COUNT_FIELD: &'static str = "count";
+    const OFFSET_FIELD: &'static str = "offset";
+    const ENTITIES_FIELD: &'static str = "cdstubs";
 }
