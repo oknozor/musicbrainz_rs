@@ -8,6 +8,357 @@ use crate::entity::BrowseBy;
 
 use lucene_query_builder::QueryBuilder;
 
+/// The "type" of a MusicBrainz work entity.
+/// 
+/// Each work can have one work type (the vast majority of works in MusicBrainz are `Song`s).
+/// Note that this enum is `non_exhaustive`; The list of work types is [subject to change](https://tickets.metabrainz.org/browse/STYLE-1884?jql=project%20%3D%20STYLE%20AND%20component%20%3D%20%22Work%20types%22).
+/// Variants are derived from the `work_type` table in the MusicBrainz database.
+// TODO: Needs Serialize, Deserialize, and PartialEq impl.
+// PartialEq impl should account for unrecognized values (which should probably always compare unequal)
+#[non_exhaustive]
+#[derive(Debug, Clone, Copy)]
+pub enum WorkType {
+    /// Corresponds to the "Song" work type.
+    /// Description from MusicBrainz:
+    /// > A song is in its origin (and still in most cases) a composition for voice, with or without instruments, performed by singing. This is the most common form by far in folk and popular music, but also fairly common in a classical context ("art songs").
+    Song,
+    /// Corresponds to the "Aria" work type.
+    /// Description from MusicBrainz:
+    /// > An aria is a self-contained piece for one voice usually with orchestral accompaniment. They are most common inside operas, but also appear in cantatas, oratorios and even on their own (concert arias).
+    Aria,
+    /// Corresponds to the "Audio drama" work type.
+    /// Description from MusicBrainz:
+    /// > An audio drama is a dramatized, purely acoustic performance, broadcast on radio or published on an audio medium (tape, CD, etc.).
+    AudioDrama,
+    /// Corresponds to the "Ballet" work type.
+    /// Description from MusicBrainz:
+    /// > A ballet is music composed to be used, together with a choreography, for a ballet dance production.
+    Ballet,
+    /// Corresponds to the "Beijing opera" work type.
+    /// Description from MusicBrainz:
+    /// > Beijing opera is a form of traditional Chinese theatre which combines music, vocal performance, mime, dance, and acrobatics.
+    BeijingOpera,
+    /// Corresponds to the "Cantata" work type.
+    /// Description from MusicBrainz:
+    /// > A cantata is a vocal (often choral) composition with an instrumental (usually orchestral) accompaniment, typically in several movements.
+    Cantata,
+    /// Corresponds to the "Concerto" work type.
+    /// Description from MusicBrainz:
+    /// > A concerto is a musical work for soloist(s) accompanied by an orchestra.
+    Concerto,
+    /// Corresponds to the "Étude" work type.
+    /// Description from MusicBrainz:
+    /// > An étude is an instrumental musical composition, most commonly of considerable difficulty, usually designed to provide practice material for perfecting a particular technical skill.
+    Etude,
+    /// Corresponds to the "Incidental music" work type.
+    /// Description from MusicBrainz:
+    /// > Incidental music is music written as background for (usually) a theatre play.
+    IncidentalMusic,
+    /// Corresponds to the "Madrigal" work type.
+    /// Description from MusicBrainz:
+    /// > The madrigal is a type of secular vocal music composition. In its original form, it had no instrumental accompaniment, although accompaniment is much more common in later madrigals.
+    Madrigal,
+    /// Corresponds to the "Mass" work type.
+    /// Description from MusicBrainz:
+    /// > A mass is a choral composition that sets the invariable portions of the Christian Eucharistic liturgy (Kyrie - Gloria - Credo - Sanctus - Benedictus - Agnus Dei, with other portions sometimes added) to music.
+    Mass,
+    /// Corresponds to the "Motet" work type.
+    /// Description from MusicBrainz:
+    /// > Motet" is a term that applies to different types of (usually unaccompanied) choral works. What exactly is a motet depends quite a bit on the period.
+    Motet,
+    /// Corresponds to the "Musical" work type.
+    /// Description from MusicBrainz:
+    /// > Musical theatre is a form of theatrical performance that combines songs, spoken dialogue, acting, and dance.
+    Musical,
+    /// Corresponds to the "Opera" work type.
+    /// Description from MusicBrainz:
+    /// > An opera is a dramatised work (text + musical score) for singers and orchestra/ensemble. In true operas all dialog is sung, through arias and recitatives, but some styles of opera include spoken dialogue.
+    Opera,
+    /// Corresponds to the "Operetta" work type.
+    /// Description from MusicBrainz:
+    /// > The operetta is a genre of light opera, in terms both of music and subject matter. Operettas are generally short and include spoken parts.
+    Operetta,
+    /// Corresponds to the "Oratorio" work type.
+    /// Description from MusicBrainz:
+    /// > An oratorio is a large (usually sacred) musical composition including an orchestra, a choir, and soloists. While it has characters and a plot, it is usually not performed theatrically (it lacks costumes, props and strong character interaction).
+    Oratorio,
+    /// Corresponds to the "Overture" work type.
+    /// Description from MusicBrainz:
+    /// > An overture is, generally, the instrumental introduction to an opera. Independent ("concert") overtures also exist, which are generally programmatic works shorter than a symphonic poem.
+    Overture,
+    /// Corresponds to the "Partita" work type.
+    /// Description from MusicBrainz:
+    /// > A partita is an instrumental piece composed of a series of variations, and it's by its current definition very similar to a suite.
+    Partita,
+    /// Corresponds to the "Play" work type.
+    /// Description from MusicBrainz:
+    /// > A play is a form of literature usually consisting of scripted dialogue between characters, and intended for theatrical performance rather than just reading.
+    Play,
+    /// Corresponds to the "Poem" work type.
+    /// Description from MusicBrainz:
+    /// > A poem is a literary piece, generally short and in verse, where words are usually chosen for their sound and for the images and ideas they suggest.
+    Poem,
+    /// Corresponds to the "Prose" work type.
+    /// Description from MusicBrainz:
+    /// > This represents literary works written in prose, that is, written in relatively ordinary language without metrical structure (e.g. novels, short stories, essays...).
+    Prose,
+    /// Corresponds to the "Quartet" work type.
+    /// Description from MusicBrainz:
+    /// > A quartet is a musical composition scored for four voices or instruments.
+    Quartet,
+    /// Corresponds to the "Sonata" work type.
+    /// Description from MusicBrainz:
+    /// > Sonata" is a general term used to describe small scale (very often solo or solo + keyboard) instrumental works, initially in baroque music.
+    Sonata,
+    /// Corresponds to the "Song-cycle" work type.
+    /// Description from MusicBrainz:
+    /// > A song cycle is a group of songs designed to be performed in a sequence as a single entity. In most cases, all of the songs are by the same composer, and often use words from the same poet or lyricist.
+    SongCycle,
+    /// Corresponds to the "Soundtrack" work type.
+    /// Description from MusicBrainz:
+    /// > A soundtrack is the music that accompanies a film, TV program, videogame, or even book.
+    Soundtrack,
+    /// Corresponds to the "Suite" work type.
+    /// Description from MusicBrainz:
+    /// > A suite is an ordered set of instrumental or orchestral pieces normally performed in a concert setting. They may be extracts from a ballet or opera, or entirely original movements.
+    Suite,
+    /// Corresponds to the "Symphonic poem" work type.
+    /// Description from MusicBrainz:
+    /// > A symphonic poem is a piece of programmatic orchestral music, usually in a single movement, that evokes a painting, a landscape, the content of a poem, a story or novel, or other non-musical source.
+    SymphonicPoem,
+    /// Corresponds to the "Symphony" work type.
+    /// Description from MusicBrainz:
+    /// > A symphony is an extended composition, almost always scored for orchestra without soloists.
+    Symphony,
+    /// Corresponds to the "Zarzuela" work type.
+    /// Description from MusicBrainz:
+    /// > A zarzuela is a Spanish lyric-dramatic work that alternates between spoken and sung scenes, the latter incorporating operatic and popular song, as well as dance.
+    Zarzuela,
+    /// Any music type that does not yet have a corresponding variant in this enum. If you ever see a `WorkType::UnrecognizedWorkType` in the wild, let us know and submit an issue/pull request!
+    UnrecognizedWorkType,
+}
+
+/// An attribute (Musical Key, ID from a rights society (like ASCAP or GEMA), Raga/Tala/Form/etc.) associated with a MusicBrainz work entity.
+/// 
+/// This enum is marked as `non_exhaustive` because it is subject to schema changes, adding in new rights societies or traditional melody/rhythm types.
+/// Variants are derived from the `work_attribute_type` table in the MusicBrainz database.
+// TODO: Needs Serialize, Deserialize, and PartialEq impl
+// PartialEq impl should account for unrecognized values (which should probably always compare unequal)
+#[non_exhaustive]
+#[derive(Debug, Clone)]
+pub enum WorkAttribute {
+    /// A musical key and mode
+    Key(MusicalKey),
+    /// ID for the Honduran rights society AACIMH
+    AacimhId(String),
+    /// ID for the Costa Rican rights society ACAM
+    AcamId(String),
+    /// ID for the Cuban rights society ACDAM
+    AcdamId(String),
+    /// ID for the Guatemalan rights society AEI
+    AeiId(String),
+    /// ID for the Uruguayan rights society AGADU
+    AgaduId(String),
+    /// ID for the Latvian rights society AKKA/LAA
+    AkkaLaaId(String),
+    /// ID for the Austrian rights society AKM
+    AkmId(String),
+    /// ID for the international (formerly US) rights society AMRA
+    AmraId(String),
+    /// ID for the Paraguayan rights society APA
+    ApaId(String),
+    /// ID for the Peruvian rights society APDAYC
+    ApdaycId(String),
+    /// ID for the Australasian rights society APRA
+    ApraId(String),
+    /// ID for the Hungarian rights society ARTISJUS
+    ArtisjusId(String),
+    /// ID for the US rights society ASCAP
+    AscapId(String),
+    /// ID for the US rights society BMI
+    BmiId(String),
+    /// ID for the Dutch rights society BUMA/STEMRA
+    BumaStemraId(String),
+    /// ID for the Hong Kong rights society CASH
+    CashId(String),
+    /// ID for the private licensing company CCLI
+    CcliId(String),
+    /// ID for the Singaporean rights society COMPASS
+    CompassId(String),
+    /// ID for the Barbadian rights society COSCAP
+    CoscapId(String),
+    /// ID for the Trinidadian and Tobagonian rights society COTT
+    CottId(String),
+    /// ID for the Brazilian rights society ECAD
+    EcadId(String),
+    /// ID for the German rights society GEMA
+    GemaId(String),
+    /// ID for the private licensing company HFA (Harry Fox Agency)
+    HfaId(String),
+    /// ID for the International Copyright Enterprise
+    IceId(String),
+    /// ID for the Irish rights society IMRO
+    ImroId(String),
+    /// ID for the Indian rights society IPRS
+    IprsId(String),
+    /// ID for the Jamaican rights society JACAP
+    JacapId(String),
+    /// ID for the Japanese rights society JASRAC
+    JasracId(String),
+    /// ID for the Danish rights society KODA
+    KodaId(String),
+    /// ID for the Korean rights society KOMCA
+    KomcaId(String),
+    /// ID for the international rights society consortium LatinNet
+    LatinnetId(String),
+    /// ID for the Malaysian rights society MACP
+    MacpId(String),
+    /// ID for the Chinese rights society MCSC
+    McscId(String),
+    /// ID for the Thai rights society MCT
+    MctId(String),
+    /// ID for the Taiwanese rights society MÜST
+    MüstId(String),
+    /// ID for the Nicaraguan rights society NICAUTOR
+    NicautorId(String),
+    /// ID for the Japanese rights society NexTone
+    NextoneId(String),
+    /// ID for the Czech rights society OSA
+    OsaId(String),
+    /// ID for the British rights society PRS for Music
+    PrsTuneCode(String),
+    /// ID for the Belgian rights society SABAM
+    SabamId(String),
+    /// ID for the French rights society Sacem
+    SacemId(String),
+    /// ID for the Salvadoran rights society SACIM
+    SacimId(String),
+    /// ID for the Mexican rights society SACM
+    SacmId(String),
+    /// ID for the Venezuelan rights society SACVEN
+    SacvenId(String),
+    /// ID for the Argentinean rights society SADAIC
+    SadaicId(String),
+    /// ID for the South African rights society SAMRO
+    SamroId(String),
+    /// ID for the Ecuadorian rights society SAYCE
+    SayceId(String),
+    /// ID for the Colombian rights society SAYCO
+    SaycoId(String),
+    /// ID for the US rights society SESAC
+    SesacId(String),
+    /// ID for the Dominican rights society SGACEDOM
+    SgacedomId(String),
+    /// ID for the Spanish rights society SGAE
+    SgaeId(String),
+    /// ID for the Italian rights society SIAE
+    SiaeId(String),
+    /// ID for the Bolivian rights society SOBODAYCOM
+    SobodaycomId(String),
+    /// ID for the Canadian rights society SOCAN
+    SocanId(String),
+    /// ID for the Canadian rights society SODRAC
+    SodracId(String),
+    /// ID for the Portuguese rights society SPA
+    SpaId(String),
+    /// ID for the Panamanian rights society SPAC
+    SpacId(String),
+    /// ID for the Icelandic rights society STEF
+    StefId(String),
+    /// ID for the Swedish rights society STIM
+    StimId(String),
+    /// ID for the Swiss rights society SUISA
+    SuisaId(String),
+    /// ID for the Finnish rights society TEOSTO
+    TeostoId(String),
+    /// ID for the Norwegian rights society TONO
+    TonoId(String),
+    /// ID for the Polish rights society ZAiKS
+    ZaiksId(String),
+    /// A [Carnatic Rāga](https://en.wikipedia.org/wiki/Carnatic_raga), a "melodic framework for improvization" in the Carnatic/South Indian Classical tradition.
+    RagaCarnatic(String),
+    /// A Carnatic [Tāla](https://en.wikipedia.org/wiki/Tala_(music)), a musical meter for Carnatic/South Indian Classical music.
+    TalaCarnatic(String),
+    FormOttomanTurkish(String),
+    MakamOttomanTurkish(String),
+    UsulOttomanTurkish(String),
+    /// A [Hindustani Rāga](https://en.wikipedia.org/wiki/Carnatic_raga), a "melodic framework for improvization" in the Hindustani/North Indian Classical music.
+    RagaHindustani(String),
+    /// A Hindustani [Tāla](https://en.wikipedia.org/wiki/Tala_(music)), a musical meter for Hindustani/North Indian Classical music.
+    TalaHindustani(String),
+    /// Any music type that does not yet have a corresponding variant in this enum. If you ever see an `UnrecognizedAttribute` in the wild, let us know and submit an issue/pull request!
+    UnrecognizedAttribute(String, String),
+}
+
+/// The musical key and mode associated with a work
+/// 
+/// Marked as `non_exhaustive` because it is conceivable that MusicBrainz would add more musical modes. 
+/// Musical Keys are found as possible allowed values for work attribute types in `work_attribute_type_allowed_value`.  
+// TODO: Needs Serialize, Deserialize, and PartialEq impl. 
+// PartialEq impl should account for unrecognized values (which should probably always compare unequal)
+#[non_exhaustive]
+#[derive(Debug, Clone, Copy)]
+pub enum MusicalKey {
+    CFlatMajor,
+    CFlatMinor,
+    CMajor,
+    CMinor,
+    CSharpMajor,
+    CSharpMinor,
+    DFlatMajor,
+    DFlatMinor,
+    DMajor,
+    DMinor,
+    DSharpMajor,
+    DSharpMinor,
+    EFlatMajor,
+    EFlatMinor,
+    EMajor,
+    EMinor,
+    ESharpMajor,
+    ESharpMinor,
+    FFlatMajor,
+    FFlatMinor,
+    FMajor,
+    FMinor,
+    FSharpMajor,
+    FSharpMinor,
+    GFlatMajor,
+    GFlatMinor,
+    GMajor,
+    GMinor,
+    GSharpMajor,
+    GSharpMinor,
+    AFlatMajor,
+    AFlatMinor,
+    AMajor,
+    AMinor,
+    ASharpMajor,
+    ASharpMinor,
+    BFlatMajor,
+    BFlatMinor,
+    BMajor,
+    BMinor,
+    BSharpMajor,
+    BSharpMinor,
+    CDorian,
+    DDorian,
+    EDorian,
+    FDorian,
+    GDorian,
+    ADorian,
+    BDorian,
+    CMixolydian,
+    DMixolydian,
+    EMixolydian,
+    FMixolydian,
+    GMixolydian,
+    AMixolydian,
+    BMixolydian,
+    /// Any musical key that does not yet have a corresponding variant in this enum. If you ever see an `UnrecognizedKey` in the wild, let us know and submit an issue/pull request!
+    UnrecognizedKey,
+}
+
 /// In MusicBrainz terminology, a work is a distinct intellectual or artistic creation, which can be
 /// expressed in the form of one or more audio recordings. While a work in MusicBrainz is usually
 /// musical in nature, it is not necessarily so. For example, a work could be a novel, play,
@@ -20,11 +371,14 @@ pub struct Work {
     pub title: String,
     pub type_id: Option<String>,
     /// Works are represented predominantly at two levels: Discrete works, Aggregate works.
-    // FIXME: Can we use a `WorkType` enum here?
     #[serde(rename = "type")]
-    pub work_type: Option<String>,
+    pub work_type: Option<WorkType>,
+    // Discuss: Is it reasonable to have a Language enum (which would almost certainly have up to thousands of variants)?
     pub language: Option<String>,
     pub languages: Option<Vec<String>>,
+    pub iswc: Option<String>,
+    pub iswcs: Option<Vec<String>>,
+    pub work_attributes: Option<Vec<WorkAttribute>>,
     /// The disambiguation comments are fields in the database used to help distinguish identically
     /// named artists, labels and other entities.
     pub disambiguation: Option<String>,
