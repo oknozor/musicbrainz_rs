@@ -373,15 +373,22 @@ pub enum WorkAttribute {
     #[serde(rename = "ZAiKS ID")]
     ZaiksId(String),
     /// A [Carnatic Rāga](https://en.wikipedia.org/wiki/Carnatic_raga), a "melodic framework for improvization" in the Carnatic/South Indian Classical tradition.
+    #[serde(rename = "Rāga (Carnatic)")]
     RagaCarnatic(String),
     /// A Carnatic [Tāla](https://en.wikipedia.org/wiki/Tala_(music)), a musical meter for Carnatic/South Indian Classical music.
+    #[serde(rename = "Tāla (Carnatic)")]
     TalaCarnatic(String),
+    #[serde(rename = "Makam (Ottoman, Turkish)")]
     FormOttomanTurkish(String),
+    #[serde(rename = "Form (Ottoman, Turkish)")]
     MakamOttomanTurkish(String),
+    #[serde(rename = "Usul (Ottoman, Turkish)")]
     UsulOttomanTurkish(String),
-    /// A [Hindustani Rāga](https://en.wikipedia.org/wiki/Carnatic_raga), a "melodic framework for improvization" in the Hindustani/North Indian Classical music.
+    /// A Hindustani [Rāga](https://en.wikipedia.org/wiki/Raga), a "melodic framework for improvization" in the Hindustani/North Indian Classical music.
+    #[serde(rename = "Rāga (Hindustani)")]
     RagaHindustani(String),
     /// A Hindustani [Tāla](https://en.wikipedia.org/wiki/Tala_(music)), a musical meter for Hindustani/North Indian Classical music.
+    #[serde(rename = "Tāla (Hindustani)")]
     TalaHindustani(String),
     /// Any music type that does not yet have a corresponding variant in this enum. If you ever see an `UnrecognizedAttribute` in the wild, let us know and submit an issue/pull request!
     #[serde(other)]
