@@ -13,10 +13,8 @@ use lucene_query_builder::QueryBuilder;
 /// Each work can have one work type (the vast majority of works in MusicBrainz are `Song`s).
 /// Note that this enum is `non_exhaustive`; The list of work types is [subject to change](https://tickets.metabrainz.org/browse/STYLE-1884?jql=project%20%3D%20STYLE%20AND%20component%20%3D%20%22Work%20types%22).
 /// Variants are derived from the `work_type` table in the MusicBrainz database.
-// TODO: Needs Serialize, Deserialize, and PartialEq impl.
-// PartialEq impl should account for unrecognized values (which should probably always compare unequal)
 #[non_exhaustive]
-#[derive(Debug, Clone, Copy)]
+#[derive(Debug, Clone, PartialEq, Eq, Serialize, Deserialize)]
 pub enum WorkType {
     /// Corresponds to the "Song" work type.
     /// Description from MusicBrainz:
@@ -135,145 +133,244 @@ pub enum WorkType {
     /// > A zarzuela is a Spanish lyric-dramatic work that alternates between spoken and sung scenes, the latter incorporating operatic and popular song, as well as dance.
     Zarzuela,
     /// Any music type that does not yet have a corresponding variant in this enum. If you ever see a `WorkType::UnrecognizedWorkType` in the wild, let us know and submit an issue/pull request!
-    UnrecognizedWorkType,
+    UnrecognizedWorkType(String),
 }
 
-/// An attribute (Musical Key, ID from a rights society (like ASCAP or GEMA), Raga/Tala/Form/etc.) associated with a MusicBrainz work entity.
+impl From<String> for WorkType {
+    fn from(source: String) -> Self {
+        match source.as_str() {
+            "Song" => Self::Song,
+            "Aria" => Self::Aria,
+            "Audio drama" => Self::AudioDrama,
+            "Ballet" => Self::Ballet,
+            "Beijing opera" => Self::BeijingOpera,
+            "Cantata" => Self::Cantata,
+            "Concerto" => Self::Concerto,
+            "Étude" => Self::Etude,
+            "Incidental music" => Self::IncidentalMusic,
+            "Madrigal" => Self::Madrigal,
+            "Mass" => Self::Mass,
+            "Motet" => Self::Motet,
+            "Musical" => Self::Musical,
+            "Opera" => Self::Opera,
+            "Operetta" => Self::Operetta,
+            "Oratorio" => Self::Oratorio,
+            "Overture" => Self::Overture,
+            "Partita" => Self::Partita,
+            "Play" => Self::Play,
+            "Poem" => Self::Poem,
+            "Prose" => Self::Prose,
+            "Quartet" => Self::Quartet,
+            "Sonata" => Self::Sonata,
+            "Song-cycle" => Self::SongCycle,
+            "Soundtrack" => Self::Soundtrack,
+            "Suite" => Self::Suite,
+            "Symphonic poem" => Self::SymphonicPoem,
+            "Symphony" => Self::Symphony,
+            "Zarzuela" => Self::Zarzuela,
+            t => Self::UnrecognizedWorkType(t.to_string()),
+        }
+    }
+}
+
+/// An attribute (Musical Key, ID from a rights society (like ASCAP or GEMA), Raga/Tala/Form/etc.) associated with a MusicBrainz work entity. Should have a value as well.
 /// 
 /// This enum is marked as `non_exhaustive` because it is subject to schema changes, adding in new rights societies or traditional melody/rhythm types.
 /// Variants are derived from the `work_attribute_type` table in the MusicBrainz database.
-// TODO: Needs Serialize, Deserialize, and PartialEq impl
-// PartialEq impl should account for unrecognized values (which should probably always compare unequal)
 #[non_exhaustive]
-#[derive(Debug, Clone)]
+#[derive(Debug, Clone, PartialEq, Eq, Serialize, Deserialize)]
+#[serde(tag = "type", content = "value")]
 pub enum WorkAttribute {
     /// A musical key and mode
     Key(MusicalKey),
     /// ID for the Honduran rights society AACIMH
+    #[serde(rename = "AACIMH ID")]
     AacimhId(String),
     /// ID for the Costa Rican rights society ACAM
+    #[serde(rename = "ACAM ID")]
     AcamId(String),
     /// ID for the Cuban rights society ACDAM
+    #[serde(rename = "ACDAM ID")]
     AcdamId(String),
     /// ID for the Guatemalan rights society AEI
+    #[serde(rename = "AEI ID")]
     AeiId(String),
     /// ID for the Uruguayan rights society AGADU
+    #[serde(rename = "AGADU ID")]
     AgaduId(String),
     /// ID for the Latvian rights society AKKA/LAA
+    #[serde(rename = "AKKA/LAA ID")]
     AkkaLaaId(String),
     /// ID for the Austrian rights society AKM
+    #[serde(rename = "AKM ID")]
     AkmId(String),
     /// ID for the international (formerly US) rights society AMRA
+    #[serde(rename = "AMRA ID")]
     AmraId(String),
     /// ID for the Paraguayan rights society APA
+    #[serde(rename = "APA ID")]
     ApaId(String),
     /// ID for the Peruvian rights society APDAYC
+    #[serde(rename = "APDAYC ID")]
     ApdaycId(String),
     /// ID for the Australasian rights society APRA
+    #[serde(rename = "APRA ID")]
     ApraId(String),
     /// ID for the Hungarian rights society ARTISJUS
+    #[serde(rename = "ARTISJUS ID")]
     ArtisjusId(String),
     /// ID for the US rights society ASCAP
+    #[serde(rename = "ASCAP ID")]
     AscapId(String),
     /// ID for the US rights society BMI
+    #[serde(rename = "BMI ID")]
     BmiId(String),
     /// ID for the Dutch rights society BUMA/STEMRA
+    #[serde(rename = "BUMA/STEMRA ID")]
     BumaStemraId(String),
     /// ID for the Hong Kong rights society CASH
+    #[serde(rename = "CASH ID")]
     CashId(String),
     /// ID for the private licensing company CCLI
+    #[serde(rename = "CCLI ID")]
     CcliId(String),
     /// ID for the Singaporean rights society COMPASS
+    #[serde(rename = "COMPASS ID")]
     CompassId(String),
     /// ID for the Barbadian rights society COSCAP
+    #[serde(rename = "COSCAP ID")]
     CoscapId(String),
     /// ID for the Trinidadian and Tobagonian rights society COTT
+    #[serde(rename = "COTT ID")]
     CottId(String),
     /// ID for the Brazilian rights society ECAD
+    #[serde(rename = "ECAD ID")]
     EcadId(String),
     /// ID for the German rights society GEMA
+    #[serde(rename = "GEMA ID")]
     GemaId(String),
     /// ID for the private licensing company HFA (Harry Fox Agency)
+    #[serde(rename = "HFA ID")]
     HfaId(String),
     /// ID for the International Copyright Enterprise
+    #[serde(rename = "ICE ID")]
     IceId(String),
     /// ID for the Irish rights society IMRO
+    #[serde(rename = "IMRO ID")]
     ImroId(String),
     /// ID for the Indian rights society IPRS
+    #[serde(rename = "IPRS ID")]
     IprsId(String),
     /// ID for the Jamaican rights society JACAP
+    #[serde(rename = "JACAP ID")]
     JacapId(String),
     /// ID for the Japanese rights society JASRAC
+    #[serde(rename = "JASRAC ID")]
     JasracId(String),
     /// ID for the Danish rights society KODA
+    #[serde(rename = "KODA ID")]
     KodaId(String),
     /// ID for the Korean rights society KOMCA
+    #[serde(rename = "KOMCA ID")]
     KomcaId(String),
     /// ID for the international rights society consortium LatinNet
+    #[serde(rename = "LatinNet ID")]
     LatinnetId(String),
     /// ID for the Malaysian rights society MACP
+    #[serde(rename = "MACP ID")]
     MacpId(String),
     /// ID for the Chinese rights society MCSC
+    #[serde(rename = "MCSC ID")]
     McscId(String),
     /// ID for the Thai rights society MCT
+    #[serde(rename = "MCT ID")]
     MctId(String),
     /// ID for the Taiwanese rights society MÜST
+    #[serde(rename = "MÜST ID")]
     MüstId(String),
     /// ID for the Nicaraguan rights society NICAUTOR
+    #[serde(rename = "NexTone ID")]
     NicautorId(String),
     /// ID for the Japanese rights society NexTone
+    #[serde(rename = "NICAUTOR ID")]
     NextoneId(String),
     /// ID for the Czech rights society OSA
+    #[serde(rename = "OSA ID")]
     OsaId(String),
     /// ID for the British rights society PRS for Music
+    #[serde(rename = "PRS tune code")]
     PrsTuneCode(String),
     /// ID for the Belgian rights society SABAM
+    #[serde(rename = "SABAM ID")]
     SabamId(String),
     /// ID for the French rights society Sacem
+    #[serde(rename = "SACEM ID")]
     SacemId(String),
     /// ID for the Salvadoran rights society SACIM
+    #[serde(rename = "SACIM ID")]
     SacimId(String),
     /// ID for the Mexican rights society SACM
+    #[serde(rename = "SACM ID")]
     SacmId(String),
     /// ID for the Venezuelan rights society SACVEN
+    #[serde(rename = "SACVEN ID")]
     SacvenId(String),
     /// ID for the Argentinean rights society SADAIC
+    #[serde(rename = "SADAIC ID")]
     SadaicId(String),
     /// ID for the South African rights society SAMRO
+    #[serde(rename = "SAMRO ID")]
     SamroId(String),
     /// ID for the Ecuadorian rights society SAYCE
+    #[serde(rename = "SAYCE ID")]
     SayceId(String),
     /// ID for the Colombian rights society SAYCO
+    #[serde(rename = "SAYCO ID")]
     SaycoId(String),
     /// ID for the US rights society SESAC
+    #[serde(rename = "SESAC ID")]
     SesacId(String),
     /// ID for the Dominican rights society SGACEDOM
+    #[serde(rename = "SGACEDOM ID")]
     SgacedomId(String),
     /// ID for the Spanish rights society SGAE
+    #[serde(rename = "SGAE ID")]
     SgaeId(String),
     /// ID for the Italian rights society SIAE
+    #[serde(rename = "SIAE ID")]
     SiaeId(String),
     /// ID for the Bolivian rights society SOBODAYCOM
+    #[serde(rename = "SOBODAYCOM ID")]
     SobodaycomId(String),
     /// ID for the Canadian rights society SOCAN
+    #[serde(rename = "SOCAN ID")]
     SocanId(String),
     /// ID for the Canadian rights society SODRAC
+    #[serde(rename = "SODRAC ID")]
     SodracId(String),
     /// ID for the Portuguese rights society SPA
+    #[serde(rename = "SPA ID")]
     SpaId(String),
     /// ID for the Panamanian rights society SPAC
+    #[serde(rename = "SPAC ID")]
     SpacId(String),
     /// ID for the Icelandic rights society STEF
+    #[serde(rename = "STEF ID")]
     StefId(String),
     /// ID for the Swedish rights society STIM
+    #[serde(rename = "STIM ID")]
     StimId(String),
     /// ID for the Swiss rights society SUISA
+    #[serde(rename = "SUISA ID")]
     SuisaId(String),
     /// ID for the Finnish rights society TEOSTO
+    #[serde(rename = "TEOSTO ID")]
     TeostoId(String),
     /// ID for the Norwegian rights society TONO
+    #[serde(rename = "TONO ID")]
     TonoId(String),
     /// ID for the Polish rights society ZAiKS
+    #[serde(rename = "ZAiKS ID")]
     ZaiksId(String),
     /// A [Carnatic Rāga](https://en.wikipedia.org/wiki/Carnatic_raga), a "melodic framework for improvization" in the Carnatic/South Indian Classical tradition.
     RagaCarnatic(String),
@@ -287,17 +384,17 @@ pub enum WorkAttribute {
     /// A Hindustani [Tāla](https://en.wikipedia.org/wiki/Tala_(music)), a musical meter for Hindustani/North Indian Classical music.
     TalaHindustani(String),
     /// Any music type that does not yet have a corresponding variant in this enum. If you ever see an `UnrecognizedAttribute` in the wild, let us know and submit an issue/pull request!
-    UnrecognizedAttribute(String, String),
+    #[serde(other)]
+    UnrecognizedAttribute,
 }
+
 
 /// The musical key and mode associated with a work
 /// 
 /// Marked as `non_exhaustive` because it is conceivable that MusicBrainz would add more musical modes. 
 /// Musical Keys are found as possible allowed values for work attribute types in `work_attribute_type_allowed_value`.  
-// TODO: Needs Serialize, Deserialize, and PartialEq impl. 
-// PartialEq impl should account for unrecognized values (which should probably always compare unequal)
 #[non_exhaustive]
-#[derive(Debug, Clone, Copy)]
+#[derive(Debug, Clone, PartialEq, Eq, Serialize, Deserialize)]
 pub enum MusicalKey {
     CFlatMajor,
     CFlatMinor,
@@ -356,7 +453,71 @@ pub enum MusicalKey {
     AMixolydian,
     BMixolydian,
     /// Any musical key that does not yet have a corresponding variant in this enum. If you ever see an `UnrecognizedKey` in the wild, let us know and submit an issue/pull request!
-    UnrecognizedKey,
+    UnrecognizedKey(String),
+}
+
+impl From<String> for MusicalKey{
+    fn from(source: String) -> Self {
+        match source.as_str() {
+            "C major" => Self::CMajor,
+            "C minor" => Self::CMinor,
+            "C-flat major" => Self::CFlatMajor,
+            "C-flat minor" => Self::CFlatMinor,
+            "C-sharp major" => Self::CSharpMajor,
+            "C-sharp minor" => Self::CSharpMinor,
+            "D major" => Self::DMajor,
+            "D minor" => Self::DMinor,
+            "D-flat major" => Self::DFlatMajor,
+            "D-flat minor" => Self::DFlatMinor,
+            "D-sharp major" => Self::DSharpMajor,
+            "D-sharp minor" => Self::DSharpMinor,
+            "E major" => Self::EMajor,
+            "E minor" => Self::EMinor,
+            "E-flat major" => Self::EFlatMajor,
+            "E-flat minor" => Self::EFlatMinor,
+            "E-sharp major" => Self::ESharpMajor,
+            "E-sharp minor" => Self::ESharpMinor,
+            "F major" => Self::FMajor,
+            "F minor" => Self::FMinor,
+            "F-flat major" => Self::FFlatMajor,
+            "F-flat minor" => Self::FFlatMinor,
+            "F-sharp major" => Self::FSharpMajor,
+            "F-sharp minor" => Self::FSharpMinor,
+            "G major" => Self::GMajor,
+            "G minor" => Self::GMinor,
+            "G-flat major" => Self::GFlatMajor,
+            "G-flat minor" => Self::GFlatMinor,
+            "G-sharp major" => Self::GSharpMajor,
+            "G-sharp minor" => Self::GSharpMinor,
+            "A major" => Self::AMajor,
+            "A minor" => Self::AMinor,
+            "A-flat major" => Self::AFlatMajor,
+            "A-flat minor" => Self::AFlatMinor,
+            "A-sharp major" => Self::ASharpMajor,
+            "A-sharp minor" => Self::ASharpMinor,
+            "B major" => Self::BMajor,
+            "B minor" => Self::BMinor,
+            "B-flat major" => Self::BFlatMajor,
+            "B-flat minor" => Self::BFlatMinor,
+            "B-sharp major" => Self::BSharpMajor,
+            "B-sharp minor" => Self::BSharpMinor,
+            "C Dorian" => Self::CDorian,
+            "D Dorian" => Self::DDorian,
+            "E Dorian" => Self::EDorian,
+            "F Dorian" => Self::FDorian,
+            "G Dorian" => Self::GDorian,
+            "A Dorian" => Self::ADorian,
+            "B Dorian" => Self::BDorian,
+            "C Mixolydian" => Self::CMixolydian,
+            "D Mixolydian" => Self::DMixolydian,
+            "E Mixolydian" => Self::EMixolydian,
+            "F Mixolydian" => Self::FMixolydian,
+            "G Mixolydian" => Self::GMixolydian,
+            "A Mixolydian" => Self::AMixolydian,
+            "B Mixolydian" => Self::BMixolydian,
+            k => Self::UnrecognizedKey(k.to_string()),
+        }
+    }
 }
 
 /// In MusicBrainz terminology, a work is a distinct intellectual or artistic creation, which can be
@@ -376,9 +537,8 @@ pub struct Work {
     // Discuss: Is it reasonable to have a Language enum (which would almost certainly have up to thousands of variants)?
     pub language: Option<String>,
     pub languages: Option<Vec<String>>,
-    pub iswc: Option<String>,
     pub iswcs: Option<Vec<String>>,
-    pub work_attributes: Option<Vec<WorkAttribute>>,
+    pub attributes: Option<Vec<WorkAttribute>>,
     /// The disambiguation comments are fields in the database used to help distinguish identically
     /// named artists, labels and other entities.
     pub disambiguation: Option<String>,
