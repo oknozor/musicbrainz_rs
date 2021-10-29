@@ -14,5 +14,5 @@ fn should_search_label() {
     assert!(result
         .entities
         .iter()
-        .any(|label| label.label_type.as_ref().unwrap() == "Production"));
+        .any(|label| label.label_type.as_ref().unwrap() == &LabelType::Production));
 }

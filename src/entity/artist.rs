@@ -102,30 +102,57 @@ pub struct Artist {
     pub life_span: Option<LifeSpan>,
 }
 
-#[derive(Debug, Serialize, Deserialize, PartialEq, Clone)]
+/// The type of a MusicBrainz artist entity.
+/// Note that this enum is `non_exhaustive`; The list of artist types is subject to change and these
+/// changes are only reflected in the DB, not in actual MB code.
+/// Variants are derived from the `artist_type` table in the MusicBrainz database.
+#[non_exhaustive]
+#[derive(Debug, Serialize, Deserialize, PartialEq, Eq, Clone)]
 pub enum ArtistType {
-    /// This indicates an individual person.
-    Person,
-    /// This indicates a group of people that may or may not have a distinctive name.
-    Group,
-    /// This indicates an orchestra (a large instrumental ensemble).
-    Orchestra,
-    /// This indicates a choir/chorus (a large vocal ensemble).
+    /// This indicates a choir/chorus (an organized, usually large group of singers). Smaller
+    /// vocal ensembles and groupings that do not generally call themselves choirs are better
+    /// entered as “Group”.
     Choir,
-    /// This indicates an individual fictional character.
+    /// This indicates an orchestra (an organized, usually large group of instrumentalists).
+    /// Smaller ensembles (such as trios and quartets) and groupings that do not generally call
+    /// themselves orchestras are better entered as “Group”.
+    Orchestra,
+    /// This indicates an individual person, be it under its legal name (“John Lennon”), or a
+    /// performance name (“Sting”).
+    Person,
+    /// A grouping of multiple musicians who perform together (in some cases, some or all of the
+    /// members might differ in different performances or recordings).
+    Group,
+    /// This indicates an individual fictional character (whether a fictional person, animal or
+    /// any other kind of character).
     Character,
     /// Anything which does not fit into the above categories.
     Other,
+    /// Any artist_type that does not yet have a corresponding variant in this enum.
+    /// If you ever see a `ArtistType::UnrecognizedArtistType` in the wild, let us know and file an issue/pull request!
+    #[serde(other)]
+    UnrecognizedArtistType,
 }
 
 /// The gender is used to explicitly state whether a person or character identifies as male,
 /// female or neither. Groups do not have genders.
-#[derive(Debug, Serialize, Deserialize, PartialEq, Clone)]
+/// The type of a MusicBrainz gender entity.
+/// Note that this enum is `non_exhaustive`; The list of gender types is subject to change and these
+/// changes are only reflected in the DB, not in actual MB code.
+/// Variants are derived from the `gender` table in the MusicBrainz database.
+#[non_exhaustive]
+#[derive(Debug, Serialize, Deserialize, PartialEq, Eq, Clone)]
 pub enum Gender {
     Male,
     Female,
-    #[serde(other)]
     Other,
+    /// For cases where gender just doesn't apply at all (like companies entered as artists).
+    #[serde(rename = "Not applicable")]
+    NotApplicable,
+    /// Any gender that does not yet have a corresponding variant in this enum.
+    /// If you ever see a `Gender::UnrecognizedGender` in the wild, let us know and file an issue/pull request!
+    #[serde(other)]
+    UnrecognizedGender,
 }
 
 impl Default for Gender {
@@ -165,7 +192,7 @@ pub struct ArtistSearchQuery {
     /// a boolean flag (true/false) indicating whether or not the artist has ended (is dissolved/deceased)
     ended: bool,
     /// the artist's gender (“male”, “female”, “other” or “not applicable”)
-    gender: Gender,
+    gender: Option<Gender>,
     /// an IPI code associated with the artist
     ipi: String,
     /// an ISNI code associated with the artist
@@ -177,7 +204,7 @@ pub struct ArtistSearchQuery {
     tag: String,
     /// the artist's type (“person”, “group”, etc.)
     #[query_builder_field = "type"]
-    artist_type: String,
+    artist_type: Option<ArtistType>,
 }
 
 impl_browse! {

@@ -25,10 +25,10 @@ pub struct ReleaseGroup {
     /// The type describes what kind of releases the release group represents, for example album,
     /// single, soundtrack, compilation etc.
     /// See the Type subpage for a full list of release group types.
-    pub primary_type: Option<String>,
+    pub primary_type: Option<ReleaseGroupPrimaryType>,
 
     pub secondary_type_ids: Vec<String>,
-    pub secondary_types: Vec<String>,
+    pub secondary_types: Vec<ReleaseGroupSecondaryType>,
 
     #[serde(deserialize_with = "date_format::deserialize_opt")]
     pub first_release_date: Option<NaiveDate>,
@@ -56,6 +56,52 @@ pub struct ReleaseGroup {
     /// Annotations are text fields, functioning like a miniature wiki, that can be added to any
     /// existing artists, labels, recordings, releases, release groups and works.
     pub annotation: Option<String>,
+}
+
+/// The primary type of a MusicBrainz release group.
+/// Note that this enum is `non_exhaustive`; The list of release types is subject to change and
+/// these changes are only reflected in the DB, not in actual MB code.
+/// Variants are derived from the `release_group_primary_type` table in the MusicBrainz database.
+#[non_exhaustive]
+#[derive(Debug, Serialize, Deserialize, PartialEq, Eq, Clone)]
+pub enum ReleaseGroupPrimaryType {
+    Album,
+    Single,
+    #[serde(rename = "EP")]
+    Ep,
+    Broadcast,
+    Other,
+    /// Any release_group_primary_type that does not yet have a corresponding variant in this enum.
+    /// If you ever see a `ReleaseGroupPrimaryType::UnrecognizedReleaseGroupPrimaryType` in the wild, let us know and file an issue/pull request!
+    #[serde(other)]
+    UnrecognizedReleaseGroupPrimaryType,
+}
+
+/// The secondary type of a MusicBrainz release group entity.
+/// Note that this enum is `non_exhaustive`; The list of release types is subject to change and
+/// these changes are only reflected in the DB, not in actual MB code.
+/// Variants are derived from the `release_group_secondary_type` table in the MusicBrainz database.
+#[non_exhaustive]
+#[derive(Debug, Serialize, Deserialize, PartialEq, Eq, Clone)]
+pub enum ReleaseGroupSecondaryType {
+    #[serde(rename = "Audio drama")]
+    AudioDrama,
+    Audiobook,
+    Compilation,
+    #[serde(rename = "DJ-mix")]
+    DjMix,
+    Demo,
+    Interview,
+    Live,
+    #[serde(rename = "Mixtape/Street")]
+    MixtapeStreet,
+    Remix,
+    Soundtrack,
+    Spokenword,
+    /// Any release_group_secondary_type that does not yet have a corresponding variant in this enum.
+    /// If you ever see a `ReleaseGroupSecondaryType::UnrecognizedReleaseGroupSecondaryType` in the wild, let us know and file an issue/pull request!
+    #[serde(other)]
+    UnrecognizedReleaseGroupSecondaryType,
 }
 
 #[derive(Debug, QueryBuilder, Default)]

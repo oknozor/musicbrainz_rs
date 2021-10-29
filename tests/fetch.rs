@@ -8,7 +8,7 @@ use musicbrainz_rs::entity::area::AreaType::*;
 use musicbrainz_rs::entity::area::*;
 use musicbrainz_rs::entity::artist::ArtistType::*;
 use musicbrainz_rs::entity::artist::*;
-use musicbrainz_rs::entity::event::Event;
+use musicbrainz_rs::entity::event::{Event, EventType};
 use musicbrainz_rs::entity::instrument::InstrumentType::*;
 use musicbrainz_rs::entity::instrument::*;
 use musicbrainz_rs::entity::label::*;
@@ -178,7 +178,7 @@ fn should_get_release_group_by_id() {
         ReleaseGroup {
             id: "2a0981fb-9593-3019-864b-ce934d97a16e".to_string(),
             primary_type_id: Some("f529b476-6e62-324f-b0aa-1f3e33d313fc".to_string()),
-            primary_type: Some("Album".to_string()),
+            primary_type: Some(ReleaseGroupPrimaryType::Album),
             secondary_type_ids: vec![],
             secondary_types: vec![],
             first_release_date: Some(NaiveDate::from_ymd(1993, 9, 21)),
@@ -215,7 +215,7 @@ fn should_get_release() {
             barcode: Some("0208314671259".to_string()),
             disambiguation: Some("".to_string()),
             packaging_id: Some("ec27701a-4a22-37f4-bfac-6616e0f9750a".to_string()),
-            packaging: Some("Jewel Case".to_string()),
+            packaging: Some(ReleasePackaging::JewelCase),
             relations: None,
             artist_credit: None,
             label_info: None,
@@ -294,7 +294,7 @@ fn should_get_label_by_id() {
         Label {
             id: "dc940013-b8a8-4362-a465-291026c04b42".to_string(),
             type_id: Some("7aaa37fe-2def-3476-b359-80245850062d".to_string()),
-            label_type: Some("Original Production".to_string()),
+            label_type: Some(LabelType::OriginalProduction),
             name: "Ninja Tune".to_string(),
             sort_name: Some("Ninja Tune".to_string()),
             disambiguation: Some("".to_string()),
@@ -354,7 +354,7 @@ fn should_get_event_by_id() {
             name: "Dour 1989".to_string(),
             cancelled: Some(false),
             type_id: Some("b6ded574-b592-3f0e-b56e-5b5f06aa0678".to_string()),
-            event_type: Some("Festival".to_string()),
+            event_type: Some(EventType::Festival),
             disambiguation: Some("".to_string()),
             time: "".to_string(),
             setlist: Some("".to_string()),
@@ -456,7 +456,7 @@ fn should_get_series() {
         Series {
             id: "814fb4d5-327f-4e37-8784-f8a707e5f97c".to_string(),
             type_id: "dd968243-7128-30a2-81f0-79843430a8e2".to_string(),
-            series_type: "Recording series".to_string(),
+            series_type: SeriesType::RecordingSeries,
             disambiguation: "".to_string(),
             name: "La Chanson du Dimanche — Saison 4".to_string(),
             relations: None,

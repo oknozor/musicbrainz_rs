@@ -118,13 +118,13 @@ fn should_get_area_url_relations() {
 
 #[test]
 fn should_get_area_work_relations() {
-    let london = Area::fetch()
-        .id("f03d09b3-39dc-4083-afd6-159e3f0d462f")
+    let andorra = Area::fetch()
+        .id("e01da61e-99a8-3c76-a27d-774c3f4982f0")
         .with_work_relations()
         .execute()
         .unwrap();
 
-    let relations = london.relations.unwrap();
+    let relations = andorra.relations.unwrap();
 
     assert!(relations.iter().any(|rel| rel.relation_type == "anthem"));
 }

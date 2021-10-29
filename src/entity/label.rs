@@ -21,7 +21,7 @@ pub struct Label {
     pub type_id: Option<String>,
     /// The type describes the main activity of the label.
     #[serde(rename = "type")]
-    pub label_type: Option<String>,
+    pub label_type: Option<LabelType>,
     /// The official name of the label.
     pub name: String,
     pub sort_name: Option<String>,
@@ -81,7 +81,7 @@ pub struct LabelSearchQuery {
     pub tag: String,
     /// the label's type
     #[query_builder_field = "type"]
-    pub instrument_type: String,
+    pub label_type: Option<LabelType>,
 }
 
 #[derive(Debug, Serialize, Deserialize, PartialEq, Clone)]
@@ -89,6 +89,33 @@ pub struct LabelSearchQuery {
 pub struct LabelInfo {
     pub catalog_number: Option<String>,
     pub label: Option<Label>,
+}
+
+/// The type of a MusicBrainz label entity.
+/// Note that this enum is `non_exhaustive`; The list of label types is subject to change and these
+/// changes are only reflected in the DB, not in actual MB code.
+/// Variants are derived from the `label_type` table in the MusicBrainz database.
+#[non_exhaustive]
+#[derive(Debug, Serialize, Deserialize, PartialEq, Eq, Clone)]
+pub enum LabelType {
+    #[serde(rename = "Bootleg Production")]
+    BootlegProduction,
+    Distributor,
+    Holding,
+    Imprint,
+    #[serde(rename = "Original Production")]
+    OriginalProduction,
+    Production,
+    Publisher,
+    #[serde(rename = "Reissue Production")]
+    ReissueProduction,
+    #[serde(rename = "Rights Society")]
+    RightsSociety,
+    Manufacturer,
+    /// Any label_type that does not yet have a corresponding variant in this enum.
+    /// If you ever see a `LabelType::UnrecognizedLabelType` in the wild, let us know and file an issue/pull request!
+    #[serde(other)]
+    UnrecognizedLabelType,
 }
 
 impl_browse! {
