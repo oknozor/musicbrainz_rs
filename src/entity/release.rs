@@ -69,7 +69,7 @@ pub struct Release {
 
     /// The physical packaging that accompanies the release. See the
     /// [list of packaging](https://musicbrainz.org/doc/Release/Packaging) for more information.
-    pub packaging: Option<String>, //TODO: This might be an enum needs to test all against all possible values
+    pub packaging: Option<ReleasePackaging>,
 
     pub relations: Option<Vec<Relation>>,
     /// The release group associated with this release.
@@ -137,27 +137,80 @@ pub enum ReleaseQuality {
 }
 
 /// The release status describes how "official" a release is.
-#[derive(Debug, Serialize, Deserialize, PartialEq, Clone)]
+/// Note that this enum is `non_exhaustive`; The list of release types is subject to change and
+/// these changes are only reflected in the DB, not in actual MB code.
+/// Variants are derived from the `release_status` table in the MusicBrainz database.
+#[non_exhaustive]
+#[derive(Debug, Serialize, Deserialize, PartialEq, Eq, Clone)]
 pub enum ReleaseStatus {
     /// Any release officially sanctioned by the artist and/or their record company. Most releases
     /// will fit into this category.
     Official,
-
     /// A give-away release or a release intended to promote an upcoming official release (e.g.
     /// pre-release versions, releases included with a magazine, versions supplied to radio DJs
     /// for air-play).
     Promotion,
-
     /// An unofficial/underground release that was not sanctioned by the artist and/or the record
     /// company. This includes unofficial live recordings and pirated releases.
     Bootleg,
-
     /// An alternate version of a release where the titles have been changed. These don't correspond
-    /// to any real release and should be linked to the original release using the
+    /// to any real release and should be linked to the original release using the transl(iter)ation
     /// [transl(iter)ation relationship](https://musicbrainz.org/relationship/fc399d47-23a7-4c28-bfcf-0607a562b644).
+    #[serde(rename = "Pseudo-Release")]
     PseudoRelease,
+    /// Any release_status that does not yet have a corresponding variant in this enum.
+    /// If you ever see a `ReleaseStatus::UnrecognizedReleaseStatus` in the wild, let us know and file an issue/pull request!
+    #[serde(other)]
+    UnrecognizedReleaseStatus,
+}
 
+/// The type of packaging of a MusicBrainz release entity.
+/// Note that this enum is `non_exhaustive`; The list of release types is subject to change and
+/// these changes are only reflected in the DB, not in actual MB code.
+/// Variants are derived from the `release_packaging` table in the MusicBrainz database.
+#[non_exhaustive]
+#[derive(Debug, Serialize, Deserialize, PartialEq, Eq, Clone)]
+pub enum ReleasePackaging {
+    Book,
+    Box,
+    #[serde(rename = "Cardboard/Paper Sleeve")]
+    CardboardPaperSleeve,
+    #[serde(rename = "Cassette Case")]
+    CassetteCase,
+    /// A perfect bound book with a sleeve at the end to hold a CD
+    Digibook,
+    Digipak,
+    #[serde(rename = "Discbox Slider")]
+    DiscboxSlider,
+    Fatbox,
+    #[serde(rename = "Gatefold Cover")]
+    GatefoldCover,
+    /// The traditional CD case, made of hard, brittle plastic.
+    #[serde(rename = "Jewel Case")]
+    JewelCase,
+    #[serde(rename = "Keep Case")]
+    KeepCase,
+    #[serde(rename = "Plastic Sleeve")]
+    PlasticSleeve,
+    /// Plastic CD tray inside a cardboard slipcover
+    Slidepack,
+    /// A thinner jewel case, commonly used for CD singles.
+    #[serde(rename = "Slim Jewel Case")]
+    SlimJewelCase,
+    #[serde(rename = "Snap Case")]
+    SnapCase,
+    /// Japanese case that holds an 8cm CD. It is rectangular but can be snapped to make it more
+    /// compact (hence the name).
+    #[serde(rename = "SnapPack")]
+    Snappack,
+    #[serde(rename = "Super Jewel Box")]
+    SuperJewelBox,
+    Other,
     None,
+    /// Any release_packaging that does not yet have a corresponding variant in this enum.
+    /// If you ever see a `ReleasePackaging::UnrecognizedReleasePackaging` in the wild, let us know and file an issue/pull request!
+    #[serde(other)]
+    UnrecognizedReleasePackaging,
 }
 
 #[derive(Debug, Serialize, Deserialize, PartialEq, Clone)]

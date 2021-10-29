@@ -17,7 +17,7 @@ pub struct Alias {
     #[serde(deserialize_with = "date_format::deserialize_opt")]
     pub end: Option<NaiveDate>,
     #[serde(rename = "type")]
-    pub aliase_type: Option<String>,
+    pub alias_type: Option<String>,
     pub primary: Option<bool>,
     pub type_id: Option<String>,
 }

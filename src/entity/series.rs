@@ -21,8 +21,7 @@ pub struct Series {
     /// Release group series, Release series, Recording series, Work series (with further subtypes:
     /// Catalogue), Artist series (with further subtypes: Artist award), Event series (with further
     /// subtypes: Tour, Festival, Run, Residency)
-    // FIXME: Can we use a `SeriesType` enum here?
-    pub series_type: String,
+    pub series_type: SeriesType,
     /// The disambiguation comments are fields in the database used to help distinguish identically
     /// named artists, labels and other entities.
     pub disambiguation: String,
@@ -39,6 +38,50 @@ pub struct Series {
     /// Annotations are text fields, functioning like a miniature wiki, that can be added to any
     /// existing artists, labels, recordings, releases, release groups and works.
     pub annotation: Option<String>,
+}
+
+/// The type of a MusicBrainz series entity.
+/// Note that this enum is `non_exhaustive`; The list of series types is subject to change and these
+/// changes are only reflected in the DB, not in actual MB code.
+/// Variants are derived from the `series_type` table in the MusicBrainz database.
+#[non_exhaustive]
+#[derive(Debug, Serialize, Deserialize, PartialEq, Eq, Clone)]
+pub enum SeriesType {
+    /// A series of release groups.
+    #[serde(rename = "Release group series")]
+    ReleaseGroupSeries,
+    /// A series of releases.
+    #[serde(rename = "Release series")]
+    ReleaseSeries,
+    /// A series of recordings.
+    #[serde(rename = "Recording series")]
+    RecordingSeries,
+    /// A series of works.
+    #[serde(rename = "Work series")]
+    WorkSeries,
+    /// A series of works which form a catalogue of classical compositions.
+    Catalogue,
+    /// A series of artists.
+    #[serde(rename = "Artist series")]
+    ArtistSeries,
+    /// A series of artists honoured by the same award.
+    #[serde(rename = "Artist award")]
+    ArtistAward,
+    /// A series of events.
+    #[serde(rename = "Event series")]
+    EventSeries,
+    /// A series of related concerts by an artist in different locations.
+    Tour,
+    /// A recurring festival, usually happening annually in the same location.
+    Festival,
+    /// A series of performances of the same show at the same venue.
+    Run,
+    /// A series of related concerts by an artist in the same location.
+    Residency,
+    /// Any series_type that does not yet have a corresponding variant in this enum.
+    /// If you ever see a `SeriesType::UnrecognizedSeriesType` in the wild, let us know and file an issue/pull request!
+    #[serde(other)]
+    UnrecognizedSeriesType,
 }
 
 #[derive(Debug, Default, Serialize, Deserialize, QueryBuilder)]

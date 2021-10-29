@@ -10,6 +10,44 @@ use crate::entity::BrowseBy;
 use chrono::NaiveDate;
 use lucene_query_builder::QueryBuilder;
 
+
+/// The type of a MusicBrainz event entity.
+/// Note that this enum is `non_exhaustive`; The list of event types is subject to change and these
+/// changes are only reflected in the DB, not in actual MB code.
+/// Variants are derived from the `event_type` table in the MusicBrainz database.
+#[non_exhaustive]
+#[derive(Debug, Serialize, Deserialize, PartialEq, Eq, Clone)]
+pub enum EventType {
+    /// An individual concert by a single artist or collaboration, often with supporting artists
+    /// who perform before the main act.
+    Concert,
+    /// An event where a number of different acts perform across the course of the day. Larger
+    /// festivals may be spread across multiple days.
+    Festival,
+    /// A performance of one or more plays, musicals, operas, ballets or other similar works for
+    /// the stage in their staged form (as opposed to a <a
+    /// href="https://en.wikipedia.org/wiki/Concert_performance">concert performance</a> without
+    /// staging).
+    #[serde(rename = "Stage performance")]
+    StagePerformance,
+    /// A party, reception or other event held specifically for the launch of a release.
+    #[serde(rename = "Launch event")]
+    LaunchEvent,
+    /// A convention, expo or trade fair is an event which is not typically orientated around
+    /// music performances, but can include them as side activities.
+    #[serde(rename = "Convention/Expo")]
+    ConventionExpo,
+    /// A masterclass or clinic is an event where an artist meets with a small to medium-sized
+    /// audience and instructs them individually and/or takes questions intended to improve the
+    /// audience members' playing skills.
+    #[serde(rename = "Masterclass/Clinic")]
+    MasterclassClinic,
+    /// Any event_type that does not yet have a corresponding variant in this enum.
+    /// If you ever see a `EventType::UnrecognizedEventType` in the wild, let us know and file an issue/pull request!
+    #[serde(other)]
+    UnrecognizedEventType,
+}
+
 /// An event refers to an organised event which people can attend, and is relevant to MusicBrainz.
 /// Generally this means live performances, like concerts and festivals.
 #[derive(Debug, Serialize, Deserialize, PartialEq, Clone)]
@@ -24,11 +62,8 @@ pub struct Event {
 
     /// The type describes what kind of event the event is. The possible values are: Concert,
     /// Festival, Launch event, Convention/Expo, Masterclass/Clinic
-    // FIXME: Should we create an `EventType` enum and use it here? What do we then do about the
-    // values containing slashes, such as "Convention/Expo"?
-    // https://musicbrainz.org/ws/2/event/10b5e28b-95f5-482e-9524-c51be37f943d
     #[serde(rename = "type")]
-    pub event_type: Option<String>,
+    pub event_type: Option<EventType>,
     /// The cancelled field describes whether or not the event took place.
     pub cancelled: Option<bool>,
 

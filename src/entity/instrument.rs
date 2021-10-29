@@ -63,7 +63,12 @@ pub struct InstrumentSearchQuery {
     pub instrument_type: String,
 }
 
-#[derive(Debug, Serialize, Deserialize, PartialEq, Clone)]
+/// The type of a MusicBrainz instrument entity.
+/// Note that this enum is `non_exhaustive`; The list of instrument types is subject to change and
+/// these changes are only reflected in the DB, not in actual MB code.
+/// Variants are derived from the `instrument_type` table in the MusicBrainz database.
+#[non_exhaustive]
+#[derive(Debug, Serialize, Deserialize, PartialEq, Eq, Clone)]
 pub enum InstrumentType {
     /// An aerophone, i.e. an instrument where the sound is created by vibrating air. The instrument
     /// itself does not vibrate.
@@ -80,13 +85,17 @@ pub enum InstrumentType {
     /// An electrophone, i.e. an instrument where the sound is created with electricity.
     #[serde(rename = "Electronic instrument")]
     ElectronicInstrument,
+    /// An instrument which doesn't fit in the categories above.
+    #[serde(rename = "Other instrument")]
+    OtherInstrument,
     /// A grouping of related but different instruments, like the different violin-like instruments.
     Family,
     /// A standard grouping of instruments often played together, like a string quartet.
     Ensemble,
-    /// An instrument which doesn't fit in the categories above.
-    #[serde(rename = "Other instrument")]
-    OtherInstrument,
+    /// Any instrument_type that does not yet have a corresponding variant in this enum.
+    /// If you ever see a `InstrumentType::UnrecognizedInstrumentType` in the wild, let us know and file an issue/pull request!
+    #[serde(other)]
+    UnrecognizedInstrumentType,
 }
 
 impl_browse!(Instrument, (by_collection, BrowseBy::Collection));

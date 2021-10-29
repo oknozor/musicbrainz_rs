@@ -41,28 +41,48 @@ pub struct Area {
     pub genres: Option<Vec<Genre>>,
 }
 
-#[derive(Debug, Serialize, Deserialize, PartialEq, Clone)]
+/// The type of a MusicBrainz area entity.
+/// Note that this enum is `non_exhaustive`; The list of area types is subject to change and these
+/// changes are only reflected in the DB, not in actual MB code.
+/// Variants are derived from the `area_type` table in the MusicBrainz database.
+#[non_exhaustive]
+#[derive(Debug, Serialize, Deserialize, PartialEq, Eq, Clone)]
 pub enum AreaType {
-    /// Country is used for areas included (or previously included) in ISO 3166-1, e.g. United States.
+    /// Country is used for areas included (or previously included) in ISO 3166-1, e.g. United
+    /// States.
     Country,
     /// Subdivision is used for the main administrative divisions of a country, e.g. California,
-    /// Ontario, Okinawa. These are considered when displaying the parent areas for a given area.
+    /// Ontario, Okinawa. These are considered when displaying the parent areas for a given
+    /// area.
     Subdivision,
-    /// County is used for smaller administrative divisions of a country which are not the main
-    /// administrative divisions but are also not municipalities, e.g. counties in the USA. These
-    /// are not considered when displaying the parent areas for a given area.
-    County,
-    /// Municipality is used for small administrative divisions which, for urban municipalities,
-    /// often contain a single city and a few surrounding villages. Rural municipalities typically
-    /// group several villages together.
-    Municipality,
     /// City is used for settlements of any size, including towns and villages.
     City,
+    /// Municipality is used for small administrative divisions which, for urban municipalities,
+    /// often contain a single city and a few surrounding villages. Rural municipalities
+    /// typically group several villages together.
+    Municipality,
     /// District is used for a division of a large city, e.g. Queens.
     District,
-    /// Island is used for islands and atolls which don't form subdivisions of their own, e.g. Skye.
-    /// These are not considered when displaying the parent areas for a given area.
+    /// Island is used for islands and atolls which don't form subdivisions of their own, e.g.
+    /// Skye. These are not considered when displaying the parent areas for a given area.
     Island,
+    /// County is used for smaller administrative divisions of a country which are not the main
+    /// administrative divisions but are also not municipalities, e.g. counties in the USA.
+    /// These are not considered when displaying the parent areas for a given area.
+    County,
+    /// Used for any military bases that are large enough to be considered an area, not just a
+    /// place.
+    #[serde(rename = "Military base")]
+    MilitaryBase,
+    /// Used for semi-autonomous territories governed by indigenous peoples, such as Indian
+    /// reserves/reservations in North America and indigenous territories in Central and South
+    /// America.
+    #[serde(rename = "Indigenous territory / reserve")]
+    IndigenousTerritoryReserve,
+    /// Any area_type that does not yet have a corresponding variant in this enum.
+    /// If you ever see a `AreaType::UnrecognizedAreaType` in the wild, let us know and file an issue/pull request!
+    #[serde(other)]
+    UnrecognizedAreaType,
 }
 
 #[derive(Debug, Default, Serialize, Deserialize, QueryBuilder)]
