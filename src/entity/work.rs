@@ -14,7 +14,7 @@ use lucene_query_builder::QueryBuilder;
 /// Note that this enum is `non_exhaustive`; The list of work types is [subject to change](https://tickets.metabrainz.org/browse/STYLE-1884?jql=project%20%3D%20STYLE%20AND%20component%20%3D%20%22Work%20types%22).
 /// Variants are derived from the `work_type` table in the MusicBrainz database.
 #[non_exhaustive]
-#[derive(Debug, Clone, PartialEq, Eq, Serialize, Deserialize)]
+#[derive(Debug, Clone, PartialEq, Eq, Hash, Serialize, Deserialize)]
 pub enum WorkType {
     /// Corresponds to the "Song" work type.
     /// Description from MusicBrainz:
@@ -178,7 +178,7 @@ impl From<String> for WorkType {
 /// This enum is marked as `non_exhaustive` because it is subject to schema changes, adding in new rights societies or traditional melody/rhythm types.
 /// Variants are derived from the `work_attribute_type` table in the MusicBrainz database.
 #[non_exhaustive]
-#[derive(Debug, Clone, PartialEq, Eq, Serialize, Deserialize)]
+#[derive(Debug, Clone, PartialEq, Eq, Hash, Serialize, Deserialize)]
 #[serde(tag = "type", content = "value")]
 pub enum WorkAttribute {
     /// A musical key and mode
@@ -287,13 +287,13 @@ pub enum WorkAttribute {
     MctId(String),
     /// ID for the Taiwanese rights society MÜST
     #[serde(rename = "MÜST ID")]
-    MüstId(String),
+    MustId(String),
     /// ID for the Nicaraguan rights society NICAUTOR
     #[serde(rename = "NexTone ID")]
-    NicautorId(String),
+    NextoneId(String),
     /// ID for the Japanese rights society NexTone
     #[serde(rename = "NICAUTOR ID")]
-    NextoneId(String),
+    NicautorId(String),
     /// ID for the Czech rights society OSA
     #[serde(rename = "OSA ID")]
     OsaId(String),
@@ -401,7 +401,7 @@ pub enum WorkAttribute {
 /// Marked as `non_exhaustive` because it is conceivable that MusicBrainz would add more musical modes. 
 /// Musical Keys are found as possible allowed values for work attribute types in `work_attribute_type_allowed_value`.  
 #[non_exhaustive]
-#[derive(Debug, Clone, PartialEq, Eq, Serialize, Deserialize)]
+#[derive(Debug, Clone, PartialEq, Eq, Hash, Serialize, Deserialize)]
 pub enum MusicalKey {
     CFlatMajor,
     CFlatMinor,

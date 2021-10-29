@@ -48,7 +48,12 @@ pub struct Coordinates {
     pub longitude: f64,
 }
 
-#[derive(Debug, Serialize, Deserialize, PartialEq, Clone)]
+/// The type of a MusicBrainz place entity.
+/// Note that this enum is `non_exhaustive`; The list of place types is subject to change and these
+/// changes are only reflected in the DB, not in actual MB code.
+/// Variants are derived from the `place_type` table in the MusicBrainz database.
+#[non_exhaustive]
+#[derive(Debug, Serialize, Deserialize, PartialEq, Eq, Clone)]
 pub enum PlaceType {
     /// A place designed for non-live production of music, typically a recording studio.
     Studio,
@@ -59,23 +64,27 @@ pub enum PlaceType {
     /// surrounded by a structure for spectators with no roof, or a roof which can be retracted.
     Stadium,
     /// A place consisting of a large enclosed area with a central event space surrounded by tiered
-    /// seating for spectators, which can be used for indoor sports, concerts and other entertainment
-    /// events.
+    /// seating for spectators, which can be used for indoor sports, concerts and other
+    /// entertainment events.
     #[serde(rename = "Indoor arena")]
     IndoorArena,
-    /// A place mostly designed and used for religious purposes, like a church, cathedral or
-    /// synagogue.
-    #[serde(rename = "Religious building")]
-    ReligiousBuilding,
     /// A school, university or other similar educational institution (especially, but not only, one
     /// where music is taught)
     #[serde(rename = "Educational institution")]
     EducationalInstitution,
+    /// A place that has worship or religious studies as its main function. Religious buildings
+    /// often host concerts and serve as recording locations, especially for classical music.
+    #[serde(rename = "Religious building")]
+    ReligiousBuilding,
     /// A place (generally a factory) at which physical media are manufactured.
     #[serde(rename = "Pressing plant")]
     PressingPlant,
     /// Anything which does not fit into the above categories.
     Other,
+    /// Any place_type that does not yet have a corresponding variant in this enum.
+    /// If you ever see a `PlaceType::UnrecognizedPlaceType` in the wild, let us know and file an issue/pull request!
+    #[serde(other)]
+    UnrecognizedPlaceType,
 }
 
 impl_browse! {
