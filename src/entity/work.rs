@@ -9,7 +9,7 @@ use crate::entity::BrowseBy;
 use lucene_query_builder::QueryBuilder;
 
 /// The "type" of a MusicBrainz work entity.
-/// 
+///
 /// Each work can have one work type (the vast majority of works in MusicBrainz are `Song`s).
 /// Note that this enum is `non_exhaustive`; The list of work types is [subject to change](https://tickets.metabrainz.org/browse/STYLE-1884?jql=project%20%3D%20STYLE%20AND%20component%20%3D%20%22Work%20types%22).
 /// Variants are derived from the `work_type` table in the MusicBrainz database.
@@ -174,7 +174,7 @@ impl From<String> for WorkType {
 }
 
 /// An attribute (Musical Key, ID from a rights society (like ASCAP or GEMA), Raga/Tala/Form/etc.) associated with a MusicBrainz work entity. Should have a value as well.
-/// 
+///
 /// This enum is marked as `non_exhaustive` because it is subject to schema changes, adding in new rights societies or traditional melody/rhythm types.
 /// Variants are derived from the `work_attribute_type` table in the MusicBrainz database.
 #[non_exhaustive]
@@ -395,10 +395,9 @@ pub enum WorkAttribute {
     UnrecognizedAttribute,
 }
 
-
 /// The musical key and mode associated with a work
-/// 
-/// Marked as `non_exhaustive` because it is conceivable that MusicBrainz would add more musical modes. 
+///
+/// Marked as `non_exhaustive` because it is conceivable that MusicBrainz would add more musical modes.
 /// Musical Keys are found as possible allowed values for work attribute types in `work_attribute_type_allowed_value`.  
 #[non_exhaustive]
 #[derive(Debug, Clone, PartialEq, Eq, Hash, Serialize, Deserialize)]
@@ -463,7 +462,7 @@ pub enum MusicalKey {
     UnrecognizedKey(String),
 }
 
-impl From<String> for MusicalKey{
+impl From<String> for MusicalKey {
     fn from(source: String) -> Self {
         match source.as_str() {
             "C major" => Self::CMajor,

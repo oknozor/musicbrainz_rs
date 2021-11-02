@@ -10,7 +10,6 @@ use crate::entity::BrowseBy;
 use chrono::NaiveDate;
 use lucene_query_builder::QueryBuilder;
 
-
 /// The type of a MusicBrainz event entity.
 /// Note that this enum is `non_exhaustive`; The list of event types is subject to change and these
 /// changes are only reflected in the DB, not in actual MB code.
