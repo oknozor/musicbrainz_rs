@@ -16,14 +16,17 @@ MusicBrainz API.
 travis-ci = { repository = "oknozor/musicbrainz_rs", branch = "master" }
 
 [dependencies]
-
 serde = "1.0"
 serde_derive = "1.0"
 serde_json = "1.0"
-reqwest = "0.9.18"
+reqwest = { version = "0.11.11", default-features = false, features = ["blocking", "json"] }
 chrono = { version = "0.4", features = ["serde"] }
 lazy_static = "1.3.0"
 lucene_query_builder = "0.3.0"
+
+[features]
+default = ["reqwest/default-tls"]
+rustls = ["reqwest/rustls"]
 
 [[example]]
 

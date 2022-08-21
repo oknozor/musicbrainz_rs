@@ -43,7 +43,7 @@ fn should_get_release_group_tags() {
         .tags
         .unwrap()
         .iter()
-        .any(|tag| tag.name == "rock_grunge"));
+        .any(|tag| tag.name == "noise rock"));
 }
 
 #[test]

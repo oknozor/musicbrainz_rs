@@ -14,7 +14,7 @@ fn should_get_label_releases() {
     assert!(releases
         .unwrap()
         .iter()
-        .any(|release| release.title == "The Final Corporate Colonization of the Unconscious"));
+        .any(|release| release.title == "Zen Brakes, Volume 1"));
 }
 
 #[test]

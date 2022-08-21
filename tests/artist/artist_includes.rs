@@ -16,7 +16,7 @@ fn should_get_artist_releases() {
 
     assert!(releases
         .iter()
-        .any(|release| release.title == "Boogie Chillen’ / Sally Mae"));
+        .any(|release| release.title == "Sally Mae / Boogie Chillen’"));
 }
 
 #[test]

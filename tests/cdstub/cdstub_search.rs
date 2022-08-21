@@ -12,5 +12,5 @@ fn should_search_cdstub() {
     assert!(result
         .entities
         .iter()
-        .any(|cdstub| cdstub.artist == "Green Day"));
+        .any(|cdstub| cdstub.artist == "Cleatus and Jimmy"));
 }
