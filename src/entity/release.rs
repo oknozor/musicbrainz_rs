@@ -360,5 +360,8 @@ impl_includes!(
     (with_aliases, Include::Subquery(Subquery::Aliases)),
     (with_genres, Include::Subquery(Subquery::Genres)),
     (with_annotations, Include::Subquery(Subquery::Annotations)),
-    (with_artist_credits, Include::Subquery(Subquery::ArtistCredits))
+    (
+        with_artist_credits,
+        Include::Subquery(Subquery::ArtistCredits)
+    )
 );

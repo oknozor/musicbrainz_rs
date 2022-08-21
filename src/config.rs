@@ -1,8 +1,6 @@
+use reqwest::blocking::{Client, RequestBuilder, Response};
 use reqwest::header;
-use reqwest::Client;
 use reqwest::Error;
-use reqwest::RequestBuilder;
-use reqwest::Response;
 use std::sync::Arc;
 use std::sync::Mutex;
 use std::{thread, time::Duration};
@@ -56,9 +54,9 @@ fn init_http_client() -> MusicBrainzClient {
         header::HeaderValue::from_static("musicbrainz_rs default"),
     );
 
-    let client = reqwest::Client::builder()
+    let client = reqwest::blocking::Client::builder()
         // see : https://github.com/hyperium/hyper/issues/2136
-        .max_idle_per_host(0)
+        .pool_max_idle_per_host(0)
         .default_headers(headers)
         .build().expect("Unable to set default user agent, the following values must be set in Cargo.toml : 'name', 'version', 'authors'");
 
@@ -96,7 +94,7 @@ pub fn set_user_agent(user_agent: &'static str) {
         header::HeaderValue::from_static(user_agent),
     );
 
-    *client_lock = reqwest::Client::builder()
+    *client_lock = Client::builder()
         .default_headers(headers)
         .build()
         .expect("Unable to set user agent");

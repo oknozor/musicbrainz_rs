@@ -271,7 +271,7 @@ where
         let coverart_response: CoverartResponse;
         self.validate();
         let request = HTTP_CLIENT.get(&self.0.path);
-        let mut response = HTTP_CLIENT.send_with_retries(request)?;
+        let response = HTTP_CLIENT.send_with_retries(request)?;
         if self.0.target.img_type.is_some() {
             let url = response.url().clone();
             coverart_response = CoverartResponse::Url(url.to_string());
