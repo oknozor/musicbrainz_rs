@@ -164,47 +164,47 @@ impl Default for Gender {
 #[derive(Debug, QueryBuilder, Default)]
 pub struct ArtistSearchQuery {
     /// (part of) any alias attached to the artist (diacritics are ignored)
-    alias: String,
+    pub alias: String,
     /// (part of) any primary alias attached to the artist (diacritics are ignored)
     #[query_builder_field = "primaryalias"]
-    primary_alias: String,
+    pub primary_alias: String,
     /// (part of) the name of the artist's main associated area
-    area: String,
+    pub area: String,
     /// the artist's MBID
-    arid: String,
+    pub arid: String,
     /// (part of) the artist's name (diacritics are ignored)
-    artist: String,
+    pub artist: String,
     /// (part of) the artist's name (with the specified diacritics)
-    artist_accent: String,
+    pub artist_accent: String,
     /// the artist's begin date (e.g. "1980-01-22")
-    begin: Option<NaiveDate>,
+    pub begin: Option<NaiveDate>,
     /// (part of) the name of the artist's begin area
-    begin_area: String,
+    pub begin_area: String,
     /// (part of) the artist's disambiguation comment
-    comment: String,
+    pub comment: String,
     /// the 2-letter code (ISO 3166-1 alpha-2) for the artist's main associated country
-    country: String,
+    pub country: String,
     /// the artist's end date (e.g. "1980-01-22")
-    end: Option<NaiveDate>,
+    pub end: Option<NaiveDate>,
     /// (part of) the name of the artist's end area
     #[query_builder_field = "end_area"]
-    end_area: String,
+    pub end_area: String,
     /// a boolean flag (true/false) indicating whether or not the artist has ended (is dissolved/deceased)
-    ended: bool,
+    pub ended: bool,
     /// the artist's gender (“male”, “female”, “other” or “not applicable”)
-    gender: Option<Gender>,
+    pub gender: Option<Gender>,
     /// an IPI code associated with the artist
-    ipi: String,
+    pub ipi: String,
     /// an ISNI code associated with the artist
-    isni: String,
+    pub isni: String,
     /// (part of) the artist's sort name
     #[query_builder_field = "sortname"]
-    sort_name: Option<String>,
+    pub sort_name: Option<String>,
     /// (part of) a tag attached to the artist
-    tag: String,
+    pub tag: String,
     /// the artist's type (“person”, “group”, etc.)
     #[query_builder_field = "type"]
-    artist_type: Option<ArtistType>,
+    pub artist_type: Option<ArtistType>,
 }
 
 impl_browse! {

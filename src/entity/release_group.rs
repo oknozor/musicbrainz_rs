@@ -107,49 +107,49 @@ pub enum ReleaseGroupSecondaryType {
 #[derive(Debug, QueryBuilder, Default)]
 pub struct ReleaseGroupSearchQuery {
     /// (part of) any alias attached to the release group (diacritics are ignored)
-    alias: String,
+    pub alias: String,
     /// the MBID of any of the release group artists
-    arid: String,
+    pub arid: String,
     /// (part of) the combined credited artist name for the release group, including join phrases (e.g. "Artist X feat.")
-    artist: String,
+    pub artist: String,
     /// (part of) the name of any of the release group artists
     #[query_builder_field = "artistname"]
-    artist_name: String,
+    pub artist_name: String,
     /// (part of) the release group's disambiguation comment
-    comment: String,
+    pub comment: String,
     /// (part of) the credited name of any of the release group artists on this particular release group
     #[query_builder_field = "creditname"]
-    credit_name: String,
+    pub credit_name: String,
     /// the release date of the earliest release in this release group (e.g. "1980-01-22")
     #[query_builder_field = "firstreleasedate"]
-    first_release_date: String,
+    pub first_release_date: String,
     /// the primary type of the release group
     #[query_builder_field = "primarytype"]
-    primary_type: String,
+    pub primary_type: String,
     /// the MBID of any of the releases in the release group
-    reid: String,
+    pub reid: String,
     /// (part of) the title of any of the releases in the release group
-    release: String,
+    pub release: String,
     /// (part of) the release group's title (diacritics are ignored)
     #[query_builder_field = "releasegroup"]
-    release_group: String,
+    pub release_group: String,
     /// (part of) the release group's title (with the specified diacritics)
     #[query_builder_field = "releasegroupaccent"]
-    release_group_accent: String,
+    pub release_group_accent: String,
     /// the number of releases in the release group
-    releases: String,
+    pub releases: String,
     /// the release group's MBID
-    rgid: String,
+    pub rgid: String,
     /// any of the secondary types of the release group
     #[query_builder_field = "secondarytype"]
-    secondary_type: String,
+    pub secondary_type: String,
     /// the status of any of the releases in the release group
-    status: String,
+    pub status: String,
     /// the status of any of the releases in the release group
-    tag: String,
+    pub tag: String,
     /// legacy release group type field that predates the ability to set multiple types (see calculation code)
     #[query_builder_field = "type"]
-    release_type: String,
+    pub release_type: String,
 }
 
 impl_browse! {
