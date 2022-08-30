@@ -268,16 +268,15 @@ where
     }
 
     pub fn execute(&mut self) -> Result<CoverartResponse, Error> {
-        let coverart_response: CoverartResponse;
         self.validate();
         let request = HTTP_CLIENT.get(&self.0.path);
         let response = HTTP_CLIENT.send_with_retries(request)?;
-        if self.0.target.img_type.is_some() {
+        let coverart_response = if self.0.target.img_type.is_some() {
             let url = response.url().clone();
-            coverart_response = CoverartResponse::Url(url.to_string());
+            CoverartResponse::Url(url.to_string())
         } else {
-            coverart_response = CoverartResponse::Json(response.json().unwrap());
-        }
+            CoverartResponse::Json(response.json().unwrap())
+        };
         Ok(coverart_response)
     }
 }

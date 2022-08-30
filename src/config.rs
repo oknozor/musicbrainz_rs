@@ -60,16 +60,12 @@ fn init_http_client() -> MusicBrainzClient {
         .default_headers(headers)
         .build().expect("Unable to set default user agent, the following values must be set in Cargo.toml : 'name', 'version', 'authors'");
 
-    MusicBrainzClient {
-        0: Arc::new(Mutex::new(client)),
-    }
+    MusicBrainzClient(Arc::new(Mutex::new(client)))
 }
 
 fn init_http_retries() -> MusicBrainzRetries {
     let retries = 2;
-    MusicBrainzRetries {
-        0: Arc::new(Mutex::new(retries)),
-    }
+    MusicBrainzRetries(Arc::new(Mutex::new(retries)))
 }
 
 /// Each request sent to MusicBrainz needs to include a User-Agent header,
