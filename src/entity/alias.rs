@@ -3,7 +3,7 @@ use chrono::NaiveDate;
 
 /// Aliases are used to store alternate names or misspellings. For more information and examples,
 /// see the page about [aliases](https://musicbrainz.org/doc/Aliases).
-#[derive(Debug, Serialize, Deserialize, PartialEq, Clone, Default)]
+#[derive(Debug, Serialize, Deserialize, PartialEq, Eq, Clone, Default)]
 #[serde(rename_all(deserialize = "kebab-case"))]
 #[serde(default)]
 pub struct Alias {

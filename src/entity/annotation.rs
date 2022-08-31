@@ -8,7 +8,7 @@ use lucene_query_builder::QueryBuilder;
 /// The content of an annotation can be edited by any MusicBrainz user. Like the rest of the database,
 /// if something is incorrect or incomplete, you can fix it. All changes are recorded and if someone
 /// deletes or defaces the annotation, you can easily restore a previous copy.
-#[derive(Debug, Serialize, Deserialize, PartialEq, Clone)]
+#[derive(Debug, Serialize, Deserialize, PartialEq, Eq, Clone)]
 #[serde(rename_all(deserialize = "kebab-case"))]
 pub struct Annotation {
     /// the annotated entity's MBID

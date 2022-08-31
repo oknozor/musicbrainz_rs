@@ -1,9 +1,9 @@
-#[derive(Debug, Serialize, Deserialize, PartialEq, Clone)]
+#[derive(Debug, Serialize, Deserialize, PartialEq, Eq, Clone)]
 pub struct Coverart {
     pub images: Vec<CoverartImage>,
 }
 
-#[derive(Debug, Serialize, Deserialize, PartialEq, Clone)]
+#[derive(Debug, Serialize, Deserialize, PartialEq, Eq, Clone)]
 pub struct CoverartImage {
     pub approved: bool,
     pub back: bool,
@@ -16,7 +16,7 @@ pub struct CoverartImage {
     pub types: Vec<ImageType>,
 }
 
-#[derive(Debug, Serialize, Deserialize, PartialEq, Clone)]
+#[derive(Debug, Serialize, Deserialize, PartialEq, Eq, Clone)]
 pub struct Thumbnail {
     /// This is now deprecated in MusicBrainz API. Use `res_250` instead.
     pub small: Option<String>,
@@ -31,7 +31,7 @@ pub struct Thumbnail {
     pub res_250: Option<String>,
 }
 
-#[derive(Debug, Serialize, Deserialize, PartialEq, Clone)]
+#[derive(Debug, Serialize, Deserialize, PartialEq, Eq, Clone)]
 pub enum ImageType {
     /// The album cover, this is the front of the packaging of an audio recording (or in the
     /// case of a digital release the image associated with it in a digital media store).

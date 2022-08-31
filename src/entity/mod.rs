@@ -51,10 +51,9 @@ macro_rules! impl_browse {
     ($ty: ty, $(($args:ident, $browse: expr)),+) => {
         impl BrowseQuery<$ty> {
                $(pub fn $args(&mut self, id: &str) -> &mut Self  {
+                    use std::fmt::Write as _;
                     self.0.path.push_str(crate::config::FMT_JSON);
-                    self.0
-                    .path
-                    .push_str(&format!("&{}={}",$browse.as_str(), id));
+                    let _ = write!(self.0.path, "&{}={}", $browse.as_str(), id);
                     self
                })*
             }
@@ -372,7 +371,7 @@ impl BrowseBy {
 
 /// Browse query result are wrapped in this generic struct and paired with a custom
 /// Deserialize implementation to avoid reimplementing a custom deserializer for every entity.
-#[derive(Debug, Serialize, PartialEq, Clone)]
+#[derive(Debug, Serialize, PartialEq, Eq, Clone)]
 #[serde(rename_all(deserialize = "kebab-case"))]
 pub struct BrowseResult<T> {
     pub count: i32,

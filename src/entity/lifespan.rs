@@ -1,7 +1,7 @@
 use crate::date_format;
 use chrono::NaiveDate;
 
-#[derive(Debug, Serialize, Deserialize, PartialEq, Clone, Default)]
+#[derive(Debug, Serialize, Deserialize, PartialEq, Eq, Clone, Default)]
 #[serde(default)]
 pub struct LifeSpan {
     pub ended: Option<bool>,

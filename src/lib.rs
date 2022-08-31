@@ -56,6 +56,7 @@ use entity::Browsable;
 use entity::BrowseResult;
 use entity::Include;
 use entity::{CoverartResolution, CoverartResponse, CoverartTarget, CoverartType};
+use std::fmt::Write as _;
 
 /// Type alias for [reqwest::Error]
 pub type Error = reqwest::Error;
@@ -186,7 +187,7 @@ where
     T: Clone,
 {
     pub fn id(&mut self, id: &str) -> &mut Self {
-        self.0.path.push_str(&format!("/{}", id));
+        let _ = write!(self.0.path, "/{id}");
         self
     }
 
@@ -210,7 +211,7 @@ where
     T: Clone + FetchCoverart<'a>,
 {
     pub fn id(&mut self, id: &str) -> &mut Self {
-        self.0.path.push_str(&format!("/{}", id));
+        let _ = write!(self.0.path, "/{id}");
         self
     }
 
@@ -256,9 +257,9 @@ where
 
     pub fn validate(&mut self) {
         if let Some(img_type) = &self.0.target.img_type {
-            self.0.path.push_str(&format!("/{}", img_type.as_str()));
+            let _ = write!(self.0.path, "/{}", img_type.as_str());
             if let Some(img_res) = &self.0.target.img_res {
-                self.0.path.push_str(&format!("-{}", img_res.as_str()));
+                let _ = write!(self.0.path, "-{}", img_res.as_str());
             }
         } else if self.0.target.img_res.is_some() {
             // Implicitly assume coverart type as front in the case when resolution is
@@ -317,7 +318,7 @@ where
     }
 }
 
-impl<'a, T> Query<T> {
+impl<T> Query<T> {
     fn include(&mut self, include: Include) -> &mut Self {
         self.include.push(include);
         self

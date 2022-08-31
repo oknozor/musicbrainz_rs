@@ -8,7 +8,7 @@ use crate::entity::tag::Tag;
 
 /// Take a look at the [relationship table](https://musicbrainz.org/relationships) on the MusicBrainz
 /// server to see all types.
-#[derive(Debug, Serialize, Deserialize, PartialEq, Clone)]
+#[derive(Debug, Serialize, Deserialize, PartialEq, Eq, Clone)]
 pub struct Url {
     pub id: String,
     pub resource: String,
