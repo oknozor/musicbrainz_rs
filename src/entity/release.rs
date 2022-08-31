@@ -90,7 +90,7 @@ pub struct Release {
     pub annotation: Option<String>,
 }
 
-#[derive(Debug, Serialize, Deserialize, PartialEq, Clone)]
+#[derive(Debug, Serialize, Deserialize, PartialEq, Eq, Clone)]
 pub struct ReleaseTextRepresentation {
     /// The language a release's track list is written in. The possible values are taken from the ISO
     /// 639-3 standard.
@@ -102,7 +102,7 @@ pub struct ReleaseTextRepresentation {
 
 /// The script used to write the release's track list. The possible values are taken from the
 /// [ISO 15924](https://en.wikipedia.org/wiki/ISO_15924) standard.
-#[derive(Debug, Serialize, Deserialize, PartialEq, Clone)]
+#[derive(Debug, Serialize, Deserialize, PartialEq, Eq, Clone)]
 pub enum ReleaseScript {
     /* TODO: we need to test all posible values to build the enum see https://musicbrainz.org/doc/Release */
     /// ## Latin (also known as Roman or, incorrectly, "English")
@@ -112,12 +112,12 @@ pub enum ReleaseScript {
 }
 
 /* TODO: we need to test all posible values to build the enum see https://musicbrainz.org/doc/Release */
-#[derive(Debug, Serialize, Deserialize, PartialEq, Clone)]
+#[derive(Debug, Serialize, Deserialize, PartialEq, Eq, Clone)]
 pub enum Language {
     Eng,
 }
 
-#[derive(Debug, Serialize, Deserialize, PartialEq, Clone)]
+#[derive(Debug, Serialize, Deserialize, PartialEq, Eq, Clone)]
 #[serde(rename_all(deserialize = "lowercase"))]
 pub enum ReleaseQuality {
     /// The release needs serious fixes, or its existence is hard to prove (but it's not clearly fake).

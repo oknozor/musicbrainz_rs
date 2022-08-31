@@ -40,7 +40,7 @@ fn should_get_release_recordings() {
         .unwrap();
 
     let medias: Vec<Media> = justice_cross.media.unwrap();
-    let cd = medias.iter().next().unwrap();
+    let cd = medias.first().unwrap();
 
     assert!(cd
         .tracks
