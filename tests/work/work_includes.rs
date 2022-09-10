@@ -1,4 +1,3 @@
-extern crate musicbrainz_rs;
 use musicbrainz_rs::entity::work::Work;
 use musicbrainz_rs::prelude::*;
 

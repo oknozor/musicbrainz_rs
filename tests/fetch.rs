@@ -1,6 +1,3 @@
-extern crate chrono;
-extern crate musicbrainz_rs;
-
 use chrono::NaiveDate;
 use std::collections::HashMap;
 

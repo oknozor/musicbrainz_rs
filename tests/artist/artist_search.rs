@@ -1,5 +1,3 @@
-extern crate musicbrainz_rs;
-
 use musicbrainz_rs::entity::artist::*;
 use musicbrainz_rs::Search;
 

@@ -1,6 +1,3 @@
-extern crate chrono;
-extern crate musicbrainz_rs;
-
 use musicbrainz_rs::entity::release_group::*;
 use musicbrainz_rs::prelude::*;
 

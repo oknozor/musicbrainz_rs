@@ -24,8 +24,6 @@ To perform a [lookups](https://musicbrainz.org/doc/Development/XML_Web_Service/V
 you need to import the `Fetch` trait. This can be done using `musicbrainz_rs::prelude`
 
 ```rust
-extern crate musicbrainz_rs;
-
 use musicbrainz_rs::model::artist;
 use musicbrainz_rs::model::artist::*;
 use musicbrainz_rs::prelude::*;
@@ -46,8 +44,6 @@ You can also use includes to get more detail about a resource :
 Every Musicbrainz resource has [allowed include parameters](https://musicbrainz.org/doc/Development/XML_Web_Service/Version_2#Subqueries).
 
 ```rust
-extern crate musicbrainz_rs;
-
 use musicbrainz_rs::model::label::*;
 use musicbrainz_rs::prelude::*;
 
@@ -76,8 +72,6 @@ Use `musicbrainz_rs::Browse` or bring it in scope using `musicbrainz_rs::prelude
 Just like `Include` every muscibrainz resource has allowable linked entities for such queries.
 
 ```rust
-extern crate musicbrainz_rs;
-
 use musicbrainz_rs::model::artist;
 use musicbrainz_rs::model::artist::Artist;
 use musicbrainz_rs::prelude::*;
@@ -101,8 +95,6 @@ fn main() {
 Use `musicbrainz_rs::Search` to perform a [search query](https://musicbrainz.org/doc/MusicBrainz_API/Search).
 
 ```rust
-extern crate musicbrainz_rs;
-
 use musicbrainz_rs::model::artist::Artist;
 use musicbrainz_rs::prelude::*;
 
@@ -130,8 +122,6 @@ You can set your application user-agent as recommended in the
 [musicbrainz documentation](https://musicbrainz.org/doc/XML_Web_Service/Rate_Limiting#User-Agent) :
 
 ```rust
-extern crate musicbrainz_rs;
-
 use musicbrainz_rs::model::artist::Artist;
 use musicbrainz_rs::prelude::*;
 

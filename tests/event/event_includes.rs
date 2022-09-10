@@ -1,4 +1,3 @@
-extern crate musicbrainz_rs;
 use musicbrainz_rs::entity::event::Event;
 use musicbrainz_rs::prelude::*;
 

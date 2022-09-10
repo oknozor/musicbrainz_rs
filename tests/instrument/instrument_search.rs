@@ -1,5 +1,3 @@
-extern crate musicbrainz_rs;
-
 use musicbrainz_rs::entity::instrument::InstrumentType::*;
 use musicbrainz_rs::entity::instrument::*;
 use musicbrainz_rs::Search;

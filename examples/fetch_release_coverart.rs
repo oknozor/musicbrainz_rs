@@ -1,5 +1,3 @@
-extern crate musicbrainz_rs;
-
 use musicbrainz_rs::entity::release::*;
 use musicbrainz_rs::entity::CoverartResponse;
 use musicbrainz_rs::prelude::*;

@@ -1,5 +1,4 @@
-extern crate musicbrainz_rs;
-use self::musicbrainz_rs::entity::label::Label;
+use musicbrainz_rs::entity::label::Label;
 use musicbrainz_rs::prelude::*;
 
 #[test]

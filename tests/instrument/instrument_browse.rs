@@ -1,7 +1,5 @@
-extern crate musicbrainz_rs;
-
-use self::musicbrainz_rs::entity::instrument::Instrument;
-use musicbrainz_rs::prelude::*;
+use musicbrainz_rs::entity::instrument::Instrument;
+use musicbrainz_rs::Browse;
 
 // TODO: find non empty result
 #[test]

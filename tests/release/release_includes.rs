@@ -1,4 +1,3 @@
-extern crate musicbrainz_rs;
 use musicbrainz_rs::entity::release::Media;
 use musicbrainz_rs::entity::release::Release;
 use musicbrainz_rs::prelude::*;

@@ -1,5 +1,3 @@
-extern crate musicbrainz_rs;
-
 use musicbrainz_rs::entity::series::*;
 use musicbrainz_rs::Search;
 
