@@ -20,22 +20,21 @@ jobs:
           profile: minimal
           toolchain: stable
           override: true
+          components: llvm-tools-preview
 
-      - name: Coverage
-        uses: actions-rs/tarpaulin@v0.1
-        with:
-          args: -- --test-threads 1
+      - name: Install cargo-llvm-cov
+        uses: taiki-e/install-action@cargo-llvm-cov
 
-      - name: Upload to codecov.io
-        uses: codecov/codecov-action@v1.0.6
+      - uses: actions-rs/cargo@v1
         with:
-          token: ${{secrets.CODECOV_TOKEN}}
+          command: llvm-cov
+          args: --all-features --workspace --lcov --output-path lcov.info
 
-      - name: Archive code coverage results
-        uses: actions/upload-artifact@v1
+      - name: Upload coverage to Codecov
+        uses: codecov/codecov-action@v2
         with:
-          name: code-coverage-report
-          path: cobertura.xml
+          files: lcov.info
+          fail_ci_if_error: true
 
   lints:
     name: Lints & Format

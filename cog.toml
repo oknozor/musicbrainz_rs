@@ -1,16 +1,7 @@
-github = "https://github.com/oknozor/musicbrainz_rs"
-
-authors = [
-    { signature = "Paul Delafosse", username = "oknozor" },
-    { signature = "okno", username = "oknozor" },
-    { signature = "Ritiek Malhotra", username = "ritiek" },
-]
-
-
-changelog_path = "CHANGELOG.md"
+branch_whitelist = [ "main" ]
+ignore_merge_commits = true
 
 pre_bump_hooks = [
-    "sh -c \"./ci/check_branch.sh\"",
     "cargo test -- --test-threads 1",
     "cargo clippy",
     "cargo build --release",
@@ -18,10 +9,23 @@ pre_bump_hooks = [
     "cargo bump {{version}}",
 ]
 
-
 post_bump_hooks = [
     "git push",
     "git push origin {{version}}",
     "cargo package",
     "cargo publish"
+]
+
+[changelog]
+path = "CHANGELOG.md"
+template = "remote"
+remote = "github.com"
+repository = "musicbrainz_rs"
+owner = "oknozor"
+authors = [
+    { signature = "Paul Delafosse", username = "oknozor" },
+    { signature = "okno", username = "oknozor" },
+    { signature = "Ritiek Malhotra", username = "ritiek" },
+    { signature = "Yesterday17", username = "Yesterday17" },
+    { signature = "snylonue", username = "snylonue" },
 ]
