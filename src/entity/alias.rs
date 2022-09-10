@@ -1,5 +1,6 @@
 use crate::date_format;
 use chrono::NaiveDate;
+use serde::{Deserialize, Serialize};
 
 /// Aliases are used to store alternate names or misspellings. For more information and examples,
 /// see the page about [aliases](https://musicbrainz.org/doc/Aliases).

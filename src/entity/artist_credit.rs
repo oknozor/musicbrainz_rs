@@ -1,4 +1,5 @@
 use crate::entity::artist::Artist;
+use serde::{Deserialize, Serialize};
 
 /// Artist credits indicate who is the main credited artist (or artists) for releases, release groups,
 /// tracks and recordings, and how they are credited. They consist of artists, with (optionally)

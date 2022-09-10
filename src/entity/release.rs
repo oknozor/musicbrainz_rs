@@ -1,5 +1,6 @@
 use chrono::NaiveDate;
 use lucene_query_builder::QueryBuilder;
+use serde::{Deserialize, Serialize};
 
 use super::{Include, Relationship, Subquery};
 use crate::date_format;

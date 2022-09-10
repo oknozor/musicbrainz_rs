@@ -8,6 +8,7 @@ use crate::entity::BrowseBy;
 
 use chrono::NaiveDate;
 use lucene_query_builder::QueryBuilder;
+use serde::{Deserialize, Serialize};
 
 /// Areas are historical and existing geographic regions. Areas include countries, sub-divisions,
 /// counties, municipalities, cities, districts and islands.

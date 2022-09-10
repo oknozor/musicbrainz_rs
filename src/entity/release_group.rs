@@ -10,6 +10,7 @@ use crate::entity::tag::Tag;
 use crate::entity::BrowseBy;
 use chrono::NaiveDate;
 use lucene_query_builder::QueryBuilder;
+use serde::{Deserialize, Serialize};
 
 /// A release group, just as the name suggests, is used to group several different releases into a
 /// single logical entity. Every release belongs to one, and only one release group.

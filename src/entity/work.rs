@@ -5,6 +5,7 @@ use crate::entity::rating::Rating;
 use crate::entity::relations::Relation;
 use crate::entity::tag::Tag;
 use crate::entity::BrowseBy;
+use serde::{Deserialize, Serialize};
 
 use lucene_query_builder::QueryBuilder;
 

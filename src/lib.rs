@@ -30,13 +30,6 @@
 //! [musicbrainz::prelude]: musicbrainz_rs::prelude
 //! [entity]: musicbrainz_rs::entity
 
-extern crate reqwest;
-extern crate serde;
-#[macro_use]
-extern crate serde_derive;
-#[macro_use]
-extern crate lazy_static;
-
 use serde::de::DeserializeOwned;
 use std::marker::PhantomData;
 

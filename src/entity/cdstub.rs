@@ -1,4 +1,5 @@
 use lucene_query_builder::QueryBuilder;
+use serde::{Deserialize, Serialize};
 
 /// A CD stub is an anonymously submitted track list that contains a disc ID, barcode, comment
 /// field, and basic metadata like a release title and track names.

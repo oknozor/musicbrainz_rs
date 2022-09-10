@@ -1,3 +1,5 @@
+use serde::{Serialize, Deserialize};
+
 /// Disc ID is the code number which MusicBrainz uses to link a physical CD to a release listing.
 #[derive(Debug, Serialize, Deserialize, PartialEq, Clone)]
 #[serde(rename_all(deserialize = "kebab-case"))]

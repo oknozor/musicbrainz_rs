@@ -8,6 +8,7 @@ use crate::entity::release::Release;
 use crate::entity::tag::Tag;
 use crate::entity::BrowseBy;
 use crate::entity::{Include, Relationship, Subquery};
+use serde::{Deserialize, Serialize};
 
 use chrono::NaiveDate;
 use lucene_query_builder::QueryBuilder;

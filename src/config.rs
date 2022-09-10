@@ -1,3 +1,4 @@
+use once_cell::sync::Lazy;
 use reqwest::blocking::{Client, RequestBuilder, Response};
 use reqwest::header;
 use reqwest::Error;
@@ -12,12 +13,11 @@ pub(crate) const PARAM_INC: &str = "&inc=";
 const HTTP_RATELIMIT_CODE: u16 = 503;
 
 pub(crate) struct MusicBrainzClient(Arc<Mutex<Client>>);
+
 struct MusicBrainzRetries(Arc<Mutex<u32>>);
 
-lazy_static! {
-    pub(crate) static ref HTTP_CLIENT: MusicBrainzClient = init_http_client();
-    static ref HTTP_RETRIES: MusicBrainzRetries = init_http_retries();
-}
+pub(crate) static HTTP_CLIENT: Lazy<MusicBrainzClient> = Lazy::new(init_http_client);
+static HTTP_RETRIES: Lazy<MusicBrainzRetries> = Lazy::new(init_http_retries);
 
 impl MusicBrainzClient {
     pub(crate) fn get(&self, path: &str) -> RequestBuilder {

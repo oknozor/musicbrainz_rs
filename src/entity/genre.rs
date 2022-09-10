@@ -1,3 +1,5 @@
+use serde::{Deserialize, Serialize};
+
 /// Genres are currently supported in MusicBrainz as part of the tag system.
 /// See [Genre](https://musicbrainz.org/doc/Genre) and
 /// [supported genres](https://musicbrainz.org/genres) for more information.

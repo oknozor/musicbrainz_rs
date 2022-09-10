@@ -20,6 +20,7 @@ use crate::Fetch;
 use crate::Path;
 use crate::{Browse, Search};
 use crate::{CoverartQuery, FetchCoverart, FetchCoverartQuery};
+use serde::Serialize;
 
 macro_rules! impl_includes {
     ($ty: ty, $(($args:ident, $inc: expr)),+) => {

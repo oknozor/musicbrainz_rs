@@ -10,6 +10,7 @@ use crate::entity::release_group::ReleaseGroup;
 use crate::entity::series::Series;
 use crate::entity::url::Url;
 use crate::entity::work::Work;
+use serde::{Deserialize, Serialize};
 
 use chrono::NaiveDate;
 use std::collections::HashMap;

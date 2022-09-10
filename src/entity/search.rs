@@ -11,6 +11,7 @@ use crate::entity::release_group::ReleaseGroup;
 use crate::entity::series::Series;
 use crate::entity::work::Work;
 use chrono::NaiveDateTime;
+use serde::Serialize;
 
 #[derive(Debug, Serialize, PartialEq, Eq, Clone)]
 #[serde(rename_all(deserialize = "kebab-case"))]

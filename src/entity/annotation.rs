@@ -1,4 +1,5 @@
 use lucene_query_builder::QueryBuilder;
+use serde::{Deserialize, Serialize};
 
 /// Annotations are text fields, functioning like a miniature wiki, that can be added to any existing
 /// artists, labels, recordings, releases, release groups and works.
