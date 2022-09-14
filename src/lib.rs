@@ -13,6 +13,7 @@
 //! use musicbrainz_rs::entity::artist::Artist;
 //! use musicbrainz_rs::prelude::*;
 //!
+//! # #[cfg(not(feature = "blocking"))]
 //! #[tokio::main]
 //! async fn main() -> Result<(), Error> {
 //!
@@ -20,6 +21,16 @@
 //!         .id("5b11f4ce-a62d-471e-81fc-a69a8278c7da")
 //!         .execute()
 //!          .await;
+//!
+//!     assert_eq!(nirvana?.name, "Nirvana".to_string());
+//!     Ok(())
+//! }
+//! # #[cfg(feature = "blocking")]
+//! fn main() -> Result<(), Error> {
+//!
+//!     let nirvana = Artist::fetch()
+//!         .id("5b11f4ce-a62d-471e-81fc-a69a8278c7da")
+//!         .execute();
 //!
 //!     assert_eq!(nirvana?.name, "Nirvana".to_string());
 //!     Ok(())
@@ -73,12 +84,23 @@ struct Query<T> {
 /// ```rust
 /// # use musicbrainz_rs::prelude::*;
 /// # #[tokio::main]
+/// # #[cfg(not(feature = "blocking"))]
 /// # async fn main() -> Result<(), Error> {
 /// # use musicbrainz_rs::entity::artist::Artist;
 /// let nirvana = Artist::fetch()
 ///         .id("5b11f4ce-a62d-471e-81fc-a69a8278c7da")
 ///         .execute()
 ///         .await;
+///
+/// assert_eq!(nirvana?.name, "Nirvana".to_string());
+/// #   Ok(())
+/// # }
+/// # #[cfg(feature = "blocking")]
+/// # fn main() -> Result<(), Error> {
+/// # use musicbrainz_rs::entity::artist::Artist;
+/// let nirvana = Artist::fetch()
+///         .id("5b11f4ce-a62d-471e-81fc-a69a8278c7da")
+///         .execute();
 ///
 /// assert_eq!(nirvana?.name, "Nirvana".to_string());
 /// #   Ok(())
@@ -97,6 +119,7 @@ pub struct FetchQuery<T>(Query<T>);
 /// ```rust
 /// # use musicbrainz_rs::prelude::*;
 /// # #[tokio::main]
+/// # #[cfg(not(feature = "blocking"))]
 /// # async fn main() -> Result<(), Error> {
 /// # use musicbrainz_rs::entity::release::Release;
 /// # use musicbrainz_rs::entity::CoverartResponse;
@@ -104,6 +127,22 @@ pub struct FetchQuery<T>(Query<T>);
 ///         .id("76df3287-6cda-33eb-8e9a-044b5e15ffdd")
 ///         .execute()
 ///         .await?;
+///
+/// if let CoverartResponse::Json(coverart) = in_utero_coverart {
+///     assert_eq!(coverart.images[0].front, true);
+///     assert_eq!(coverart.images[0].back, false);
+/// } else {
+///     assert!(false);
+/// }
+/// #   Ok(())
+/// # }
+/// # #[cfg(feature = "blocking")]
+/// # fn main() -> Result<(), Error> {
+/// # use musicbrainz_rs::entity::release::Release;
+/// # use musicbrainz_rs::entity::CoverartResponse;
+/// let in_utero_coverart = Release::fetch_coverart()
+///         .id("76df3287-6cda-33eb-8e9a-044b5e15ffdd")
+///         .execute()?;
 ///
 /// if let CoverartResponse::Json(coverart) = in_utero_coverart {
 ///     assert_eq!(coverart.images[0].front, true);
@@ -135,6 +174,7 @@ pub struct FetchCoverartQuery<T>(CoverartQuery<T>);
 /// ```rust
 /// # use musicbrainz_rs::prelude::*;
 /// # #[tokio::main]
+/// # #[cfg(not(feature = "blocking"))]
 /// # async fn main() -> Result<(), Error> {
 /// # use musicbrainz_rs::entity::artist::Artist;
 /// # use musicbrainz_rs::entity::release::Release;
@@ -142,6 +182,17 @@ pub struct FetchCoverartQuery<T>(CoverartQuery<T>);
 ///         .by_label("47e718e1-7ee4-460c-b1cc-1192a841c6e5")
 ///         .execute()
 ///         .await;
+///
+/// assert!(!ubiktune_releases?.entities.is_empty());
+/// #   Ok(())
+/// # }
+/// # #[cfg(feature = "blocking")]
+/// # fn main() -> Result<(), Error> {
+/// # use musicbrainz_rs::entity::artist::Artist;
+/// # use musicbrainz_rs::entity::release::Release;
+/// let ubiktune_releases = Release::browse()
+///         .by_label("47e718e1-7ee4-460c-b1cc-1192a841c6e5")
+///         .execute();
 ///
 /// assert!(!ubiktune_releases?.entities.is_empty());
 /// #   Ok(())
@@ -162,6 +213,7 @@ pub struct BrowseQuery<T>(Query<T>);
 ///```rust
 /// # use musicbrainz_rs::prelude::*;
 /// # #[tokio::main]
+/// # #[cfg(not(feature = "blocking"))]
 /// # async fn main() -> Result<(), Error> {
 /// # use musicbrainz_rs::entity::artist::{Artist, ArtistSearchQuery};
 /// let query = ArtistSearchQuery::query_builder()
@@ -171,6 +223,26 @@ pub struct BrowseQuery<T>(Query<T>);
 ///         .build();
 ///
 ///     let query_result = Artist::search(query).execute().await?;
+///     let query_result: Vec<String> = query_result
+///         .entities
+///         .iter()
+///         .map(|artist| artist.name.clone())
+///         .collect();
+///
+///     assert!(query_result.contains(&"Miles Davis".to_string()));
+///     assert!(query_result.contains(&"Miles Davis Quintet".to_string()));
+/// #   Ok(())
+/// # }
+/// # #[cfg(feature = "blocking")]
+/// # fn main() -> Result<(), Error> {
+/// # use musicbrainz_rs::entity::artist::{Artist, ArtistSearchQuery};
+/// let query = ArtistSearchQuery::query_builder()
+///         .artist("Miles Davis")
+///         .and()
+///         .country("US")
+///         .build();
+///
+///     let query_result = Artist::search(query).execute()?;
 ///     let query_result: Vec<String> = query_result
 ///         .entities
 ///         .iter()
