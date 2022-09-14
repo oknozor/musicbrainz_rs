@@ -13,11 +13,13 @@
 //! use musicbrainz_rs::entity::artist::Artist;
 //! use musicbrainz_rs::prelude::*;
 //!
-//! fn main() -> Result<(), Error> {
+//! #[tokio::main]
+//! async fn main() -> Result<(), Error> {
 //!
 //!     let nirvana = Artist::fetch()
 //!         .id("5b11f4ce-a62d-471e-81fc-a69a8278c7da")
-//!         .execute();
+//!         .execute()
+//!          .await;
 //!
 //!     assert_eq!(nirvana?.name, "Nirvana".to_string());
 //!     Ok(())
@@ -70,11 +72,13 @@ struct Query<T> {
 /// ## EXample
 /// ```rust
 /// # use musicbrainz_rs::prelude::*;
-/// # fn main() -> Result<(), Error> {
+/// # #[tokio::main]
+/// # async fn main() -> Result<(), Error> {
 /// # use musicbrainz_rs::entity::artist::Artist;
 /// let nirvana = Artist::fetch()
 ///         .id("5b11f4ce-a62d-471e-81fc-a69a8278c7da")
-///         .execute();
+///         .execute()
+///         .await;
 ///
 /// assert_eq!(nirvana?.name, "Nirvana".to_string());
 /// #   Ok(())
@@ -92,12 +96,15 @@ pub struct FetchQuery<T>(Query<T>);
 /// ## Example
 /// ```rust
 /// # use musicbrainz_rs::prelude::*;
-/// # fn main() -> Result<(), Error> {
+/// # #[tokio::main]
+/// # async fn main() -> Result<(), Error> {
 /// # use musicbrainz_rs::entity::release::Release;
 /// # use musicbrainz_rs::entity::CoverartResponse;
 /// let in_utero_coverart = Release::fetch_coverart()
 ///         .id("76df3287-6cda-33eb-8e9a-044b5e15ffdd")
-///         .execute()?;
+///         .execute()
+///         .await?;
+///
 /// if let CoverartResponse::Json(coverart) = in_utero_coverart {
 ///     assert_eq!(coverart.images[0].front, true);
 ///     assert_eq!(coverart.images[0].back, false);
@@ -127,12 +134,14 @@ pub struct FetchCoverartQuery<T>(CoverartQuery<T>);
 /// ## Example
 /// ```rust
 /// # use musicbrainz_rs::prelude::*;
-/// # fn main() -> Result<(), Error> {
+/// # #[tokio::main]
+/// # async fn main() -> Result<(), Error> {
 /// # use musicbrainz_rs::entity::artist::Artist;
 /// # use musicbrainz_rs::entity::release::Release;
 /// let ubiktune_releases = Release::browse()
 ///         .by_label("47e718e1-7ee4-460c-b1cc-1192a841c6e5")
-///         .execute();
+///         .execute()
+///         .await;
 ///
 /// assert!(!ubiktune_releases?.entities.is_empty());
 /// #   Ok(())
@@ -152,7 +161,8 @@ pub struct BrowseQuery<T>(Query<T>);
 ///
 ///```rust
 /// # use musicbrainz_rs::prelude::*;
-/// # fn main() -> Result<(), Error> {
+/// # #[tokio::main]
+/// # async fn main() -> Result<(), Error> {
 /// # use musicbrainz_rs::entity::artist::{Artist, ArtistSearchQuery};
 /// let query = ArtistSearchQuery::query_builder()
 ///         .artist("Miles Davis")
@@ -160,7 +170,7 @@ pub struct BrowseQuery<T>(Query<T>);
 ///         .country("US")
 ///         .build();
 ///
-///     let query_result = Artist::search(query).execute()?;
+///     let query_result = Artist::search(query).execute().await?;
 ///     let query_result: Vec<String> = query_result
 ///         .entities
 ///         .iter()
@@ -184,6 +194,7 @@ where
         self
     }
 
+    #[cfg(feature = "blocking")]
     pub fn execute(&mut self) -> Result<T, Error>
     where
         T: Fetch<'a> + DeserializeOwned,
@@ -192,6 +203,17 @@ where
         self.include_to_path();
         let request = HTTP_CLIENT.get(&self.0.path);
         HTTP_CLIENT.send_with_retries(request)?.json()
+    }
+
+    #[cfg(not(feature = "blocking"))]
+    pub async fn execute(&mut self) -> Result<T, Error>
+    where
+        T: Fetch<'a> + DeserializeOwned,
+    {
+        self.0.path.push_str(FMT_JSON);
+        self.include_to_path();
+        let request = HTTP_CLIENT.get(&self.0.path);
+        HTTP_CLIENT.send_with_retries(request).await?.json().await
     }
 
     fn include_to_path(&mut self) {
@@ -261,6 +283,7 @@ where
         }
     }
 
+    #[cfg(feature = "blocking")]
     pub fn execute(&mut self) -> Result<CoverartResponse, Error> {
         self.validate();
         let request = HTTP_CLIENT.get(&self.0.path);
@@ -273,12 +296,27 @@ where
         };
         Ok(coverart_response)
     }
+
+    #[cfg(not(feature = "blocking"))]
+    pub async fn execute(&mut self) -> Result<CoverartResponse, Error> {
+        self.validate();
+        let request = HTTP_CLIENT.get(&self.0.path);
+        let response = HTTP_CLIENT.send_with_retries(request).await?;
+        let coverart_response = if self.0.target.img_type.is_some() {
+            let url = response.url().clone();
+            CoverartResponse::Url(url.to_string())
+        } else {
+            CoverartResponse::Json(response.json().await.unwrap())
+        };
+        Ok(coverart_response)
+    }
 }
 
 impl<'a, T> BrowseQuery<T>
 where
     T: Clone,
 {
+    #[cfg(feature = "blocking")]
     pub fn execute(&mut self) -> Result<BrowseResult<T>, Error>
     where
         T: Fetch<'a> + DeserializeOwned + Browsable,
@@ -286,6 +324,16 @@ where
         self.include_to_path();
         let request = HTTP_CLIENT.get(&self.0.path);
         HTTP_CLIENT.send_with_retries(request)?.json()
+    }
+
+    #[cfg(not(feature = "blocking"))]
+    pub async fn execute(&mut self) -> Result<BrowseResult<T>, Error>
+    where
+        T: Fetch<'a> + DeserializeOwned + Browsable,
+    {
+        self.include_to_path();
+        let request = HTTP_CLIENT.get(&self.0.path);
+        HTTP_CLIENT.send_with_retries(request).await?.json().await
     }
 
     fn include_to_path(&mut self) {
@@ -297,6 +345,7 @@ impl<'a, T> SearchQuery<T>
 where
     T: Search<'a> + Clone,
 {
+    #[cfg(feature = "blocking")]
     pub fn execute(&mut self) -> Result<SearchResult<T>, Error>
     where
         T: Search<'a> + DeserializeOwned + Searchable,
@@ -304,6 +353,16 @@ where
         self.include_to_path();
         let request = HTTP_CLIENT.get(&self.0.path);
         HTTP_CLIENT.send_with_retries(request)?.json()
+    }
+
+    #[cfg(not(feature = "blocking"))]
+    pub async fn execute(&mut self) -> Result<SearchResult<T>, Error>
+    where
+        T: Search<'a> + DeserializeOwned + Searchable,
+    {
+        self.include_to_path();
+        let request = HTTP_CLIENT.get(&self.0.path);
+        HTTP_CLIENT.send_with_retries(request).await?.json().await
     }
 
     fn include_to_path(&mut self) {

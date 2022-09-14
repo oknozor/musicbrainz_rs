@@ -1,6 +1,7 @@
 use musicbrainz_rs::entity::artist::{Artist, ArtistSearchQuery};
 use musicbrainz_rs::prelude::*;
 
+#[cfg(feature = "blocking")]
 fn main() {
     musicbrainz_rs::config::set_user_agent("my_awesome_app/1.0");
 

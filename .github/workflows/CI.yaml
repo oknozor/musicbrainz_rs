@@ -25,10 +25,17 @@ jobs:
       - name: Install cargo-llvm-cov
         uses: taiki-e/install-action@cargo-llvm-cov
 
+      # Run test for the blocking api
+      - uses: actions-rs/cargo@v1
+        with:
+          command: test
+          args: --features blocking
+
+      # Run coverage with test for the async api
       - uses: actions-rs/cargo@v1
         with:
           command: llvm-cov
-          args: --all-features --workspace --lcov --output-path lcov.info
+          args: --workspace --lcov --output-path lcov.info
 
       - name: Upload coverage to Codecov
         uses: codecov/codecov-action@v2

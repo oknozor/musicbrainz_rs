@@ -1,6 +1,7 @@
 use musicbrainz_rs::entity::label::*;
 use musicbrainz_rs::prelude::*;
 
+#[cfg(feature = "blocking")]
 fn main() {
     let ninja_tune = Label::fetch()
         .id("dc940013-b8a8-4362-a465-291026c04b42")

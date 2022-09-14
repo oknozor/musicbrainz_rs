@@ -1,4 +1,5 @@
 mod annotation;
+mod api;
 mod area;
 mod artist;
 mod cdstub;
@@ -11,6 +12,3 @@ mod release;
 mod release_group;
 mod series;
 mod work;
-
-mod config;
-mod fetch;

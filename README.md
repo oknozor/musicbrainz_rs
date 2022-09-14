@@ -16,7 +16,23 @@ you may be looking for :
 - [Api documention](https://docs.rs/musicbrainz_rs)
 - [The crate](https://www.crates.io/crates/musicbrainz_rs)
 
+## Usage
+
+You can choose to use either the default async client or a blocking one. 
+
+**async client:**
+```toml
+musicbrainz_rs = "0.5.0"
+```
+
+**blocking client:**
+```toml
+musicbrainz_rs = { version = "0.5.0", features = ["blocking] }
+```
+
 ## Features
+
+**Note:** All the example below use the `blocking` feature for the sake of conciseness.
 
 ### Fetch query
 

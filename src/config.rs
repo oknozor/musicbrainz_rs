@@ -1,10 +1,15 @@
 use once_cell::sync::Lazy;
-use reqwest::blocking::{Client, RequestBuilder, Response};
 use reqwest::header;
 use reqwest::Error;
 use std::sync::Arc;
 use std::sync::Mutex;
-use std::{thread, time::Duration};
+use std::time::Duration;
+
+#[cfg(feature = "blocking")]
+use reqwest::blocking::{Client, RequestBuilder, Response};
+
+#[cfg(not(feature = "blocking"))]
+use reqwest::{Client, RequestBuilder, Response};
 
 pub(crate) const BASE_URL: &str = "http://musicbrainz.org/ws/2";
 pub(crate) const BASE_COVERART_URL: &str = "http://coverartarchive.org";
@@ -25,20 +30,49 @@ impl MusicBrainzClient {
         let client_lock = client_ref.lock().expect("Unable to get musicbrainz client");
         client_lock.get(path)
     }
+}
 
+#[cfg(feature = "blocking")]
+impl MusicBrainzClient {
     pub(crate) fn send_with_retries(&self, request: RequestBuilder) -> Result<Response, Error> {
+        use std::thread;
+
         let mut retries = *HTTP_RETRIES.0.lock().unwrap();
         loop {
             let request = request.try_clone().unwrap();
             let response = request.send()?;
             if response.status().as_u16() == HTTP_RATELIMIT_CODE && retries > 0 {
-                let headers = response.headers();
-                let retry_secs = headers.get("retry-after").unwrap().to_str().unwrap();
                 // It seems like the value in the response header is sometimes rounded-off to the
                 // lower number, which can be lower than when the server actually accepts the next
                 // request. So we add one to the received duration to account for this.
+                let headers = response.headers();
+                let retry_secs = headers.get("retry-after").unwrap().to_str().unwrap();
                 let duration = Duration::from_secs(retry_secs.parse::<u64>().unwrap() + 1);
                 thread::sleep(duration);
+                retries -= 1;
+            } else {
+                break Ok(response);
+            }
+        }
+    }
+}
+
+#[cfg(not(feature = "blocking"))]
+impl MusicBrainzClient {
+    pub(crate) async fn send_with_retries(
+        &self,
+        request: RequestBuilder,
+    ) -> Result<Response, Error> {
+        use wasm_timer::Delay;
+        let mut retries = *HTTP_RETRIES.0.lock().unwrap();
+        loop {
+            let request = request.try_clone().unwrap();
+            let response = request.send().await?;
+            if response.status().as_u16() == HTTP_RATELIMIT_CODE && retries > 0 {
+                let headers = response.headers();
+                let retry_secs = headers.get("retry-after").unwrap().to_str().unwrap();
+                let duration = Duration::from_secs(retry_secs.parse::<u64>().unwrap() + 1);
+                let _ = Delay::new(duration).await;
                 retries -= 1;
             } else {
                 break Ok(response);
@@ -54,7 +88,7 @@ fn init_http_client() -> MusicBrainzClient {
         header::HeaderValue::from_static("musicbrainz_rs default"),
     );
 
-    let client = reqwest::blocking::Client::builder()
+    let client = Client::builder()
         // see : https://github.com/hyperium/hyper/issues/2136
         .pool_max_idle_per_host(0)
         .default_headers(headers)
@@ -64,7 +98,10 @@ fn init_http_client() -> MusicBrainzClient {
 }
 
 fn init_http_retries() -> MusicBrainzRetries {
+    #[cfg(feature = "blocking")]
     let retries = 2;
+    #[cfg(not(feature = "blocking"))]
+    let retries = 10;
     MusicBrainzRetries(Arc::new(Mutex::new(retries)))
 }
 
