@@ -1,4 +1,4 @@
-#[cfg(not(feature = "blocking"))]
+#[cfg(feature = "async")]
 mod async_tests;
 
 #[cfg(feature = "blocking")]

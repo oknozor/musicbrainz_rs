@@ -8,6 +8,7 @@ async fn main() {
 
     let artists_on_in_utero_release = Artist::browse()
         .by_release("18d4e9b4-9247-4b44-914a-8ddec3502103")
+        .limit(100)
         .execute()
         .await;
 

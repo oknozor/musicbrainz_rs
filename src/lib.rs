@@ -13,7 +13,7 @@
 //! use musicbrainz_rs::entity::artist::Artist;
 //! use musicbrainz_rs::prelude::*;
 //!
-//! # #[cfg(not(feature = "blocking"))]
+//! # #[cfg(feature = "async")]
 //! #[tokio::main]
 //! async fn main() -> Result<(), Error> {
 //!
@@ -84,7 +84,7 @@ struct Query<T> {
 /// ```rust
 /// # use musicbrainz_rs::prelude::*;
 /// # #[tokio::main]
-/// # #[cfg(not(feature = "blocking"))]
+/// # #[cfg(feature = "async")]
 /// # async fn main() -> Result<(), Error> {
 /// # use musicbrainz_rs::entity::artist::Artist;
 /// let nirvana = Artist::fetch()
@@ -119,7 +119,7 @@ pub struct FetchQuery<T>(Query<T>);
 /// ```rust
 /// # use musicbrainz_rs::prelude::*;
 /// # #[tokio::main]
-/// # #[cfg(not(feature = "blocking"))]
+/// # #[cfg(feature = "async")]
 /// # async fn main() -> Result<(), Error> {
 /// # use musicbrainz_rs::entity::release::Release;
 /// # use musicbrainz_rs::entity::CoverartResponse;
@@ -174,7 +174,7 @@ pub struct FetchCoverartQuery<T>(CoverartQuery<T>);
 /// ```rust
 /// # use musicbrainz_rs::prelude::*;
 /// # #[tokio::main]
-/// # #[cfg(not(feature = "blocking"))]
+/// # #[cfg(feature = "async")]
 /// # async fn main() -> Result<(), Error> {
 /// # use musicbrainz_rs::entity::artist::Artist;
 /// # use musicbrainz_rs::entity::release::Release;
@@ -199,7 +199,11 @@ pub struct FetchCoverartQuery<T>(CoverartQuery<T>);
 /// # }
 /// ```
 #[derive(Clone, Debug)]
-pub struct BrowseQuery<T>(Query<T>);
+pub struct BrowseQuery<T> {
+    inner: Query<T>,
+    offset: Option<u16>,
+    limit: Option<u8>,
+}
 
 /// Search requests provide a way to search for MusicBrainz entities based on different
 /// sorts of queries.
@@ -213,7 +217,7 @@ pub struct BrowseQuery<T>(Query<T>);
 ///```rust
 /// # use musicbrainz_rs::prelude::*;
 /// # #[tokio::main]
-/// # #[cfg(not(feature = "blocking"))]
+/// # #[cfg(feature = "async")]
 /// # async fn main() -> Result<(), Error> {
 /// # use musicbrainz_rs::entity::artist::{Artist, ArtistSearchQuery};
 /// let query = ArtistSearchQuery::query_builder()
@@ -277,7 +281,7 @@ where
         HTTP_CLIENT.send_with_retries(request)?.json()
     }
 
-    #[cfg(not(feature = "blocking"))]
+    #[cfg(feature = "async")]
     pub async fn execute(&mut self) -> Result<T, Error>
     where
         T: Fetch<'a> + DeserializeOwned,
@@ -369,7 +373,7 @@ where
         Ok(coverart_response)
     }
 
-    #[cfg(not(feature = "blocking"))]
+    #[cfg(feature = "async")]
     pub async fn execute(&mut self) -> Result<CoverartResponse, Error> {
         self.validate();
         let request = HTTP_CLIENT.get(&self.0.path);
@@ -394,22 +398,40 @@ where
         T: Fetch<'a> + DeserializeOwned + Browsable,
     {
         self.include_to_path();
-        let request = HTTP_CLIENT.get(&self.0.path);
+        let request = HTTP_CLIENT.get(&self.inner.path);
         HTTP_CLIENT.send_with_retries(request)?.json()
     }
 
-    #[cfg(not(feature = "blocking"))]
+    #[cfg(feature = "async")]
     pub async fn execute(&mut self) -> Result<BrowseResult<T>, Error>
     where
         T: Fetch<'a> + DeserializeOwned + Browsable,
     {
         self.include_to_path();
-        let request = HTTP_CLIENT.get(&self.0.path);
+        let request = HTTP_CLIENT.get(&self.inner.path);
         HTTP_CLIENT.send_with_retries(request).await?.json().await
     }
 
     fn include_to_path(&mut self) {
-        self.0.include_to_path()
+        self.inner.include_to_path();
+        if let Some(limit) = self.limit {
+            self.inner.path.push_str(PARAM_LIMIT);
+            self.inner.path.push_str(&limit.to_string());
+        }
+        if let Some(offset) = self.offset {
+            self.inner.path.push_str(PARAM_OFFSET);
+            self.inner.path.push_str(&offset.to_string());
+        }
+    }
+
+    pub fn limit(&mut self, limit: u8) -> &mut Self {
+        self.limit = Some(limit);
+        self
+    }
+
+    pub fn offset(&mut self, offset: u16) -> &mut Self {
+        self.offset = Some(offset);
+        self
     }
 }
 
@@ -427,7 +449,7 @@ where
         HTTP_CLIENT.send_with_retries(request)?.json()
     }
 
-    #[cfg(not(feature = "blocking"))]
+    #[cfg(feature = "async")]
     pub async fn execute(&mut self) -> Result<SearchResult<T>, Error>
     where
         T: Search<'a> + DeserializeOwned + Searchable,
@@ -519,11 +541,15 @@ pub trait Browse<'a> {
     where
         Self: Sized + Path<'a>,
     {
-        BrowseQuery(Query {
-            path: format!("{}/{}", BASE_URL, Self::path()),
-            phantom: PhantomData,
-            include: vec![],
-        })
+        BrowseQuery {
+            inner: Query {
+                path: format!("{}/{}", BASE_URL, Self::path()),
+                phantom: PhantomData,
+                include: vec![],
+            },
+            limit: None,
+            offset: None,
+        }
     }
 }
 

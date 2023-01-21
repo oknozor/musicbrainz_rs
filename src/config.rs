@@ -8,13 +8,15 @@ use std::time::Duration;
 #[cfg(feature = "blocking")]
 use reqwest::blocking::{Client, RequestBuilder, Response};
 
-#[cfg(not(feature = "blocking"))]
+#[cfg(feature = "async")]
 use reqwest::{Client, RequestBuilder, Response};
 
 pub(crate) const BASE_URL: &str = "http://musicbrainz.org/ws/2";
 pub(crate) const BASE_COVERART_URL: &str = "http://coverartarchive.org";
 pub(crate) const FMT_JSON: &str = "?fmt=json";
 pub(crate) const PARAM_INC: &str = "&inc=";
+pub(crate) const PARAM_OFFSET: &str = "&offset=";
+pub(crate) const PARAM_LIMIT: &str = "&limit=";
 const HTTP_RATELIMIT_CODE: u16 = 503;
 
 pub(crate) struct MusicBrainzClient(Arc<Mutex<Client>>);
@@ -57,7 +59,7 @@ impl MusicBrainzClient {
     }
 }
 
-#[cfg(not(feature = "blocking"))]
+#[cfg(feature = "async")]
 impl MusicBrainzClient {
     pub(crate) async fn send_with_retries(
         &self,
@@ -100,7 +102,7 @@ fn init_http_client() -> MusicBrainzClient {
 fn init_http_retries() -> MusicBrainzRetries {
     #[cfg(feature = "blocking")]
     let retries = 2;
-    #[cfg(not(feature = "blocking"))]
+    #[cfg(feature = "async")]
     let retries = 10;
     MusicBrainzRetries(Arc::new(Mutex::new(retries)))
 }

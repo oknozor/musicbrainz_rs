@@ -17,7 +17,7 @@ fn main() {
             "http://coverartarchive.org/release/76df3287-6cda-33eb-8e9a-044b5e15ffdd/829521842.jpg"
         );
     } else {
-        assert!(false);
+        panic!();
     }
 
     let in_utero = Release::fetch()
@@ -38,7 +38,7 @@ fn main() {
             "http://coverartarchive.org/release/76df3287-6cda-33eb-8e9a-044b5e15ffdd/829521842.jpg"
         );
     } else {
-        assert!(false);
+        panic!();
     }
 
     // CoverArt Query Builder to fetch a specific resource.
@@ -52,6 +52,6 @@ fn main() {
     if let CoverartResponse::Url(coverart_url) = in_utero_500px_front_coverart {
         println!("{}", coverart_url);
     } else {
-        assert!(false);
+        panic!();
     }
 }
