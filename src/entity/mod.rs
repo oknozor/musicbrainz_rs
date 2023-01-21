@@ -34,7 +34,7 @@ macro_rules! impl_includes {
 
         impl BrowseQuery<$ty> {
                $(pub fn $args(&mut self) -> &mut Self  {
-                     self.0.include = self.0.include($inc).include.to_owned();
+                     self.inner.include = self.inner.include($inc).include.to_owned();
                    self
                })*
             }
@@ -53,8 +53,8 @@ macro_rules! impl_browse {
         impl BrowseQuery<$ty> {
                $(pub fn $args(&mut self, id: &str) -> &mut Self  {
                     use std::fmt::Write as _;
-                    self.0.path.push_str(crate::config::FMT_JSON);
-                    let _ = write!(self.0.path, "&{}={}", $browse.as_str(), id);
+                    self.inner.path.push_str(crate::config::FMT_JSON);
+                    let _ = write!(self.inner.path, "&{}={}", $browse.as_str(), id);
                     self
                })*
             }

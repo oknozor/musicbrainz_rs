@@ -44,8 +44,8 @@ mod tests {
             life_span,
             LifeSpan {
                 ended: Some(true),
-                begin: Some(NaiveDate::from_ymd(1988, 1, 1)),
-                end: Some(NaiveDate::from_ymd(1994, 4, 5)),
+                begin: Some(NaiveDate::from_ymd_opt(1988, 1, 1).unwrap()),
+                end: Some(NaiveDate::from_ymd_opt(1994, 4, 5).unwrap()),
             }
         )
     }
@@ -65,7 +65,7 @@ mod tests {
             life_span,
             LifeSpan {
                 ended: Some(true),
-                begin: Some(NaiveDate::from_ymd(1988, 1, 1)),
+                begin: Some(NaiveDate::from_ymd_opt(1988, 1, 1).unwrap()),
                 end: None,
             }
         )
@@ -85,7 +85,7 @@ mod tests {
             life_span,
             LifeSpan {
                 ended: Some(true),
-                begin: Some(NaiveDate::from_ymd(1988, 1, 1)),
+                begin: Some(NaiveDate::from_ymd_opt(1988, 1, 1).unwrap()),
                 end: None,
             }
         )

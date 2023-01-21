@@ -18,17 +18,18 @@ travis-ci = { repository = "oknozor/musicbrainz_rs", branch = "master" }
 [dependencies]
 serde = {version = "1.0", features = ["derive"]}
 serde_json = "1.0"
-reqwest = { version = "0.11.11", default-features = false, features = ["json"] }
+reqwest = { version = "0.11", default-features = false, features = ["json"] }
 chrono = { version = "0.4", features = ["serde"] }
-once_cell = "1.14.0"
-lucene_query_builder = "0.3.0"
-wasm-timer = { version = "0.2.5", optional = true }
+once_cell = "1.17"
+lucene_query_builder = "0.3"
+wasm-timer = { version = "0.2", optional = true }
 
 [dev-dependencies]
-tokio = { version = "1.21.0", features = ["macros", "rt", "rt-multi-thread"]}
+tokio = { version = "1.24", features = ["macros", "rt", "rt-multi-thread"]}
 
 [features]
-default = ["reqwest/default-tls", "wasm-timer"]
+default = ["reqwest/default-tls", "async"]
+async = ["wasm-timer"]
 rustls = ["reqwest/rustls"]
 blocking = ["reqwest/blocking"]
 
@@ -43,6 +44,7 @@ name = "includes"
 path = "examples/blocking/includes.rs"
 
 [[example]]
+required-features = ["blocking"]
 name = "browse"
 path = "examples/blocking/browse.rs"
 
