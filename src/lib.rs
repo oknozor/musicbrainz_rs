@@ -398,7 +398,7 @@ where
         T: Fetch<'a> + DeserializeOwned + Browsable,
     {
         self.include_to_path();
-        let request = HTTP_CLIENT.get(&self.0.path);
+        let request = HTTP_CLIENT.get(&self.inner.path);
         HTTP_CLIENT.send_with_retries(request)?.json()
     }
 

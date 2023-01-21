@@ -11,10 +11,10 @@ fn should_get_release_group_coverart() {
         .expect("Unable to get cover art");
 
     if let CoverartResponse::Json(coverart) = echoes_coverart {
-        assert_eq!(coverart.images[0].front, true);
-        assert_eq!(coverart.images[0].back, false);
+        assert!(coverart.images[0].front);
+        assert!(!coverart.images[0].back);
     } else {
-        assert!(false);
+        panic!();
     }
 }
 
@@ -31,9 +31,9 @@ fn should_get_release_group_coverart_after_fetch() {
         .expect("Unable to get coverart");
 
     if let CoverartResponse::Json(coverart) = echoes_coverart {
-        assert_eq!(coverart.images[0].front, true);
-        assert_eq!(coverart.images[0].back, false);
+        assert!(coverart.images[0].front);
+        assert!(!coverart.images[0].back);
     } else {
-        assert!(false);
+        panic!();
     }
 }
