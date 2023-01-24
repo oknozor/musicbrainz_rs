@@ -1,4 +1,4 @@
-use crate::entity::search::{SearchResult, Searchable};
+use crate::entity::search::{SearchEntity, SearchResult, Searchable};
 use chrono::NaiveDateTime;
 use serde::de::DeserializeOwned;
 use serde::de::{self, Deserialize, Deserializer, MapAccess, SeqAccess, Visitor};
@@ -114,7 +114,7 @@ where
                 let mut created: Option<String> = None;
                 let mut count: Option<i32> = None;
                 let mut offset: Option<i32> = None;
-                let mut entities: Option<Vec<T>> = None;
+                let mut entities: Option<Vec<SearchEntity<T>>> = None;
 
                 while let Some(key) = map.next_key::<Field<T>>()? {
                     match key {
