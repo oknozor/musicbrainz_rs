@@ -1,3 +1,5 @@
+use std::ops::{Deref, DerefMut};
+
 use crate::entity::annotation::Annotation;
 use crate::entity::area::Area;
 use crate::entity::artist::Artist;
@@ -11,15 +13,36 @@ use crate::entity::release_group::ReleaseGroup;
 use crate::entity::series::Series;
 use crate::entity::work::Work;
 use chrono::NaiveDateTime;
-use serde::Serialize;
+use serde::{Deserialize, Serialize};
 
-#[derive(Debug, Serialize, PartialEq, Eq, Clone)]
+#[derive(Debug, Serialize, PartialEq, Clone)]
 #[serde(rename_all(deserialize = "kebab-case"))]
 pub struct SearchResult<T> {
     pub created: NaiveDateTime,
     pub count: i32,
     pub offset: i32,
-    pub entities: Vec<T>,
+    pub entities: Vec<SearchEntity<T>>,
+}
+
+#[derive(Debug, Deserialize, Serialize, PartialEq, Clone)]
+/// score is an external field added only on search results
+pub struct SearchEntity<T> {
+    pub score: Option<f32>,
+    #[serde(flatten)]
+    pub inner: T,
+}
+
+impl<T> Deref for SearchEntity<T> {
+    type Target = T;
+    fn deref(&self) -> &Self::Target {
+        &self.inner
+    }
+}
+
+impl<T> DerefMut for SearchEntity<T> {
+    fn deref_mut(&mut self) -> &mut Self::Target {
+        &mut self.inner
+    }
 }
 
 pub trait Searchable {

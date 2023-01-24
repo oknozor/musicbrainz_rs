@@ -41,7 +41,7 @@ macro_rules! impl_includes {
 
         impl SearchQuery<$ty> {
                $(pub fn $args(&mut self) -> &mut Self  {
-                     self.0.include = self.0.include($inc).include.to_owned();
+                     self.inner.include = self.inner.include($inc).include.to_owned();
                    self
                })*
             }
