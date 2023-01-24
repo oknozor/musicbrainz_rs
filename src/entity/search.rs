@@ -15,7 +15,7 @@ use crate::entity::work::Work;
 use chrono::NaiveDateTime;
 use serde::{Deserialize, Serialize};
 
-#[derive(Debug, Serialize, PartialEq, Eq, Clone)]
+#[derive(Debug, Serialize, PartialEq, Clone)]
 #[serde(rename_all(deserialize = "kebab-case"))]
 pub struct SearchResult<T> {
     pub created: NaiveDateTime,
@@ -24,10 +24,10 @@ pub struct SearchResult<T> {
     pub entities: Vec<SearchEntity<T>>,
 }
 
-#[derive(Debug, Deserialize, Serialize, PartialEq, Eq, Clone)]
+#[derive(Debug, Deserialize, Serialize, PartialEq, Clone)]
 /// score is an external field added only on search results
 pub struct SearchEntity<T> {
-    pub score: Option<String>,
+    pub score: Option<f32>,
     #[serde(flatten)]
     pub inner: T,
 }
