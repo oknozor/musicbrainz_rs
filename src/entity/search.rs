@@ -29,7 +29,7 @@ pub struct SearchResult<T> {
 pub struct SearchEntity<T> {
     pub score: Option<String>,
     #[serde(flatten)]
-    inner: T,
+    pub inner: T,
 }
 
 impl<T> Deref for SearchEntity<T> {
