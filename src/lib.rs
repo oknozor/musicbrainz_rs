@@ -368,7 +368,7 @@ where
             let url = response.url().clone();
             CoverartResponse::Url(url.to_string())
         } else {
-            CoverartResponse::Json(response.json().unwrap())
+            CoverartResponse::Json(response.json()?)
         };
         Ok(coverart_response)
     }
@@ -382,7 +382,7 @@ where
             let url = response.url().clone();
             CoverartResponse::Url(url.to_string())
         } else {
-            CoverartResponse::Json(response.json().await.unwrap())
+            CoverartResponse::Json(response.json().await?)
         };
         Ok(coverart_response)
     }
