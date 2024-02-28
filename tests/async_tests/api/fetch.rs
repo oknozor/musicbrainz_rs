@@ -34,7 +34,7 @@ async fn should_get_artist_by_id() {
             id: String::from("5b11f4ce-a62d-471e-81fc-a69a8278c7da"),
             name: String::from("Nirvana"),
             sort_name: String::from("Nirvana"),
-            disambiguation: String::from("90s US grunge band"),
+            disambiguation: String::from("1980s~1990s US grunge band"),
             artist_type: Some(Group),
             gender: None,
             country: Some("US".to_string()),
@@ -70,7 +70,7 @@ async fn should_get_artist_by_id() {
             }),
             life_span: Some(LifeSpan {
                 ended: Some(true),
-                begin: Some(NaiveDate::from_ymd_opt(1988, 1, 1).unwrap()),
+                begin: Some(NaiveDate::from_ymd_opt(1987, 1, 1).unwrap()),
                 end: Some(NaiveDate::from_ymd_opt(1994, 4, 5).unwrap()),
             }),
             tags: None,
