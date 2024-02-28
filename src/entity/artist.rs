@@ -142,10 +142,11 @@ pub enum ArtistType {
 /// changes are only reflected in the DB, not in actual MB code.
 /// Variants are derived from the `gender` table in the MusicBrainz database.
 #[non_exhaustive]
-#[derive(Debug, Serialize, Deserialize, PartialEq, Eq, Clone)]
+#[derive(Debug, Default, Serialize, Deserialize, PartialEq, Eq, Clone)]
 pub enum Gender {
     Male,
     Female,
+    #[default]
     Other,
     /// For cases where gender just doesn't apply at all (like companies entered as artists).
     #[serde(rename = "Not applicable")]
@@ -154,12 +155,6 @@ pub enum Gender {
     /// If you ever see a `Gender::UnrecognizedGender` in the wild, let us know and file an issue/pull request!
     #[serde(other)]
     UnrecognizedGender,
-}
-
-impl Default for Gender {
-    fn default() -> Self {
-        Gender::Other
-    }
 }
 
 #[derive(Debug, QueryBuilder, Default)]
