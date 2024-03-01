@@ -4,6 +4,7 @@ use musicbrainz_rs::Fetch;
 use musicbrainz_rs::FetchCoverart;
 
 #[tokio::test]
+#[serial_test::serial]
 async fn should_get_release_group_coverart() {
     let echoes_coverart = ReleaseGroup::fetch_coverart()
         .id("ccdb3c9b-67e8-46f5-803f-026ef815ceea")
@@ -20,6 +21,7 @@ async fn should_get_release_group_coverart() {
 }
 
 #[tokio::test]
+#[serial_test::serial]
 async fn should_get_release_group_coverart_after_fetch() {
     let echoes = ReleaseGroup::fetch()
         .id("ccdb3c9b-67e8-46f5-803f-026ef815ceea")

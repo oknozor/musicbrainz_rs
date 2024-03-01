@@ -2,6 +2,7 @@ use musicbrainz_rs::entity::release::*;
 use musicbrainz_rs::Search;
 
 #[tokio::test]
+#[serial_test::serial]
 async fn should_search_artist() {
     let query = ReleaseSearchQuery::query_builder()
         .release("Drivers License")

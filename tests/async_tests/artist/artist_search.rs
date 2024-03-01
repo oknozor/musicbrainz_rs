@@ -2,6 +2,7 @@ use musicbrainz_rs::entity::artist::*;
 use musicbrainz_rs::Search;
 
 #[tokio::test]
+#[serial_test::serial]
 async fn should_search_artist() {
     let query = ArtistSearchQuery::query_builder()
         .artist("Nirvana")

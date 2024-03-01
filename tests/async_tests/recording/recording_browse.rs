@@ -2,6 +2,7 @@ use musicbrainz_rs::entity::recording::*;
 use musicbrainz_rs::prelude::*;
 
 #[tokio::test]
+#[serial_test::serial]
 async fn should_browse_recording_by_artist() {
     let recording_by_svinkels = Recording::browse()
         .by_artist("770d490e-c89b-4775-8508-aca7c75142cd")
@@ -18,6 +19,7 @@ async fn should_browse_recording_by_artist() {
 }
 
 #[tokio::test]
+#[serial_test::serial]
 async fn should_browse_recording_work() {
     let la_javanaise_recordings = Recording::browse()
         .by_work("578eab03-84d3-374f-a7c5-03c3a685a9a5")
@@ -34,6 +36,7 @@ async fn should_browse_recording_work() {
 }
 
 #[tokio::test]
+#[serial_test::serial]
 async fn should_browse_recording_by_release() {
     let recording_on_hooker_n_heat = Recording::browse()
         .by_release("38860ba5-6b40-3e19-83ae-a560737a3f6f")
