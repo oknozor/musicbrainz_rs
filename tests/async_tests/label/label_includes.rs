@@ -2,6 +2,7 @@ use musicbrainz_rs::entity::label::Label;
 use musicbrainz_rs::prelude::*;
 
 #[tokio::test]
+#[serial_test::serial]
 async fn should_get_label_releases() {
     let ninja_tune = Label::fetch()
         .id("dc940013-b8a8-4362-a465-291026c04b42")
@@ -18,6 +19,7 @@ async fn should_get_label_releases() {
 }
 
 #[tokio::test]
+#[serial_test::serial]
 async fn should_get_label_aliases() {
     let motown = Label::fetch()
         .id("8e479e57-ef44-490c-b75d-cd28df89bf1b")
@@ -34,6 +36,7 @@ async fn should_get_label_aliases() {
 }
 
 #[tokio::test]
+#[serial_test::serial]
 async fn should_get_label_tags() {
     let ninja_tune = Label::fetch()
         .id("dc940013-b8a8-4362-a465-291026c04b42")
@@ -50,6 +53,7 @@ async fn should_get_label_tags() {
 }
 
 #[tokio::test]
+#[serial_test::serial]
 async fn should_get_label_rating() {
     let ninja_tune = Label::fetch()
         .id("dc940013-b8a8-4362-a465-291026c04b42")
@@ -62,6 +66,7 @@ async fn should_get_label_rating() {
 }
 
 #[tokio::test]
+#[serial_test::serial]
 async fn should_get_label_genres() {
     let ninja_tune = Label::fetch()
         .id("dc940013-b8a8-4362-a465-291026c04b42")
@@ -74,6 +79,7 @@ async fn should_get_label_genres() {
 }
 
 #[tokio::test]
+#[serial_test::serial]
 async fn should_get_label_annotation() {
     let tokuma_japan_communications = Label::fetch()
         .id("040439f9-578b-45b6-b07b-d6c97e544859")
@@ -86,6 +92,7 @@ async fn should_get_label_annotation() {
 }
 
 #[tokio::test]
+#[serial_test::serial]
 async fn should_get_label_artist_relations() {
     let ninja_tune = Label::fetch()
         .id("dc940013-b8a8-4362-a465-291026c04b42")
@@ -102,6 +109,7 @@ async fn should_get_label_artist_relations() {
 }
 
 #[tokio::test]
+#[serial_test::serial]
 async fn should_get_label_label_relations() {
     let ninja_tune = Label::fetch()
         .id("dc940013-b8a8-4362-a465-291026c04b42")
@@ -118,6 +126,7 @@ async fn should_get_label_label_relations() {
 }
 
 #[tokio::test]
+#[serial_test::serial]
 async fn should_get_label_recording_relations() {
     let ninja_tune = Label::fetch()
         .id("dc940013-b8a8-4362-a465-291026c04b42")
@@ -134,6 +143,7 @@ async fn should_get_label_recording_relations() {
 }
 
 #[tokio::test]
+#[serial_test::serial]
 async fn should_get_label_release_relations() {
     let ninja_tune = Label::fetch()
         .id("dc940013-b8a8-4362-a465-291026c04b42")
@@ -148,6 +158,7 @@ async fn should_get_label_release_relations() {
 }
 
 #[tokio::test]
+#[serial_test::serial]
 async fn should_get_label_url_relations() {
     let ninja_tune = Label::fetch()
         .id("dc940013-b8a8-4362-a465-291026c04b42")

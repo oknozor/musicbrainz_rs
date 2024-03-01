@@ -3,6 +3,7 @@ use musicbrainz_rs::entity::area::*;
 use musicbrainz_rs::Search;
 
 #[tokio::test]
+#[serial_test::serial]
 async fn should_search_area() {
     let query = AreaSearchQuery::query_builder()
         .area("London")

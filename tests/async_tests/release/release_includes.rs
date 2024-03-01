@@ -5,6 +5,7 @@ use musicbrainz_rs::prelude::*;
 use std::collections::HashSet;
 
 #[tokio::test]
+#[serial_test::serial]
 async fn should_get_release_release_groups() {
     let justice_cross = Release::fetch()
         .id("4642ee19-7790-3c8d-ab5e-d133de942db6")
@@ -17,6 +18,7 @@ async fn should_get_release_release_groups() {
 }
 
 #[tokio::test]
+#[serial_test::serial]
 async fn should_get_release_media() {
     let justice_cross = Release::fetch()
         .id("4642ee19-7790-3c8d-ab5e-d133de942db6")
@@ -33,6 +35,7 @@ async fn should_get_release_media() {
 }
 
 #[tokio::test]
+#[serial_test::serial]
 async fn should_get_release_recordings() {
     let justice_cross = Release::fetch()
         .id("4642ee19-7790-3c8d-ab5e-d133de942db6")
@@ -53,6 +56,7 @@ async fn should_get_release_recordings() {
 }
 
 #[tokio::test]
+#[serial_test::serial]
 async fn should_get_release_artists() {
     let justice_cross = Release::fetch()
         .id("4642ee19-7790-3c8d-ab5e-d133de942db6")
@@ -65,6 +69,7 @@ async fn should_get_release_artists() {
 }
 
 #[tokio::test]
+#[serial_test::serial]
 async fn should_get_release_label() {
     let justice_cross = Release::fetch()
         .id("4642ee19-7790-3c8d-ab5e-d133de942db6")
@@ -81,6 +86,7 @@ async fn should_get_release_label() {
 }
 
 #[tokio::test]
+#[serial_test::serial]
 async fn should_get_release_tags() {
     let l_ecole_du_micro_d_argent = Release::fetch()
         .id("cba0035e-d8c9-4390-8569-02bdadaf87d3")
@@ -97,6 +103,7 @@ async fn should_get_release_tags() {
 }
 
 #[tokio::test]
+#[serial_test::serial]
 async fn should_get_release_artist_relations() {
     let in_utero = Release::fetch()
         .id("76df3287-6cda-33eb-8e9a-044b5e15ffdd")
@@ -111,6 +118,7 @@ async fn should_get_release_artist_relations() {
 }
 
 #[tokio::test]
+#[serial_test::serial]
 async fn should_get_release_url_relations() {
     let in_utero = Release::fetch()
         .id("76df3287-6cda-33eb-8e9a-044b5e15ffdd")
@@ -125,6 +133,7 @@ async fn should_get_release_url_relations() {
 }
 
 #[tokio::test]
+#[serial_test::serial]
 async fn should_get_release_level_relations() {
     let become_desert = Release::fetch()
         .id("987f3e2d-22a6-4a4f-b840-c80c26b8b91a")
@@ -155,6 +164,7 @@ async fn should_get_release_level_relations() {
 }
 
 #[tokio::test]
+#[serial_test::serial]
 async fn should_get_release_aliases() {
     let l_ecole_du_micro_d_argent = Release::fetch()
         .id("cba0035e-d8c9-4390-8569-02bdadaf87d3")
@@ -167,6 +177,7 @@ async fn should_get_release_aliases() {
 }
 
 #[tokio::test]
+#[serial_test::serial]
 async fn should_get_release_genres() {
     let l_ecole_du_micro_d_argent = Release::fetch()
         .id("cba0035e-d8c9-4390-8569-02bdadaf87d3")
@@ -179,6 +190,7 @@ async fn should_get_release_genres() {
 }
 
 #[tokio::test]
+#[serial_test::serial]
 async fn should_get_release_annotation() {
     let pieds_nus_sur_la_braise = Release::fetch()
         .id("bdb24cb5-404b-4f60-bba4-7b730325ae47")

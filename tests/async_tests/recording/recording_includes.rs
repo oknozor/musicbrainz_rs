@@ -2,6 +2,7 @@ use musicbrainz_rs::entity::recording::*;
 use musicbrainz_rs::prelude::*;
 
 #[tokio::test]
+#[serial_test::serial]
 async fn should_get_recording_artists() {
     let association_de_gens_normal = Recording::fetch()
         .id("f5f10cee-5d84-41d0-805d-3503872c151d")
@@ -16,6 +17,7 @@ async fn should_get_recording_artists() {
 }
 
 #[tokio::test]
+#[serial_test::serial]
 async fn should_get_recording_releases() {
     let you_talk_too_much = Recording::fetch()
         .id("de552ba4-572c-4c59-b2a9-0508619696ac")
@@ -32,6 +34,7 @@ async fn should_get_recording_releases() {
 }
 
 #[tokio::test]
+#[serial_test::serial]
 async fn should_get_recording_aliases() {
     let you_talk_too_much = Recording::fetch()
         .id("de552ba4-572c-4c59-b2a9-0508619696ac")
@@ -45,6 +48,7 @@ async fn should_get_recording_aliases() {
 }
 
 #[tokio::test]
+#[serial_test::serial]
 async fn should_get_recording_tags() {
     let you_talk_too_much = Recording::fetch()
         .id("de552ba4-572c-4c59-b2a9-0508619696ac")
@@ -57,6 +61,7 @@ async fn should_get_recording_tags() {
 }
 
 #[tokio::test]
+#[serial_test::serial]
 async fn should_get_recording_rating() {
     let you_talk_too_much = Recording::fetch()
         .id("de552ba4-572c-4c59-b2a9-0508619696ac")
@@ -69,6 +74,7 @@ async fn should_get_recording_rating() {
 }
 
 #[tokio::test]
+#[serial_test::serial]
 async fn should_get_recording_genres() {
     let you_talk_too_much = Recording::fetch()
         .id("de552ba4-572c-4c59-b2a9-0508619696ac")
@@ -81,6 +87,7 @@ async fn should_get_recording_genres() {
 }
 
 #[tokio::test]
+#[serial_test::serial]
 async fn should_get_recording_annotation() {
     let isolina = Recording::fetch()
         .id("2edf7653-2287-4408-8e7a-20e001a60847")
@@ -93,6 +100,7 @@ async fn should_get_recording_annotation() {
 }
 
 #[tokio::test]
+#[serial_test::serial]
 async fn should_get_recording_isrcs() {
     let senorita = Recording::fetch()
         .id("62f09fd2-144a-439a-96f9-ce93f05b48ae")
@@ -105,6 +113,7 @@ async fn should_get_recording_isrcs() {
 }
 
 #[tokio::test]
+#[serial_test::serial]
 async fn should_get_recording_url_relations() {
     let senorita = Recording::fetch()
         .id("62f09fd2-144a-439a-96f9-ce93f05b48ae")
@@ -121,6 +130,7 @@ async fn should_get_recording_url_relations() {
 }
 
 #[tokio::test]
+#[serial_test::serial]
 async fn should_get_recording_work_relations() {
     let senorita = Recording::fetch()
         .id("62f09fd2-144a-439a-96f9-ce93f05b48ae")
@@ -137,6 +147,7 @@ async fn should_get_recording_work_relations() {
 }
 
 #[tokio::test]
+#[serial_test::serial]
 async fn should_get_recording_level_relations() {
     let polly = Recording::fetch()
         .id("af40d6b8-58e8-4ca5-9db8-d4fca0b899e2")

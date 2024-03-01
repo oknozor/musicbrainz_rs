@@ -2,6 +2,7 @@ use musicbrainz_rs::entity::event::Event;
 use musicbrainz_rs::prelude::*;
 
 #[tokio::test]
+#[serial_test::serial]
 async fn should_get_event_tags() {
     let dour_festival_1989 = Event::fetch()
         .id("73df2f48-383b-4930-bad3-05ba938be578")
@@ -14,6 +15,7 @@ async fn should_get_event_tags() {
 }
 
 #[tokio::test]
+#[serial_test::serial]
 async fn should_get_event_aliases() {
     let dour_festival_1989 = Event::fetch()
         .id("73df2f48-383b-4930-bad3-05ba938be578")
@@ -26,6 +28,7 @@ async fn should_get_event_aliases() {
 }
 
 #[tokio::test]
+#[serial_test::serial]
 async fn should_get_event_rating() {
     let dour_festival_1989 = Event::fetch()
         .id("73df2f48-383b-4930-bad3-05ba938be578")
@@ -38,6 +41,7 @@ async fn should_get_event_rating() {
 }
 
 #[tokio::test]
+#[serial_test::serial]
 async fn should_get_event_genres() {
     let dour_festival_1989 = Event::fetch()
         .id("73df2f48-383b-4930-bad3-05ba938be578")
@@ -50,6 +54,7 @@ async fn should_get_event_genres() {
 }
 
 #[tokio::test]
+#[serial_test::serial]
 async fn should_get_event_annotation() {
     let kiss_at_huntington_center = Event::fetch()
         .id("24610e7f-eaa3-4c45-9f06-7f441b1a5dd7")
@@ -62,6 +67,7 @@ async fn should_get_event_annotation() {
 }
 
 #[tokio::test]
+#[serial_test::serial]
 async fn should_get_event_artist_relations() {
     let dour_festival_1989 = Event::fetch()
         .id("73df2f48-383b-4930-bad3-05ba938be578")
@@ -78,6 +84,7 @@ async fn should_get_event_artist_relations() {
 }
 
 #[tokio::test]
+#[serial_test::serial]
 async fn should_get_event_place_relations() {
     let dour_festival_1989 = Event::fetch()
         .id("73df2f48-383b-4930-bad3-05ba938be578")
@@ -92,6 +99,7 @@ async fn should_get_event_place_relations() {
 }
 
 #[tokio::test]
+#[serial_test::serial]
 async fn should_get_event_series_relations() {
     let dour_festival_1989 = Event::fetch()
         .id("73df2f48-383b-4930-bad3-05ba938be578")
@@ -106,6 +114,7 @@ async fn should_get_event_series_relations() {
 }
 
 #[tokio::test]
+#[serial_test::serial]
 async fn should_get_event_url_relations() {
     let dour_festival_1989 = Event::fetch()
         .id("73df2f48-383b-4930-bad3-05ba938be578")

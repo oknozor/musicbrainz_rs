@@ -2,6 +2,7 @@ use musicbrainz_rs::entity::area::*;
 use musicbrainz_rs::prelude::*;
 
 #[tokio::test]
+#[serial_test::serial]
 async fn should_get_area_tags() {
     let aberdeen = Area::fetch()
         .id("a640b45c-c173-49b1-8030-973603e895b5")
@@ -14,6 +15,7 @@ async fn should_get_area_tags() {
 }
 
 #[tokio::test]
+#[serial_test::serial]
 async fn should_get_area_aliases() {
     let aberdeen = Area::fetch()
         .id("a640b45c-c173-49b1-8030-973603e895b5")
@@ -26,6 +28,7 @@ async fn should_get_area_aliases() {
 }
 
 #[tokio::test]
+#[serial_test::serial]
 async fn should_get_area_genres() {
     let aberdeen = Area::fetch()
         .id("a640b45c-c173-49b1-8030-973603e895b5")
@@ -38,6 +41,7 @@ async fn should_get_area_genres() {
 }
 
 #[tokio::test]
+#[serial_test::serial]
 async fn should_get_area_annotation() {
     let london = Area::fetch()
         .id("f03d09b3-39dc-4083-afd6-159e3f0d462f")
@@ -50,6 +54,7 @@ async fn should_get_area_annotation() {
 }
 
 #[tokio::test]
+#[serial_test::serial]
 async fn should_get_area_area_relations() {
     let london = Area::fetch()
         .id("f03d09b3-39dc-4083-afd6-159e3f0d462f")
@@ -64,6 +69,7 @@ async fn should_get_area_area_relations() {
 }
 
 #[tokio::test]
+#[serial_test::serial]
 async fn should_get_area_event_relations() {
     let london = Area::fetch()
         .id("f03d09b3-39dc-4083-afd6-159e3f0d462f")
@@ -78,6 +84,7 @@ async fn should_get_area_event_relations() {
 }
 
 #[tokio::test]
+#[serial_test::serial]
 async fn should_get_area_recording_relations() {
     let ontario = Area::fetch()
         .id("2747553f-b44d-44c4-a7c3-b67412b6f10b")
@@ -94,6 +101,7 @@ async fn should_get_area_recording_relations() {
 }
 
 #[tokio::test]
+#[serial_test::serial]
 async fn should_get_area_release_relations() {
     let london = Area::fetch()
         .id("f03d09b3-39dc-4083-afd6-159e3f0d462f")
@@ -110,6 +118,7 @@ async fn should_get_area_release_relations() {
 }
 
 #[tokio::test]
+#[serial_test::serial]
 async fn should_get_area_url_relations() {
     let london = Area::fetch()
         .id("f03d09b3-39dc-4083-afd6-159e3f0d462f")
@@ -124,6 +133,7 @@ async fn should_get_area_url_relations() {
 }
 
 #[tokio::test]
+#[serial_test::serial]
 async fn should_get_area_work_relations() {
     let andorra = Area::fetch()
         .id("e01da61e-99a8-3c76-a27d-774c3f4982f0")

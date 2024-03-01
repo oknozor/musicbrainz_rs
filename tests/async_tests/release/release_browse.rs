@@ -2,6 +2,7 @@ use musicbrainz_rs::entity::release::*;
 use musicbrainz_rs::prelude::*;
 
 #[tokio::test]
+#[serial_test::serial]
 async fn should_browse_release_by_artist() {
     let releases_by_svinkels = Release::browse()
         .by_artist("770d490e-c89b-4775-8508-aca7c75142cd")
@@ -18,6 +19,7 @@ async fn should_browse_release_by_artist() {
 }
 
 #[tokio::test]
+#[serial_test::serial]
 async fn should_browse_release_by_area() {
     let releases_france = Release::browse()
         .by_area("08310658-51eb-3801-80de-5a0739207115")
@@ -34,6 +36,7 @@ async fn should_browse_release_by_area() {
 }
 
 #[tokio::test]
+#[serial_test::serial]
 async fn should_browse_release_by_label() {
     let ninjatune_releases = Release::browse()
         .by_label("dc940013-b8a8-4362-a465-291026c04b42")
@@ -50,6 +53,7 @@ async fn should_browse_release_by_label() {
 }
 
 #[tokio::test]
+#[serial_test::serial]
 async fn should_browse_release_by_recording() {
     let release_of_l_ecole_du_micro_d_argent = Release::browse()
         .by_recording("72984ccf-9edb-44d4-aad2-f41c9ef5414a")
@@ -66,6 +70,7 @@ async fn should_browse_release_by_recording() {
 }
 
 #[tokio::test]
+#[serial_test::serial]
 async fn should_browse_release_by_track() {
     let release_with_phantom_by_justice = Release::browse()
         .by_track("d5bbc037-eace-3712-9af8-ecb378b65dd6")
@@ -82,6 +87,7 @@ async fn should_browse_release_by_track() {
 }
 
 #[tokio::test]
+#[serial_test::serial]
 async fn should_browse_release_by_track_artist() {
     let release_featuring_akhenaton = Release::browse()
         .by_track_artist("55808e24-5150-4abd-b86b-7c3d7a080da3")
@@ -98,6 +104,7 @@ async fn should_browse_release_by_track_artist() {
 }
 
 #[tokio::test]
+#[serial_test::serial]
 async fn should_browse_release_by_track_artist_with_recordings() {
     let release_featuring_akhenaton = Release::browse()
         .by_track_artist("55808e24-5150-4abd-b86b-7c3d7a080da3")
@@ -113,6 +120,7 @@ async fn should_browse_release_by_track_artist_with_recordings() {
 }
 
 #[tokio::test]
+#[serial_test::serial]
 async fn should_browse_release_by_release_group() {
     let neil_young_harvest_releases = Release::browse()
         .by_release_group("b25419cf-71bf-3a54-8cd4-2161c61056a0")
@@ -129,6 +137,7 @@ async fn should_browse_release_by_release_group() {
 }
 
 #[tokio::test]
+#[serial_test::serial]
 async fn should_browse_release_by_collection() {
     let releases_in_collection = Release::browse()
         .by_collection("91565a03-bce8-47e9-ab70-e4d4e1684d7f")
